@@ -1,0 +1,74 @@
+.quantity-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .quantity-button {
+    border: none;
+    background-color: #4c7aaf;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .quantity-button:hover {
+    background-color: #457fa0;
+  }
+  
+  .quantity {
+    font-size: 18px;
+    margin: 0 10px;
+  }
+
+  .navigation-index {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+ .breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+  }
+  
+ .breadcrumb-item:not(:last-child) {
+    margin-right: 10px;
+  }
+  
+  .breadcrumb-item .breadcrumb-link {
+    color: #888;
+    transition: color 0.3s ease;
+  }
+  
+  .breadcrumb-item .breadcrumb-link:hover {
+    color: #333;
+  }
+  
+  .navigation-index .breadcrumb-item .breadcrumb-link::after {
+    content: '/';
+    margin-left: 5px;
+  }
+  
+  .navigation-index .breadcrumb-item:last-child .breadcrumb-link {
+    color: #333;
+    pointer-events: none;
+  }
+
+  .add-to-cart-button{
+    background-color: #4c7aaf;
+    display: inline-block;
+    text-transform: uppercase;
+    border: none;
+    padding: 10px 25px;
+    color: #fff;
+    font-weight: bold;
+    width: 100%;
+  }
+
+  .add-to-cart-button:hover {
+    background-color:#457fa0;
+
+  }

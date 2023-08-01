@@ -1,0 +1,86 @@
+/* -----------------TITLE---------------------- */
+
+.title {
+  color: #fff;
+  font-size: 28px;
+}
+
+.filters {
+  margin-bottom: 20px;
+}
+
+.price-filter,
+.search-input, .category-select {
+  padding: 10px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.price-filter {
+  width: 200px;
+}
+
+.search-input {
+  width: 300px;
+}
+
+/* ---------------- CARD PRODUCT ------------ */
+
+.card {
+    background-color: #444;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(134, 134, 134, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.7);
+  }
+  
+  .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .card-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .card-text {
+    margin-bottom: 10px;
+  }
+
+  .btn-addCart, .btn-seemore {
+    display: inline-block;
+    text-transform: uppercase;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .btn-seemore {
+    background-color: #4CAF50;
+    border-color: #000000;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-seemore:hover {
+    background-color: #45a049;
+    border-color: #45a049;
+  }
+  
