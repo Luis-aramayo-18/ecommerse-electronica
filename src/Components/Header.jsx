@@ -4,11 +4,6 @@ const Header = () => {
       <div className="container">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <a className="nav-link navbar-brand" href="/">
-              Tecno Store
-            </a>
-          </li>
-          <li className="nav-item">
             <a className="nav-link" href="/contact">
               Contacto
             </a>

@@ -36,11 +36,12 @@
     border-radius: 9999px;
     cursor: pointer;
     display: flex;
-    height: 32px;
+    height: 35px;
     justify-content: center;
     padding: 10px;
     position: fixed;
-    right: 8px;
+    right: 40px;
+    top: 50px;
     
     transition: all .3s ease;
     width: 60px;

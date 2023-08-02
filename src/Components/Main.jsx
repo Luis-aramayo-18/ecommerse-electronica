@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "./Hooks/useCart";
 
 import "./Main.css"
+import { AddToCartIcon, RemoveFromCartIcon } from "./Icons/Icons";
 
 const Main = () => {
 
@@ -64,7 +65,7 @@ const Main = () => {
   return (
     <>
     <div className="container text-center">
-      <h1 className="title my-4">Welcome to the Smartphone Store</h1>
+      <h1 className="title pt-4">Welcome to the Smartphone Store</h1>
       <div className="filters my-4">
       <select
           className="price-filter"
@@ -125,11 +126,10 @@ const Main = () => {
                 >
                  {
                   isProductInCart
-                      ? "eliminar"
-                      : "agregar"
+                  ? <RemoveFromCartIcon />
+                  : <AddToCartIcon />
                   }
                 </button>
-                <button onClick={()=> handleSeeMore(product)} className="btn-seemore">See More</button>
               </div>
             </div>
           </div>

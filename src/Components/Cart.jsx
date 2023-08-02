@@ -1,7 +1,8 @@
-import { useId } from "react"
+import { useId } from "react";
+import { useCart } from "./Hooks/useCart"
 
 import "./Cart.css"
-import { useCart } from "./Hooks/useCart"
+import { CartIcon } from "./Icons/Icons";
 
 function CartItem ({ image, price, name, quantity, addToCart }) {
     return (
@@ -31,7 +32,7 @@ function CartItem ({ image, price, name, quantity, addToCart }) {
     return (
       <>
         <label className='cart-button' htmlFor={cartCheckboxId}>
-          Carrito{cart.length}
+          <CartIcon/>{cart.length}
         </label>
         <input id={cartCheckboxId} type='checkbox' hidden />
   
