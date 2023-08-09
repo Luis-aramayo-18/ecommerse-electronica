@@ -60,7 +60,7 @@ const Main = () => {
       lowerCaseName.includes(lowerCaseSearchTerm) &&
       product.category.toLowerCase().includes(selectedCategory.toLowerCase())
     );
-  });
+  });  
   
   return (
     <>
