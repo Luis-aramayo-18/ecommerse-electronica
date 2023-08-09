@@ -1,0 +1,24 @@
+#name{
+    width: 280px;
+    height: auto;
+}
+
+#numberPhone{
+    width: 300px;
+    height: auto;
+}
+
+#address{
+    width: 350px;
+    height: auto;
+}
+
+#numberAddress{
+    width: 200px;
+    height: auto;
+}
+
+#textReference{
+    width: 350px;
+    height: 80px;
+}

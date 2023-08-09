@@ -6,6 +6,7 @@ import Main from './Main'
 import Login from './Login'
 import Product from './Product'
 import Cart from './Cart'
+import FormCompra from './FormCompra'
 
 
 const RoutesApp = () => {
@@ -17,6 +18,7 @@ const RoutesApp = () => {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/product/:id" element={<Product />} />
+          <Route path="/formCompra" element={<FormCompra />} />
         </Routes>
         </CartProvider>
     </BrowserRouter>
