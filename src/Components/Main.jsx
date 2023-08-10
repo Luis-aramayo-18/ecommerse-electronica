@@ -5,6 +5,7 @@ import { useCart } from "./Hooks/useCart";
 
 import "./Main.css"
 import { AddToCartIcon, RemoveFromCartIcon } from "./Icons/Icons";
+import Cart from "./Cart";
 
 const Main = () => {
 
@@ -64,6 +65,8 @@ const Main = () => {
   
   return (
     <>
+     <Cart/>
+
     <div className="container text-center">
       <h1 className="title pt-4">Welcome to the Smartphone Store</h1>
       <div className="filters my-4">

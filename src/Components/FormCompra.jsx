@@ -38,6 +38,7 @@ const FormCompra = () => {
             <hr />
             <FormWizard onComplete={handleComplete}>
               <FormWizard.TabContent title="Personal details" icon="ti-user">
+                <div className="d-flex flex-column">
                 <h3>Complete los campos</h3>
                 <hr />
                 <p className="text-start m-0">Datos del destinatario</p>
@@ -84,7 +85,7 @@ const FormCompra = () => {
                   <input
                     placeholder="Altura"
                     type="number"
-                    className="form-control ms-3"
+                    className="form-control ms-3" 
                     id="numberAddress"
                     value={shipmentInfo.numberAddress}
                     onChange={(e) =>
@@ -121,6 +122,7 @@ const FormCompra = () => {
                   </label>
                 </div>
                 <hr className="mt-3" />
+                </div>
               </FormWizard.TabContent>
 
 
@@ -208,7 +210,7 @@ const FormCompra = () => {
           <ul>
           {
           cart.map(product => (
-            <li>
+            <li key={product.id}>
                 <div className="d-flex mt-2">
                     <img className="w-50 h-50" src={product.image} alt={product.name} />
                     <div>
