@@ -81,6 +81,8 @@ const Main = () => {
           <option value="1000">Up to $1000</option>
           <option value="1200">Up to $1200</option>
         </select>
+        <i>
+        <ion-icon name="search-outline"></ion-icon>
         <input
           type="text"
           placeholder="Search by name"
@@ -88,6 +90,7 @@ const Main = () => {
           value={searchTerm}
           onChange={handleSearchTermChange}
         />
+        </i>
         <select
           className="category-select"
           value={selectedCategory}

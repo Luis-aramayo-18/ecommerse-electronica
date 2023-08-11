@@ -4,6 +4,7 @@ import "./Cart.css";
 import { CartIcon } from "./Icons/Icons";
 import { useNavigate } from "react-router-dom";
 
+
 export function Cart() {
   const { cart, clearCart, addToCart } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -67,7 +68,7 @@ export function Cart() {
               ))}
             </ul>
             <div className="d-flex">
-            <button className="ms-4 mt-2" onClick={clearCart}>
+            <button className="btn btn-light ms-4 mt-2" onClick={clearCart}>
             <ion-icon name="trash-outline"></ion-icon>
             </button>
             <h5 className="mt-2 totalPrice fs-4">Total: ${getTotalPrice()}</h5>
@@ -78,7 +79,7 @@ export function Cart() {
                 COMPRAR
               </button>
             </div>
-            <button className="close-button mt-2" onClick={closeModal}>
+            <button className="btn btn-warning close-button mt-2" onClick={closeModal}>
             <ion-icon name="close-outline"></ion-icon>
             </button>
           </div>
