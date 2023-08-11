@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export function Cart() {
-  const { cart, clearCart, addToCart } = useCart();
+  const { cart, clearCart, incrementQuantity, decrementQuantity, quantity, totalPrice } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -19,13 +19,6 @@ export function Cart() {
     setIsModalOpen(false);
   };
 
-  const getTotalPrice = () => {
-    return cart.reduce(
-      (total, product) => total + product.price * product.quantity,
-      0
-    );
-  };
-
   const handlePay = () => {
     navigate("/formCompra");
   };
@@ -34,7 +27,6 @@ export function Cart() {
     <>
       <button onClick={openModal} className="cart-button">
         <CartIcon />
-        {cart.length}
       </button>
 
       {isModalOpen && (
@@ -56,12 +48,17 @@ export function Cart() {
                       <p className="fs-5">${product.price}</p>
                       <button
                         className="rounded quantity-button"
-                        onClick={() => addToCart(product)}>
+                        onClick={() => incrementQuantity(product)}>
                         +
                       </button>
                       <span className="quantity text-light">
-                        {product.quantity}
+                        {quantity}
                       </span>
+                      <button
+                        className="rounded quantity-button"
+                        onClick={() => decrementQuantity(product)}>
+                        -
+                      </button>
                     </div>
                   </div>
                 </li>
@@ -71,7 +68,7 @@ export function Cart() {
             <button className="btn btn-light ms-4 mt-2" onClick={clearCart}>
             <ion-icon name="trash-outline"></ion-icon>
             </button>
-            <h5 className="mt-2 totalPrice fs-4">Total: ${getTotalPrice()}</h5>
+            <h5 className="mt-2 totalPrice fs-4">Total: ${totalPrice}</h5>
             </div>
             <hr />
             <div className="text-center">

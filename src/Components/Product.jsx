@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "./Hooks/useCart";
 import { AddToCartIcon, RemoveFromCartIcon } from "./Icons/Icons";
@@ -10,7 +10,7 @@ const Product = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { addToCart, removeFromCart, cart } = useCart();
+  const { addToCart, removeFromCart, cart, incrementQuantity, decrementQuantity, quantity } = useCart();
 
   const product = location.state;
 
@@ -19,21 +19,6 @@ const Product = () => {
   }
 
   const isProductInCart = checkProductInCart(product)
-
-  // Quantity state
-  const [quantity, setQuantity] = useState(1);
-
-  // Handler for incrementing the quantity
-  const incrementQuantity = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
-  };
-
-  // Handler for decrementing the quantity
-  const decrementQuantity = () => {
-    if (quantity > 1) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
-    }
-  };
 
   const handleClick = () => {
     navigate("/");
@@ -70,20 +55,21 @@ const Product = () => {
             <h4 className="me-3 text-light">Cantidad</h4>
             <button
               className="rounded quantity-button"
-              onClick={decrementQuantity}
+              onClick={()=>decrementQuantity(product)}
             >
               -
             </button>
             <span className="quantity text-light">{quantity}</span>
             <button
               className="rounded quantity-button"
-              onClick={incrementQuantity}
+              onClick={()=>incrementQuantity(product)}
             >
               +
             </button>
           </div>
           <button
             className="rounded mt-5 add-to-cart-button"
+            style={{ backgroundColor: isProductInCart ? 'red' : '#4c7aaf' }}
             onClick={() => {
               isProductInCart 
               ? removeFromCart(product) 
