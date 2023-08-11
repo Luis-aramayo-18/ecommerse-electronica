@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "./Hooks/useCart";
+import { AddToCartIcon, RemoveFromCartIcon } from "./Icons/Icons";
+import Cart from "./Cart";
 
 import "./Product.css";
-import { AddToCartIcon, RemoveFromCartIcon } from "./Icons/Icons";
 
 const Product = () => {
   const location = useLocation();
@@ -39,6 +40,9 @@ const Product = () => {
   };
 
   return (
+    <>
+    <Cart/>
+
     <div className="container mt-5">
       <nav aria-label="breadcrumb" className="navigation-index mb-5">
         <ol className="breadcrumb text-center">
@@ -51,14 +55,14 @@ const Product = () => {
       </nav>
 
       <div className="row justify-content-center">
-        <div className="col-md-7">
+        <div className="text start col-md-7">
           <img
-            className="img-fluid rounded"
+            className="w-100 h-100 rounded"
             src={product.image}
             alt={product.name}
           />
         </div>
-        <div className="col-md-5">
+        <div className="col-md-4">
           <h2 className="mb-3 fs-1 text-light">{product.name}</h2>
           <p className="mt-4 text-light">{product.description}</p>
           <h2 className="mt-4 text-light">${product.price}</h2>
@@ -98,6 +102,7 @@ const Product = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

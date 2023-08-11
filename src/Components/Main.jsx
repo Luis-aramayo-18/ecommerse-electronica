@@ -1,11 +1,11 @@
-import { useState } from "react";
+
 import products from "../data.json";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "./Hooks/useCart";
-
-import "./Main.css"
 import { AddToCartIcon, RemoveFromCartIcon } from "./Icons/Icons";
 import Cart from "./Cart";
+import "./Main.css"
 
 const Main = () => {
 
