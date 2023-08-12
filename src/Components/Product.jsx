@@ -10,7 +10,7 @@ const Product = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { addToCart, removeFromCart, cart, incrementQuantity, decrementQuantity, quantity } = useCart();
+  const { addToCart, removeFromCart, cart } = useCart();
 
   const product = location.state;
 
@@ -55,14 +55,18 @@ const Product = () => {
             <h4 className="me-3 text-light">Cantidad</h4>
             <button
               className="rounded quantity-button"
-              onClick={()=>decrementQuantity(product)}
+              onClick={()=>removeFromCart(product)}
             >
               -
             </button>
-            <span className="quantity text-light">{quantity}</span>
+            <span className="quantity text-light">
+            {
+            cart.find(item => item.id === product.id)?.quantity || 0
+            }
+            </span>
             <button
               className="rounded quantity-button"
-              onClick={()=>incrementQuantity(product)}
+              onClick={()=>addToCart(product)}
             >
               +
             </button>

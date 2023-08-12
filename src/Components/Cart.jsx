@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export function Cart() {
-  const { cart, clearCart, incrementQuantity, decrementQuantity, quantity, totalPrice } = useCart();
+  const { cart, clearCart, removeFromCart, addToCart,getTotalPrice } = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -27,6 +27,7 @@ export function Cart() {
     <>
       <button onClick={openModal} className="cart-button">
         <CartIcon />
+        {cart.length}
       </button>
 
       {isModalOpen && (
@@ -34,7 +35,12 @@ export function Cart() {
           <div className="rounded modalConten col-5 text-light">
             <h3 className="text-center pt-3">Mi Carrito</h3>
             <hr />
-            <ul>
+            {
+            cart.length===0
+            ?(<p className="text-center fs-5">Aun no has cargado ningun producto 😰</p>)
+            :(
+              <>
+                <ul>
               {cart.map((product) => (
                 <li key={product.id}>
                   <div className="cartModal d-flex mt-2">
@@ -48,15 +54,15 @@ export function Cart() {
                       <p className="fs-5">${product.price}</p>
                       <button
                         className="rounded quantity-button"
-                        onClick={() => incrementQuantity(product)}>
+                        onClick={() => addToCart(product)}>
                         +
                       </button>
                       <span className="quantity text-light">
-                        {quantity}
+                        {product.quantity}
                       </span>
                       <button
                         className="rounded quantity-button"
-                        onClick={() => decrementQuantity(product)}>
+                        onClick={() => removeFromCart(product)}>
                         -
                       </button>
                     </div>
@@ -68,7 +74,7 @@ export function Cart() {
             <button className="btn btn-light ms-4 mt-2" onClick={clearCart}>
             <ion-icon name="trash-outline"></ion-icon>
             </button>
-            <h5 className="mt-2 totalPrice fs-4">Total: ${totalPrice}</h5>
+            <h5 className="mt-2 totalPrice fs-4">Total: ${getTotalPrice()}</h5>
             </div>
             <hr />
             <div className="text-center">
@@ -76,6 +82,9 @@ export function Cart() {
                 COMPRAR
               </button>
             </div>
+              </>
+            )
+            }
             <button className="btn btn-warning close-button mt-2" onClick={closeModal}>
             <ion-icon name="close-outline"></ion-icon>
             </button>

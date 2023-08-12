@@ -15,7 +15,7 @@ const FormCompra = () => {
   });
 
   const navigate = useNavigate()
-  const { cart } = useCart()
+  const { cart, getTotalPrice } = useCart()
 
   const [paymentMethod, setPaymentMethod] = useState("");
 
@@ -23,9 +23,6 @@ const FormCompra = () => {
     navigate('/')
   }
 
-  const getTotalPrice =()=>{
-    return cart.reduce((total, product) => total + product.price * product.quantity, 0);
-  }
 
   const handleComplete = () => {};
 
@@ -216,6 +213,7 @@ const FormCompra = () => {
                     <div>
                         <p className="m-0">{product.name}</p>
                         <p>${product.price}</p>
+                        <p>Cantidad: {product.quantity}</p>
                     </div>
                 </div>
             </li>

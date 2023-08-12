@@ -6,14 +6,14 @@ export function CartProvider ({children}) {
 
   const initialCart = JSON.parse(localStorage.getItem('cart')) || [];
   const [cart,setCart] = useState(initialCart)
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     // Save cart data to localStorage whenever the cart state changes
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
+
+  
   const addToCart = (product)=>{
     const producInCartIndex = cart.findIndex(item=>item.id === product.id)
 
@@ -29,35 +29,32 @@ export function CartProvider ({children}) {
           quantity: 1
         }
       ]))
-      setTotalPrice(totalPrice + product.price)
     }
-
   }
 
-  const incrementQuantity = (product) => {
-    setQuantity(prevQuantity => prevQuantity + 1);
-    setTotalPrice(totalPrice + product.price);
-  };
+  
 
-  const decrementQuantity = (product) => {
-    if (quantity > 1) {
-      setQuantity(prevQuantity => prevQuantity - 1);
-      setTotalPrice(totalPrice - product.price);
+  const removeFromCart = product =>{
+    const producInCartIndex = cart.findIndex(item=>item.id === product.id)
+
+    if(producInCartIndex >= 0){
+      const newCart = [...cart];
+      newCart[producInCartIndex].quantity -= 1
+
+      if (newCart[producInCartIndex].quantity < 1) {
+        newCart.splice(producInCartIndex, 1); // Remove the product from the cart
+      }
+
+      return setCart(newCart)
     }
-  };
+  }
 
   const clearCart = ()=>{
     setCart([])
-    setTotalPrice(0)
-    setQuantity(1)
   }
 
-  const removeFromCart = product =>{
-  const removedProduct = cart.find(item => item.id === product.id);
-  const productTotalPrice = removedProduct.quantity * removedProduct.price;
-  
-  setCart(prevState => prevState.filter(item => item.id !== product.id));
-  setTotalPrice(prevTotalPrice => prevTotalPrice - productTotalPrice);
+  const getTotalPrice =()=>{
+    return cart.reduce((total, product) => total + product.price * product.quantity, 0);
   }
 
   return (
@@ -66,10 +63,7 @@ export function CartProvider ({children}) {
       addToCart,
       clearCart,
       removeFromCart,
-      incrementQuantity,
-      decrementQuantity,
-      totalPrice,
-      quantity
+      getTotalPrice,
        }}>
       {children}
     </CartContext.Provider>
