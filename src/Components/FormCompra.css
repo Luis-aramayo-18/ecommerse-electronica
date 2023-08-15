@@ -1,24 +1,84 @@
-#name{
-    width: 280px;
-    height: auto;
-}
-
-#numberPhone{
-    width: 300px;
-    height: auto;
-}
-
-#address{
-    width: 350px;
-    height: auto;
-}
-
-#numberAddress{
-    width: 200px;
-    height: auto;
-}
-
-#textReference{
-    width: 350px;
-    height: 80px;
-}
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .step {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  
+  .step.active {
+    background-color: #007bff;
+    color: #ffffff;
+    border-color: #007bff;
+  }
+  
+  .progress-bar {
+    height: 5px;
+    background-color: #007bff;
+    width: 0;
+    transition: width 0.3s;
+  }
+  
+  .step-content {
+    margin-bottom: 20px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .back-button,
+  .next-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .back-button {
+    background-color: #ccc;
+    color: #ffffff;
+  }
+  
+  .next-button {
+    background-color: #007bff;
+    color: #ffffff;
+  }
+  
+  .buy-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
