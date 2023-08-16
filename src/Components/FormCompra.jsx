@@ -85,9 +85,14 @@ const FormCompra = () => {
   const validateName = (value) => {
     if (value.trim() === "") {
       setNameError("Complete el campo");
-    } else if (!/^[A-Za-z\s]{2,20}$/.test(value)) {
-      setNameError("Solo letras, minimo 2 caracteres, maximo 20");
-    } else {
+    } else if (/^[0-9]+$/.test(value)) {
+      setNameError("Solo letras");
+    } else if (value.trim().length<2){
+      setNameError('demasiado corto')
+    } else if(value.trim().length>25){
+      setNameError('demasiado largo')
+    }
+    else {
       setNameError("");
     }
   };
@@ -101,8 +106,15 @@ const FormCompra = () => {
   const validateNumberPhone = (value) => {
     if (value.trim() === "") {
       setNumberPhoneError("Complete el campo");
-    } else if (!/^[0-9]+$/.test(value)) {
+    } else if (value <= 0){
+      setNumberPhoneError('no puede ser menor o igual a 0')
+    }
+      else if (!/^[0-9]+$/.test(value)) {
       setNumberPhoneError("Solo debe contener numeros");
+    } else if(value.length<8){
+      setNumberPhoneError('Demasiado corto')
+    } else if(value.length>14){
+      setNumberPhoneError('demasiado largo')
     } else {
       setNumberPhoneError("");
     }
@@ -117,9 +129,15 @@ const FormCompra = () => {
   const validateStreet = (value) => {
     if (value.trim() === "") {
       setSreetValueError("Complete este campo");
-    } else if (/^[0-9]+$/.test(value)) {
-      setSreetValueError("No debe contener numeros");
-    } else {
+    } else if(/^[A-Za-z\s]$/.test(value)) {
+      setSreetValueError('no puede contener solo numeros o caracteres especiales')
+    }
+    else if (value.trim().length<4){
+      setSreetValueError('nombre demasiado corto')
+    } else if (value.trim().length>25){
+      setSreetValueError('nombre demasiado largo')
+    }
+     else {
       setSreetValueError("");
     }
   };
@@ -132,9 +150,14 @@ const FormCompra = () => {
 
   const validateNumberStreet = (value) => {
     if (value.trim() === "") {
-      setNumberStreetError("Complete este campo");
-    } else if (!/^[0-9]+$/.test(value)) {
+      setNumberStreetError("Complete el campo");
+    } else if (value <= 0){
+      setNumberStreetError('no puede ser menor o igual a 0')
+    }
+      else if (!/^[0-9]+$/.test(value)) {
       setNumberStreetError("Solo debe contener numeros");
+    } else if(value.length>4){
+      setNumberStreetError('demasiado largo')
     } else {
       setNumberStreetError("");
     }
@@ -169,59 +192,73 @@ const FormCompra = () => {
               <div className="form-content">
                 {step === 0 && (
                   <div className="d-flex flex-column">
-                    <h3>Complete los campos</h3>
-                    <hr />
-                    <p className="text-start m-0">Datos del destinatario</p>
-                    <div className="d-flex mt-1">
-                      <input
-                        placeholder="Nombre"
-                        type="text"
-                        className="form-control"
-                        id="name"
-                        value={shipmentInfo.name}
-                        onChange={handleNameChange}
-                      />
-                      {nameError && (
-                        <div className="error-message">{nameError}</div>
-                      )}
-                      <input
-                        minlength="10"
-                        maxLength="14"
-                        placeholder="Numero de telefono"
-                        type="number"
-                        className="form-control ms-3"
-                        id="numberPhone"
-                        onChange={handleNumberPhoneChange}
-                        value={shipmentInfo.numberPhone}
-                      />
-                      {numberPhoneError && (
-                        <div className="error-message">{numberPhoneError}</div>
-                      )}
+                    <h3 className="mt-3">Complete los campos</h3>
+                    <hr className="m-0 mb-3"/>
+                    <p className="text-start m-0 fs-5 mb-1">Datos del destinatario *</p>
+                    <div className="d-flex">
+                      <div className="input-container">
+                        <input
+                          placeholder="Nombre"
+                          type="text"
+                          className={nameError?'form-control is-invalid' : "form-control is-valid"}
+                          id="name"
+                          value={shipmentInfo.name}
+                          onChange={handleNameChange}
+                        />
+                        {nameError && (
+                          <div className="error-message invalid-feedback text-lowercase">{nameError}</div>
+                        )}
+                      </div>
+                      <div className="input-container ms-3">
+                        <input
+                          minLength="10"
+                          maxLength="14"
+                          placeholder="Numero de telefono"
+                          type="number"
+                          className={numberPhoneError?'form-control is-invalid' : 'form-control is-valid'}
+                          id="numberPhone"
+                          onChange={handleNumberPhoneChange}
+                          value={shipmentInfo.numberPhone}
+                        />
+                        {numberPhoneError && (
+                          <div className="error-message invalid-feedback text-lowercase">
+                            {numberPhoneError}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <p className="text-start m-0 mt-3">Datos de la entrega</p>
+                    <p className="text-start m-0 mt-3 fs-5">Datos de la entrega *</p>
                     <div className="d-flex mt-1">
-                      <input
-                        placeholder="Calle"
-                        type="text"
-                        className="form-control"
-                        id="address"
-                        onChange={handleStreetChange}
-                        value={shipmentInfo.street}
-                      />
-                      {streetValueError && (
-                        <div className="error-message">{streetValueError}</div>
-                      )}
-                      <input
-                        placeholder="Altura"
-                        type="number"
-                        className="form-control ms-3"
-                        id="numberAddress"
-                        onChange={handleNumberStreet}
-                        value={shipmentInfo.numberStreet}
-                      />
-                      {numberStreetError && (
-                        <div className="error-message">{numberStreetError}</div>
-                      )}
+                      <div className="input-container">
+                        <input
+                          placeholder="Calle"
+                          type="text"
+                          className={streetValueError?'form-control is-invalid' : "form-control is-valid"}
+                          id="address"
+                          onChange={handleStreetChange}
+                          value={shipmentInfo.street}
+                        />
+                        {streetValueError && (
+                          <div className="error-message invalid-feedback text-lowercase">
+                            {streetValueError}
+                          </div>
+                        )}
+                      </div>
+                      <div className="input-containner, ms-3">
+                        <input
+                          placeholder="Altura"
+                          type="number"
+                          className={numberStreetError? 'form-control is-invalid' : "form-control is-valid"}
+                          id="numberAddress"
+                          onChange={handleNumberStreet}
+                          value={shipmentInfo.numberStreet}
+                        />
+                        {numberStreetError && (
+                          <div className="error-message invalid-feedback text-lowercase">
+                            {numberStreetError}
+                          </div>
+                        )}
+                      </div>
                     </div>
                     <textarea
                       type="text"
@@ -248,7 +285,7 @@ const FormCompra = () => {
                         className="form-check-label"
                         for="flexCheckChecked"
                       >
-                        Acordar costo del envio una vez finalize la compra
+                        Acordar costo del envio una vez finalize la compra.
                       </label>
                     </div>
                     <hr className="mt-3" />
@@ -275,7 +312,7 @@ const FormCompra = () => {
                           onChange={() => {}}
                         />
                         <div className="border border-info w-100 p-3 ms-2 rounded">
-                          <label htmlFor="cash">Cash</label>
+                          <label htmlFor="cash">Efectivo</label>
                         </div>
                       </div>
                       <div
@@ -296,7 +333,7 @@ const FormCompra = () => {
                           onChange={() => {}}
                         />
                         <div className="border rounded border-info p-3 ms-1 w-100 ms-2">
-                          <label htmlFor="transfers">Transfers</label>
+                          <label htmlFor="transfers">Transferencia</label>
                         </div>
                       </div>
                       <div
@@ -317,7 +354,7 @@ const FormCompra = () => {
                           onChange={() => {}}
                         />
                         <div className="border border-info rounded w-100 p-3 ms-2">
-                          <label htmlFor="creditcard">Credit Card</label>
+                          <label htmlFor="creditcard">Tarjeta de credito</label>
                         </div>
                       </div>
                     </div>
@@ -349,16 +386,19 @@ const FormCompra = () => {
                   </button>
                 )}
                 {step < 2 && (
-                  <button className="next-button" onClick={handleNext}>
-                    Next
+                  <button
+                    className="next-button"
+                    onClick={step === 2 ? handleFormSubmit : handleNext}
+                    type={step === 2 ? "submit" : "button"}
+                  >
+                    {step === 2 ? "Comprar" : "Next"}
                   </button>
                 )}
               </div>
             </form>
           </div>
-          
-          
-      {/* ------------- CART ---------------- */}
+
+          {/* ------------- CART ---------------- */}
           <div className="col-4">
             <h3 className="text-center mt-4">Mi compra {cart.length}</h3>
             <hr />
