@@ -41,21 +41,20 @@ const Product = () => {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
   };
 
   const getRelatedProducts = () => {
     return data.filter(
       (relatedProduct) =>
-        relatedProduct.price <= product.price + 100&&
-        relatedProduct.price >= product.price - 100 && // Adjust the range as needed
+        relatedProduct.price <= product.price + 250&&
+        relatedProduct.price >= product.price - 250 && 
         relatedProduct.category === product.category
-    ); console.log(getRelatedProducts)
+    );
   };
 
   useEffect(() => {
-    // Set related products in the state
     const related = getRelatedProducts();
     console.log(related)
     setRelatedProducts(related);
@@ -79,7 +78,7 @@ const Product = () => {
       <div className="row justify-content-center">
         <div className="text start col-md-7">
           <img
-            className="w-100 h-100 rounded"
+            className="w-100 h-auto rounded"
             src={product.image}
             alt={product.name}
           />
@@ -130,16 +129,18 @@ const Product = () => {
       </div>
 
       <div className="mt-5">
-      <h3 className="mb-3 text-light">Tambien podria interesarte</h3>
+      <h3 className="mb-4 text-light">Tambien podria interesarte</h3>
       <Slider {...settings}>
       {relatedProducts.map((product) => (
-        <div onClick={()=>handleClickProductRelated(product)} className="card-product-related px-3 rounded" key={product.id}>
-          <img className="card-img-top h-100" src={product.image} alt={product.name} />
+        <div className="div-related">
+        <div className="div-hijo-related mt-2" onClick={()=>handleClickProductRelated(product)} key={product.id}>
+          <img className="img-related" src={product.image} alt={product.name} />
           <div className="card-body">
           <h3 className="card-title text-light fw-normal mb-1">{product.name}</h3>
           <p className="card-text text-light fw-normal">{product.description}</p>
-          <p className="text-light fw-normal">${product.price}</p>
+          <p className="text-light fs-4 fw-normal">${product.price}</p>
           </div>
+        </div>
         </div>
       ))}
     </Slider>

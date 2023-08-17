@@ -68,7 +68,7 @@ const FormCompra = () => {
     } else if (isStepComplete(step)) {
       setStep(step + 1);
     } else {
-      alert("Please complete the current step.");
+      alert("Por favor complete los campos.");
     }
   };
 
@@ -168,10 +168,9 @@ const FormCompra = () => {
     <>
       {/* ----------- FORM ---------------- */}
       <div className="container">
-        <div className="row ">
-          <div className="col-8">
-            <h2 className="text-center text-light my-3">Datos del envio</h2>
-            <form onSubmit={handleFormSubmit} className="form-container">
+        <div className="row h-100">
+          <div className="col-7">
+            <form onSubmit={handleFormSubmit} className="form-container mt-4">
               <div className="form-steps">
                 <div className={`step ${step === 0 ? "active" : ""}`}>
                 <svg 
@@ -415,7 +414,7 @@ const FormCompra = () => {
               </div>
               <div className="button-container">
                 {step > 0 && (
-                  <button className="back-button" onClick={handleBack}>
+                  <button className="back-button btn btn-warning" onClick={handleBack}>
                     Atras
                   </button>
                 )}
@@ -433,12 +432,12 @@ const FormCompra = () => {
           </div>
 
           {/* ------------- CART ---------------- */}
-          <div className="col-4">
+          <div className="col-4 div-carrito text-center">
             <h4 className="text-center text-light mt-4">
               Mi compra {cart.length}
             </h4>
             <hr />
-            <ul>
+            <ul >
               {cart.map((product) => (
                 <li key={product.id}>
                   <div className="d-flex mt-2">
@@ -462,7 +461,7 @@ const FormCompra = () => {
             <h3 className="text-light fw-light">Total: ${getTotalPrice()}</h3>
             <hr />
             <button
-              className="w-100 p-2 bg-warning rounded mt-3"
+              className="w-75 text-center p-2 bg-warning rounded mt-3"
               onClick={handleClick}
             >
               Volver al inicio

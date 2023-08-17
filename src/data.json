@@ -138,6 +138,206 @@
         "description": "A versatile 2-in-1 laptop with a premium design.",
         "price": 1299,
         "category": "Notebooks"
+      },
+      {
+        "id": 21,
+        "name": "Auriculares Estéreo SonicWave",
+        "image": "https://regionps.com/wp-content/uploads/2019/01/GH335_gallery_3.jpg",
+        "description": "Experiencia de audio envolvente y cómodo ajuste.",
+        "price": 159.99,
+        "category": "Otros"
+      },
+      {
+        "id": 22,
+        "name": "Cargador Rápido VoltX",
+        "image": "https://m.media-amazon.com/images/I/51cRu22lJQL._AC_UF1000,1000_QL80_.jpg",
+        "description": "Carga rápida y segura para tus dispositivos.",
+        "price": 64.99,
+        "category": "Otros"
+      },
+      {
+        "id": 23,
+        "name": "Smart TV UltraVision 50",
+        "image": "https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2021/03/philips-50pus7555-2261367.jpg?tf=3840x",
+        "description": "Resolución 4K y aplicaciones integradas.",
+        "price": 1599.99,
+        "category": "Smart TV"
+      },
+      {
+        "id": 24,
+        "name": "Tablet NexusTab",
+        "image": "https://www.notebookcheck.com/fileadmin/Notebooks/News/_nc3/google_android_tablet.jpeg",
+        "description": "Portabilidad y versatilidad en un dispositivo compacto.",
+        "price": 899.99,
+        "category": "Otros"
+      },
+      {
+        "id": 25,
+        "name": "Smartwatch ChronoX",
+        "image": "https://m.media-amazon.com/images/I/61+AuXtBvmL.jpg",
+        "description": "Seguimiento de actividad y notificaciones inteligentes.",
+        "price": 329.99,
+        "category": "Otros"
+      },
+      {
+        "id": 26,
+        "name": "Cargador Inalámbrico QiCharge",
+        "image": "https://auricularesya.com.ar/wp-content/uploads/2020/06/mi-wireless-charging-pad-xiaomi-cargador-celular-inalambrico-02.png",
+        "description": "Carga sin cables y diseño compacto.",
+        "price": 234.99,
+        "category": "Otros"
+      },
+      {
+        "id": 27,
+        "name": "Smart TV QuantumView 65",
+        "image": "https://www.thetechedvocate.org/wp-content/uploads/2023/07/Amazon-Fire-TV-Omni-QLED-art-mode-with-widgets-660x400@2x.webp",
+        "description": "Pantalla curva y calidad de imagen excepcional.",
+        "price": 1899.99,
+        "category": "Smart TV"
+      },
+      {
+        "id": 28,
+        "name": "Auriculares Inalámbricos SoniBeat",
+        "image": "https://images.fravega.com/f1000/12723518fddb7bcdceac00de8617b9fd.jpg",
+        "description": "Sonido de alta calidad sin cables.",
+        "price": 279.99,
+        "category": "Otros"
+      },
+      {
+        "id": 29,
+        "name": "Smartwatch PulseTrack",
+        "image": "https://shopmi.pe/wp-content/uploads/2023/02/xiaomi_amazfit_gts_2e_01_negro_l.jpg",
+        "description": "Monitoreo de salud avanzado y estilo elegante.",
+        "price": 259.99,
+        "category": "Otros"
+      },
+      {
+        "id": 30,
+        "name": "Cargador Portátil PowerBoost",
+        "image": "https://exitocol.vtexassets.com/arquivos/ids/334534/Cargador-Portatil-5200-Mah-Mophie-Power-Boost.jpg?v=637005457357630000",
+        "description": "Recarga tus dispositivos sobre la marcha.",
+        "price": 239.99,
+        "category": "Otros"
+      },
+      {
+        "id": 31,
+        "name": "Tablet ProTab",
+        "image": "https://e.rpp-noticias.io/xlarge/2021/09/27/454345_1149743.jpg",
+        "description": "Potencia y versatilidad en una tablet moderna.",
+        "price": 749.99,
+        "category": "Otros"
+      },
+      {
+        "id": 32,
+        "name": "Smart TV QuantumVision 55",
+        "image": "https://universosamsung.com/wp-content/uploads/2022/09/samsung-tv-plus-nueva-imagen-universosamsung.jpg",
+        "description": "Calidad de imagen realista y funciones inteligentes.",
+        "price": 1699.99,
+        "category": "Smart TV"
+      },
+      {
+        "id": 33,
+        "name": "Auriculares StudioSound",
+        "image": "https://ae01.alicdn.com/kf/Sc8d42882cae04d07a82c9b13b9a75833p/Auriculares-inal-mbricos-con-Bluetooth-y-cancelaci-n-de-ruido-aud-fonos-est-reo-5-2.jpg",
+        "description": "Experiencia de sonido de estudio en tus oídos.",
+        "price": 319.99,
+        "category": "Otros"
+      },
+      {
+        "id": 34,
+        "name": "Smartwatch HealthFit Pro",
+        "image": "https://ae01.alicdn.com/kf/S946dd7b37a2b403eac9a8bfb248106b3T/Reloj-inteligente-deportivo-para-hombre-pulsera-de-acero-resistente-al-agua-con-llamadas-Bluetooth-control-del.jpg",
+        "description": "Salud y bienestar en tu muñeca.",
+        "price": 439.99,
+        "category": "Otros"
+      },
+      {
+        "id": 35,
+        "name": "Cargador Rápido TurboCharge",
+        "image": "https://ae01.alicdn.com/kf/S4251908edcfe4bacbc5d46efc06da831l/Cargador-USB-de-carga-r-pida-3-0-PD-20W-tipo-C-para-12-11-8.jpg",
+        "description": "Carga ultrarrápida y eficiente para tus dispositivos.",
+        "price": 349.99,
+        "category": "Otros"
+      },
+      {
+        "id": 36,
+        "name": "Tablet MiniTab",
+        "image": "https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2022/12/ipad-10a-generacion-analisis-opinion-2897862.jpg?tf=3840x",
+        "description": "Portabilidad y rendimiento en una tablet compacta.",
+        "price": 1149.99,
+        "category": "Otros"
+      },
+      {
+        "id": 37,
+        "name": "Smart TV QuantumView 75",
+        "image": "https://tutecnosmart.es/wp-content/uploads/2022/12/Samsung-OLED-S95.jpg",
+        "description": "Entretenimiento en gran pantalla con calidad superior.",
+        "price": 3299.99,
+        "category": "Smart TV"
+      },
+      {
+        "id": 38,
+        "name": "Auriculares NoiseBlock",
+        "image": "https://www.crsl.es/9007-thickbox_default/poly-215202-05-savi-7310-office-s7310-m-cd-mono-emea.jpg",
+        "description": "Aislamiento de ruido y sonido envolvente.",
+        "price": 489.99,
+        "category": "Otros"
+      },
+      {
+        "id": 39,
+        "name": "Smartwatch PulseFit Pro",
+        "image": "https://top-vs.com/wp-content/uploads/2021/12/Apple-Watch-SE-vs-Apple-Watch-Series-7-1024x683.jpeg",
+        "description": "Seguimiento de actividad avanzado y diseño deportivo.",
+        "price": 449.99,
+        "category": "Otros"
+      },
+      {
+        "id": 40,
+        "name": "Cargador Portátil TurboPower",
+        "image": "https://ae01.alicdn.com/kf/S304629c3c6a0487fb4a241ac87427540F/Cargador-de-bater-a-port-til-para-m-vil-carcasa-con-pantalla-Digital-indicador-LED-18650.jpg",
+        "description": "Potente carga rápida para tus dispositivos.",
+        "price": 259.99,
+        "category": "Otros"
+      },
+      {
+        "id": 41,
+        "name": "Tablet SlimTab",
+        "image": "https://m.media-amazon.com/images/I/71tQm-oec5L.jpg",
+        "description": "Diseño delgado y rendimiento eficiente en una tablet.",
+        "price": 1179.99,
+        "category": "Otros"
+      },
+      {
+        "id": 42,
+        "name": "Smart TV QuantumVision 43",
+        "image": "https://www.lapolar.cl/dw/image/v2/BCPP_PRD/on/demandware.static/-/Sites-master-catalog/default/dwcb47900d/images/large/4CC22711679.jpg?sw=1200&sh=1200&sm=fit",
+        "description": "Entretenimiento compacto con calidad impresionante.",
+        "price": 2499.99,
+        "category": "Smart TV"
+      },
+      {
+        "id": 43,
+        "name": "Smart TV CrystalView 60",
+        "image": "https://www.lapolar.cl/dw/image/v2/BCPP_PRD/on/demandware.static/-/Sites-master-catalog/default/dwe18182df/images/large/5CC25073444.jpg?sw=1200&sh=1200&sm=fit",
+        "description": "Calidad de imagen cristalina y funciones inteligentes.",
+        "price": 2799.99,
+        "category": "Smart TV"
+      },
+      {
+        "id": 44,
+        "name": "Smart TV QuantumVision 50",
+        "image": "https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2021/01/philips-tv-2021-2212139.jpg",
+        "description": "Experiencia visual excepcional con tecnología QuantumVision.",
+        "price": 3649.99,
+        "category": "Smart TV"
+      },
+      {
+        "id": 45,
+        "name": "Smart TV UltraVision 55",
+        "image": "https://androidpc.es/wp-content/uploads/2021/02/phillips-oled-2021-n02.jpg",
+        "description": "Imágenes de alta definición y conectividad avanzada.",
+        "price": 2749.99,
+        "category": "Smart TV"
       }
   ]
   
