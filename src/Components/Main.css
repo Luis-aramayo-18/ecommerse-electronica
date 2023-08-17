@@ -9,6 +9,10 @@
   margin-bottom: 20px;
 }
 
+.category-select option{
+  background-color: rgba(0, 0, 0, 0.404);
+}
+
 .price-filter{
   background-color: rgba(0, 0, 0, 0.503);
   color: rgb(255, 255, 255);
@@ -87,6 +91,10 @@
   width: 16px;
   height: 16px;
   fill: #ccc; /* Ajusta el color del ícono según tus necesidades */
+}
+
+.category-select option, .price-filter option{
+  background-color: rgba(0, 0, 0, 0.958);
 }
 
 /* ---------------- CARD PRODUCT ------------ */

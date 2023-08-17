@@ -64,10 +64,11 @@ const FormCompra = () => {
         numberStreetError === "") ||
       (step === 1 && shipmentInfo.pay !== "")
     ) {
+      setStep(step + 1);} 
+      else if (isStepComplete(step)) {
       setStep(step + 1);
-    } else if (isStepComplete(step)) {
-      setStep(step + 1);
-    } else {
+    } 
+    else {
       alert("Please complete the current step.");
     }
   };
@@ -173,14 +174,15 @@ const FormCompra = () => {
       <div className="container">
         <div className="row ">
           <div className="col-8">
-            <h1 className="text-center mt-2">Datos del envio</h1>
-            <hr />
+            <h2 className="text-center text-light my-3">Datos del envio</h2>
             <form onSubmit={handleFormSubmit} className="form-container">
               <div className="form-steps">
                 <div className={`step ${step === 0 ? "active" : ""}`}>
                   Envio
                 </div>
-                <div className={`step ${step === 1 ? "active" : ""}`}>Pago</div>
+                <div className={`step ${step === 1 ? "active" : ""}`}>
+                  Pago
+                </div>
                 <div className={`step ${step === 2 ? "active" : ""}`}>
                   Confirmar
                 </div>
@@ -192,7 +194,6 @@ const FormCompra = () => {
               <div className="form-content">
                 {step === 0 && (
                   <div className="d-flex flex-column">
-                    <h3 className="mt-3">Complete los campos</h3>
                     <hr className="m-0 mb-3"/>
                     <p className="text-start m-0 fs-5 mb-1">Datos del destinatario *</p>
                     <div className="d-flex">
@@ -200,7 +201,7 @@ const FormCompra = () => {
                         <input
                           placeholder="Nombre"
                           type="text"
-                          className={nameError?'form-control is-invalid' : "form-control is-valid"}
+                          className={nameError?'input-envio form-control is-invalid' : "input-envio form-control is-valid"}
                           id="name"
                           value={shipmentInfo.name}
                           onChange={handleNameChange}
@@ -215,7 +216,7 @@ const FormCompra = () => {
                           maxLength="14"
                           placeholder="Numero de telefono"
                           type="number"
-                          className={numberPhoneError?'form-control is-invalid' : 'form-control is-valid'}
+                          className={numberPhoneError?'input-envio form-control is-invalid' : 'input-envio form-control is-valid'}
                           id="numberPhone"
                           onChange={handleNumberPhoneChange}
                           value={shipmentInfo.numberPhone}
@@ -227,13 +228,13 @@ const FormCompra = () => {
                         )}
                       </div>
                     </div>
-                    <p className="text-start m-0 mt-3 fs-5">Datos de la entrega *</p>
+                    <p className="text-start m-0 mt-3 fs-5">Datos del domicilio *</p>
                     <div className="d-flex mt-1">
                       <div className="input-container">
                         <input
                           placeholder="Calle"
                           type="text"
-                          className={streetValueError?'form-control is-invalid' : "form-control is-valid"}
+                          className={streetValueError?'input-envio form-control is-invalid' : "input-envio form-control is-valid"}
                           id="address"
                           onChange={handleStreetChange}
                           value={shipmentInfo.street}
@@ -248,7 +249,7 @@ const FormCompra = () => {
                         <input
                           placeholder="Altura"
                           type="number"
-                          className={numberStreetError? 'form-control is-invalid' : "form-control is-valid"}
+                          className={numberStreetError? 'input-envio form-control is-invalid' : "input-envio form-control is-valid"}
                           id="numberAddress"
                           onChange={handleNumberStreet}
                           value={shipmentInfo.numberStreet}
@@ -262,7 +263,7 @@ const FormCompra = () => {
                     </div>
                     <textarea
                       type="text"
-                      className="form-control mt-4"
+                      className="input-envio form-control mt-4"
                       placeholder="Deja un comentario"
                       id="textReference"
                       value={shipmentInfo.comments}
@@ -288,7 +289,6 @@ const FormCompra = () => {
                         Acordar costo del envio una vez finalize la compra.
                       </label>
                     </div>
-                    <hr className="mt-3" />
                   </div>
                 )}
 
@@ -311,7 +311,7 @@ const FormCompra = () => {
                           checked={shipmentInfo.pay === "efectivo"}
                           onChange={() => {}}
                         />
-                        <div className="border border-info w-100 p-3 ms-2 rounded">
+                        <div className="input-compra">
                           <label htmlFor="cash">Efectivo</label>
                         </div>
                       </div>
@@ -332,7 +332,7 @@ const FormCompra = () => {
                           checked={shipmentInfo.pay === "transferencia"}
                           onChange={() => {}}
                         />
-                        <div className="border rounded border-info p-3 ms-1 w-100 ms-2">
+                        <div className="input-compra">
                           <label htmlFor="transfers">Transferencia</label>
                         </div>
                       </div>
@@ -353,7 +353,7 @@ const FormCompra = () => {
                           checked={shipmentInfo.pay === "tarjeta de credito"}
                           onChange={() => {}}
                         />
-                        <div className="border border-info rounded w-100 p-3 ms-2">
+                        <div className="input-compra">
                           <label htmlFor="creditcard">Tarjeta de credito</label>
                         </div>
                       </div>
@@ -378,20 +378,21 @@ const FormCompra = () => {
                     </button>
                   </div>
                 )}
+                <hr />
               </div>
               <div className="button-container">
                 {step > 0 && (
                   <button className="back-button" onClick={handleBack}>
-                    Back
+                    Atras
                   </button>
                 )}
                 {step < 2 && (
                   <button
                     className="next-button"
-                    onClick={step === 2 ? handleFormSubmit : handleNext}
-                    type={step === 2 ? "submit" : "button"}
+                    onClick={handleNext}
+                    type={"button"}
                   >
-                    {step === 2 ? "Comprar" : "Next"}
+                    Siguiente
                   </button>
                 )}
               </div>
@@ -400,7 +401,7 @@ const FormCompra = () => {
 
           {/* ------------- CART ---------------- */}
           <div className="col-4">
-            <h3 className="text-center mt-4">Mi compra {cart.length}</h3>
+            <h4 className="text-center text-light mt-4">Mi compra {cart.length}</h4>
             <hr />
             <ul>
               {cart.map((product) => (
@@ -412,16 +413,16 @@ const FormCompra = () => {
                       alt={product.name}
                     />
                     <div className="ms-2">
-                      <p className="m-0">{product.name}</p>
-                      <p>${product.price}</p>
-                      <p>Cantidad: {product.quantity}</p>
+                      <p className="m-0 text-light fw-light">{product.name}</p>
+                      <p className="text-light fw-light">${product.price}</p>
+                      <p className="text-light fw-light">Cantidad: {product.quantity}</p>
                     </div>
                   </div>
                 </li>
               ))}
             </ul>
             <hr />
-            <h3>Total: ${getTotalPrice()}</h3>
+            <h3 className="text-light fw-light">Total: ${getTotalPrice()}</h3>
             <hr />
             <button
               className="w-100 p-2 bg-warning rounded mt-3"

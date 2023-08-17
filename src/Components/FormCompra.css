@@ -1,10 +1,12 @@
 .form-container {
-    max-width: 600px;
+    /* max-width: 600px; */
+    width: 70%;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #00000095;
+    color: rgba(255, 255, 255, 0.874);
     border-radius: 10px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgb(0, 0, 0);
   }
   
   .form-steps {
@@ -18,7 +20,9 @@
     text-align: center;
     font-weight: bold;
     padding: 10px;
+    margin: 0 5px;
     background-color: #ffffff;
+    color: black;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
@@ -26,14 +30,14 @@
   }
   
   .step.active {
-    background-color: #007bff;
+    background-color: #00ff22b6;
     color: #ffffff;
-    border-color: #007bff;
+    border-color: #ffffff;
   }
   
   .progress-bar {
     height: 5px;
-    background-color: #007bff;
+    background-color: #00ff22b6;
     width: 0;
     transition: width 0.3s;
   }
@@ -41,12 +45,38 @@
   .step-content {
     margin-bottom: 20px;
   }
+
+  .input-envio{
+    background-color: rgba(0, 0, 0, 0.322);
+    color: white;
+    border: none;
+    outline: none;
+    line-height: 30px;
+  }
+
+  .input-envio::placeholder{
+    color: rgba(255, 255, 255, 0.748);
+    font-weight: 100;
+    font-size: small;
+  }
+
+  .input-envio:focus {
+    background-color: rgba(0, 0, 0, 0.322); /* Cambia el color de fondo al hacer clic */
+    color: white; /* Cambia el color del texto al hacer clic */
+    outline: none; /* Quita el resaltado predeterminado al hacer clic (si lo deseas) */
+  }
   
-  input {
+  #textReference{
     width: 100%;
+    height: auto; /* La altura se ajustará automáticamente según el contenido */
     padding: 10px;
-    border: 1px solid #ccc;
+  }
+
+  .input-compra{
+    border: 2px solid #00ff22b6;
+    padding: 5px 10px;
     border-radius: 5px;
+    margin-left: 7px;
   }
   
   .button-container {
@@ -65,20 +95,27 @@
   }
   
   .back-button {
-    background-color: #ccc;
+    background-color: #1900ff9a;
     color: #ffffff;
   }
   
   .next-button {
-    background-color: #007bff;
+    background-color: #00ff22ae;
     color: #ffffff;
   }
   
   .buy-button {
-    background-color: #007bff;
+    margin-top: 7px;
+    background-color: #00ff22ae;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+
+    transition: transform 0.2s;
+  }
+
+  .buy-button:hover{
+    transform: scale(1.05);
   }

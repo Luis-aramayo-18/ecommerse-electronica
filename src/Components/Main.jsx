@@ -75,11 +75,11 @@ const Main = () => {
           value={filterPrice}
           onChange={handlePriceFilterChange}
         >
-          <option value="">Todos los precios</option>
-          <option value="600">hasta $600</option>
-          <option value="800">hasta $800</option>
-          <option value="1000">hasta $1000</option>
-          <option value="1200">hasta $1200</option>
+          <option className="option-select" value="">Todos los precios</option>
+          <option className="option-select" value="600">hasta $600</option>
+          <option className="option-select" value="800">hasta $800</option>
+          <option className="option-select" value="1000">hasta $1000</option>
+          <option className="option-select" value="1200">hasta $1200</option>
         </select>
         <div className="div-input-search mx-3">
         <input
@@ -108,11 +108,11 @@ const Main = () => {
           value={selectedCategory}
           onChange={handleCategoryChange}
         >
-          <option value="">Categorias</option>
-          <option value="smartphones">Smartphones</option>
-          <option value="notebooks">Notebooks</option>
-          <option value="accessories">Accesorios</option>
-          <option value="others">Otros</option>
+          <option className="option-select" value="">Categorias</option>
+          <option className="option-select" value="smartphones">Smartphones</option>
+          <option className="option-select" value="notebooks">Notebooks</option>
+          <option className="option-select" value="accessories">Accesorios</option>
+          <option className="option-select" value="others">Otros</option>
         </select>
       </div>
       <hr />

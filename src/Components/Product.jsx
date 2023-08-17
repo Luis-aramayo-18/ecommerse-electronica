@@ -34,6 +34,7 @@ const Product = () => {
 
   const handleClickProductRelated =(product)=>{
     navigate(`/product/${product.id}`,{state: product})
+    window.scrollTo(0, 0);
   }
 
   const settings = {
