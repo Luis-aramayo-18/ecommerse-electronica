@@ -8,7 +8,12 @@
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgb(0, 0, 0);
   }
-  
+  .icon-form-compra{
+    width: 25px; /* Cambia el ancho del icono */
+    height: 25px; /* Cambia la altura del icono */
+    fill: blue;
+  }
+
   .form-steps {
     display: flex;
     justify-content: space-between;
