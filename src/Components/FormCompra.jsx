@@ -294,8 +294,8 @@ const FormCompra = () => {
 
                 {step === 1 && (
                   <div className="step-content">
-                    <h3>Formas de pago</h3>
-                    <hr />
+                    <h3 className="mt-3">Formas de pago</h3>
+                    <hr className="m-0 mb-3" />
                     <div className="payment-options">
                       <div
                         className="payment-option d-flex"
@@ -363,8 +363,8 @@ const FormCompra = () => {
 
                 {step === 2 && (
                   <div className="step-content">
-                    <h3>Confirmar</h3>
-                    <hr />
+                    <h3 className="mt-3">Confirmar</h3>
+                    <hr className="m-0 mb-3"/>
                     <h5>Nombre: {shipmentInfo.name}</h5>
                     <h5>Celular: {shipmentInfo.numberPhone}</h5>
                     <h5>Calle: {shipmentInfo.street}</h5>

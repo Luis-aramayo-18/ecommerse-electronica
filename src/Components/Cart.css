@@ -1,6 +1,6 @@
 .cart-button {
   align-items: center;
-  background: #09f;
+  background: rgb(255, 234, 0);
   border-radius: 9999px;
   cursor: pointer;
   display: flex;
@@ -12,6 +12,12 @@
   bottom: 25px;
   transition: all .3s ease;
   width: 40px;
+
+  transition: transform 0.2s ease-in-out;
+}
+
+.cart-button:hover{
+  transform: scale(1.1);
 }
 
 /* Styling for the modal overlay */

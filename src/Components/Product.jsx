@@ -1,16 +1,24 @@
 
+import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "./Hooks/useCart";
 import { AddToCartIcon, RemoveFromCartIcon } from "./Icons/Icons";
+
+import data from '../data.json'
 import Cart from "./Cart";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "./Product.css";
+import Slider from "react-slick";
+
 
 const Product = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
   const { addToCart, removeFromCart, cart } = useCart();
+  const [relatedProducts, setRelatedProducts] = useState([]);
 
   const product = location.state;
 
@@ -24,15 +32,43 @@ const Product = () => {
     navigate("/");
   };
 
+  const handleClickProductRelated =(product)=>{
+    navigate(`/product/${product.id}`,{state: product})
+  }
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+  };
+
+  const getRelatedProducts = () => {
+    return data.filter(
+      (relatedProduct) =>
+        relatedProduct.price <= product.price + 100&&
+        relatedProduct.price >= product.price - 100 && // Adjust the range as needed
+        relatedProduct.category === product.category
+    ); console.log(getRelatedProducts)
+  };
+
+  useEffect(() => {
+    // Set related products in the state
+    const related = getRelatedProducts();
+    console.log(related)
+    setRelatedProducts(related);
+  }, [product]);
+
   return (
     <>
     <Cart/>
 
     <div className="container mt-5">
       <nav aria-label="breadcrumb" className="navigation-index mb-5">
-        <ol className="breadcrumb text-center">
+        <ol className="breadcrumb text-center justify-content-center">
           <li className="breadcrumb-item">
-            <Link to="/">Home</Link>
+            <Link className="text-danger" to="/">Home</Link>
           </li>
           <li className="breadcrumb-item text-light">{product.category}</li>
           <li className="breadcrumb-item text-light">{product.name}</li>
@@ -73,7 +109,7 @@ const Product = () => {
           </div>
           <button
             className="rounded mt-5 add-to-cart-button"
-            style={{ backgroundColor: isProductInCart ? 'red' : '#4c7aaf' }}
+            style={{ backgroundColor: isProductInCart ? 'red' : '' }}
             onClick={() => {
               isProductInCart 
               ? removeFromCart(product) 
@@ -90,6 +126,22 @@ const Product = () => {
             Volver
           </button>
         </div>
+      </div>
+
+      <div className="mt-5">
+      <h3 className="mb-3 text-light">Tambien podria interesarte</h3>
+      <Slider {...settings}>
+      {relatedProducts.map((product) => (
+        <div onClick={()=>handleClickProductRelated(product)} className="card-product-related px-3 rounded" key={product.id}>
+          <img className="card-img-top h-100" src={product.image} alt={product.name} />
+          <div className="card-body">
+          <h3 className="card-title text-light fw-normal mb-1">{product.name}</h3>
+          <p className="card-text text-light fw-normal">{product.description}</p>
+          <p className="text-light fw-normal">${product.price}</p>
+          </div>
+        </div>
+      ))}
+    </Slider>
       </div>
     </div>
     </>

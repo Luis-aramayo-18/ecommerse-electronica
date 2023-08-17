@@ -6,16 +6,20 @@
   
   .quantity-button {
     border: none;
-    background-color: #4c7aaf;
+    background-color: #0000006f;
     color: #fff;
-    padding: 5px 10px;
+    padding: 4px 8px;
     font-size: 16px;
     cursor: pointer;
+    border: 2px solid #ffffff92;
+
+    transition: transform 0.2s ease-in-out;
     transition: background-color 0.3s ease;
   }
   
   .quantity-button:hover {
-    background-color: #457fa0;
+    box-shadow: 0px 2px 4px rgba(255, 254, 254, 0.381);
+    transform: scale(1.1);
   }
   
   .quantity {
@@ -58,32 +62,46 @@
   }
 
   .add-to-cart-button{
-    background-color: #4c7aaf;
+    background-color: #00000000;   
+    border: 2px solid #ffffff91;
     display: inline-block;
     text-transform: uppercase;
     border: none;
     padding: 10px 25px;
     color: #fff;
     font-weight: bold;
-    width: 100%;
+    width: 60%;
+    border: 2px solid #ffffff92;
+
+    transition: transform 0.2s ease-in-out;
   }
 
   .add-to-cart-button:hover {
-    background-color:#1e77aa;
-
+    background-color: rgba(0, 255, 0, 0.423); 
+    box-shadow: 0px 2px 4px rgba(255, 254, 254, 0.381);
+    transform: scale(1.05);
   }
 
   .go-home-button {
-    background-color: #4caf5c;
+    background-color: #1900ff82;
     display: inline-block;
     text-transform: uppercase;
     border: none;
     padding: 10px 25px;
     color: #fff;
     font-weight: bold;
-    width: 100%;
+    width: 60%;
+    border: 2px solid #ffffff6c;
+
+    transition: transform 0.2s ease-in-out;
   }
 
   .go-home-button:hover {
-    background-color: #2fbd46;
+    background-color: #1900ff;
+    box-shadow: 0px 2px 4px rgba(255, 254, 254, 0.381);
+    transform: scale(1.05);
+  }
+
+  .card-product-related{
+    cursor: pointer;
   }

@@ -9,10 +9,30 @@
   margin-bottom: 20px;
 }
 
-.price-filter,
-.search-input, .category-select {
+.price-filter{
+  background-color: rgba(0, 0, 0, 0.503);
+  color: rgb(255, 255, 255);
+  border-color: #ffffff9b;
+
+  text-align: center;
+}
+
+.category-select{
+  background-color: rgba(0, 0, 0, 0.503);
+  color: rgb(255, 255, 255);
+  border-color: #ffffff88;
   padding: 10px;
-  margin: 0 10px;
+  /* margin: 0 10px; */
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+
+  text-align: center;
+}
+
+.price-filter {
+  padding: 10px;
+  /* margin: 0 10px; */
   border: none;
   border-radius: 5px;
   font-size: 16px;
@@ -24,22 +44,57 @@
 
 .search-input {
   width: 300px;
+  background-color: rgba(0, 0, 0, 0.503);
+  /* transition: transform 0.2s ease-in-out; */
+}
+
+.div-input-search{
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.div-input-search:hover {
+  transform: scale(1.05);
+}
+
+.div-input-search:hover input {
+  transform: scale(1.05);
+}
+
+.search-icon {
+  margin-left: 10px;
+}
+
+
+.bi-search{
+  position: absolute;
+
+  top: 50%;
+  right: 10px; /* Ajusta el espacio entre el ícono y el input según tus necesidades */
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  fill: #ccc;
+  margin: 0;
 }
 
 /* ---------------- CARD PRODUCT ------------ */
 
 .card {
-    background-color: #444;
+    background-color: #000000b4;
     border: none;
     color: #fff;
     cursor: pointer;
-    box-shadow: 0px 4px 6px rgba(134, 134, 134, 0.5);
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.7);
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s;
+    border: 1px solid #ffffff46;
   }
   
   .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.7);
+    /* box-shadow: 0px 10px 14px rgba(134, 134, 134, 0.5); */
+    transform: scale(1.05);
   }
   
   .card-img-top {
@@ -71,7 +126,9 @@
     cursor: pointer;
     color: #fff;
     font-weight: bold;
-
+    /* background-color: rgba(0, 255, 0, 0.578);     */
+    background-color: #00000000;
+    border: 2px solid #ffffff91;
     width: 100%;
   }
   
