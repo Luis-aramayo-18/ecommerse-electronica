@@ -11,7 +11,9 @@
   .icon-form-compra{
     width: 25px; /* Cambia el ancho del icono */
     height: 25px; /* Cambia la altura del icono */
-    fill: blue;
+    fill: rgb(255, 255, 255);
+
+    filter: drop-shadow(2px 2px 3px rgb(0, 0, 0));
   }
 
   .form-steps {
