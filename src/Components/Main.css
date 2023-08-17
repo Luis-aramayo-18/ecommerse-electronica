@@ -13,7 +13,7 @@
   background-color: rgba(0, 0, 0, 0.503);
   color: rgb(255, 255, 255);
   border-color: #ffffff9b;
-
+  padding: 10px;
   text-align: center;
 }
 
@@ -22,7 +22,6 @@
   color: rgb(255, 255, 255);
   border-color: #ffffff88;
   padding: 10px;
-  /* margin: 0 10px; */
   border: none;
   border-radius: 5px;
   font-size: 16px;
@@ -32,7 +31,6 @@
 
 .price-filter {
   padding: 10px;
-  /* margin: 0 10px; */
   border: none;
   border-radius: 5px;
   font-size: 16px;
@@ -42,15 +40,10 @@
   width: 200px;
 }
 
-.search-input {
-  width: 300px;
-  background-color: rgba(0, 0, 0, 0.503);
-  /* transition: transform 0.2s ease-in-out; */
-}
-
-.div-input-search{
+.div-input-search {
   display: flex;
   align-items: center;
+  position: relative;
   transition: transform 0.2s;
 }
 
@@ -58,25 +51,42 @@
   transform: scale(1.05);
 }
 
-.div-input-search:hover input {
-  transform: scale(1.05);
+.search-input {
+  background-color: rgba(0, 0, 0, 0.503);
+  border: none;
+  outline: none;
+  padding: 10px;
+  border: 1px solid #ccc;
+  padding-right: 25px;
+}
+
+.search-input::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-image: url("http://www.w3.org/2000/svg");
+  background-size: cover;
+  position: absolute;
+  top: 50%; /* Centrar verticalmente */
+  right: 5px; /* Espacio entre el input y el ícono */
+  transform: translateY(-50%); /* Alinear verticalmente */
+  pointer-events: none; /* Evitar interacción con el ícono */
+  transition: transform 0.2s;
+}
+
+.div-input-search:hover .search-input::before {
+  transform: translateY(-50%) scale(1.05);
 }
 
 .search-icon {
-  margin-left: 10px;
-}
-
-
-.bi-search{
   position: absolute;
-
   top: 50%;
   right: 10px; /* Ajusta el espacio entre el ícono y el input según tus necesidades */
   transform: translateY(-50%);
   width: 16px;
   height: 16px;
-  fill: #ccc;
-  margin: 0;
+  fill: #ccc; /* Ajusta el color del ícono según tus necesidades */
 }
 
 /* ---------------- CARD PRODUCT ------------ */

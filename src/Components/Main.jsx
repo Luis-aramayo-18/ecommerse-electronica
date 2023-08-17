@@ -85,10 +85,10 @@ const Main = () => {
         <input
           type="text"
           placeholder="Buscar por el nombre"
-          className="search-input"
+          className="search-input text-light"
           value={searchTerm}
           onChange={handleSearchTermChange}
-        />                                                 
+        />
         <svg xmlns="http://www.w3.org/2000/svg" 
              width="16"
              height="16"
@@ -101,7 +101,7 @@ const Main = () => {
                0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 
                9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 
                0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/>
-        </svg>
+        </svg>                                          
         </div>
         <select
           className="category-select"
