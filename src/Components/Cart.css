@@ -12,6 +12,7 @@
   bottom: 25px;
   transition: all .3s ease;
   width: 40px;
+  z-index: 999;
 
   transition: transform 0.2s ease-in-out;
 }
@@ -20,44 +21,297 @@
   transform: scale(1.1);
 }
 
-/* Styling for the modal overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.56); /* Semi-transparent black */
+  background-color: rgba(0, 0, 0, 0.56);
   display: flex;
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(2px);
-  z-index: 1000; /* Ensure the modal is above other content */
+  z-index: 1000;
 }
 
 .modalConten {
   background-color: rgba(0, 0, 0, 0.519);
-  overflow: auto; /* Allow scrolling if content exceeds modal height */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-  position: inherit;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
   border-color: rgba(0, 0, 0, 0.932);
 
-  max-height: 70vh; 
+  overflow: auto;
+  position: inherit;
   overflow-y: auto;
+
+  max-height: 70vh; 
+  margin-left: 30px;
 }
 
-
-/* Style for the close button */
-.close-button {
+.trashButton{
+  all: unset;
   position: absolute;
+  right: 5%;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.trashButton:hover{
+  background-color: #ddd;
+  color: #555;
+}
+
+.trash-icon{
+  width: 17px; /* Cambia el ancho del icono */
+  height: 25px; /* Cambia la altura del icono */
+  fill: rgb(255, 255, 255);
+
+  filter: drop-shadow(2px 2px 3px rgb(0, 0, 0));
+}
+
+.close-button {
+  all: unset;
   top: 2%;
-  right: 2%;
+  right: 3%;
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 4px 4px;
+  font-size: 16px;
+  background-color: #ffbb00;
+  border: none;
+  border-radius: 4px;
+  color: #000000;
+  transition: background-color 0.3s, color 0.3s;
+  
   cursor: pointer;
 }
 
+.close-icon{
+  width: 25px; /* Cambia el ancho del icono */
+  height: 25px; /* Cambia la altura del icono */
+  fill: rgba(255, 255, 255, 0.808);
+
+  filter: drop-shadow(2px 2px 2px rgb(0, 0, 0));
+}
+
+.img-modal{
+  width: 60%;
+  min-height: 200px;
+  max-height: 500px;
+
+  border-radius: 10px;
+}
+
+.name-modal{
+  font-size: 35px;
+  font-weight: 300;
+  margin: 0;
+  margin-bottom: 25px;
+}
+
+.price-modal{
+  margin: 0;
+  font-size: 25px;
+  font-weight: 100;
+  margin-bottom: 20px;
+}
+
 .totalPrice{
-  position: absolute;
-  right: 2%;
+  margin-left: 35px;
+}
+
+.payButton{
+  all: unset;
+  margin-bottom: 20px;
+  width: 50%;
+  padding: 8px 0;
+  border-radius: 10px;
+
+  background-color: #00000000;
+  border: 2px solid #ffffff91;
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s;
   
+}
+
+.payButton:hover{
+  box-shadow: 2px 2px 2px rgb(255, 255, 255);
+  transform: scale(1.05);
+}
+
+@media(max-width: 992px){
+  .cart-button{
+    width: 40px;
+    height: 40px;
+    bottom: 15px;
+    right: 20px;
+  }
+
+  .modalConten{
+    width: 70%;
+    height: 80%;
+    
+    margin-left: 30px;
+  }
+
+
+  .close-button{
+    width: 20px;
+    height: 20px;
+  }
+
+  .img-modal{
+    width: 60%;
+    min-height: 150px;
+    max-height: 600px;
+  }
+
+  .div-contenido{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .div-price{
+    display: flex;
+  }
+
+  .name-modal{
+    font-size: 35px;
+    font-weight: 300;
+    margin: 0;
+    margin-bottom: 25px;
+  }
+
+  .price-modal{
+    margin: 0;
+    font-size: 25px;
+    font-weight: 100;
+    margin-right: 10px;
+  }
+
+  .totalPrice{
+    font-size: 25px;
+    font-weight: 100;
+  }
+}
+
+@media(max-width: 768px){
+  .cart-button{
+    width: 40px;
+    height: 40px;
+    bottom: 15px;
+    right: 20px;
+  }
+
+  .modalConten{
+    width: 70%;
+    height: 70%;
+    
+    margin-left: 30px;
+  }
+
+
+  .close-button{
+    width: 20px;
+    height: 20px;
+  }
+
+  .img-modal{
+    width: 60%;
+    min-height: 100px;
+    max-height: 400px;
+  }
+
+  .div-contenido{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .div-price{
+    display: flex;
+  }
+
+  .name-modal{
+    font-size: 25px;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+
+  .price-modal{
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    margin-right: 10px;
+  }
+
+  .totalPrice{
+    font-size: 10px;
+    font-weight: 100;
+  }
+}
+
+@media (max-width: 576px){
+  .cart-button{
+    width: 40px;
+    height: 40px;
+    bottom: 15px;
+    right: 20px;
+  }
+
+  .modalConten{
+    width: 90%;
+    height: 60%;
+    
+    margin-left: 26px;
+  }
+
+
+  .close-button{
+    width: 20px;
+    height: 20px;
+  }
+
+  .img-modal{
+    width: 60%;
+    min-height: 100px;
+    max-height: 450px;
+  }
+
+  .div-price{
+    display: flex;
+  }
+
+  .name-modal{
+    font-size: 15px;
+    margin: 0;
+    margin-bottom: 15px;
+  }
+
+  .price-modal{
+    margin: 0;
+    font-size: 15px;
+    font-weight: 300;
+    margin-right: 10px;
+  }
+
+  .totalPrice{
+    font-size: 10px;
+    font-weight: 100;
+  }
 }
 

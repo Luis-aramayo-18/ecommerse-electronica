@@ -7,8 +7,9 @@
     background-color: #00000095;
     color: rgba(255, 255, 255, 0.874);
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgb(253, 253, 253);
+    box-shadow: 0px 4px 8px rgba(253, 253, 253, 0.875);
   }
+
   .icon-form-compra{
     width: 25px; /* Cambia el ancho del icono */
     height: 25px; /* Cambia la altura del icono */
@@ -39,8 +40,15 @@
   
   .step.active {
     background-color: #00ff22b6;
-    color: #ffffff;
     border-color: #ffffff;
+  }
+
+  .incomplete{
+    background-color: white;
+  }
+
+  .completed{
+    background-color: #00ff22b6;
   }
   
   .progress-bar {
@@ -56,6 +64,7 @@
 
   .input-envio{
     background-color: rgba(0, 0, 0, 0.322);
+    border: 2px solid #ffffff6c;
     color: white;
     border: none;
     outline: none;

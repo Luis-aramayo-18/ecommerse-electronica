@@ -41,22 +41,21 @@ const Product = () => {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
+    slidesToShow: 3,
+    slidesToScroll: 1
   };
 
   const getRelatedProducts = () => {
     return data.filter(
       (relatedProduct) =>
         relatedProduct.price <= product.price + 250&&
-        relatedProduct.price >= product.price - 250 && 
+        relatedProduct.price >= product.price - 250&& 
         relatedProduct.category === product.category
     );
   };
 
   useEffect(() => {
     const related = getRelatedProducts();
-    console.log(related)
     setRelatedProducts(related);
   }, [product]);
 
@@ -84,7 +83,7 @@ const Product = () => {
           />
         </div>
         <div className="col-md-4">
-          <h2 className="mb-3 fs-1 text-light">{product.name}</h2>
+          <h2 className="product-name mb-3 fs-1 text-light">{product.name}</h2>
           <p className="mt-4 text-light">{product.description}</p>
           <h2 className="mt-4 text-light">${product.price}</h2>
           <div className="quantity-container mt-4">
@@ -132,13 +131,13 @@ const Product = () => {
       <h3 className="mb-4 text-light">Tambien podria interesarte</h3>
       <Slider {...settings}>
       {relatedProducts.map((product) => (
-        <div className="div-related">
+        <div className="div-related" key={product.id}>
         <div className="div-hijo-related mt-2" onClick={()=>handleClickProductRelated(product)} key={product.id}>
           <img className="img-related" src={product.image} alt={product.name} />
           <div className="card-body">
-          <h3 className="card-title text-light fw-normal mb-1">{product.name}</h3>
-          <p className="card-text text-light fw-normal">{product.description}</p>
-          <p className="text-light fs-4 fw-normal">${product.price}</p>
+          <h3 className="name-related card-title text-light fw-normal mb-1">{product.name}</h3>
+          {/* <p className="card-text text-light fw-normal">{product.description}</p> */}
+          <p className="price-related text-light fs-4 fw-normal">${product.price}</p>
           </div>
         </div>
         </div>

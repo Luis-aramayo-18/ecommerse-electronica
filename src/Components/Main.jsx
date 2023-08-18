@@ -150,17 +150,17 @@ const Main = () => {
           </select>
         </div>
         <hr />
-        <div className="row">
+        <div className="row d-flex justify-content-center">
           {filteredProducts.map((product, index) => {
             const isProductInCart = checkProductInCart(product);
 
             return (
-              <div key={index} className="col-lg-3 col-md-6 mb-4">
+              <div key={index} className="col-lg-3 col-md-6 col-sm-12 mb-4">
                 <div className="card">
                   <img
                     onClick={() => handleSeeMore(product)}
                     src={product.image}
-                    className="card-img-top d-block"
+                    className="card-img-top"
                     alt={product.name}
                   />
                   <div className="card-body">

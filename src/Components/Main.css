@@ -136,4 +136,34 @@
     border: 2px solid #ffffff91;
     width: 100%;
   }
+
+  @media (max-width: 768px) {
+    .card{
+      margin-top: 60px;
+    }
+
+    .card-img-top {
+      min-height: 100%;
+      max-height: 100%;
+    }
+
+    .filters {
+      flex-direction: row; /* Cambia la dirección principal a fila en pantallas más grandes */
+      justify-content: center; /* Distribuye los elementos horizontalmente */
+      align-items: center;/* Alinea los elementos verticalmente abajo */
+    }
+
+    .price-filter{
+      margin-right: 5px;
+    }
+
+    .category-select{
+      margin-left: 5px;
+    }
+
+    .div-input-search{
+      position: absolute;
+      margin-top: 120px;
+    }
+  }
   

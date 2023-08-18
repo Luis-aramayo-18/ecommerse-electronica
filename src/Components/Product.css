@@ -118,6 +118,47 @@
   .img-related{
     border-radius: 10px;
     width: 100%; /* Ajusta el ancho según tus necesidades */
-    height: auto;
-    min-height: 100%; /* Ajusta la altura proporcionalmente */
+    min-height: 300px;
+    max-height: 300px; /* Ajusta la altura proporcionalmente */
+  }
+
+  @media (max-width: 1200px){
+    .img-related{
+      border-radius: 10px;
+      width: 100%; /* Ajusta el ancho según tus necesidades */
+      min-height: 210px;
+      max-height: 210px; /* Ajusta la altura proporcionalmente */
+    }
+  }
+
+  @media (max-width: 992px){
+    .img-related{
+      border-radius: 10px;
+      width: 100%; /* Ajusta el ancho según tus necesidades */
+      min-height: 160px;
+      max-height: 160px; /* Ajusta la altura proporcionalmente */
+    }
+  }
+
+  @media (max-width: 768px){
+    .img-related{
+      border-radius: 10px;
+      width: 100%; /* Ajusta el ancho según tus necesidades */
+      min-height: 100px;
+      max-height: 100px; /* Ajusta la altura proporcionalmente */
+    }
+
+    .name-related{
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .price-related{
+      font-size: 8px;
+      font-weight: 100;
+    }
+
+    .product-name{
+      margin-top: 10px;
+    }
   }
