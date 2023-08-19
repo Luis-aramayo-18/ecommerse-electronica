@@ -192,11 +192,11 @@ const FormCompra = () => {
 
     setTimeout(() => {
       setShowConfirmation(false);
-    }, 2000);
+    }, 3000);
 
     setTimeout(()=>{
       clearCart()
-    },2300)
+    },3300)
 
     // const data = {
     //   nombre: shipmentInfo.name,
