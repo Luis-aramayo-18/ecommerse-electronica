@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCart } from "./Hooks/useCart";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./FormCompra.css";

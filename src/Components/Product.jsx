@@ -45,20 +45,20 @@ const Product = () => {
     slidesToScroll: 1
   };
 
-  const getRelatedProducts = () => {
+  useEffect(() => {
+    const getRelatedProducts = () => {
     return data.filter(
       (relatedProduct) =>
-        relatedProduct.price <= product.price + 250&&
-        relatedProduct.price >= product.price - 250&& 
+        relatedProduct.price <= product.price + 250 &&
+        relatedProduct.price >= product.price - 250 &&
         relatedProduct.category === product.category
     );
   };
 
-  useEffect(() => {
-    const related = getRelatedProducts();
-    setRelatedProducts(related);
+  const related = getRelatedProducts();
+  setRelatedProducts(related);
   }, [product]);
-
+   
   return (
     <>
     <Cart/>
