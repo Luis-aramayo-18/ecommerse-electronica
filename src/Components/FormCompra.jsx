@@ -1,7 +1,10 @@
-import "./FormCompra.css";
 import { useEffect, useState } from "react";
 import { useCart } from "./Hooks/useCart";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+import "./FormCompra.css";
 
 const FormCompra = () => {
   const [step, setStep] = useState(0);
@@ -160,34 +163,78 @@ const FormCompra = () => {
     }
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    // const data = {
+    //   nombre: shipmentInfo.name,
+    //   telefono: shipmentInfo.numberPhone,
+    //   calle: shipmentInfo.street,
+    //   altura: shipmentInfo.numberStreet,
+    //   comentario: shipmentInfo.comments
+    // };
+  
+    // try {
+    //   const response = await fetch('URL_DE_TU_API_DE_WHATSAPP', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(data),
+    //   });
+  
+    //   if (response.ok) {
+    //     // Guardar los datos en localStorage si la compra fue exitosa
+    //     localStorage.setItem('purchaseData', JSON.stringify(data));
+    //     toast.success('Compra exitosa, se envió el mensaje por WhatsApp.');
+    //   } else {
+    //     toast.error('Hubo un error al enviar el mensaje por WhatsApp.');
+    //   }
+    // } catch (error) {
+    //   console.error('Error al enviar el mensaje por WhatsApp:', error);
+    //   toast.error('Hubo un error al enviar el mensaje por WhatsApp.');
+    // }
   };
 
   return (
     <>
       {/* ----------- FORM ---------------- */}
-          <div className="contenedor-padre">
-          <div className="row">
+      <div className="contenedor-padre">
+        <div className="row">
           <div className="div-form col-lg-7 col-md-8 col-sm-12">
             <form onSubmit={handleFormSubmit} className="form-container mt-4">
               <div className="form-steps">
-                <div className={`step ${step === 0 ? "active" : ""} ${isStepComplete(0) ? "completed" : ""}`}>
-                <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                height="1em" viewBox="0 0 640 512"
-                className="icon-form-compra">
-                  <path d="M112 0C85.5 0 64 21.5 64 48V96H16c-8.8 0-16 7.2-16 16s7.2 16 16 16H64 272c8.8 0 16 7.2 16 16s-7.2 16-16 16H64 48c-8.8 0-16 7.2-16 16s7.2 16 16 16H64 240c8.8 0 16 7.2 16 16s-7.2 16-16 16H64 16c-8.8 0-16 7.2-16 16s7.2 16 16 16H64 208c8.8 0 16 7.2 16 16s-7.2 16-16 16H64V416c0 53 43 96 96 96s96-43 96-96H384c0 53 43 96 96 96s96-43 96-96h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V288 256 237.3c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7H416V48c0-26.5-21.5-48-48-48H112zM544 237.3V256H416V160h50.7L544 237.3zM160 368a48 48 0 1 1 0 96 48 48 0 1 1 0-96zm272 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0z"/></svg>
+                <div
+                  className={`step ${step === 0 ? "active" : ""} ${
+                    isStepComplete(0) ? "completed" : ""
+                  }`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="1em"
+                    viewBox="0 0 640 512"
+                    className="icon-form-compra"
+                  >
+                    <path d="M112 0C85.5 0 64 21.5 64 48V96H16c-8.8 0-16 7.2-16 16s7.2 16 16 16H64 272c8.8 0 16 7.2 16 16s-7.2 16-16 16H64 48c-8.8 0-16 7.2-16 16s7.2 16 16 16H64 240c8.8 0 16 7.2 16 16s-7.2 16-16 16H64 16c-8.8 0-16 7.2-16 16s7.2 16 16 16H64 208c8.8 0 16 7.2 16 16s-7.2 16-16 16H64V416c0 53 43 96 96 96s96-43 96-96H384c0 53 43 96 96 96s96-43 96-96h32c17.7 0 32-14.3 32-32s-14.3-32-32-32V288 256 237.3c0-17-6.7-33.3-18.7-45.3L512 114.7c-12-12-28.3-18.7-45.3-18.7H416V48c0-26.5-21.5-48-48-48H112zM544 237.3V256H416V160h50.7L544 237.3zM160 368a48 48 0 1 1 0 96 48 48 0 1 1 0-96zm272 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0z" />
+                  </svg>
                 </div>
-                <div className={`step ${step === 1 ? "active" : ""} ${isStepComplete(1) ? "completed" : ""}`}>
-                <svg xmlns="http://www.w3.org/2000/svg" 
-                height="1em" 
-                className="icon-form-compra"
-                viewBox="0 0 512 512">
-                <path 
-                d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64H80c-8.8 0-16-7.2-16-16s7.2-16 16-16H448c17.7 0 32-14.3 32-32s-14.3-32-32-32H64zM416 272a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg>
+                <div
+                  className={`step ${step === 1 ? "active" : ""} ${
+                    isStepComplete(1) ? "completed" : ""
+                  }`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="1em"
+                    className="icon-form-compra"
+                    viewBox="0 0 512 512"
+                  >
+                    <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V192c0-35.3-28.7-64-64-64H80c-8.8 0-16-7.2-16-16s7.2-16 16-16H448c17.7 0 32-14.3 32-32s-14.3-32-32-32H64zM416 272a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                  </svg>
                 </div>
-                <div className={`step ${step === 2 ? 'completed' : 'incomplete'}`}>
+                <div
+                  className={`step ${step === 2 ? "completed" : "incomplete"}`}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="icon-form-compra"
@@ -199,8 +246,8 @@ const FormCompra = () => {
               </div>
               <div
                 className="progress-bar"
-                style={{ width: `${(step + 1) * 33.33}%` }}>
-              </div>
+                style={{ width: `${(step + 1) * 33.33}%` }}
+              ></div>
               <div className="form-content">
                 {step === 0 && (
                   <div className="d-flex flex-column">
@@ -250,9 +297,7 @@ const FormCompra = () => {
                         )}
                       </div>
                     </div>
-                    <p className="datos-domicilio">
-                      Datos del domicilio *
-                    </p>
+                    <p className="datos-domicilio">Datos del domicilio *</p>
                     <div className="div-domicilio d-flex mt-1">
                       <div className="input-container">
                         <input
@@ -295,9 +340,11 @@ const FormCompra = () => {
                     </div>
                     <textarea
                       type="text"
-                      className={shipmentInfo.comments 
-                          ? "input-envio form-control is-valid mt-4" 
-                          : 'input-envio form control mt-4'}
+                      className={
+                        shipmentInfo.comments
+                          ? "input-envio form-control is-valid mt-4"
+                          : "input-envio form control mt-4"
+                      }
                       placeholder="Deja un comentario"
                       id="textReference"
                       value={shipmentInfo.comments}
@@ -416,7 +463,10 @@ const FormCompra = () => {
               </div>
               <div className="button-container">
                 {step > 0 && (
-                  <button className="back-button btn btn-warning" onClick={handleBack}>
+                  <button
+                    className="back-button btn btn-warning"
+                    onClick={handleBack}
+                  >
                     Atras
                   </button>
                 )}
@@ -435,10 +485,8 @@ const FormCompra = () => {
 
           {/* ------------- CART ---------------- */}
           <div className="col-lg-4 col-md-4 col-12 div-carrito">
-            <h4 className="cart-title">
-              Mi compra {cart.length}
-            </h4>
-            <hr className="m-0"/>
+            <h4 className="cart-title">Mi compra {cart.length}</h4>
+            <hr className="m-0" />
             <ul className="p-0">
               {cart.map((product) => (
                 <li key={product.id}>
@@ -451,28 +499,25 @@ const FormCompra = () => {
                     <div className="div-padre-precio">
                       <p className="name-cart">{product.name}</p>
                       <div className="div-contenedor-precio">
-                      <p className="price-cart">${product.price}</p>
-                      <p className="cantidad-cart">
-                        Cantidad: {product.quantity}
-                      </p>
+                        <p className="price-cart">${product.price}</p>
+                        <p className="cantidad-cart">
+                          Cantidad: {product.quantity}
+                        </p>
                       </div>
-                      </div>
+                    </div>
                   </div>
                 </li>
               ))}
             </ul>
-            <hr className="m-0"/>
+            <hr className="m-0" />
             <h3 className="cart-total">Total: ${getTotalPrice()}</h3>
             <hr />
-            <button
-              className="boton-incio"
-              onClick={handleClick}
-            >
+            <button className="boton-incio" onClick={handleClick}>
               Volver al inicio
             </button>
           </div>
-          </div>
         </div>
+      </div>
     </>
   );
 };
