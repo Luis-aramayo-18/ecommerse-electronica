@@ -12,8 +12,9 @@ const FormCompra = () => {
   const [nameError, setNameError] = useState("");
   const [streetValueError, setSreetValueError] = useState("");
   const [numberStreetError, setNumberStreetError] = useState("");
+  const { cart, clearCart, getTotalPrice } = useCart();
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const navigate = useNavigate();
-  const { cart, getTotalPrice } = useCart();
 
   const [shipmentInfo, setShipmentInfo] = useState({
     name: "",
@@ -163,8 +164,30 @@ const FormCompra = () => {
     }
   };
 
-  const handleFormSubmit = async (event) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
+
+    const payInf = {
+      nombre: shipmentInfo.name,
+      telefono: shipmentInfo.numberPhone,
+      calle: shipmentInfo.street,
+      altura: shipmentInfo.numberStreet,
+      comentario: shipmentInfo.comments
+    }
+    const payInfLS=JSON.stringify(payInf)
+
+    localStorage.setItem('infCompra', payInfLS)
+
+    setStep(0);
+    setShowConfirmation(true);
+
+    setTimeout(() => {
+      setShowConfirmation(false);
+    }, 3000);
+
+    setTimeout(()=>{
+      clearCart()
+    },4000)
 
     // const data = {
     //   nombre: shipmentInfo.name,
@@ -173,7 +196,7 @@ const FormCompra = () => {
     //   altura: shipmentInfo.numberStreet,
     //   comentario: shipmentInfo.comments
     // };
-  
+
     // try {
     //   const response = await fetch('URL_DE_TU_API_DE_WHATSAPP', {
     //     method: 'POST',
@@ -182,7 +205,7 @@ const FormCompra = () => {
     //     },
     //     body: JSON.stringify(data),
     //   });
-  
+
     //   if (response.ok) {
     //     // Guardar los datos en localStorage si la compra fue exitosa
     //     localStorage.setItem('purchaseData', JSON.stringify(data));
@@ -517,6 +540,15 @@ const FormCompra = () => {
             </button>
           </div>
         </div>
+        {
+          showConfirmation && (
+            <div className="modal-overlay-compra">
+            <div className="modalConten-compra">
+            <p className="text-center fs-5">Gracias por confiar en nosotros 🤩</p>
+            </div>
+            </div>
+          )
+        }
       </div>
     </>
   );
