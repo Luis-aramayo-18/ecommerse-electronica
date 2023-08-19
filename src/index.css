@@ -6,7 +6,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: rgb(0, 0, 0);
+ /* background-image: url(./vista-frontal-carrito-compras-cyber-monday-bolsas-espacio-copia.jpg);
+ background-repeat: no-repeat;
+ background-position: center center;
+ background-attachment: fixed;
+ background-size: cover;
+ background-size: auto;
+ backdrop-filter: blur(10px); */
+
+background: rgb(141,0,255);
+background: linear-gradient(309deg, rgba(141,0,255,1) 19%, rgba(13,0,133,1) 45%, rgba(0,0,0,1) 100%);
+background-size: cover;
 }
 
 code {

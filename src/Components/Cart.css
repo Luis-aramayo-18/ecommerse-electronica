@@ -276,9 +276,9 @@
 
   .modalConten{
     width: 90%;
-    height: 60%;
+    height: auto;
     
-    margin-left: 26px;
+    margin: auto;
   }
 
 

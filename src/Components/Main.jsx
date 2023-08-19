@@ -57,7 +57,7 @@ const Main = () => {
         label: `hasta $${currentPrice}`,
       });
 
-      currentPrice += 500;
+      currentPrice += 1000;
     }
 
     return priceOptions.map((option) => (
@@ -90,7 +90,6 @@ const Main = () => {
   return (
     <>
       <Cart />
-
       <div className="container text-center">
         <h1 className="title pt-4">Bienvenido a TecnoStore</h1>
         <div className="d-flex text-center justify-content-center filters my-4">
