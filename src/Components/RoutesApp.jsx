@@ -5,11 +5,13 @@ import Main from './Main'
 import Product from './Product'
 import FormCompra from './FormCompra'
 import RoutesAuth from './RoutesAuth'
+import { ToastContainer } from 'react-toastify'
 
 
 const RoutesApp = () => {
   return (
     <BrowserRouter>
+    <ToastContainer />
     <CartProvider>
         <Routes>
           <Route path="/" element={<Main />} />

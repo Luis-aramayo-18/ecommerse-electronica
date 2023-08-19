@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./FormCompra.css";
+import { toast } from "react-toastify";
 
 const FormCompra = () => {
   const [step, setStep] = useState(0);
@@ -70,8 +71,17 @@ const FormCompra = () => {
       setStep(step + 1);
     } else if (isStepComplete(step)) {
       setStep(step + 1);
-    } else {
-      alert("Por favor complete los campos.");
+    } else{
+      toast.error('Complete los campos', {
+        position: "bottom-left",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
     }
   };
 
@@ -290,6 +300,7 @@ const FormCompra = () => {
                           id="name"
                           value={shipmentInfo.name}
                           onChange={handleNameChange}
+                          required
                         />
                         {nameError && (
                           <div className="error-message invalid-feedback text-lowercase">
@@ -311,6 +322,7 @@ const FormCompra = () => {
                           id="numberPhone"
                           onChange={handleNumberPhoneChange}
                           value={shipmentInfo.numberPhone}
+                          required
                         />
                         {numberPhoneError && (
                           <div className="error-message invalid-feedback text-lowercase">
@@ -333,6 +345,7 @@ const FormCompra = () => {
                           id="address"
                           onChange={handleStreetChange}
                           value={shipmentInfo.street}
+                          required
                         />
                         {streetValueError && (
                           <div className="error-message invalid-feedback text-lowercase">
@@ -352,6 +365,7 @@ const FormCompra = () => {
                           id="numberAddress"
                           onChange={handleNumberStreet}
                           value={shipmentInfo.numberStreet}
+                          required
                         />
                         {numberStreetError && (
                           <div className="error-message invalid-feedback text-lowercase">
