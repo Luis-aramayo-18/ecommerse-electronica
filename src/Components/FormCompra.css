@@ -1,13 +1,55 @@
+.contenedor-padre{
+  margin: 1rem 8rem;
+}
+
+.row{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.cantidad-cart{
+  font-size: 15px;
+  font-weight: 100;
+  color: white;
+}
+
 .form-container {
-    /* max-width: 600px; */
-    width: 80%;
-    height: auto;
+    /* height: 100%; */
     margin: 0 auto;
+    width: 90%;
     padding: 20px;
     background-color: #00000095;
     color: rgba(255, 255, 255, 0.874);
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(253, 253, 253, 0.875);
+  }
+
+  .row>* {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+  .div-carrito{
+    margin-top: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+  }
+
+  .div-carrito2{
+    display: flex;
+  }
+
+  .div-padre-precio{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .img-cart{
+    width: 50%;
+    height: auto;
   }
 
   .icon-form-compra{
@@ -134,4 +176,509 @@
 
   .buy-button:hover{
     transform: scale(1.05);
+  }
+
+  .cart-title{
+    color: white;
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 25px;
+  }
+
+  .name-cart{
+    color: white;
+    margin-left: 5px;
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  .price-cart{
+    color: white;
+    margin-left: 5px;
+    font-size: 18px;
+    font-weight: 100;
+  }
+
+  .boton-incio{
+    padding: 8px;
+      border-radius: 10px;
+      width: 80%;
+
+      background-color: #ffd500e7;
+  }
+
+  .cart-total{
+    margin-top: 20px;
+    color: white;
+      font-size: 26px;
+      font-weight: 500;
+  }
+
+  @media (max-width: 992px){
+    .contenedor-padre{
+      margin: 1rem 2rem;
+    }
+
+    .row{
+      width: 100%;
+    }
+
+    .form-container{
+      width: 100%;
+    }
+
+    .div-carrito{
+      padding: 0 10px;
+    }
+
+    .div-carrito2{
+      margin-top: 30px;
+      padding: 0 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .img-cart{
+      width: 100%;
+      height: auto;
+    }
+
+    .name-cart{
+      color: white;
+      font-size: 20px;
+      font-weight: 300;
+      margin-top: 5px;
+      text-align: center;
+    }
+
+    .div-contenedor-precio{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .price-cart{
+      color: white;
+      font-size: 15px;
+      font-weight: 100;
+
+      margin-right: 10px;
+    }
+
+    .cart-total{
+      color: white;
+      font-size: 26px;
+      font-weight: 500;
+    }
+
+    .boton-incio{
+      padding: 8px;
+      border-radius: 10px;
+      width: 100%;
+
+      background-color: #ffee00d8;
+    }
+
+    .cantidad-cart{
+      font-size: 15px;
+      font-weight: 100;
+      color: white;
+    }
+  }
+
+  @media (max-width: 768px){
+   .contenedor-padre{
+    margin: 20px 10px;
+   }
+
+   .row{
+    width: 100%;
+  }
+
+  .div-form{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-container{
+    margin-left: 12px;
+  }
+  
+  .div-carrito{
+    width: 100%;
+  }
+
+  .div-carrito2{
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 10px;
+  }
+
+  .img-cart{
+   width: 50%;
+   max-height: 200px;
+   margin-left: 5%;
+  }
+
+  .div-padre-precio{
+    margin-left: 20px;
+    width: 40%;
+  }
+
+  .div-contenedor-precio{
+    flex-direction: column;
+  }
+
+  .name-cart{
+    font-size: 25px;
+    color: white;
+    font-weight: 300;
+  }
+
+  .price-cart{
+    font-size: 20px;
+    color: white;
+    font-weight: 100;
+  }
+
+  .cantidad-cart{
+    font-size: 15px;
+    font-weight: 100;
+    color: white;
+  }
+
+  .cart-total{
+    font-size: 35px;
+    font-weight: 300;
+    color: white;
+
+    margin-top: 20px;
+  }
+
+  .boton-incio{
+    width: 50%;
+  }
+
+  .div-destinatario{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+
+    margin: 0;
+  }
+
+  .ms-3{
+    margin-left: 0!important;
+  }
+
+  .step{
+    width: 20%;
+    height: auto;
+  }
+
+  .form-content{
+    width: 100%;
+  }
+
+  .input-envio{
+    padding-left: 0;
+  }
+
+  .error-message{
+    font-size: 10px;
+    font-weight: 100;
+  }
+
+  .div-domicilio{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .datos-domicilio{
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 0;
+  }
+
+  #numberPhone{
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  #numberAddress{
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .form-check-input[type='checkbox']:checked{
+    background-color: green;
+    border: none;
+  }
+
+  .form-check-label{
+    font-size: 15px;
+    font-weight: 200;
+  }
+
+  .next-button{
+    margin: 0;
+    margin-top: 20px;
+    padding: 5px;
+    color: rgb(255, 255, 255);
+    font-weight: 100;
+  }
+
+  .back-button{
+    margin: 0;
+    margin-top: 20px;
+    margin-right: 8px;
+    padding: 8px;
+    color: rgb(255, 255, 255);
+    font-weight: 100;
+  }
+
+  .buy-button{
+    all: unset;
+    margin-top: 15px;
+    width: 50%;
+    padding: 8px 0;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+    box-shadow: 2px 2px 2px rgb(255, 255, 255);
+    background-color: #00000000;
+    border: 2px solid #ffffff91;
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s;
+  }
+
+  .buy-button:hover{
+    background-color: #00ff22c8;
+    color: #ffffff;
+    transform: scale(1.05);
+  }
+  
+  .error-message{
+    font-size: 12px;
+    font-weight: 100;
+  }
+  
+  .next-button{
+    margin: 0;
+    margin-top: 10px;
+    padding: 10px;
+    color: rgb(255, 255, 255);
+    font-weight: 100;
+  }
+
+  .input-envio::placeholder{
+    font-size: 16px;
+  }
+  }
+
+  @media (max-width: 576px){
+    .contenedor-padre{
+      margin: 20px 0;
+     }
+  
+     .row{
+      width: 100%;
+    }
+  
+    .div-form{
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .form-container{
+      padding: 15px 10px;
+      margin-left: 12px;
+    }
+    
+    .div-carrito{
+      width: 100%;
+    }
+  
+    .div-carrito2{
+      display: flex;
+      flex-direction: row;
+  
+      margin-top: 10px;
+    }
+  
+    .img-cart{
+     width: 60%;
+     max-height: 300px;
+     margin-left: 2%;
+    }
+  
+    .div-padre-precio{
+      margin-left: 10px;
+      width: 40%;
+    }
+  
+    .div-contenedor-precio{
+      flex-direction: column;
+    }
+  
+    .name-cart{
+      font-size: 15px;
+      color: white;
+      font-weight: 300;
+    }
+  
+    .price-cart{
+      font-size: 12px;
+      color: white;
+      font-weight: 100;
+    }
+  
+    .cantidad-cart{
+      font-size: 12px;
+      font-weight: 100;
+      color: white;
+    }
+  
+    .cart-total{
+      font-size: 25px;
+      font-weight: 300;
+      color: white;
+  
+      margin-top: 20px;
+    }
+  
+    .boton-incio{
+      width: 50%;
+    }
+  
+    .div-destinatario{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+  
+      margin: 0;
+    }
+  
+    .ms-3{
+      margin-left: 0!important;
+    }
+  
+    .step{
+      width: 20%;
+      height: auto;
+    }
+  
+    .form-content{
+      width: 100%;
+    }
+  
+    .input-envio{
+      padding-left: 0;
+    }
+
+    .input-envio::placeholder{
+      font-size: 15px;
+    }
+  
+    .error-message{
+      font-size: 13px;
+      font-weight: 100;
+    }
+  
+    .div-domicilio{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+    }
+  
+    .datos-domicilio{
+      font-size: 20px;
+      margin-top: 30px;
+      margin-bottom: 0;
+    }
+
+    #name{
+      width: 50%;
+    }
+  
+    #numberPhone{
+      margin-top: 10px;
+      width: 60%;
+    }
+  
+    #numberAddress{
+      margin-top: 10px;
+      width: 40%;
+    }
+
+    #address{
+      width: 80%;
+    }
+  
+    .form-check-input[type='checkbox']:checked{
+      background-color: green;
+      border: none;
+    }
+  
+    .form-check-label{
+      font-size: 15px;
+      font-weight: 200;
+    }
+  
+    .next-button{
+      margin: 0;
+      margin-top: 20px;
+      padding: 5px;
+      color: rgb(255, 255, 255);
+      font-weight: 100;
+    }
+  
+    .back-button{
+      margin: 0;
+      margin-top: 20px;
+      margin-right: 8px;
+      padding: 8px;
+      color: rgb(255, 255, 255);
+      font-weight: 100;
+    }
+  
+    .buy-button{
+      all: unset;
+      margin-top: 15px;
+      width: 50%;
+      padding: 8px 0;
+      border-radius: 10px;
+  
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+  
+      box-shadow: 2px 2px 2px rgb(255, 255, 255);
+      background-color: #00000000;
+      border: 2px solid #ffffff91;
+      transition: transform 0.2s ease-in-out, box-shadow 0.3s;
+    }
+  
+    .buy-button:hover{
+      background-color: #00ff22c8;
+      color: #ffffff;
+      transform: scale(1.05);
+    }
   }

@@ -82,7 +82,7 @@ const Product = () => {
             alt={product.name}
           />
         </div>
-        <div className="col-md-4">
+        <div className="col-md-4 ms-4">
           <h2 className="product-name mb-3 fs-1 text-light">{product.name}</h2>
           <p className="mt-4 text-light">{product.description}</p>
           <h2 className="mt-4 text-light">${product.price}</h2>
@@ -131,7 +131,7 @@ const Product = () => {
       <h3 className="mb-4 text-light">Tambien podria interesarte</h3>
       <Slider {...settings}>
       {relatedProducts.map((product) => (
-        <div className="div-related" key={product.id}>
+        <div className="div-related p-3" key={product.id}>
         <div className="div-hijo-related mt-2" onClick={()=>handleClickProductRelated(product)} key={product.id}>
           <img className="img-related" src={product.image} alt={product.name} />
           <div className="card-body">

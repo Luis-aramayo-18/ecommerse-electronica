@@ -156,7 +156,7 @@ const Main = () => {
 
             return (
               <div key={index} className="col-lg-3 col-md-6 col-sm-12 mb-4">
-                <div className="card">
+                <div className="card mx-3">
                   <img
                     onClick={() => handleSeeMore(product)}
                     src={product.image}

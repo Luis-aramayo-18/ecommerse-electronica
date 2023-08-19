@@ -167,9 +167,9 @@ const FormCompra = () => {
   return (
     <>
       {/* ----------- FORM ---------------- */}
-      <div className="container">
-        <div className="row h-100">
-          <div className="col-7">
+          <div className="contenedor-padre">
+          <div className="row">
+          <div className="div-form col-lg-7 col-md-8 col-sm-12">
             <form onSubmit={handleFormSubmit} className="form-container mt-4">
               <div className="form-steps">
                 <div className={`step ${step === 0 ? "active" : ""} ${isStepComplete(0) ? "completed" : ""}`}>
@@ -199,8 +199,8 @@ const FormCompra = () => {
               </div>
               <div
                 className="progress-bar"
-                style={{ width: `${(step + 1) * 33.33}%` }}
-              ></div>
+                style={{ width: `${(step + 1) * 33.33}%` }}>
+              </div>
               <div className="form-content">
                 {step === 0 && (
                   <div className="d-flex flex-column">
@@ -208,8 +208,8 @@ const FormCompra = () => {
                     <p className="text-start m-0 fs-5 mb-1">
                       Datos del destinatario *
                     </p>
-                    <div className="d-flex">
-                      <div className="input-container">
+                    <div className="div-destinatario d-flex">
+                      <div className="div-destinatario-input">
                         <input
                           placeholder="Nombre"
                           type="text"
@@ -250,10 +250,10 @@ const FormCompra = () => {
                         )}
                       </div>
                     </div>
-                    <p className="text-start m-0 mt-3 fs-5">
+                    <p className="datos-domicilio">
                       Datos del domicilio *
                     </p>
-                    <div className="d-flex mt-1">
+                    <div className="div-domicilio d-flex mt-1">
                       <div className="input-container">
                         <input
                           placeholder="Calle"
@@ -295,7 +295,9 @@ const FormCompra = () => {
                     </div>
                     <textarea
                       type="text"
-                      className="input-envio form-control is-valid mt-4"
+                      className={shipmentInfo.comments 
+                          ? "input-envio form-control is-valid mt-4" 
+                          : 'input-envio form control mt-4'}
                       placeholder="Deja un comentario"
                       id="textReference"
                       value={shipmentInfo.comments}
@@ -432,43 +434,45 @@ const FormCompra = () => {
           </div>
 
           {/* ------------- CART ---------------- */}
-          <div className="col-4 div-carrito text-center">
-            <h4 className="text-center text-light mt-4">
+          <div className="col-lg-4 col-md-4 col-12 div-carrito">
+            <h4 className="cart-title">
               Mi compra {cart.length}
             </h4>
-            <hr />
-            <ul >
+            <hr className="m-0"/>
+            <ul className="p-0">
               {cart.map((product) => (
                 <li key={product.id}>
-                  <div className="d-flex mt-2">
+                  <div className="div-carrito2 mt-2">
                     <img
-                      className="w-50 h-50"
+                      className="img-cart"
                       src={product.image}
                       alt={product.name}
                     />
-                    <div className="ms-2">
-                      <p className="m-0 text-light fw-light">{product.name}</p>
-                      <p className="text-light fw-light">${product.price}</p>
-                      <p className="text-light fw-light">
+                    <div className="div-padre-precio">
+                      <p className="name-cart">{product.name}</p>
+                      <div className="div-contenedor-precio">
+                      <p className="price-cart">${product.price}</p>
+                      <p className="cantidad-cart">
                         Cantidad: {product.quantity}
                       </p>
-                    </div>
+                      </div>
+                      </div>
                   </div>
                 </li>
               ))}
             </ul>
-            <hr />
-            <h3 className="text-light fw-light">Total: ${getTotalPrice()}</h3>
+            <hr className="m-0"/>
+            <h3 className="cart-total">Total: ${getTotalPrice()}</h3>
             <hr />
             <button
-              className="w-75 text-center p-2 bg-warning rounded mt-3"
+              className="boton-incio"
               onClick={handleClick}
             >
               Volver al inicio
             </button>
           </div>
+          </div>
         </div>
-      </div>
     </>
   );
 };
