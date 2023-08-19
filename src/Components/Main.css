@@ -62,10 +62,10 @@
   background-image: url("http://www.w3.org/2000/svg");
   background-size: cover;
   position: absolute;
-  top: 50%; /* Centrar verticalmente */
-  right: 5px; /* Espacio entre el input y el ícono */
-  transform: translateY(-50%); /* Alinear verticalmente */
-  pointer-events: none; /* Evitar interacción con el ícono */
+  top: 50%; 
+  right: 5px;
+  transform: translateY(-50%);
+  pointer-events: none;
   transition: transform 0.2s;
 }
 
@@ -76,11 +76,11 @@
 .search-icon {
   position: absolute;
   top: 50%;
-  right: 10px; /* Ajusta el espacio entre el ícono y el input según tus necesidades */
+  right: 10px;
   transform: translateY(-50%);
   width: 16px;
   height: 16px;
-  fill: #ccc; /* Ajusta el color del ícono según tus necesidades */
+  fill: #ccc;
 }
 
 /* ---------------- CARD PRODUCT ------------ */
@@ -97,7 +97,6 @@
   
   .card:hover {
     transform: translateY(-5px);
-    /* box-shadow: 0px 10px 14px rgba(134, 134, 134, 0.5); */
     transform: scale(1.05);
   }
   
@@ -131,7 +130,6 @@
     cursor: pointer;
     color: #fff;
     font-weight: bold;
-    /* background-color: rgba(0, 255, 0, 0.578);     */
     background-color: #00000000;
     border: 2px solid #ffffff91;
     width: 100%;
@@ -148,9 +146,9 @@
     }
 
     .filters {
-      flex-direction: row; /* Cambia la dirección principal a fila en pantallas más grandes */
-      justify-content: center; /* Distribuye los elementos horizontalmente */
-      align-items: center;/* Alinea los elementos verticalmente abajo */
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
     }
 
     .price-filter{

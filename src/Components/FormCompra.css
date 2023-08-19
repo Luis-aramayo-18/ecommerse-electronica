@@ -120,14 +120,14 @@
   }
 
   .input-envio:focus {
-    background-color: rgba(0, 0, 0, 0.322); /* Cambia el color de fondo al hacer clic */
-    color: white; /* Cambia el color del texto al hacer clic */
-    outline: none; /* Quita el resaltado predeterminado al hacer clic (si lo deseas) */
+    background-color: rgba(0, 0, 0, 0.322);
+    color: white;
+    outline: none;
   }
   
   #textReference{
     width: 100%;
-    height: auto; /* La altura se ajustará automáticamente según el contenido */
+    height: auto;
     padding: 10px;
   }
 

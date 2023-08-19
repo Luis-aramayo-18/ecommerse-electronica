@@ -8,7 +8,6 @@ export function CartProvider ({children}) {
   const [cart,setCart] = useState(initialCart)
 
   useEffect(() => {
-    // Save cart data to localStorage whenever the cart state changes
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
@@ -42,7 +41,7 @@ export function CartProvider ({children}) {
       newCart[producInCartIndex].quantity -= 1
 
       if (newCart[producInCartIndex].quantity < 1) {
-        newCart.splice(producInCartIndex, 1); // Remove the product from the cart
+        newCart.splice(producInCartIndex, 1);
       }
 
       return setCart(newCart)

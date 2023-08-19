@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "./Hooks/useCart";
 import { AddToCartIcon, RemoveFromCartIcon } from "./Icons/Icons";
 import Cart from "./Cart";
-import "./Main.css"; // Number of products to display per page
+import "./Main.css";
 
 const Main = () => {
   const [maxPrice, setMaxPRice] = useState(0);

@@ -131,12 +131,11 @@ const Product = () => {
       <h3 className="mb-4 text-light">Tambien podria interesarte</h3>
       <Slider {...settings}>
       {relatedProducts.map((product) => (
-        <div className="div-related p-3" key={product.id}>
+        <div className="div-related" key={product.id}>
         <div className="div-hijo-related mt-2" onClick={()=>handleClickProductRelated(product)} key={product.id}>
           <img className="img-related" src={product.image} alt={product.name} />
           <div className="card-body">
           <h3 className="name-related card-title text-light fw-normal mb-1">{product.name}</h3>
-          {/* <p className="card-text text-light fw-normal">{product.description}</p> */}
           <p className="price-related text-light fs-4 fw-normal">${product.price}</p>
           </div>
         </div>
