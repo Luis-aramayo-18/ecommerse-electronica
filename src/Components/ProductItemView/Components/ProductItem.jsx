@@ -192,9 +192,17 @@ const ProductItem = ({ product, comments }) => {
                   )}
                 </button>
 
-                <div className="flex justify-center items-center lg:flex-col lg:items-center gap-5 font-medium">
-                  <span>Calcular costo de Envió</span>
-                  <span>Retirar en Tienda</span>
+                <div className="flex justify-center items-center lg:flex-col lg:items-center gap-5 font-medium mt-5">
+                  <hr className="w-full" />
+                  <div>
+                    <i className="bx bxs-truck me-2"></i>
+                    <span>Calcular costo de Envió</span>
+                  </div>
+                  <div>
+                    <i className="bx bx-store me-2"></i>
+                    <span>Retirar en Tienda</span>
+                  </div>
+                  <hr className="w-full" />
                 </div>
               </div>
             </div>
