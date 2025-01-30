@@ -17,7 +17,7 @@ import GamerBanner from "./Components/GamerBanner";
 
 const StyledSlider = styled(Slider)`
   .slick-list {
-    display: flex !important;
+    
   }
   ,
   .slick-track {
@@ -42,15 +42,15 @@ const Home = () => {
     slidesToShow: 5,
     slidesToScroll: 1,
     initialSlide: 0,
-    autoplay: false,
-    autoplaySpeed: 3000,
+    autoplay: true,
+    autoplaySpeed: 5000,
     adaptiveHeight: true,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           dots: true,
-          slidesToShow: 1,
+          slidesToShow: 4,
           slidesToScroll: 1,
           infinite: true,
           arrows: false,

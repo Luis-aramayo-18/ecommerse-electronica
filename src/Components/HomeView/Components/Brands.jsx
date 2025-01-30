@@ -6,7 +6,6 @@ const Brands = () => {
       <div className="mt-10 flex flex-col justify-center h-full">
         <div className="flex justify-start items-center text-center gap-1 uppercase tracking-widest text-2xl font-semibold text-white">
           <h2>Las mejores marcas</h2>
-          <i className="bx bxs-right-arrow-alt"></i>
         </div>
 
         <div className="gap-8 grid grid-rows-3 lg:grid-rows-2 grid-cols-2 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-4 place-items-center mt-10">

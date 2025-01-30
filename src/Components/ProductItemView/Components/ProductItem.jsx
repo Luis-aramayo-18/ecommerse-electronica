@@ -1,12 +1,9 @@
 import React from "react";
 import Slider from "react-slick";
 import { useCart } from "../../Hooks/useCart";
-import useFormatNumber from "../../Hooks/useFormatNumber";
 
 const ProductItem = ({ product, comments }) => {
   const { addToCart, removeFromCart, cart } = useCart();
-  const formattedPrice = useFormatNumber(product?.price || 0);
-  const formattedFinalPrice = useFormatNumber(product?.final_price || 0);
 
   const checkProductInCart = (product) => {
     if (product) {

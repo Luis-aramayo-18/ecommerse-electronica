@@ -15,3 +15,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@layer components {
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px; /* Ancho de la barra de desplazamiento */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #156acb; /* Color de la barra de desplazamiento */
+    border-radius: 4px; /* Bordes redondeados */
+    border: 2px solid #a6a6a6; /* Borde blanco alrededor de la barra */
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: transparent; /* Color de fondo de la pista */
+    border-radius: 4px; /* Bordes redondeados de la pista */
+  }
+
+  scrollbar {
+    width: 3px;
+  }
+
+  scrollbar-thumb {
+    background-color: #025dc5;
+    border-radius: 4px;
+  }
+}

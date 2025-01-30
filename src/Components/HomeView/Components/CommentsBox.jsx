@@ -8,7 +8,7 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
   const [comments, setComments] = useState([]);
   const [optionsComment, setOptionsComment] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  
+
   const [commentId, setCommentId] = useState();
   const [errors, setErrors] = useState({});
   const inputComment = useRef();
@@ -210,20 +210,19 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
     <section className="mx-6 sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24 flex flex-col justify-center mt-10">
       <div className="flex items-center text-center gap-1 uppercase mb-12 tracking-widest text-2xl font-semibold text-white">
         <h2>El mejor servicio</h2>
-        <i className="bx bxs-right-arrow-alt"></i>
       </div>
       <div>
         <StyledSlider {...settings}>
           {comments.map((comment) => (
             <div
-              className="card-comments relative z-20 border rounded-xl p-5 min-h-60"
+              className="card-comments relative z-20 border rounded-xl p-5 min-h-[150px]"
               key={comment.id}
             >
               <div className="head-card flex items-center gap-3">
                 <div>
                   {comment.user.image ? (
                     <img
-                      className="h-24 w-24 object-cover rounded-full border"
+                      className="h-12 w-12 object-cover rounded-full border"
                       src={
                         comment.user.image
                           ? `http://localhost:8000${comment.user.image}`
@@ -233,7 +232,7 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
                     />
                   ) : (
                     <img
-                      className="h-24 w-24 object-cover rounded-full border"
+                      className="h-12 w-12 object-cover rounded-full border"
                       src="/img/home/user.png"
                       alt=""
                     />
