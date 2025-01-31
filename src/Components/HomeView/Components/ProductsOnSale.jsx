@@ -11,6 +11,7 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
     const fetchProducts = async () => {
       try {
         const products = await api.get("/products/on-sale-products/");
+        
         setProducts(products.data);
       } catch (error) {
         console.log(error);
@@ -29,8 +30,6 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
     fetchProducts();
     fetchCategories();
   }, []);
-
-  console.log(categories);
 
   return (
     <section className="px-6 sm:x-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-6 lg:py-8 bg-violet-600">
