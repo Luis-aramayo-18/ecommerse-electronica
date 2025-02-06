@@ -56,7 +56,6 @@ const Nav = () => {
       const response = await api.get(
         `/products/search/?search=${searchProduct}`
       );
-      console.log(response);
 
       if (response.status === 200) {
         setBrand(response.data.products[0].brand_detail.name);

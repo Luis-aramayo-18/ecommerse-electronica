@@ -24,7 +24,7 @@ const OrderListFilter = ({setOrderListMobile, orderListMobile, valueOrder, filte
                   ? "text-orange-500"
                   : "hover:text-orange-500"
               }`}
-              onClick={() => handleFilterChange("sort", "Discount")}
+              onClick={() => handleFilterChange("sort", "Discount", "Descuentos")}
             >
               Descuentos
             </li>
@@ -35,7 +35,7 @@ const OrderListFilter = ({setOrderListMobile, orderListMobile, valueOrder, filte
                   ? "text-orange-500"
                   : "hover:text-orange-500"
               }`}
-              onClick={() => handleFilterChange("sort", "Sold")}
+              onClick={() => handleFilterChange("sort", "Sold", "Mas Vendido")}
             >
               Ventas
             </li>
@@ -46,7 +46,7 @@ const OrderListFilter = ({setOrderListMobile, orderListMobile, valueOrder, filte
                   ? "text-orange-500"
                   : "hover:text-orange-500"
               }`}
-              onClick={() => handleFilterChange("sort", "Rating")}
+              onClick={() => handleFilterChange("sort", "Rating", "Mejores Calificados")}
             >
               Mejores Calificados
             </li>
@@ -57,7 +57,7 @@ const OrderListFilter = ({setOrderListMobile, orderListMobile, valueOrder, filte
                   ? "text-orange-500"
                   : "hover:text-orange-500"
               }`}
-              onClick={() => handleFilterChange("sort", "Last")}
+              onClick={() => handleFilterChange("sort", "Last", "Últimos")}
             >
               Últimos Agregados
             </li>

@@ -7,23 +7,22 @@ const ListProducts = ({
   setProducts,
   setFilteredProducts,
   filteredProducts,
-  loadingPro
+  loadingPro,
+  nexPage,
+  setNexPage
 }) => {
   const api = useAxios();
 
   const [loading, setLoading] = useState(false);
-  const [nextPage, setNextPage] = useState(
-    "http://localhost:8000/api/products/?category=9&limit=10&offset=10"
-  );
 
   const loadProducts = async () => {
-    if (nextPage === null) {
+    if (nexPage === null) {
       return <p>no hay mas productos</p>;
     }
 
     try {
       setLoading(true);
-      const response = await api.get(nextPage);
+      const response = await api.get(nexPage);
 
       if (response.status === 200) {
         const updatesProducts = response.data.results;
@@ -47,7 +46,7 @@ const ListProducts = ({
           if (next === "null") {
             console.log("hola");
           } else {
-            setNextPage(response.data.next);
+            setNexPage(response.data.next);
           }
         }
       }
@@ -81,7 +80,7 @@ const ListProducts = ({
       <div className="my-10 flex justify-center">
         {loading ? (
           <Loading />
-        ) : nextPage === null ? (
+        ) : nexPage === null ? (
           <p className="text-gray-500">No hay más productos</p>
         ) : (
           <button

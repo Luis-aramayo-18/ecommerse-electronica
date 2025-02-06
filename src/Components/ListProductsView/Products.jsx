@@ -8,11 +8,12 @@ import OrderListFilterMob from "./Components/OrderListFilterMob";
 import Filters from "./Components/Filters";
 import ListProducts from "./Components/ListProducts";
 import { set } from "react-hook-form";
+import Loading from "../Loading";
 
 const Products = () => {
   const api = useAxios();
   const { categoryId } = useParams();
-
+  const [isDeletingFilters, setIsDeletingFilters] = useState(false);
   const [loadingPro, setLoadingPro] = useState(false);
   const [orderListMobile, setOrderListMobile] = useState(false);
   const [filterMobile, setFilterMobile] = useState(false);
@@ -21,6 +22,7 @@ const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [brandsMenu, setBrandsMenu] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [nexPage, setNexPage] = useState("");
   const [filters, setFilters] = useState({
     maxPrice: 0,
     minPrice: 0,
@@ -43,19 +45,10 @@ const Products = () => {
           product.final_price ? product.final_price : product.price
         );
 
-      
         const min = Math.min(...prices);
         const max = Math.max(...prices);
 
-        setFilters({
-          minPrice: min,
-          maxPrice: max,
-          currentMinPrice: searchParams.get("currentMinPrice")
-            ? searchParams.get("currentMinPrice")
-            : min,
-          brand: searchParams.get("brand") ? searchParams.get("brand") : "All",
-          sort: searchParams.get("sort") ? searchParams.get("sort") : "Default",
-        });
+        updateFilters(min, max);
         setProducts(products);
         setFilteredProducts(products);
       }
@@ -70,25 +63,10 @@ const Products = () => {
     fetchProduct();
   }, [categoryId]);
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (
-  //       window.innerHeight + document.documentElement.scrollTop >=
-  //       document.documentElement.offsetHeight
-  //     ) {
-  //       if (!loading) {
-  //         fetchProduct();
-  //       }
-  //     }
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, [loading]);
-
-  const handleFilterChange = (key, value) => {
+  const handleFilterChange = (key, value, order) => {
     const newFilters = { ...filters, [key]: value };
     setFilters(newFilters);
+    setValueOrder(order);
 
     const updatedSearchParams = new URLSearchParams(searchParams);
     updatedSearchParams.set(key, value);
@@ -96,12 +74,14 @@ const Products = () => {
   };
 
   const deleteFilters = () => {
-    const prices = products.map((product) =>
-      product.final_price ? product.final_price : product.price
-    );
-    const min = Math.min(...prices);
-    const max = Math.max(...prices);
-    setValueOrder("");
+    setIsDeletingFilters(true);
+    setFilters({
+      minPrice: 0,
+      maxPrice: 0,
+      currentMinPrice: 0,
+      brand: "All",
+      sort: "Default",
+    });
     setSearchParams((prevParams) => {
       const newParams = new URLSearchParams(prevParams);
       newParams.delete("brand");
@@ -109,94 +89,210 @@ const Products = () => {
       newParams.delete("sort");
       return newParams;
     });
-    setFilters({
-      minPrice: min || 0,
-      maxPrice: max || 0,
-      currentMinPrice: min || 0,
-      brand: "All",
-      sort: "Default",
-    });
+    setValueOrder("");
   };
 
-  useEffect(() => {
-    const filtered = products.filter((product) => {
-      const price = product.final_price
-        ? product.final_price
-        : product.price;
+  const updateFilters = (min, max, newCurrentMinPrice) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      minPrice: min,
+      maxPrice: max,
+      currentMinPrice: newCurrentMinPrice ?? prevFilters.currentMinPrice,
+      sort: searchParams.get("sort") || "Default",
+      brand: searchParams.get("brand") || "All",
+    }));
+  };
 
-      const matchesPrice = price >= filters.currentMinPrice;
-
-      const matchesBrand =
-        filters.brand === "All" || product.brand_detail.name === filters.brand;
-
-      return matchesPrice && matchesBrand;
-    });
-
-    setFilteredProducts(filtered);
-
-    const sorted = [...filtered].sort((a, b) => {
-      switch (filters.sort) {
-        case "Discount":
-          setValueOrder("Descuento");
-          const discountA = parseFloat(a.discount_percentage) || 0;
-          const discountB = parseFloat(b.discount_percentage) || 0;
-          return discountB - discountA;
-        case "Sold":
-          setValueOrder("Ventas");
-          return (b.total_sold || 0) - (a.total_sold || 0);
-        case "Rating":
-          setValueOrder("Mejores Calificados");
-          return (b.average_rating || 0) - (a.average_rating || 0);
-        case "Last":
-          setValueOrder("Últimos Agregados");
-          orderByLastProduct();
-          return 0;
-        default:
-          return 0;
-      }
-    });
-
-    setFilteredProducts(sorted);
-  }, [filters.sort, filters.currentMinPrice, filters.brand, products]);
-
-  useEffect(() => {
-    if (filters.brand !== "All") {
-      const filteredByBrand = products.filter(
-        (product) => product.brand_detail.name === filters.brand
-      );
-
-      const prices = filteredByBrand.map((product) =>
-        product.final_price ? product.final_price : product.price
-      );
-
-      const min = Math.min(...prices);
-      const max = Math.max(...prices);
-
-      setFilters((prevFilters) => ({
-        ...prevFilters,
-        minPrice: min || 0,
-        maxPrice: max || 0,
-        currentMinPrice: min || 0,
-      }));
-    }
-  }, [filters.brand]);
-
-  const orderByLastProduct = async () => {
+  const orderByOffers = async () => {
     const category = parseFloat(categoryId);
-    const latest = true;
 
     try {
-      const lastProducts = await api.get(
-        `/products/?category=${category}&last_products=${latest}`
+      setLoadingPro(true);
+
+      const offerProducts = await api.get(
+        `/products/on-sale-products/?category=${category}`
       );
-      if (lastProducts) {
-        setFilteredProducts(lastProducts.data);
-        setValueOrder("Últimos Agregados");
+
+      if (offerProducts) {
+        const prices = offerProducts.data.results.map((product) =>
+          product.final_price ? product.final_price : product.price
+        );
+
+        const min = Math.min(...prices);
+        const max = Math.max(...prices);
+
+        updateFilters(min, max);
+        setFilteredProducts(offerProducts.data.results);
+        setProducts(offerProducts.data.results);
+
+        if (offerProducts.data.next) {
+          setNexPage(offerProducts.data.next)
+        }
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoadingPro(false);
     }
   };
+
+  const orderBySales = async () => {
+    const category = parseFloat(categoryId);
+
+    try {
+      setLoadingPro(true);
+
+      const salesProducts = await api.get(
+        `/products/sales-products/?category=${category}`
+      );
+
+      if (salesProducts) {
+        const prices = salesProducts.data.results.map((product) =>
+          product.final_price ? product.final_price : product.price
+        );
+
+        const min = Math.min(...prices);
+        const max = Math.max(...prices);
+
+        updateFilters(min, max);
+        setFilteredProducts(salesProducts.data.results);
+        setProducts(salesProducts.data.results);
+
+        if (salesProducts.data.next) {
+          setNexPage(salesProducts.data.next)
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingPro(false);
+    }
+  };
+
+  const orderByRating = async () => {
+    const category = parseFloat(categoryId);
+
+    try {
+      setLoadingPro(true);
+
+      const ratesProducts = await api.get(
+        `/products/rating-products/?category=${category}`
+      );
+      
+      if (ratesProducts) {
+        const prices = ratesProducts.data.results.map((product) =>
+          product.final_price ? product.final_price : product.price 
+        );
+
+        const min = Math.min(...prices);
+        const max = Math.max(...prices);
+
+        updateFilters(min, max);
+        setFilteredProducts(ratesProducts.data.results);
+        setProducts(ratesProducts.data.results);
+
+        if (ratesProducts.data.next) {
+          setNexPage(ratesProducts.data.next)
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingPro(false);
+    }
+  };
+
+  const orderByLastProduct = async () => {
+    const category = parseFloat(categoryId);
+
+    try {
+      setLoadingPro(true);
+
+      const lastProducts = await api.get(
+        `/products/latest-products/?category=${category}`
+      );      
+            
+      if (lastProducts) {
+        const prices = lastProducts.data.results.map((product) =>
+          product.final_price ? product.final_price : product.price
+        );
+
+        const min = Math.min(...prices);
+        const max = Math.max(...prices);
+
+        updateFilters(min, max);
+        setFilteredProducts(lastProducts.data.results);
+        setProducts(lastProducts.data.results);
+
+        if (lastProducts.data.next) {
+          setNexPage(lastProducts.data.next)
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingPro(false);
+    }
+  };
+
+  useEffect(() => {
+    switch (filters.sort) {
+      case "Discount":
+        orderByOffers();
+        break;
+      case "Sold":
+        orderBySales();
+        break;
+      case "Rating":
+        orderByRating();
+        break;
+      case "Last":
+        orderByLastProduct();
+        break;
+      default:
+        break;
+    }
+  }, [filters.sort]);
+
+  useEffect(() => {
+    let filtered = products;
+
+    if (filters.brand !== "All") {
+      filtered = filtered.filter(
+        (product) => product.brand_detail.name === filters.brand
+      );
+    }
+
+    let min = 0;
+    let max = 0;
+    if (filtered.length > 0) {
+      const prices = filtered.map(
+        (product) => product.final_price ?? product.price
+      );
+      min = Math.min(...prices);
+      max = Math.max(...prices);
+    }
+
+    const newCurrentMinPrice =
+      filters.brand !== "All" ? min : filters.currentMinPrice;
+
+    updateFilters(min, max, newCurrentMinPrice);
+
+    filtered = filtered.filter((product) => {
+      const price = product.final_price ?? product.price;
+      return price >= newCurrentMinPrice;
+    });
+
+    setFilteredProducts(filtered);
+  }, [filters.brand, filters.currentMinPrice, products]);
+
+  useEffect(() => {
+    if (isDeletingFilters) {
+      fetchProduct();
+      setIsDeletingFilters(false);
+    }
+  }, [isDeletingFilters]);
+  
 
   return (
     <>
@@ -243,6 +339,8 @@ const Products = () => {
             setProducts={setProducts}
             setFilteredProducts={setFilteredProducts}
             filteredProducts={filteredProducts}
+            nexPage={nexPage}
+            setNexPage={setNexPage}
           />
         </div>
       </div>
