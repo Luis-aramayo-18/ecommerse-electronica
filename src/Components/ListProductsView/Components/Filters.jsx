@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Filters = ({
   filterMobile,
@@ -11,9 +11,20 @@ const Filters = ({
   products,
   deleteFilters,
 }) => {
+  const [priceMenu, setPriceMenu] = useState(false);
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
-  // console.log(filters.minPrice, filters.maxPrice, filters.currentMinPrice );
-  
+  const handlePriceChange = (e) => {
+    e.preventDefault();
+    if (minPrice) {
+      handleFilterChange("min_price", minPrice);
+    }
+    if (maxPrice) {
+      handleFilterChange("max_price", maxPrice);
+    }
+  };
+
   return (
     <>
       <div
@@ -42,17 +53,8 @@ const Filters = ({
           </span>
         </div>
 
-        <div className="p-6 lg:p-0">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col gap-1 mt-3 text-white lg:text-black">
-              <p className="text-2xl font-semibold ">Precio</p>
-              <label className="flex flex-col gap-2 text-lg text-white/80 lg:text-black">
-                A partir de:
-              </label>
-            </div>
-
-            <i className="bx bxs-chevron-right text-2xl text-white lg:text-black"></i>
-          </div>
+        {/* <div className="p-6 lg:p-0">
+          
           <input
             type="range"
             className="w-full mt-3"
@@ -81,50 +83,112 @@ const Filters = ({
               }).format(filters.maxPrice)}
             </span>
           </div>
-        </div>
+        </div> */}
 
-        <div
-          className="border-b py-4 mb-2 border-white lg:border-black cursor-pointer m-6 lg:m-0"
-          onClick={() => setBrandsMenu(!brandsMenu)}
-        >
-          <div className="flex items-center justify-between text-white lg:text-black">
-            <h4 className="text-xl font-semibold">Marcas:</h4>
-            <i
-              className={`bx bxs-chevron-right text-2xl transition-all duration-100 ${
-                brandsMenu ? "rotate-90" : ""
+        <form>
+          <div
+            className="mt-5 cursor-pointer"
+            onClick={() => setPriceMenu(!priceMenu)}
+          >
+            <div className="flex items-center justify-between text-white lg:text-black">
+              <h4 className="text-xl font-semibold">Precio</h4>
+              <i
+                className={`bx bxs-chevron-right text-2xl transition-all duration-100 ${
+                  priceMenu ? "rotate-90" : ""
+                }`}
+              ></i>
+            </div>
+
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className={`flex flex-col gap-2 mt-2 max-h-0 overflow-hidden transition-all duration-300 text-white/80 lg:text-black ${
+                priceMenu ? "max-h-52" : ""
               }`}
-            ></i>
+            >
+              <div className="flex">
+                <input
+                  type="number"
+                  placeholder="min"
+                  className="w-[50%] p-2"
+                  onChange={(e) => setMinPrice(e.target.value)}
+                  value={minPrice}
+                  onClick={(e) => e.stopPropagation()}
+                />
+                <input
+                  type="number"
+                  placeholder="max"
+                  className="w-[50%] ms-2 p-2"
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                  value={maxPrice}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              </div>
+
+              <button
+                className="p-2 font-medium border w-[30%]"
+                onClick={handlePriceChange}
+              >
+                Filtrar
+              </button>
+            </div>
           </div>
 
-          <ul
-            className={`flex flex-col gap-2 mt-2 max-h-0 overflow-hidden transition-all duration-300 text-white/80 lg:text-black ${
-              brandsMenu ? "max-h-52" : ""
-            }`}
+          <div
+            className="py-4 mb-2 border-white cursor-pointer m-6 lg:m-0"
+            onClick={() => setBrandsMenu(!brandsMenu)}
           >
-            {[
-              ...new Set(products.map((product) => product.brand_detail.name)),
-            ].map((brand) => (
-              <li
-                key={brand}
-                onClick={() => handleFilterChange("brand", brand)}
-                className={`cursor-pointer font-medium transition-all duration-100 hover:text-blue-600 ${
-                  filters.brand === brand ? "text-blue-600" : ""
+            <div className="flex items-center justify-between text-white lg:text-black">
+              <h4 className="text-xl font-semibold">Marcas</h4>
+              <i
+                className={`bx bxs-chevron-right text-2xl transition-all duration-100 ${
+                  brandsMenu ? "rotate-90" : ""
                 }`}
-              >
-                {brand}
-              </li>
-            ))}
-          </ul>
-        </div>
+              ></i>
+            </div>
 
-        <div className="p-6 lg:p-0 mt-4">
-          <button
-            className="border border-white p-2 rounded-2xl transition-all duration-100 lg:hover:bg-red-300 w-full"
-            onClick={deleteFilters}
-          >
-            <i className="bx bxs-trash text-2xl text-white lg:text-black"></i>
-          </button>
-        </div>
+            <ul
+              className={`flex flex-col gap-2 mt-2 max-h-0 overflow-hidden transition-all duration-300 text-white/80 lg:text-black ${
+                brandsMenu ? "max-h-52" : ""
+              }`}
+            >
+              {[
+                ...new Set(
+                  products.map((product) => product.brand_detail.name)
+                ),
+              ].map((brand) => (
+                <li
+                  key={brand}
+                  onClick={() => handleFilterChange("brand", brand)}
+                  className={`cursor-pointer font-medium transition-all duration-100 hover:text-blue-600 ${
+                    filters.brand === brand ? "text-blue-600" : ""
+                  }`}
+                >
+                  {brand}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* <div className="mb-4">
+            <button
+              type="submit"
+              className="border border-white p-2 rounded-2xl transition-all duration-100 lg:hover:bg-red-300 w-full text-xl font-medium"
+            >
+              Filtrar
+            </button>
+          </div> */}
+
+          <hr className="w-full" />
+
+          <div className="p-6 lg:p-0 mt-4">
+            <button
+              className="border border-white p-2 rounded-2xl transition-all duration-100 lg:hover:bg-red-300 w-full"
+              onClick={deleteFilters}
+            >
+              <i className="bx bxs-trash text-2xl text-white lg:text-black"></i>
+            </button>
+          </div>
+        </form>
       </section>
     </>
   );

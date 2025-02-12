@@ -20,46 +20,46 @@ const OrderListFilter = ({setOrderListMobile, orderListMobile, valueOrder, filte
           <div className="bg-gray-800 text-white border border-white p-4 flex flex-col w-full gap-2 backdrop-blur-md">
             <li
               className={`cursor-pointer text-start ${
-                filters.sort === "Discount"
+                filters.sort === "discount"
                   ? "text-orange-500"
                   : "hover:text-orange-500"
               }`}
-              onClick={() => handleFilterChange("sort", "Discount", "Descuentos")}
+              onClick={() => handleFilterChange("sort", "discount", "Descuentos")}
             >
               Descuentos
             </li>
 
             <li
               className={`cursor-pointer text-start ${
-                filters.sort === "Sold"
+                filters.sort === "best_selling"
                   ? "text-orange-500"
                   : "hover:text-orange-500"
               }`}
-              onClick={() => handleFilterChange("sort", "Sold", "Mas Vendido")}
+              onClick={() => handleFilterChange("sort", "best_selling", "Mas Vendido")}
             >
-              Ventas
+              Mas Vendido
             </li>
 
             <li
               className={`cursor-pointer text-start ${
-                filters.sort === "Rating"
+                filters.sort === "best_rated"
                   ? "text-orange-500"
                   : "hover:text-orange-500"
               }`}
-              onClick={() => handleFilterChange("sort", "Rating", "Mejores Calificados")}
+              onClick={() => handleFilterChange("sort", "best_rated", "Mejores Calificados")}
             >
               Mejores Calificados
             </li>
 
             <li
               className={`cursor-pointer text-start ${
-                filters.sort === "Last"
+                filters.sort === "latest"
                   ? "text-orange-500"
                   : "hover:text-orange-500"
               }`}
-              onClick={() => handleFilterChange("sort", "Last", "Últimos")}
+              onClick={() => handleFilterChange("sort", "latest", "Últimos")}
             >
-              Últimos Agregados
+              Últimos
             </li>
           </div>
         </ul>

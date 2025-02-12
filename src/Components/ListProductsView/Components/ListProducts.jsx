@@ -9,7 +9,7 @@ const ListProducts = ({
   filteredProducts,
   loadingPro,
   nexPage,
-  setNexPage
+  setNexPage,
 }) => {
   const api = useAxios();
 
@@ -80,15 +80,15 @@ const ListProducts = ({
       <div className="my-10 flex justify-center">
         {loading ? (
           <Loading />
-        ) : nexPage === null ? (
-          <p className="text-gray-500">No hay más productos</p>
-        ) : (
+        ) : nexPage ? (
           <button
             onClick={loadProducts}
             className="p-4 border uppercase font-semibold"
           >
             Ver Más
           </button>
+        ) : (
+          <p className="text-gray-500">No hay más productos</p>
         )}
       </div>
     </section>
