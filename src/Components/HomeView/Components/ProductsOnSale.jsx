@@ -10,9 +10,9 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const products = await api.get("/products/on-sale-products/");
+        const products = await api.get("/products/?sort=discount");
         
-        setProducts(products.data);
+        setProducts(products.data.results);
       } catch (error) {
         console.log(error);
       }
@@ -32,14 +32,14 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
   }, []);
 
   return (
-    <section className="px-6 sm:x-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-6 lg:py-8 bg-violet-600">
-      <div className="flex flex-col items-start  text-2xl font-semibold text-white mb-2">
+    <section className="px-6 sm:x-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-6 lg:py-8 bg-[#334155]">
+      <div className="flex flex-col items-start  text-2xl font-semibold text-[#f0f7fe] mb-2">
         <h2 className="text-center uppercase tracking-widest">Ofertas</h2>
       </div>
 
       <div className="flex gap-3 mb-6 relative">
         <button
-          className="flex items-center text-lg font-semibold text-white ms-2 group"
+          className="flex items-center text-lg font-semibold text-[#deecfb] ms-2 group"
           onClick={() => setMenu(!menu)}
         >
           <p>ver</p>
@@ -53,16 +53,16 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
         {categories && (
           <nav className="relative w-full h-auto overflow-hidden">
             <ul
-              className={`h-full flex items-center gap-3 transform transition-all duration-300 absolute left-0 text-sm font-medium text-gray-800 ${
+              className={`h-full flex items-center gap-3 transform transition-all duration-300 absolute left-0 text-sm font-medium text-[#deecfb] ${
                 menu
                   ? " translate-x-0 opacity-100"
                   : " -translate-x-full opacity-0"
               }`}
             >
               {categories.map((category) => (
-                <li key={category.id}>
+                <li key={category.id} className="transition-all duration-150 hover:text-[#fea401]">
                   <Link
-                    to={`/products/category/${category.id}?sort=Discount`}
+                    to={`/products/category/${category.id}?sort=discount`}
                     className=""
                   >
                     {category.name}

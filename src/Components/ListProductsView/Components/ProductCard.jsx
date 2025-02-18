@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
   }
 
   return (
-    <div className="max-w-[250px] flex flex-col  group h-[290px] md:h-[320px] lg:h-[380px]">
+    <div className="max-w-[250px] w-full flex flex-col  group h-[290px] md:h-[320px] lg:h-[380px] relative border-none">
       <Link
         to={`/products/category/${product.category}/product/${product.id}`}
         className="h-[50%]"
@@ -37,10 +37,10 @@ const ProductCard = ({ product }) => {
       <div className="h-[50%] w-full flex flex-col justify-between pt-2">
         <div>
           <div>
-            <h2 className="font-bold text-sm lg:text-base">{product.name}</h2>
+            <h2 className="font-bold text-sm lg:text-base text-[#f0f7fe]">{product.name}</h2>
           </div>
 
-          <div className="flex items-center gap-2 text-xs">
+          <div className="flex items-center gap-2 text-xs text-[#CBD5E1]">
             <p className={`${product.is_on_sale ? "line-through" : ""}`}>
               <span className="font-medium">
                 {product.is_on_sale ? "" : "Precio: "}
@@ -54,13 +54,13 @@ const ProductCard = ({ product }) => {
             <span
               className={`${
                 product.is_on_sale
-                  ? "font-medium text-xs bg-red-500 p-2"
+                  ? "font-medium text-xs bg-[#FF3131] p-2"
                   : "hidden"
               }`}
             >{`%${product.discount_percentage} OFF!`}</span>
           </div>
 
-          <div>
+          <div className="text-[#CBD5E1]">
             <div>
               <p
                 className={`${
@@ -81,8 +81,8 @@ const ProductCard = ({ product }) => {
 
         <div className="hidden lg:block">
           <button
-            className={`mt-2 w-full p-4 text-xs font-bold transition duration-300 text-neutral-400 border-gray-300 border-2 group-hover:text-white group-hover:border-white ${
-              isProductInCart(product) ? "bg-red-500" : "bg-black/80"
+            className={`mt-2 w-full p-4 text-xs font-bold transition duration-300 border-[#deecfb] border-2 group-hover:bg-[#6dafed] group-hover:border-[#f0f7fe] group-hover:text-white bg-[#334155] text-[#deecfb] ${
+              isProductInCart(product) ? "bg-[#FF3131]" : "bg-black/80"
             }`}
             onClick={() =>
               isProductInCart(product)
@@ -92,12 +92,10 @@ const ProductCard = ({ product }) => {
           >
             {isProductInCart(product) ? (
               <div className="flex items-center justify-center ">
-             
                 <p>ELIMINAR</p>
               </div>
             ) : (
               <div className="flex items-center justify-center ">
-               
                 <p>COMPRAR</p>
               </div>
             )}

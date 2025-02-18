@@ -11,7 +11,7 @@ const GamerBanner = () => {
 
   return (
     <section className="cursor-pointer" onClick={() => navigateGamerProduct()}>
-      <img src="/img/home/banner-gamer.webp" alt="" />
+      <img src="/img/home/banner-gamer.webp" alt="" className="border-b-2 object-cover w-full h-48 sm:h-auto" />
     </section>
   );
 };

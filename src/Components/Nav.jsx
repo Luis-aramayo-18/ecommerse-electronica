@@ -107,29 +107,56 @@ const Nav = () => {
     });
   };
 
+  useEffect(() => {
+    if (openMenu) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [openMenu]);
+
   return (
     <>
-      <section className="bg-orange-500 z-10 px-3 md:px-14 lg:px-24 h-[8vh] md:h-[10vh] sticky w-full top-0">
-        <nav className="flex items-center justify-center h-full gap-4 bg-orange-500 text-white relative">
+      <section className="border-b-2 bg-[#2a4fa3]/80 z-10 px-3 md:px-14 lg:px-24 h-[8vh] md:h-[10vh] sticky w-full top-0">
+        <nav className="flex items-center justify-center h-full gap-4 relative">
           {/* ---- BURGER MENU ICON----- */}
-          <div className="cursor-pointer absolute left-0" onClick={toggleMenu}>
-            <i className="bx bx-menu text-4xl"></i>
-          </div>
+          <button className="absolute left-0 text-white" onClick={toggleMenu}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="size-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </button>
 
           <div
-            className={`${
+            className={`fixed inset-0 z-20 transition-all duration-300 ${
               openMenu
-                ? "fixed z-10 top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm "
-                : " "
+                ? "bg-black/50 backdrop-blur-sm"
+                : "opacity-0 pointer-events-none"
             }`}
+            onClick={toggleMenu}
           >
             <div
-              className={`flex flex-col items-start fixed left-0 top-0 z-50 p-8 bg-orange-500 w-4/6 sm:w-3/6 md:w-[40%] lg:w-[30%] h-screen transform transition-transform duration-300 ${
+              className={`border-r-2 flex flex-col items-start fixed left-0 top-0 z-50 p-8 backdrop-blur-lg bg-[#0f172a] w-5/6 sm:w-3/6 md:w-[40%] lg:w-[25%] h-screen transform transition-transform duration-300 ${
                 openMenu ? "translate-x-0" : "-translate-x-full"
               }`}
+              onClick={(e) => e.stopPropagation()}
             >
               <div className="relative flex flex-col gap-4 w-full">
-                <Link to="/">
+                <Link to="/" onClick={toggleMenu}>
                   <div className="w-16">
                     <img
                       className="w-full object-cover"
@@ -138,15 +165,16 @@ const Nav = () => {
                     />
                   </div>
                 </Link>
-                <div className="absolute right-0 cursor-pointer">
+                <div className="absolute right-0 cursor-pointer text-white">
                   <i className="bx bx-x text-2xl" onClick={toggleMenu}></i>
                 </div>
                 <div
                   className="mt-16 cursor-pointer"
                   onClick={() => setCategoryMenu(!categoryMenu)}
                 >
-                  <div className="flex justify-between items-center m-0 text-xl font-medium">
-                    <p>Productos</p>
+                  <div className="flex justify-between items-center m-0 text-xl font-medium text-[#f0f7fe]">
+                    <h2 className="">Productos</h2>
+
                     <i
                       className={`bx bxs-chevron-right text-3xl transition-all duration-300 ${
                         categoryMenu ? "rotate-90" : ""
@@ -160,23 +188,24 @@ const Nav = () => {
                   >
                     {categories.map((category, idx) => (
                       <Link
+                        onClick={toggleMenu}
                         to={`/products/category/${category.id}`}
                         key={category.id || idx}
-                        className="block transition-all duration-100 hover:text-blue-600"
+                        className="block transition-all duration-100 hover:text-[#fea401] text-[#deecfb]"
                       >
                         <p>{category.name}</p>
                       </Link>
                     ))}
                   </div>
                 </div>
-                <Link to="/about">
-                  <div className="flex justify-between items-center m-0 text-xl font-medium">
+                <Link to="/about" onClick={toggleMenu}>
+                  <div className="flex justify-between items-center m-0 text-xl font-medium text-[#f0f7fe]">
                     <p>¿Quienes somos?</p>
                     <i className="bx bxs-chevron-right text-3xl"></i>
                   </div>
                 </Link>
-                <Link to="/contact">
-                  <div className="flex justify-between items-center m-0 text-xl font-medium">
+                <Link to="/contact" onClick={toggleMenu}>
+                  <div className="flex justify-between items-center m-0 text-xl font-medium text-[#f0f7fe]">
                     <p>Contacto</p>
                     <i className="bx bxs-chevron-right text-3xl"></i>
                   </div>
@@ -229,9 +258,19 @@ const Nav = () => {
                     </div>
                   </div>
                 ) : (
-                  <Link className="flex items-center gap-1" to="/login">
-                    <i className="bx bx-user"></i>
-                    <p>Ingresar</p>
+                  <Link className="flex items-center gap-1 text-white" to="/login">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="size-7"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
                   </Link>
                 )}
               </div>
@@ -244,7 +283,7 @@ const Nav = () => {
                 <input
                   placeholder="Buscar..."
                   type="text"
-                  className="w-full p-2 text-black"
+                  className="w-full p-2 px-4 text-black rounded-full"
                   value={searchProduct}
                   onChange={handleSearchProduct}
                 />
@@ -299,7 +338,7 @@ const Nav = () => {
             ) : null}
           </div>
 
-          <div className="flex items-center sm:gap-1 md:gap-1 lg:gap-1 xl:gap-1 2xl:gap-1 absolute top-0 right-0 h-full w-auto">
+          <div className="flex items-center sm:gap-1 md:gap-1 lg:gap-2 absolute top-0 right-0 h-full w-auto">
             <Cart />
             <div className="hidden md:relative md:flex md:items-center md:w-full md:h-full">
               {userData.token ? (
@@ -353,11 +392,19 @@ const Nav = () => {
                   </div>
                 </div>
               ) : (
-                <Link className="flex items-end" to="/Login">
-                  <i className="bx bxs-user text-2xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl 2xl:text-3xl text-black cursor-pointer h-full"></i>
-                  <p className="text-black font-medium uppercase mb-1">
-                    Ingresar
-                  </p>
+                <Link className="flex items-end text-white" to="/Login">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="size-7"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
                 </Link>
               )}
             </div>

@@ -208,14 +208,14 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
 
   return (
     <section className="mx-6 sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24 flex flex-col justify-center mt-10">
-      <div className="flex items-center text-center gap-1 uppercase mb-12 tracking-widest text-2xl font-semibold text-white">
+      <div className="flex items-center text-center gap-1 uppercase mb-12 tracking-widest text-2xl font-semibold text-[#f0f7fe]">
         <h2>El mejor servicio</h2>
       </div>
-      <div>
+      <div className="my-4">
         <StyledSlider {...settings}>
           {comments.map((comment) => (
             <div
-              className="card-comments relative z-20 border rounded-xl p-5 min-h-[150px]"
+              className="card-comments relative z-20 border-2 border-white p-5 min-h-[150px]"
               key={comment.id}
             >
               <div className="head-card flex items-center gap-3">
@@ -239,16 +239,16 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
                   )}
                 </div>
                 <div>
-                  <h3 className="text-lg font-medium first-letter:uppercase">
+                  <h3 className="text-lg font-medium first-letter:uppercase text-[#f0f7fe]">
                     {comment.user.username}
                   </h3>
-                  <p className="text-sm font-light">
+                  <p className="text-sm font-light text-[#deecfb]">
                     {formatDate(comment.created_at)}
                   </p>
                 </div>
               </div>
 
-              <div className="main-card mt-3 first-letter:uppercase">
+              <div className="main-card mt-3 first-letter:uppercase text-[#CBD5E1]">
                 <p>{comment.comment_text}</p>
               </div>
 
@@ -280,23 +280,23 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
       </div>
 
       <div className="flex flex-col gap-4 mt-20 lg:ms-5 w-full">
-        <div className="text-lg font-medium text-white">
+        <div className="text-lg font-medium text-[#deecfb]">
           <h2>Déjanos tu comentario</h2>
         </div>
         <div className="flex items-start gap-4 w-full">
           <form
-            className="w-full flex flex-col items-start gap-4"
+            className="w-full flex flex-col items-start gap-4 bg-[#0F172A]"
             onSubmit={commentSubmit}
           >
             <textarea
-              className="w-full px-4 pb-48 pt-4 resize-none border border-gray-300"
+              className="text-white  focus:outline-none focus:ring-2 focus:ring-[#9cccf4] shadow-lg  w-full px-4 pb-48 pt-4 resize-none border border-white bg-black/30 backdrop-blur-lg"
               ref={inputComment}
               onChange={(e) => setComment(e.target.value)}
               value={comment}
             ></textarea>
             {isEditing ? (
               <button
-                className="text-white mt-3 p-4 border rounded-xl"
+                className="text-white mt-3 p-4 border rounded-xl hover:bg-[#9cccf4] cursor-pointer text-sm font-semibold"
                 type="button"
                 onClick={() => handleUpdateComment()}
               >
@@ -304,7 +304,7 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
               </button>
             ) : (
               <button
-                className="text-white mt-3 p-4 border rounded-xl"
+                className="text-white mt-3 p-4 border-2 rounded-xl hover:bg-[#9cccf4] cursor-pointer text-sm font-semibold"
                 type="submit"
               >
                 Enviar

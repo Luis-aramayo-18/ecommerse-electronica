@@ -20,6 +20,7 @@ const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [brandsMenu, setBrandsMenu] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [brands, setBrands] = useState([]);
   const [nexPage, setNexPage] = useState("");
   const [filters, setFilters] = useState({
     max_price: "",
@@ -62,15 +63,35 @@ const Products = () => {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      setLoadingPro(true);
+      const response = await api.get(`/brands/?category=${categoryId}`);
+
+      if (response.status === 200) {
+        setBrands(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingPro(false);
+    }
+  };
+
   useEffect(() => {
-    if (
-      filters.brand !== "All" ||
-      filters.brand !== "Default" ||
-      filters.min_price > 0 ||
-      filters.max_price > 0 ||
-      filters.currentMinPrice > 0
-    ) {
-      fetchProduct();
+    fetchProduct();
+    fetchCategories();
+
+    if (filters.sort === "best_selling") {
+      setValueOrder("Mas vendido");
+    } else if (filters.sort === "best_rated") {
+      setValueOrder("Mejores calificados");
+    } else if (filters.sort === "latest") {
+      setValueOrder("Últimos");
+    } else if (filters.sort === "discount") {
+      setValueOrder("Descuentos");
+    } else {
+      setValueOrder("")
     }
   }, [
     filters.sort,
@@ -80,10 +101,9 @@ const Products = () => {
     categoryId,
   ]);
 
-  const handleFilterChange = (key, value, order) => {
+  const handleFilterChange = (key, value) => {
     const newFilters = { ...filters, [key]: value };
     setFilters(newFilters);
-    setValueOrder(order);
 
     const updatedSearchParams = new URLSearchParams(searchParams);
     updatedSearchParams.set(key, value);
@@ -117,7 +137,9 @@ const Products = () => {
       setIsDeletingFilters(false);
     }
   }, [isDeletingFilters]);
-console.log(filters);
+
+  console.log(orderListMobile);
+  
 
   return (
     <>
@@ -134,7 +156,7 @@ console.log(filters);
         {/* ------PRODUCTS----- */}
         <div className="overflow-hidden lg:relative lg:flex lg:justify-between">
           {/* ------ORDEN LIST BUTTON MOB----- */}
-          <OrderListFilterMob
+          {/* <OrderListFilterMob
             setOrderListMobile={setOrderListMobile}
             orderListMobile={orderListMobile}
             setFilterMobile={setFilterMobile}
@@ -142,7 +164,7 @@ console.log(filters);
             valueOrder={valueOrder}
             filters={filters}
             handleFilterChange={handleFilterChange}
-          />
+          /> */}
 
           {/* ------FILTERS----- */}
 
@@ -157,6 +179,11 @@ console.log(filters);
             products={products}
             deleteFilters={deleteFilters}
             loadingPro={loadingPro}
+            isDeletingFilters={isDeletingFilters}
+            brands={brands}
+            valueOrder={valueOrder}
+            orderListMobile={orderListMobile}
+            setOrderListMobile={setOrderListMobile}
           />
 
           {/* ------PRODUCTS LIST----- */}
@@ -166,6 +193,7 @@ console.log(filters);
             filteredProducts={filteredProducts}
             nexPage={nexPage}
             setNexPage={setNexPage}
+            filters={filters}
           />
         </div>
       </div>

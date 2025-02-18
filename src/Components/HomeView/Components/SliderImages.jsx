@@ -11,29 +11,30 @@ const SliderImages = () => {
     initialSlide: 0,
     autoplay: false,
     autoplaySpeed: 3000,
+    arrows: false,
   };
 
   return (
-    <section className="h-auto lg:h-[90vh] overflow-hidden">
+    <section className="z-10">
       <Slider {...settingsSlider} className="w-full">
-        <div className="w-full h-full overflow-hidden">
+        <div className="h-full w-full overflow-hidden">
           <img
-            src="https://saulromanjimenez.com/wp-content/uploads/2023/01/imagen-publicitaria.png"
-            className="w-full h-full object-cover"
+            src="/img/home/banner-home.webp"
+            className="object-cover w-full h-[610px]"
             alt="..."
           />
         </div>
-        <div className="w-full h-full overflow-hidden">
+        <div className="h-full">
           <img
-            src="https://i.pinimg.com/736x/18/03/4d/18034d4975a8f04ace121431cedecf1e.jpg"
-            className="w-full h-full object-cover"
+            src="/img/home/banner-home-2.webp"
+            className="object-cover w-full h-[610px]"
             alt="..."
           />
         </div>
-        <div className="w-full h-full overflow-hidden">
+        <div className="h-full">
           <img
-            src="https://cdn.escala.com/wp-content/uploads/2022/07/definicion-campana-publicitaria-de-un-producto-escala.png"
-            className="w-full h-full object-cover"
+            src="/img/home/banner-home-3.webp"
+            className="object-cover w-full h-[610px]"
             alt="..."
           />
         </div>
