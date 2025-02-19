@@ -57,7 +57,9 @@ const AdminProfile = () => {
         loadProducts();
         const categoriesData = await api.get("/categories/");
         const brandsData = await api.get("/brands/");
-
+        const productsData = await api.get("/products/")
+        console.log(productsData);
+        
         setCategories(categoriesData.data);
         setBrands(brandsData.data);
       } catch (error) {
@@ -328,8 +330,6 @@ const AdminProfile = () => {
       const response = await api.get(nextPage);
 
       if (response.status === 200) {
-        console.log(response);
-
         const updatesProducts = response.data.results;
 
         if (updatesProducts.length > 0) {
@@ -367,10 +367,10 @@ const AdminProfile = () => {
       </section>
 
       <section>
-        <div className="flex justify-between">
-          <section className="w-[48%] mt-10">
+        <div className="flex flex-col-reverse lg:first-letter:flex-row lg:justify-between">
+          <section className="w-full lg:w-[48%] mt-10">
             <h2 className=" text-gray-100 text-sm font-medium">
-              AGREGAR PRODUCTOS
+              AGREGAR PRODUCTO
             </h2>
 
             <form className="flex flex-col gap-4 mt-5" onSubmit={handleSubmit}>
@@ -560,8 +560,8 @@ const AdminProfile = () => {
         <div>
           <h2 className="mt-10 text-gray-100 text-sm font-medium">PRODUCTOS</h2>
 
-          <form className="flex items-center mt-5">
-            <div className="relative flex items-center w-[40%]">
+          
+            <div className="relative flex items-center w-full lg:w-[40%] mt-5">
               <input
                 type="text"
                 placeholder="Ingresar Nombre"
@@ -573,12 +573,12 @@ const AdminProfile = () => {
               />
               <i className="bx bx-search text-2xl absolute right-2 top-2"></i>
             </div>
-          </form>
+       
 
           <div className="flex flex-col mt-5">
             {Array.isArray(products) && products.length > 0 ? (
-              <section>
-                <table className="mt-4 w-full">
+              <section className="overflow-x-auto">
+                <table className="mt-4 min-w-full">
                   <thead>
                     <tr>
                       <th>Id</th>

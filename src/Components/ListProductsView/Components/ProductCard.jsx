@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../Hooks/useCart";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, homeView }) => {
   const { addToCart, removeFromCart, cart } = useCart();
 
   const isProductInCart = (product) => {
@@ -14,12 +14,12 @@ const ProductCard = ({ product }) => {
   }
 
   return (
-    <div className="max-w-[250px] w-full flex flex-col  group h-[290px] md:h-[320px] lg:h-[380px] relative border-none">
+    <div className={`w-full flex flex-col lg:max-w-[200px] xl:max-w-[250px] group ${homeView ? 'h-[390px]' : 'h-300px'} sm:h-[360px] md:h-[360px] lg:h-[380px] relative border-none`}>
       <Link
         to={`/products/category/${product.category}/product/${product.id}`}
         className="h-[50%]"
       >
-        <div className="transition duration-300 group-hover:shadow-md group-hover:shadow-white/70 h-full">
+        <div className="transition duration-300 lg:group-hover:shadow-md lg:group-hover:shadow-white/70 h-full">
           {product.images && product.images.length > 0 ? (
             <div className="h-full bg-white">
               <img
@@ -79,9 +79,9 @@ const ProductCard = ({ product }) => {
           </div>
         </div>
 
-        <div className="hidden lg:block">
+        <div className={`sm:block lg:block ${homeView ? 'flex' : 'hidden'}`}>
           <button
-            className={`mt-2 w-full p-4 text-xs font-bold transition duration-300 border-[#deecfb] border-2 group-hover:bg-[#6dafed] group-hover:border-[#f0f7fe] group-hover:text-white bg-[#334155] text-[#deecfb] ${
+            className={`mt-2 w-full p-4 text-xs font-bold transition duration-300 border-[#deecfb] border-2 lg:group-hover:bg-[#6dafed] lg:group-hover:border-[#f0f7fe] lg:group-hover:text-white bg-[#334155] text-[#deecfb] ${
               isProductInCart(product) ? "bg-[#FF3131]" : "bg-black/80"
             }`}
             onClick={() =>

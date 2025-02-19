@@ -43,7 +43,8 @@ const AuthProfile = () => {
 
     setPasswordRegister(password);
     setValidations({
-      hasUppercaseAndLowercase: /[a-z]/.test(password) && /[A-Z]/.test(password) ? true : false,
+      hasUppercaseAndLowercase:
+        /[a-z]/.test(password) && /[A-Z]/.test(password) ? true : false,
       hasNumber: /\d/.test(password) ? true : false,
       hasSpecialChar: /[$#%&@.]/.test(password) ? true : false,
       hasMinLength: password.length >= 8 ? true : false,
@@ -122,7 +123,7 @@ const AuthProfile = () => {
 
   return (
     <div className="w-full h-full">
-      <section className="text-5xl font-semibold">
+      <section className="hidden lg:blocktext-5xl font-semibold">
         <h2>Autenticación</h2>
       </section>
 
@@ -138,8 +139,8 @@ const AuthProfile = () => {
               </button>
 
               {activeForm === true && (
-                <div className="flex">
-                  <form className="flex flex-col gap-3 mt-10 w-[50%]">
+                <div className="flex flex-col-reverse lg:flex-row mt-5">
+                  <form className="flex flex-col gap-3 mt-10 w-full lg:w-[50%] text-[#acb1b6]">
                     <div className="flex items-center gap-2">
                       <label className="flex gap-2 items-center w-full">
                         Actual Contraseña
@@ -215,41 +216,145 @@ const AuthProfile = () => {
                     </div>
                   </form>
 
-                  <div className="px-5 ms-10">
-                    <ul className="flex flex-col gap-3">
-                      <h3 className="font-medium mb-3 uppercase">
-                        La contraseña debe contener:
-                      </h3>
+                  <div className="lg:px-5 lg:ms-10">
+                    <p className="font-medium text-sm mb-3 first-letter:uppercase text-[#acb1b6]">
+                      La contraseña debe contener:
+                    </p>
+                    <ul className="flex flex-col gap-3 text-[#acb1b6] text-xs">
                       <li className="flex items-center gap-2 font-light">
                         <p>Una letra mayúscula y minúscula</p>
                         {validations.hasUppercase ? (
-                          <i className="bx bx-check text-xl text-green-500"></i>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            className="size-4 text-[#16fe01]"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="m4.5 12.75 6 6 9-13.5"
+                            />
+                          </svg>
                         ) : (
-                          <i className="bx bxs-error-circle text-xl text-red-600"></i>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            className="size-4 text-[#fea401]"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                            />
+                          </svg>
                         )}
                       </li>
                       <li className="flex items-center gap-2 font-light">
                         <p>Un numero</p>
                         {validations.hasNumber ? (
-                          <i className="bx bx-check text-xl text-green-500"></i>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            className="size-4 text-[#16fe01]"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="m4.5 12.75 6 6 9-13.5"
+                            />
+                          </svg>
                         ) : (
-                          <i className="bx bxs-error-circle text-xl text-red-600"></i>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            className="size-4 text-[#fea401]"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                            />
+                          </svg>
                         )}
                       </li>
                       <li className="flex items-center gap- font-light">
                         <p>Un carácter especial: $,#,%,&,@,.</p>
                         {validations.hasSpecialChar ? (
-                          <i className="bx bx-check text-xl text-green-500"></i>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            className="size-4 text-[#16fe01]"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="m4.5 12.75 6 6 9-13.5"
+                            />
+                          </svg>
                         ) : (
-                          <i className="bx bxs-error-circle text-xl text-red-600"></i>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            className="size-4 text-[#fea401]"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                            />
+                          </svg>
                         )}
                       </li>
                       <li className="flex items-center gap-2 font-light">
                         <p>8 caracteres como mínimo</p>
                         {validations.hasMinLength ? (
-                          <i className="bx bx-check text-xl text-green-500"></i>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            className="size-4 text-[#16fe01]"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="m4.5 12.75 6 6 9-13.5"
+                            />
+                          </svg>
                         ) : (
-                          <i className="bx bxs-error-circle text-xl text-red-600"></i>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            className="size-4 text-[#fea401]"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                            />
+                          </svg>
                         )}
                       </li>
                     </ul>

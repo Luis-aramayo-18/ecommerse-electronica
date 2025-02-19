@@ -28,7 +28,10 @@ const Login = () => {
     handleSubmit: handleSubmitRegister,
     formState: { errors: errorsRegister },
     reset: resetRegister,
+    watch,
   } = useForm();
+
+  const password = watch("password", "");
 
   const showRegisterForm = () => {
     setFormRegister(!formRegister);
@@ -40,7 +43,6 @@ const Login = () => {
     try {
       const response = await requestApi.createUser(data);
       if (response.status === 201) {
-        console.log("Usuario creado");
         const user = data.username;
         localStorage.setItem("username", user);
         resetRegister();
@@ -64,179 +66,293 @@ const Login = () => {
     await loginUsername(data);
   };
 
+  const validations = {
+    hasUppercase: /[A-Z]/.test(password),
+    hasLowercase: /[a-z]/.test(password),
+    hasNumber: /\d/.test(password),
+    hasSpecialChar: /[$#%&@.]/.test(password),
+    hasMinLength: password.length >= 8,
+  };
+
   return (
-    <div className="mt-10 w-full h-auto px-6 md:px-14 lg:px-24">
-      <section className="flex flex-col lg:flex lg:flex-row shadow-lg shadow-slate-200">
-        <div className="p-8 lg:w-1/3 lg:px-16 lg:py-12  ">
-          <div className="my-7 uppercase text-center text-xl font-medium">
-            <h2>Ingresar</h2>
-          </div>
-
+    <div className="my-10 w-full h-auto px-2 md:px-14 lg:px-24">
+      <section className="flex justify-center">
+        <div className="w-[90%] sm:w-[70%] md:w-[65%] lg:w-[55%] xl:w-[45%] rounded-2xl py-6 px-3 sm:p-6 mt-10 shadow-md shadow-slate-500">
           {formRegister ? (
-            <div>
-              <form onSubmit={handleSubmitRegister(registerUser)}>
-                <div className="mb-8">
-                  <input
-                    {...registerRegister("username", {
-                      required: {
-                        value: true,
-                        message: "Error: Por favor complete este campo",
-                      },
-                      minLength: {
-                        value: 2,
-                        message:
-                          "Error: Usuario demasiado corto (2 caracteres mínimo)",
-                      },
-                      maxLength: {
-                        value: 20,
-                        message:
-                          "Error: Usuario demasiado largo (20 caracteres máximo)",
-                      },
-                    })}
-                    type="text"
-                    placeholder="Nombre De Usuario"
-                    className="bg-transparent placeholder-gray-100 border-b border-red-500 focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
-                  />
-                  <p className="mt-1 fs-8 text-danger">
-                    {errorsRegister.username?.message}
-                  </p>
-                </div>
+            <div className="flex flex-col-reverse gap-6 w-full md:flex md:flex-row md:justify-center md:gap-10">
+              <div className="w-full lg:w-[60%]">
+                <form onSubmit={handleSubmitRegister(registerUser)}>
+                  <div className="mb-8">
+                    <input
+                      {...registerRegister("username", {
+                        required: {
+                          value: true,
+                          message: "Error: Por favor complete este campo",
+                        },
+                        minLength: {
+                          value: 2,
+                          message:
+                            "Error: Usuario demasiado corto (2 caracteres mínimo)",
+                        },
+                        maxLength: {
+                          value: 20,
+                          message:
+                            "Error: Usuario demasiado largo (20 caracteres máximo)",
+                        },
+                      })}
+                      type="text"
+                      placeholder="Nombre de usuario"
+                      className="bg-transparent placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#FF3131] focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
+                    />
+                    <p className="mt-1 text-xs font-extralight text-[#ec5050e0]">
+                      {errorsRegister.username?.message}
+                    </p>
+                  </div>
 
-                <div className="mb-8">
-                  <input
-                    {...registerRegister("email", {
-                      required: {
-                        value: true,
-                        message: "Error: Por favor complete este campo",
-                      },
-                      minLength: {
-                        value: 8,
-                        message:
-                          "Error: Email demasiado corto (8 caracteres mínimo)",
-                      },
-                      maxLength: {
-                        value: 50,
-                        message:
-                          "Error: Email demasiado largo (50 caracteres máximo)",
-                      },
-                      pattern: {
-                        value: /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/,
-                        message: "Error: Ingrese un email valido",
-                      },
-                    })}
-                    type="email"
-                    placeholder="Correo Electrónico"
-                    className="bg-transparent placeholder-gray-100 border-b border-red-500 focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
-                  />
-                  <p className="mt-1 fs-8 text-danger">
-                    {errorsRegister.email?.message}
-                  </p>
-                </div>
+                  <div className="mb-8">
+                    <input
+                      {...registerRegister("email", {
+                        required: {
+                          value: true,
+                          message: "Error: Por favor complete este campo",
+                        },
+                        minLength: {
+                          value: 8,
+                          message:
+                            "Error: Email demasiado corto (8 caracteres mínimo)",
+                        },
+                        maxLength: {
+                          value: 50,
+                          message:
+                            "Error: Email demasiado largo (50 caracteres máximo)",
+                        },
+                        pattern: {
+                          value: /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/,
+                          message: "Error: Ingrese un email valido",
+                        },
+                      })}
+                      type="email"
+                      placeholder="Correo electrónico"
+                      className="bg-transparent placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#FF3131] focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
+                    />
+                    <p className="mt-1 text-xs font-extralight text-[#ec5050e0]">
+                      {errorsRegister.email?.message}
+                    </p>
+                  </div>
 
-                <div className="relative flex items-center mb-8">
-                  <input
-                    {...registerRegister("password", {
-                      required: {
-                        value: true,
-                        message: "Error: por favor complete este campo",
-                      },
+                  <div className="relative flex flex-col justify-center items-center mb-8">
+                    <input
+                      {...registerRegister("password", {
+                        required: "La contraseña es obligatoria",
+                      })}
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Contraseña"
+                      className="text-white bg-transparent placeholder:text-xs placeholder:text-[#deecfb] border-b border-[#FF3131] focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute top-2 right-2 text-gray-500"
+                    >
+                      {showPassword ? (
+                        <i className="bx bx-hide"></i>
+                      ) : (
+                        <i className="bx bx-show"></i>
+                      )}
+                    </button>
+                    <p className="mt-1 text-xs font-extralight text-[#ec5050e0]">
+                      {errorsRegister.password?.message}
+                    </p>
+                  </div>
 
-                      minLength: {
-                        value: 8,
-                        message:
-                          "Error: Contraseña demasiada corta (8 caracteres mínimo)",
-                      },
+                  <div className="relative flex flex-col justify-center items-center mb-8">
+                    <input
+                      {...registerRegister("confirm_password", {
+                        required: "Debes confirmar la contraseña",
+                        validate: (value) =>
+                          value === password || "Las contraseñas no coinciden",
+                      })}
+                      type={showPasswordConfirmed ? "text" : "password"}
+                      placeholder="Repetir contraseña"
+                      className="bg-transparent placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#FF3131] focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
+                    />
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setShowPasswordConfirmed(!showPasswordConfirmed)
+                      }
+                      className="absolute top-2 right-2 text-gray-500"
+                    >
+                      {showPasswordConfirmed ? (
+                        <i className="bx bx-hide"></i>
+                      ) : (
+                        <i className="bx bx-show"></i>
+                      )}
+                    </button>
+                    <p className="mt-1 text-xs font-extralight text-[#ec5050e0]">
+                      {errorsRegister.confirm_password?.message}
+                    </p>
+                  </div>
 
-                      maxLength: {
-                        value: 50,
-                        message:
-                          "Error: Contraseña demasiada larga (50 caracteres máximo)",
-                      },
-
-                      pattern: {
-                        value:
-                          /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                        message:
-                          "Error: Debe contener al menos una mayúscula, un numero y un carácter especial",
-                      },
-                    })}
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Contraseña"
-                    className="bg-transparent placeholder-gray-100 border-b border-red-500 focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
-                  />
                   <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-2 text-gray-500"
+                    type="submit"
+                    className="w-full text-sm font-semibold border p-3 mt-5 text-[#acb1b6] lg:hover:text-white lg:hover:border-white lg:hover:bg-[#fea401]"
                   >
-                    {showPassword ? (
-                      <i className="bx bx-hide"></i>
-                    ) : (
-                      <i className="bx bx-show"></i>
-                    )}
+                    CREAR CUENTA
                   </button>
-                  <p className="mt-1 fs-8 text-danger">
-                    {errorsRegister.password?.message}
-                  </p>
-                </div>
+                </form>
 
-                <div className="relative flex items-center mb-8">
-                  <input
-                    {...registerRegister("confirm_password", {
-                      required: {
-                        value: true,
-                        message: "Error: por favor complete este campo",
-                      },
-
-                      minLength: {
-                        value: 8,
-                        message:
-                          "Error: contraseña demasiada corta (8 caracteres mínimo)",
-                      },
-
-                      maxLength: {
-                        value: 50,
-                        message:
-                          "Error: contraseña demasiada larga (50 caracteres máximo)",
-                      },
-
-                      pattern: {
-                        value:
-                          /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                        message:
-                          "Error: Debe contener al menos una mayúscula, un numero y un carácter especial",
-                      },
-                    })}
-                    type={showPasswordConfirmed ? "text" : "password"}
-                    placeholder="Repetir Contraseña"
-                    className="bg-transparent placeholder-gray-100 border-b border-red-500 focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
-                  />
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setShowPasswordConfirmed(!showPasswordConfirmed)
-                    }
-                    className="absolute right-2 top-2 text-gray-500"
-                  >
-                    {showPasswordConfirmed ? (
-                      <i className="bx bx-hide"></i>
-                    ) : (
-                      <i className="bx bx-show"></i>
-                    )}
-                  </button>
-                  <p className="mt-1 fs-8 text-danger">
-                    {errorsRegister.confirm_password?.message}
-                  </p>
-                </div>
-
-                <button type="submit" className="w-full border p-4 mt-5">
-                  CREAR CUENTA
+                <button
+                  className="text-[#ec5050e0] mt-5"
+                  onClick={showRegisterForm}
+                >
+                  Volver
                 </button>
-              </form>
+              </div>
 
-              <p className="text-red-600 mt-5" onClick={showRegisterForm}>
-                Volver
-              </p>
+              <div className="w-full lg:w-[40%] mt-5">
+                <p className="font-medium text-sm mb-3 first-letter:uppercase text-[#acb1b6]">
+                  La contraseña debe contener:
+                </p>
+                <ul className="flex flex-col gap-3 text-[#acb1b6] text-xs">
+                  <li className="flex items-center gap-2 font-light">
+                    <p>Una letra mayúscula y minúscula</p>
+                    {validations.hasUppercase && validations.hasLowercase ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        className="size-4 text-[#16fe01]"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m4.5 12.75 6 6 9-13.5"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        className="size-4 text-[#fea401]"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                        />
+                      </svg>
+                    )}
+                  </li>
+                  <li className="flex items-center gap-2 font-light">
+                    <p>Un numero</p>
+                    {validations.hasNumber ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        className="size-4 text-[#16fe01]"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m4.5 12.75 6 6 9-13.5"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        className="size-4 text-[#fea401]"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                        />
+                      </svg>
+                    )}
+                  </li>
+                  <li className="flex items-center gap- font-light">
+                    <p>Un carácter especial: $,#,%,&,@,.</p>
+                    {validations.hasSpecialChar ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        className="size-4 text-[#16fe01]"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m4.5 12.75 6 6 9-13.5"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        className="size-4 text-[#fea401]"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                        />
+                      </svg>
+                    )}
+                  </li>
+                  <li className="flex items-center gap-2 font-light">
+                    <p>8 caracteres como mínimo</p>
+                    {validations.hasMinLength ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        className="size-4 text-[#16fe01]"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="m4.5 12.75 6 6 9-13.5"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        className="size-4 text-[#fea401]"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                        />
+                      </svg>
+                    )}
+                  </li>
+                </ul>
+              </div>
             </div>
           ) : (
             <div>
@@ -248,19 +364,9 @@ const Login = () => {
                         value: true,
                         message: "Error: Por favor complete este campo",
                       },
-                      minLength: {
-                        value: 4,
-                        message:
-                          "Error: Email o Usuario demasiado corto (4 caracteres mínimo)",
-                      },
-                      maxLength: {
-                        value: 50,
-                        message:
-                          "Error: Email o Usuario demasiado largo (50 caracteres máximo)",
-                      },
                     })}
-                    className="bg-transparent placeholder-gray-100 border-b border-red-500 focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
-                    placeholder="Correo Electrónico o Usuario..."
+                    className="bg-transparent placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#FF3131] focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
+                    placeholder="Correo electrónico o usuario"
                   />
                   <p className="mt-1 fs-8 text-danger">
                     {errorsLogin.username_or_email?.message}
@@ -274,34 +380,15 @@ const Login = () => {
                         value: true,
                         message: "Error: por favor complete este campo",
                       },
-
-                      minLength: {
-                        value: 2,
-                        message:
-                          "Error: Contraseña demasiada corta (8 caracteres mínimo)",
-                      },
-
-                      maxLength: {
-                        value: 50,
-                        message:
-                          "Error: Contraseña demasiada larga (50 caracteres máximo)",
-                      },
-
-                      // pattern: {
-                      //   value:
-                      //     /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                      //   message:
-                      //     "Error: Debe contener al menos una mayúscula, un numero y un carácter especial",
-                      // },
                     })}
                     type={passwordVisible ? "text" : "password"}
-                    placeholder="Contraseña..."
-                    className="bg-transparent border-b placeholder-gray-100 border-red-500 focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
+                    placeholder="Contraseña"
+                    className="bg-transparent placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#FF3131] focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
                   />
                   <button
                     type="button"
                     onClick={() => setPasswordVisible(!passwordVisible)}
-                    className="absolute right-2 text-gray-500"
+                    className="absolute right-2 text-[#deecfb]"
                   >
                     {passwordVisible ? (
                       <i className="bx bx-hide"></i>
@@ -314,41 +401,32 @@ const Login = () => {
                   </p>
                 </div>
 
-                <button type="submit" className="w-full border p-4 mt-6">
+                <button
+                  type="submit"
+                  className="w-full transition-all duration-100 border p-3 mt-6 text-[#9fa3a7] lg:hover:text-white lg:hover:border-white lg:hover:bg-[#fea401]"
+                >
                   INGRESAR
                 </button>
                 {authError && <p>{authError}</p>}
               </form>
 
-              <div className="flex flex-col justify-center mt-6 gap-3">
-                <GoogleLoginBtn />
-
-                {/* <button className="border p-4 flex items-center justify-center gap-2 relative bg-blue-600">
-                  <img
-                    className="absolute left-0 h-full bg-white p-3"
-                    src="./img/login/login-facebook.png"
-                    alt="icono para iniciar sesión con facebook"
-                  />
-                  <p className="text-gray-200">Continuar con Facebook</p>
-                </button> */}
+              <div className="flex flex-col items-center justify-center mt-6 gap-3">
+                <GoogleLoginBtn className="w-full" />
               </div>
 
-              <div className="flex items-center gap-2 flex-col mt-4 font-medium">
-                <p className="cursor-pointer" onClick={showRegisterForm}>
+              <div className="flex items-center gap-2 flex-col mt-4 font-medium text-[#9fa3a7]">
+                <p
+                  className="cursor-pointer transition-all duration-100 lg:hover:text-white"
+                  onClick={showRegisterForm}
+                >
                   ¿ Aun no tienes cuenta ?
                 </p>
-                <p>¿ Olvidaste tu contraseña ?</p>
+                <p className="cursor-pointer transition-all duration-100 lg:hover:text-white">
+                  ¿ Olvidaste tu contraseña ?
+                </p>
               </div>
             </div>
           )}
-        </div>
-
-        <div className="w-2/3 lg:block hidden">
-          <img
-            className="object-cover w-full h-full"
-            src="/img/contact/contact-image.png"
-            alt=""
-          />
         </div>
       </section>
     </div>

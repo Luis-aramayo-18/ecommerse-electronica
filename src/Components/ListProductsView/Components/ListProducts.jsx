@@ -64,10 +64,10 @@ const ListProducts = ({
         {loadingPro === true ? (
           <Loading />
         ) : (
-          <div className="mt-10 lg:mt-0 grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-16">
+          <div className="mt-10 lg:mt-0 grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:gap-16">
             {filteredProducts.map((product, index) => {
               return (
-                <div className="relative flex justify-center">
+                <div className="relative flex justify-center" key={product.id || index}>
                   {filters.sort === "best_rated" && (
                     <div className="bg-black text-[#fea401] z-20 absolute top-[0%] right-0  flex items-center justify-center gap-1 p-2 rounded-bl-xl border-none">
                       <svg
@@ -89,7 +89,6 @@ const ListProducts = ({
                     </div>
                   )}
                   <ProductCard
-                    key={product.id || index}
                     product={product}
                     className="mx-5"
                   />

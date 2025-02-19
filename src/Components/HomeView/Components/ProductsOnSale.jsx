@@ -6,12 +6,13 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState("");
   const [menu, setMenu] = useState(false);
+  const [homeView, setHomeView] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const products = await api.get("/products/?sort=discount");
-        
+
         setProducts(products.data.results);
       } catch (error) {
         console.log(error);
@@ -43,6 +44,7 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
           onClick={() => setMenu(!menu)}
         >
           <p>ver</p>
+
           <i
             className={`bx bxs-right-arrow-alt mt-1 transition-transform ${
               menu ? "translate-x-1" : "group-hover:translate-x-1"
@@ -60,7 +62,10 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
               }`}
             >
               {categories.map((category) => (
-                <li key={category.id} className="transition-all duration-150 hover:text-[#fea401]">
+                <li
+                  key={category.id}
+                  className="transition-all duration-150 hover:text-[#fea401]"
+                >
                   <Link
                     to={`/products/category/${category.id}?sort=discount`}
                     className=""
@@ -74,10 +79,14 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
         )}
       </div>
 
-      <div>
+      <div className="my-4">
         <StyledSlider {...settings}>
           {products.map((product, idx) => (
-            <ProductCard key={product.id || idx} product={product} />
+            <ProductCard
+              key={product.id || idx}
+              product={product}
+              homeView={homeView}
+            />
           ))}
         </StyledSlider>
       </div>

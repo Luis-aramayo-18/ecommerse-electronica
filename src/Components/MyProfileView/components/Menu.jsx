@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../Hooks/useAuth";
 import { useSearchParams } from "react-router-dom";
 
-const Menu = ({ section, setSection }) => {
-  const { logoutUsername } = useAuth();
+const Menu = ({ section, setSection, logoutUsername }) => {
   const [admin, setAdmin] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();

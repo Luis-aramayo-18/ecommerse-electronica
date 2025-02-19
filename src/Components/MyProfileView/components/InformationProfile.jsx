@@ -65,19 +65,17 @@ const InformationProfile = ({ setSection, api }) => {
     e.preventDefault();
   };
 
-  // console.log(provider);
-
   return (
     <div className="w-full flex flex-col justify-between">
-      <section className="text-5xl font-semibold">
+      <section className="hidden lg:block text-5xl font-semibold">
         <h2>Información</h2>
       </section>
 
-      <section className="mt-10 flex flex-col w-full relative">
+      <section className="mt-5 lg:mt-10 flex flex-col w-full relative">
         <form onSubmit={updateUser}>
-          <div className="flex gap-10">
-            <div className="flex flex-col gap-2 w-[35%]">
-              <label className="text-lg font-medium" htmlFor="Name">
+          <div className="flex flex-col gap-3 lg:flex-row lg:gap-10">
+            <div className="flex flex-col gap-2 w-full lg:w-[35%]">
+              <label className="text-lg font-medium text-[#a8acb0]" htmlFor="Name">
                 Usuario
               </label>
 
@@ -103,8 +101,8 @@ const InformationProfile = ({ setSection, api }) => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2 w-[50%]">
-              <label className="text-lg font-medium" htmlFor="Email">
+            <div className="flex flex-col gap-2 w-full lg:w-[50%]">
+              <label className="text-lg font-medium text-[#a8acb0]" htmlFor="Email">
                 Email
               </label>
 
@@ -133,9 +131,9 @@ const InformationProfile = ({ setSection, api }) => {
             </div>
           </div>
 
-          <div className="flex gap-10">
-            <div className="flex flex-col gap-2 mt-7 w-[35%]">
-              <label className="text-lg font-medium" htmlFor="Teléfono">
+          <div className="flex flex-col gap-3 lg:flex-row lg:gap-10">
+            <div className="flex flex-col gap-2 mt-7 w-full lg:w-[35%]">
+              <label className="text-lg font-medium text-[#a8acb0]" htmlFor="Teléfono">
                 Teléfono
               </label>
 
@@ -158,8 +156,8 @@ const InformationProfile = ({ setSection, api }) => {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2 mt-7 w-[35%]">
-              <label className="text-lg font-medium" htmlFor="DNI">
+            <div className="flex flex-col gap-2 mt-7 w-full lg:w-[35%]">
+              <label className="text-lg font-medium text-[#a8acb0]" htmlFor="DNI">
                 DNI
               </label>
 

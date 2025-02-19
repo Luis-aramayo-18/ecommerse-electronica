@@ -14,10 +14,10 @@ import Brands from "./Components/Brands";
 import LastProducts from "./Components/LastProducts";
 import CommentsBox from "./Components/CommentsBox";
 import GamerBanner from "./Components/GamerBanner";
+import { useState } from "react";
 
 const StyledSlider = styled(Slider)`
   .slick-list {
-    
   }
   ,
   .slick-track {
@@ -32,6 +32,7 @@ const StyledSlider = styled(Slider)`
 const Home = () => {
   const api = useAxios();
 
+
   const { userData } = useAuth();
   const { userId } = userData;
 
@@ -42,7 +43,7 @@ const Home = () => {
     slidesToShow: 5,
     slidesToScroll: 1,
     initialSlide: 0,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 5000,
     adaptiveHeight: true,
     responsive: [
@@ -88,6 +89,7 @@ const Home = () => {
         StyledSlider={StyledSlider}
         settings={settings}
         api={api}
+        
       />
 
       {/* --------MARCAS------ */}

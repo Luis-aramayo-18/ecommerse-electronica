@@ -107,18 +107,18 @@ const Header = ({ api }) => {
 
   return (
     <div className="flex items-center gap-4">
-      <div className="w-16 h-16 rounded-full relative">
+      <div className="w-[5rem] h-[5rem] lg:w-16 lg:h-16 rounded-full relative">
         {userData.image || preview ? (
           <img
             src={userData.image}
             alt={userData.username}
-            className="w-full h-full object-cover rounded-full absolute border border-gray-200 z-10"
+            className="w-full h-full object-cover rounded-full absolute border border-gray-200"
           />
         ) : (
           <img
             src="/img/home/user.png"
             alt="imagen genérica de perfil"
-            className="w-full object-cover rounded-full absolute z-10"
+            className="w-full object-cover rounded-full absolute"
           />
         )}
 
@@ -126,7 +126,7 @@ const Header = ({ api }) => {
           <div>
             <label
               htmlFor="profileImage"
-              className=" bg-white text-gray-800 border border-gray-600 flex justify-center items-center rounded-full text-center cursor-pointer absolute right-0 w-5 h-5 top-2/3 z-20"
+              className=" bg-white text-gray-800 border border-gray-600 flex justify-center items-center rounded-full text-center cursor-pointer absolute right-0 w-5 h-5 top-2/3"
             >
               <i className="bx bx-pencil"></i>
             </label>
@@ -142,9 +142,10 @@ const Header = ({ api }) => {
       </div>
 
       <div className="text-2xl font-semibold">
-        <p className="text-lg font-semibold first-letter:uppercase">
+        <p className="text-base lg:text-lg font-semibold first-letter:uppercase text-[#f0f7fe]">
           {userData.username}
         </p>
+        <p className="text-[#deecfb] text-sm font-light lg:hidden">{userData.email}</p>
       </div>
     </div>
   );

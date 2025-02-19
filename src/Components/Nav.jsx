@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "./Hooks/useAuth";
 import { useAxios } from "./Hooks/useAxios";
 import { debounce } from "lodash";
@@ -21,10 +21,12 @@ const Nav = () => {
     products: [],
   });
   const [loading, setLoading] = useState(false);
-
+  const location = useLocation();
   const [brand, setBrand] = useState("");
   const cache = new Map();
   const api = useAxios();
+
+  const categoryIdFromUrl = location.pathname.split("/")[3];
 
   const toggleMenu = () => {
     setOpenMenu(!openMenu);
@@ -131,7 +133,7 @@ const Nav = () => {
               viewBox="0 0 24 24"
               stroke-width="1.5"
               stroke="currentColor"
-              class="size-6"
+              className="size-6"
             >
               <path
                 stroke-linecap="round"
@@ -191,7 +193,12 @@ const Nav = () => {
                         onClick={toggleMenu}
                         to={`/products/category/${category.id}`}
                         key={category.id || idx}
-                        className="block transition-all duration-100 hover:text-[#fea401] text-[#deecfb]"
+                        className={`block transition-all duration-100 hover:text-[#fea401] 
+                          ${
+                            category.id === parseInt(categoryIdFromUrl)
+                              ? "text-[#fea401]"
+                              : "text-[#deecfb]"
+                          }`}
                       >
                         <p>{category.name}</p>
                       </Link>
@@ -258,7 +265,10 @@ const Nav = () => {
                     </div>
                   </div>
                 ) : (
-                  <Link className="flex items-center gap-1 text-white" to="/login">
+                  <Link
+                    className="flex items-end gap-2 text-white"
+                    to="/login"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -271,6 +281,7 @@ const Nav = () => {
                         clip-rule="evenodd"
                       />
                     </svg>
+                    <p className="text-[#f0f7fe]">Ingresar</p>
                   </Link>
                 )}
               </div>
@@ -397,7 +408,7 @@ const Nav = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    class="size-7"
+                    className="size-7"
                   >
                     <path
                       fill-rule="evenodd"
@@ -405,6 +416,8 @@ const Nav = () => {
                       clip-rule="evenodd"
                     />
                   </svg>
+
+                 
                 </Link>
               )}
             </div>

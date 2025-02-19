@@ -91,7 +91,7 @@ const Products = () => {
     } else if (filters.sort === "discount") {
       setValueOrder("Descuentos");
     } else {
-      setValueOrder("")
+      setValueOrder("");
     }
   }, [
     filters.sort,
@@ -108,6 +108,7 @@ const Products = () => {
     const updatedSearchParams = new URLSearchParams(searchParams);
     updatedSearchParams.set(key, value);
     setSearchParams(updatedSearchParams);
+    setFilterMobile(false);
   };
 
   const deleteFilters = (e) => {
@@ -129,6 +130,7 @@ const Products = () => {
       return newParams;
     });
     setValueOrder("");
+    setFilterMobile(!filterMobile);
   };
 
   useEffect(() => {
@@ -137,9 +139,6 @@ const Products = () => {
       setIsDeletingFilters(false);
     }
   }, [isDeletingFilters]);
-
-  console.log(orderListMobile);
-  
 
   return (
     <>

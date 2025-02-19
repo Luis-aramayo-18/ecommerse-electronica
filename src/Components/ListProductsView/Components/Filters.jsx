@@ -36,16 +36,18 @@ const Filters = ({
     }
   }, [isDeletingFilters]);
 
+  console.log(filters);
+
   return (
     <>
       <section
-        className={`backdrop-blur-md bg-black/30 border-e-2 border-white lg:border-0 fixed left-0 top-0 z-40 h-full w-[75%] md:w-[60%] lg:z-0 lg:backdrop-blur-0 lg:p-0 lg:bg-transparent lg:relative lg:w-[20%] lg:translate-x-0 transform transition-transform duration-300 ${
+        className={`backdrop-blur-md xl:ms-10 bg-black/30 border-e-2 border-white lg:border-0 fixed left-0 top-0 z-40 h-full w-[75%] md:w-[60%] lg:z-0 lg:backdrop-blur-0 lg:p-0 lg:bg-transparent lg:relative lg:w-[20%] lg:translate-x-0 transform transition-transform duration-300 ${
           filterMobile ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="bg-black p-6 lg:p-0 lg:bg-transparent flex items-end gap-2 text-[#f0f7fe]">
-          <h2 className="text-2xl font-bold">FILTRAR:</h2>
-          <span className="font-medium text-[#deecfb]">
+        <div className="bg-black p-6 lg:p-0 lg:bg-transparent flex items-center gap-2 text-[#f0f7fe]">
+          <h2 className="lg:text-lg xl:text-2xl font-bold">FILTRAR:</h2>
+          <span className="lg:text-sm xl:text-base font-normal text-[#deecfb]">
             Unidades: {filteredProducts.length}
           </span>
         </div>
@@ -56,7 +58,15 @@ const Filters = ({
             onClick={() => setPriceMenu(!priceMenu)}
           >
             <div className="flex items-center justify-between text-[#deecfb]">
-              <h4 className="text-xl font-semibold">Precio</h4>
+              <h4
+                className={`lg:text-base xl:text-xl font-semibold ${
+                  filters.min_price > 0 || filters.max_price > 0
+                    ? "text-white"
+                    : "text-[#deecfb]"
+                }`}
+              >
+                Precio
+              </h4>
               <i
                 className={`bx bxs-chevron-right text-2xl transition-all duration-100 ${
                   priceMenu ? "rotate-90" : ""
@@ -103,7 +113,13 @@ const Filters = ({
             onClick={() => setBrandsMenu(!brandsMenu)}
           >
             <div className="flex items-center justify-between text-[#deecfb]">
-              <h4 className="text-xl font-semibold">Marcas</h4>
+              <h4
+                className={`lg:text-base xl:text-xl font-semibold ${
+                  filters.brand !== "All" ? "text-white" : "text-[#deecfb]"
+                }`}
+              >
+                Marcas
+              </h4>
               <i
                 className={`bx bxs-chevron-right text-2xl transition-all duration-100 ${
                   brandsMenu ? "rotate-90" : ""
@@ -120,7 +136,7 @@ const Filters = ({
                 <li
                   key={brand.id}
                   onClick={() => handleFilterChange("brand", brand.name)}
-                  className={`cursor-pointer font-medium transition-all duration-100 hover:text-[#fea401] ${
+                  className={`cursor-pointer text-sm lg:text-sm xl:text-base font-medium transition-all duration-100 hover:text-[#fea401] ${
                     filters.brand === brand.name ? "text-[#fea401]" : ""
                   }`}
                 >
@@ -165,12 +181,18 @@ const Filters = ({
           onClick={() => setFilterMobile(!filterMobile)}
         ></div>
 
-        <div className="flex gap-6">
+        <div className="flex gap-4">
           <button
-            className="flex items-center justify-center h-20 gap-2 w-[50%] border lg:hidden text-[#f0f7fe]"
+            className={`flex transition-all duration-100 items-center justify-center h-20 gap-2 w-[50%] border lg:hidden text-[#f0f7fe] ${
+              filters.brand !== "All" ||
+              filters.min_price > 0 ||
+              filters.max_price > 0
+                ? "border border-[#fea401]"
+                : "border"
+            }`}
             onClick={() => setFilterMobile(!filterMobile)}
           >
-            <p className="text-sm">FILTRAR</p>
+            <p className="text-sm">Filtrar</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -182,13 +204,17 @@ const Filters = ({
           </button>
 
           <button
-            className="w-[50%] h-20 flex items-center justify-center gap-2 border p-2 relative"
+            className={`w-[50%] h-20 flex items-center justify-center gap-2 border p-2 relative ${
+              filters.sort !== "Default" ? "border border-[#fea401]" : "border"
+            }`}
             onClick={() => setOrderListMobile(!orderListMobile)}
           >
             <div className="flex items-center gap-2 text-[#f0f7fe]">
               <div>
-                <p className="text-sm">Ordenar por:</p>
-                <span className="text-sm font-bold text-[#fea401] uppercase">{valueOrder}</span>
+                <p className="text-sm">Ordenar por</p>
+                <span className="text-sm font-bold text-[#fea401] uppercase">
+                  {valueOrder}
+                </span>
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

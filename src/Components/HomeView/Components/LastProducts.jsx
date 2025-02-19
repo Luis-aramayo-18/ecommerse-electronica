@@ -7,11 +7,13 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
   const [categories, setCategories] = useState("");
   const [menu, setMenu] = useState(false);
 
+  const [homeView, setHomeView] = useState(true);
+
   useEffect(() => {
     const fetchLastProducts = async () => {
       try {
         const response = await api.get("/products/?sort=latest");
-        
+
         if (response.status === 200) {
           setLastProducts(response.data.results);
         }
@@ -22,9 +24,9 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
     const fetchCategories = async () => {
       try {
         const response = await api.get("/categories/");
-        
+
         if (response.status === 200) {
-          setCategories(response.data)
+          setCategories(response.data);
         }
       } catch (error) {}
     };
@@ -63,7 +65,10 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
               }`}
             >
               {categories.map((category) => (
-                <li key={category.id} className="whitespace-nowrap transition-all duration-150 hover:text-[#fea401]">
+                <li
+                  key={category.id}
+                  className="whitespace-nowrap transition-all duration-150 hover:text-[#fea401]"
+                >
                   <Link
                     to={`/products/category/${category.id}?sort=latest`}
                     className=""
@@ -80,8 +85,8 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
       <div className="my-4">
         <StyledSlider {...settings}>
           {lastProducts.map((product, idx) => (
-            <div className="!w-auto relative" key={product.id || idx}>
-              <ProductCard product={product} />
+            <div className="w-full relative" key={product.id || idx}>
+              <ProductCard product={product} homeView={homeView} />
               <div className="h-20 w-20 flex items-center justify-center absolute top-0 right-0">
                 <img
                   src="/img/home/new.png"

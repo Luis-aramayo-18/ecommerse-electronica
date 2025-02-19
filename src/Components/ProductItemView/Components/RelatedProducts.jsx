@@ -7,7 +7,6 @@ import Loading from "../../Loading";
 
 const StyledSlider = styled(Slider)`
   .slick-list {
-    display: flex !important;
   }
   ,
   .slick-track {
@@ -22,6 +21,7 @@ const StyledSlider = styled(Slider)`
 const RelatedProducts = ({ product, api }) => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [error, setError] = useState("");
+  const [homeView, setHomeView] = useState(true);
 
   const settings = {
     dots: false,
@@ -107,22 +107,18 @@ const RelatedProducts = ({ product, api }) => {
     <section>
       <div className="mt-20">
         <div>
-          <h2 className="text-lg font-bold">También podría Interesarte</h2>
+          <h2 className="text-lg font-bold text-[#f0f7fe]">
+            También podría Interesarte
+          </h2>
         </div>
 
         <div className="mt-5 mb-10 w-full">
           {error ? (
             <p className="font-medium">{error}</p>
           ) : relatedProducts && relatedProducts.length > 0 ? (
-            <StyledSlider {...settings}>
+            <StyledSlider {...settings} className="">
               {relatedProducts.map((product, idx) => (
-                <div className="max-w-[250px]">
-                  <ProductCard
-                    key={product.id || idx}
-                    product={product}
-                    className="min-h-64"
-                  />
-                </div>
+                <ProductCard key={product.id || idx} product={product} homeView={homeView} />
               ))}
             </StyledSlider>
           ) : (

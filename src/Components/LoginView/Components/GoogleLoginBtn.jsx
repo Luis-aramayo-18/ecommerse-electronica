@@ -4,10 +4,11 @@ import { GoogleLogin } from "@react-oauth/google";
 import { useAuth } from "../../Hooks/useAuth";
 
 const GoogleLoginBtn = () => {
-  const { loginGoogle } = useAuth()
+  const { loginGoogle } = useAuth();
 
   return (
     <GoogleLogin
+      className="hola"
       onSuccess={loginGoogle}
       onError={() => {
         console.log("Login Failed");

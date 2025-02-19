@@ -30,7 +30,7 @@ const BreadCrumb = ({ product, categoryId }) => {
     <section>
       {product ? (
         <nav>
-          <ol className="flex items-center gap-1 mb-10 text-gray-600">
+          <ol className="flex items-center gap-1 mb-10 text-[#afb6be]">
             <li className="cursor-pointer font-medium text-sm hover:text-white">
               <Link to="/">Home</Link>
             </li>

@@ -187,7 +187,7 @@ export const AuthProvider = ({ children }) => {
         }
 
         if (is_staff) {
-          navigate("/formProduct");
+          navigate("/");
         } else {
           navigate("/");
         }
