@@ -225,49 +225,29 @@ const Nav = () => {
                 onClick={() => setMyAccountMenu(!myAccountMenu)}
               >
                 {userData.token ? (
-                  <div className="w-full">
-                    <div className="flex justify-between items-center m-0 text-xl font-medium">
-                      <div className="flex items-center gap-3">
-                        <img
-                          className="object-cover w-12 h-12 rounded-full border border-white"
-                          alt={`imagen de perfil de ${userData.username}`}
-                          src={
-                            userData.image
-                              ? userData.image
-                              : `/img/home/user.png`
-                          }
-                        />
-                        <p className="first-letter:uppercase">
-                          {userData.username && `${userData.username}`}
-                        </p>
-                      </div>
-                      <i
-                        className={`bx bxs-chevron-right text-3xl transition-all duration-300 ${
-                          myAccountMenu ? "rotate-90" : ""
-                        }`}
-                      ></i>
+                  <Link
+                    className="flex justify-between items-center m-0 text-xl font-medium"
+                    to="/myAccount"
+                    onClick={toggleMenu}
+                  >
+                    <div className="flex items-center gap-3">
+                      <img
+                        className="object-cover w-12 h-12 rounded-full border border-white"
+                        alt={`imagen de perfil de ${userData.username}`}
+                        src={
+                          userData.image ? userData.image : `/img/home/user.png`
+                        }
+                      />
+                      <p className="first-letter:uppercase text-white">
+                        {userData.username && `${userData.username}`}
+                      </p>
                     </div>
-                    <div
-                      className={`ms-2 max-h-0 overflow-hidden transition-all duration-300 mt-5 ${
-                        myAccountMenu ? "max-h-80" : ""
-                      }`}
-                    >
-                      <div className="flex flex-col gap-1">
-                        <Link to="/myAccount">Mi Información</Link>
-                        <Link to="/myAccount">Mis Compras</Link>
-                        {userData.userAdmin === true && (
-                          <Link to="/formProduct">Cargar Producto</Link>
-                        )}
-                        <button className="text-left" onClick={logoutUsername}>
-                          Salir
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  </Link>
                 ) : (
                   <Link
                     className="flex items-end gap-2 text-white"
                     to="/login"
+                    onClick={toggleMenu}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -353,55 +333,16 @@ const Nav = () => {
             <Cart />
             <div className="hidden md:relative md:flex md:items-center md:w-full md:h-full">
               {userData.token ? (
-                <div>
-                  <button
-                    className="flex items-center border border-white w-10 h-10 rounded-full overflow-hidden"
-                    onClick={() => setMenuUser(!menuUser)}
-                  >
-                    <img
-                      className="object-cover w-full h-full"
-                      alt={`imagen de perfil de ${userData.username}`}
-                      src={
-                        userData.image ? userData.image : `/img/home/user.png`
-                      }
-                    />
-                  </button>
-
-                  <div
-                    className={`border border-white flex flex-col gap-3 text-lg mt-5 me-3 font-medium absolute right-0 w-44 bg-violet-400 p-5 transition-all duration-300 opacity-0 ${
-                      menuUser ? "block opacity-100" : "hidden"
-                    }`}
-                  >
-                    <span className="block w-0 h-0 border-l-[8px] border-r-[8px] border-b-[12px] border-transparent border-b-violet-400 absolute -top-3 right-0"></span>
-                    <Link
-                      to="/MyAccount"
-                      className="transition-all duration-150 text-gray-600 hover:text-white"
-                    >
-                      Mi información
-                    </Link>
-                    <Link
-                      to="/MyAccount"
-                      className="transition-all duration-150 text-gray-600 hover:text-white"
-                    >
-                      Mis Compras
-                    </Link>
-                    {userData.userAdmin === true && (
-                      <Link
-                        className="transition-all duration-150 text-gray-600 hover:text-white"
-                        to="/formProduct"
-                      >
-                        Admin
-                      </Link>
-                    )}
-                    <div
-                      to="/MyAccount"
-                      className="transition-all duration-150 text-gray-600 hover:text-red-600 cursor-pointer"
-                      onClick={handlerLogout}
-                    >
-                      Salir
-                    </div>
-                  </div>
-                </div>
+                <Link
+                  className="flex items-center border border-white w-10 h-10 rounded-full overflow-hidden"
+                  to="/myAccount"
+                >
+                  <img
+                    className="object-cover w-full h-full"
+                    alt={`imagen de perfil de ${userData.username}`}
+                    src={userData.image ? userData.image : `/img/home/user.png`}
+                  />
+                </Link>
               ) : (
                 <Link className="flex items-end text-white" to="/Login">
                   <svg
@@ -416,8 +357,6 @@ const Nav = () => {
                       clip-rule="evenodd"
                     />
                   </svg>
-
-                 
                 </Link>
               )}
             </div>

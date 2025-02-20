@@ -10,6 +10,7 @@ import Loading from "../../Loading";
 
 const AdminProfile = () => {
   const api = useAxios();
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const [products, setProducts] = useState([""]);
   const [filteredProducts, setFilteredProducts] = useState(products);
@@ -57,9 +58,9 @@ const AdminProfile = () => {
         loadProducts();
         const categoriesData = await api.get("/categories/");
         const brandsData = await api.get("/brands/");
-        const productsData = await api.get("/products/")
+        const productsData = await api.get("/products/");
         console.log(productsData);
-        
+
         setCategories(categoriesData.data);
         setBrands(brandsData.data);
       } catch (error) {
@@ -356,6 +357,16 @@ const AdminProfile = () => {
     }
   };
 
+  const handleOpenModal = (product) => {
+    if (window.innerWidth < 1024) {
+      setSelectedProduct(product);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setSelectedProduct(null);
+  };
+
   return (
     <div className="">
       <section>
@@ -560,20 +571,18 @@ const AdminProfile = () => {
         <div>
           <h2 className="mt-10 text-gray-100 text-sm font-medium">PRODUCTOS</h2>
 
-          
-            <div className="relative flex items-center w-full lg:w-[40%] mt-5">
-              <input
-                type="text"
-                placeholder="Ingresar Nombre"
-                className="p-2 w-full"
-                value={searchProduct}
-                onChange={(e) => {
-                  setSearchProduct(e.target.value);
-                }}
-              />
-              <i className="bx bx-search text-2xl absolute right-2 top-2"></i>
-            </div>
-       
+          <div className="relative flex items-center w-full lg:w-[40%] mt-5">
+            <input
+              type="text"
+              placeholder="Ingresar Nombre"
+              className="p-2 w-full"
+              value={searchProduct}
+              onChange={(e) => {
+                setSearchProduct(e.target.value);
+              }}
+            />
+            <i className="bx bx-search text-2xl absolute right-2 top-2"></i>
+          </div>
 
           <div className="flex flex-col mt-5">
             {Array.isArray(products) && products.length > 0 ? (
@@ -587,28 +596,32 @@ const AdminProfile = () => {
                       <th>Precio</th>
                       <th>Categoría</th>
                       <th>Marca</th>
-                      <th>Acciones</th>
+                      <th className="hidden lg:flex">Acciones</th>
                     </tr>
                   </thead>
                   {filteredProducts.length > 0 ? (
                     <tbody>
                       {filteredProducts.map((product, index) => (
-                        <tr key={product.id || index}>
+                        <tr
+                          key={product.id || index}
+                          onClick={() => handleOpenModal(product)}
+                          className=""
+                        >
                           <td className="text-gray-100 text-center">
                             {product.id}
                           </td>
-                          <td className="text-center flex justify-center">
+                          <td className="text-center flex justify-center h-full min-w-[55px] lg:w-auto ms-3">
                             {product.images && product.images.length > 0 ? (
                               <img
                                 src={product.images[0].image}
                                 alt={product.name}
-                                width="50"
+                                className="lg:h-full h-[55px] w-[55px] object-contain"
                               />
                             ) : (
                               <span>No Image</span>
                             )}
                           </td>
-                          <td className="text-gray-100 text-center">
+                          <td className="text-gray-100 text-sm font-medium text-center min-w-[180px] lg:w-auto lowercase first-letter:uppercase">
                             {product.name}
                           </td>
                           <td className="text-center">{product.price}</td>
@@ -618,7 +631,7 @@ const AdminProfile = () => {
                           <td className="text-center">
                             {product.brand_detail?.name || "Sin marca"}
                           </td>
-                          <td className="text-center">
+                          <td className="text-center hidden lg:flex">
                             <button
                               type="button"
                               className="mx-2"
@@ -626,7 +639,7 @@ const AdminProfile = () => {
                                 handleEdit(product);
                               }}
                             >
-                              <i className="bx bxs-edit text-2xl"></i>
+                              <i className="bx bxs-edit text-lg"></i>
                             </button>
                             <button
                               type="button"
@@ -635,7 +648,7 @@ const AdminProfile = () => {
                                 handleDelete(product.id);
                               }}
                             >
-                              <i className="bx bxs-trash text-2xl"></i>
+                              <i className="bx bxs-trash w-full h-full text-lg"></i>
                             </button>
                           </td>
                         </tr>
@@ -651,6 +664,39 @@ const AdminProfile = () => {
                     </tbody>
                   )}
                 </table>
+
+                {selectedProduct && (
+                  <div
+                    onClick={handleCloseModal}
+                    className="w-screen h-screen fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center lg:hidden"
+                  >
+                    <div className="p-5 bg-black/60 rounded-xl shadow-md shadow-slate-300 w-[80%]">
+                      <p className="text-center text-sm font-medium mb-4 text-white">
+                        {selectedProduct.name}
+                      </p>
+                      <div className="flex justify-center gap-5">
+                        <button
+                          className="border text-gray-500 px-4 py-2 rounded-lg w-[40%]"
+                          onClick={() => {
+                            handleEdit(selectedProduct);
+                            handleCloseModal();
+                          }}
+                        >
+                          Editar
+                        </button>
+                        <button
+                          className="border text-gray-500 px-4 py-2 rounded-lg w-[40%]"
+                          onClick={() => {
+                            handleDelete(selectedProduct.id);
+                            handleCloseModal();
+                          }}
+                        >
+                          Eliminar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 <div className="my-10 flex justify-center">
                   {loading ? (

@@ -362,29 +362,32 @@ const Login = () => {
                     {...registerLogin("username_or_email", {
                       required: {
                         value: true,
-                        message: "Error: Por favor complete este campo",
+                        message: "Por favor complete este campo",
                       },
                     })}
                     className="bg-transparent placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#FF3131] focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
                     placeholder="Correo electrónico o usuario"
                   />
-                  <p className="mt-1 fs-8 text-danger">
+                  <p className="mt-1 text-xs font-extralight text-[#ec5050e0]">
                     {errorsLogin.username_or_email?.message}
                   </p>
                 </div>
 
-                <div className="relative flex items-center mb-8">
+                <div className="relative flex flex-col items-start justify-center mb-8">
                   <input
                     {...registerLogin("password", {
                       required: {
                         value: true,
-                        message: "Error: por favor complete este campo",
+                        message: "por favor complete este campo",
                       },
                     })}
                     type={passwordVisible ? "text" : "password"}
                     placeholder="Contraseña"
                     className="bg-transparent placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#FF3131] focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
                   />
+                  <p className="mt-1 text-xs font-extralight text-[#ec5050e0]">
+                    {errorsLogin.password?.message}
+                  </p>
                   <button
                     type="button"
                     onClick={() => setPasswordVisible(!passwordVisible)}
@@ -396,9 +399,6 @@ const Login = () => {
                       <i className="bx bx-show"></i>
                     )}
                   </button>
-                  <p className="mt-1 fs-8 text-danger">
-                    {errorsLogin.password?.message}
-                  </p>
                 </div>
 
                 <button
@@ -420,9 +420,6 @@ const Login = () => {
                   onClick={showRegisterForm}
                 >
                   ¿ Aun no tienes cuenta ?
-                </p>
-                <p className="cursor-pointer transition-all duration-100 lg:hover:text-white">
-                  ¿ Olvidaste tu contraseña ?
                 </p>
               </div>
             </div>
