@@ -130,9 +130,9 @@ const FormCompra = () => {
   return (
     <>
       <div className="px-6 sm:x-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-6 lg:py-8">
-        <div className="flex justify-between items-start gap-10">
+        <div className="flex flex-col-reverse lg:flex-row lg:justify-between items-start gap-10">
           {/* ----------- FORM ---------------- */}
-          <div className="col-lg-7 col-md-8 col-sm-12 lg:min-w-[630px]">
+          <div className="col-lg-7 col-md-8 col-sm-12 w-full lg:min-w-[630px]">
             <form onSubmit={handleFormSubmit} className="mt-4">
               <StepsForm step={step} isStepComplete={isStepComplete} />
 
@@ -187,8 +187,6 @@ const FormCompra = () => {
 
           {/* ------------- CART ---------------- */}
           <div className="col-lg-4 col-md-4 col-12 mt-5">
-            <h4 className="text-xl font-semibold my-4">Mi compra</h4>
-            <hr className="m-0 mb-5" />
             <ul className="p-0">
               {cart.map((product) => (
                 <li key={product.id}>
@@ -205,7 +203,9 @@ const FormCompra = () => {
                       <h2 className="text-lg font-medium">{product.name}</h2>
 
                       <div className="div-contenedor-precio">
-                        <p className="text-base font-medium">${product.price}</p>
+                        <p className="text-base font-medium">
+                          ${product.final_price || product.price}
+                        </p>
                         <p className="text-sm font-light">
                           Cantidad: {product.quantity}
                         </p>
@@ -215,12 +215,10 @@ const FormCompra = () => {
                 </li>
               ))}
             </ul>
-            <hr className="m-0 mt-5" />
-            <h3 className="my-3 text-lg font-medium">Total: ${getTotalPrice()}</h3>
-            <hr />
-            <button className="boton-incio my-3" onClick={handleClick}>
-              Volver al inicio
-            </button>
+
+            <h3 className="mt-6 mb-3 me-3 text-end text-lg font-medium">
+              Total: ${getTotalPrice()}
+            </h3>
           </div>
         </div>
 

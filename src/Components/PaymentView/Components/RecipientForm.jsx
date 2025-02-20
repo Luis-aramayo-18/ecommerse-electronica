@@ -126,7 +126,7 @@ const RecipientForm = ({
       </span>
 
       <div className="flex flex-wrap mt-5">
-        <div className="w-[45%] relative">
+        <div className="w-full lg:w-[45%] relative">
           <input
             placeholder="Nombre"
             type="text"
@@ -142,27 +142,11 @@ const RecipientForm = ({
           />
           <div className="absolute -right-3 -top-4 text-2xl">*</div>
           {nameError && (
-            <div className="text-sm text-red-500 mt-1">{nameError}</div>
+            <p className="text-sm text-red-500 mt-1">{nameError}</p>
           )}
         </div>
 
-        <div className="[45%] ms-5">
-          <input
-            placeholder="DNI"
-            type="number"
-            className="block w-full px-3 py-2 border rounded-md focus:outline-none"
-            value={shipmentInfo.dni}
-            onChange={handleDniChange}
-            required
-          />
-          {/* {nameError && (
-                          <div className="error-message invalid-feedback text-lowercase">
-                            {nameError}
-                          </div>
-                        )} */}
-        </div>
-
-        <div className="[45%] mt-3 relative">
+        <div className="w-full lg:[45%] mt-3 relative">
           <input
             minLength="10"
             maxLength="14"
@@ -182,13 +166,24 @@ const RecipientForm = ({
             <div className="text-sm text-red-500 mt-1">{numberPhoneError}</div>
           )}
         </div>
+
+        <div className="w-full mt-3 lg:[45%] lg:ms-5">
+          <input
+            placeholder="DNI"
+            type="number"
+            className="block w-full px-3 py-2 border rounded-md focus:outline-none"
+            value={shipmentInfo.dni}
+            onChange={handleDniChange}
+            required
+          />
+        </div>
       </div>
 
       <h2 className="text-start text-2xl font-semibold mt-5">
         Datos del domicilio
       </h2>
-      <div className="flex gap-4 mt-5">
-        <div className="relative w-[55%]">
+      <div className="flex flex-col lg:flex-row gap-4 mt-5">
+        <div className="relative w-full lg:w-[55%]">
           <input
             placeholder="Calle"
             type="text"
@@ -207,7 +202,7 @@ const RecipientForm = ({
           )}
         </div>
 
-        <div className="ms-3 relative">
+        <div className=" lg:ms-3 relative">
           <input
             placeholder="Altura"
             type="number"

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 export function Cart() {
   const { cart, clearCart, removeFromCart, addToCart, getTotalPrice } =
     useCart();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -19,6 +20,12 @@ export function Cart() {
 
   const handlePay = () => {
     navigate("/formCompra");
+    closeModal()
+  };
+
+  const deleteItemCart = () => {
+    clearCart()
+    closeModal()
   };
 
   useEffect(() => {
@@ -160,7 +167,7 @@ export function Cart() {
                   <span className="text-xl font-light">Total:</span> $
                   {getTotalPrice()}
                 </h5>
-                <button onClick={clearCart}>
+                <button onClick={deleteItemCart}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
