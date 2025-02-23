@@ -13,7 +13,7 @@ import BoxComments from "./Components/BoxComments";
 import RelatedProducts from "./Components/RelatedProducts";
 
 const Product = () => {
-  const api = useAxios();
+  const api = useAxios();  
   const userID = localStorage.getItem("userId");
 
   const [product, setProduct] = useState();

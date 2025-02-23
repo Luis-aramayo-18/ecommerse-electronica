@@ -5,7 +5,7 @@ const Contact = () => {
     <section className="flex flex-col justify-center items-center h-screen">
       <h2 className="mb-8">DEJANOS TU CONSULTA !</h2>
       <div className="mx-40 flex justify-center">
-        <div className="flex justify-center items-center border w-3/4">
+        <div className="flex justify-center items-center border w-3/4"> 
           <div className="w-3/5 p-4">
             <form action="">
               <div className="flex flex-col">

@@ -61,7 +61,7 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
       if (error.response) {
         setErrors(error.response.data);
         if (errorFields) {
-          toast.error(`${errorFields}`, {
+          toast.error(`${errorFields || errors}`, {
             position: "bottom-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -288,7 +288,7 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
             className="w-full flex flex-col items-start gap-4 bg-[#0F172A]"
             onSubmit={commentSubmit}
           >
-            <textarea
+            <textarea 
               className="text-white  focus:outline-none focus:ring-2 focus:ring-[#9cccf4] shadow-lg  w-full px-4 pb-48 pt-4 resize-none border border-white bg-black/30 backdrop-blur-lg"
               ref={inputComment}
               onChange={(e) => setComment(e.target.value)}

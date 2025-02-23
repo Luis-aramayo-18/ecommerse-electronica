@@ -9,7 +9,7 @@ const Menu = ({ section, setSection, logoutUsername }) => {
   useEffect(() => {
     const adm = localStorage.getItem("userAdmin");
     if (adm === "true") {
-      setAdmin(true);
+      setAdmin(true); 
     }
 
     const sectionUrl = searchParams.get("section");

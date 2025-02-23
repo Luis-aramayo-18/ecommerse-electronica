@@ -8,13 +8,13 @@ import Cart from "./PaymentView/Cart";
 import Loading from "./Loading";
 
 const Nav = () => {
-  const { setUserData, userData, logoutUsername } = useAuth();
+  const { setUserData, userData } = useAuth();
 
   const [searchProduct, setSearchProduct] = useState("");
   const [openMenu, setOpenMenu] = useState(false);
   const [categories, setCategories] = useState([]);
   const [categoryMenu, setCategoryMenu] = useState(false);
-  const [menuUser, setMenuUser] = useState(false);
+
   const [myAccountMenu, setMyAccountMenu] = useState(false);
   const [suggestions, setSuggestions] = useState({
     categories: [],
@@ -23,7 +23,7 @@ const Nav = () => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const [brand, setBrand] = useState("");
-  const cache = new Map();
+
   const api = useAxios();
 
   const categoryIdFromUrl = location.pathname.split("/")[3];
@@ -96,10 +96,6 @@ const Nav = () => {
       debouncedFetch.cancel();
     };
   }, [searchProduct]);
-
-  const handlerLogout = () => {
-    logoutUsername();
-  };
 
   const handleSelectSuggestion = () => {
     setSearchProduct("");

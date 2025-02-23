@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useCart } from "../Hooks/useCart";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAxios } from "../Hooks/useAxios";
 import apiServices from "../../api/apiServices";
@@ -21,7 +20,6 @@ const FormCompra = () => {
   const [numberStreetError, setNumberStreetError] = useState("");
   const { cart, clearCart, getTotalPrice } = useCart();
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const navigate = useNavigate();
 
   const [shipmentInfo, setShipmentInfo] = useState({
     name: "",
@@ -32,10 +30,6 @@ const FormCompra = () => {
     comments: "",
     pay: "",
   });
-
-  const handleClick = () => {
-    navigate("/");
-  };
 
   const isStepComplete = (step) => {
     switch (step) {

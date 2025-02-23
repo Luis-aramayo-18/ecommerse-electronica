@@ -36,8 +36,6 @@ const Filters = ({
     }
   }, [isDeletingFilters]);
 
-  console.log(filters);
-
   return (
     <>
       <section

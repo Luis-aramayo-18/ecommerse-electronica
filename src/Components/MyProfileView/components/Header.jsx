@@ -9,7 +9,7 @@ const Header = ({ api }) => {
   const [preview, setPreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
 
-  const { setUserData, userData } = useAuth();
+  const { setUserData, userData } = useAuth(); 
 
   useEffect(() => {
     const user = localStorage.getItem("username");

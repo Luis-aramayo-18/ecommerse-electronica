@@ -587,7 +587,7 @@ const AdminProfile = () => {
           <div className="flex flex-col mt-5">
             {Array.isArray(products) && products.length > 0 ? (
               <section className="overflow-x-auto">
-                <table className="mt-4 min-w-full">
+                <table className="mt-4 min-w-full"> 
                   <thead>
                     <tr>
                       <th>Id</th>

@@ -14,7 +14,6 @@ import Brands from "./Components/Brands";
 import LastProducts from "./Components/LastProducts";
 import CommentsBox from "./Components/CommentsBox";
 import GamerBanner from "./Components/GamerBanner";
-import { useState } from "react";
 
 const StyledSlider = styled(Slider)`
   .slick-list {
@@ -30,7 +29,7 @@ const StyledSlider = styled(Slider)`
 `;
 
 const Home = () => {
-  const api = useAxios();
+  const api = useAxios(); 
 
 
   const { userData } = useAuth();

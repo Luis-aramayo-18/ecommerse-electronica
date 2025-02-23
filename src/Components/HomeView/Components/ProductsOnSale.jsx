@@ -6,8 +6,9 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState("");
   const [menu, setMenu] = useState(false);
-  const [homeView, setHomeView] = useState(true);
 
+  const homeView = true;
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {

@@ -1,31 +1,8 @@
 import React from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Loading from "../../Loading";
 
-const BreadCrumb = ({ product, categoryId }) => {
-  const navigate = useNavigate();
-
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const navigateToCategory = () => {
-    const category = product.category;
-    navigate(`/products/category/${category}`);
-  };
-
-  const navigateToBrand = () => {
-    console.log(product);
-
-    const brand = product.brand_detail.name;
-    const category = product.category;
-
-    const updatedSearchParams = new URLSearchParams(searchParams);
-    updatedSearchParams.set("brand", brand);
-
-    navigate(
-      `/products/category/${category}?${updatedSearchParams.toString()}`
-    );
-  };
-
+const BreadCrumb = ({ product }) => {
   return (
     <section>
       {product ? (

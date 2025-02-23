@@ -167,7 +167,7 @@ export function Cart() {
                   <span className="text-xl font-light">Total:</span> $
                   {getTotalPrice()}
                 </h5>
-                <button onClick={deleteItemCart}>
+                <button onClick={deleteItemCart}> 
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

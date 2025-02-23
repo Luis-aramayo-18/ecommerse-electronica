@@ -57,7 +57,7 @@ const MyAccount = () => {
         </section>
 
         {/* ------MOBILE----- */}
-
+ 
         <section className="w-full lg:hidden">
           <div className="w-full flex justify-center p-3 shadow-md shadow-slate-400 rounded-xl">
             <Header />

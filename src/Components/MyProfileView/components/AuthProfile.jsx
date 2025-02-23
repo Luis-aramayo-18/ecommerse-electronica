@@ -127,7 +127,7 @@ const AuthProfile = () => {
         <h2>Autenticación</h2>
       </section>
 
-      <section className="h-full relative">
+      <section className="h-full relative"> 
         <div className="flex flex-col">
           {hasPassword === true ? (
             <div>

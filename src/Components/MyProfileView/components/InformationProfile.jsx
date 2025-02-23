@@ -30,37 +30,6 @@ const InformationProfile = ({ setSection, api }) => {
     loadDataUser();
   }, []);
 
-  const handleUsernameUpdate = async () => {
-    const updateUsername = {
-      new_username: user,
-      current_password: currentPassword,
-    };
-
-    try {
-      const response = await api.put("/user-update/", updateUsername);
-      if (response.status === 200) {
-        console.log(response.data);
-      }
-    } catch (error) {
-      console.log(error.response.data);
-    }
-  };
-
-  const handleEmailUpdate = async () => {
-    const updateEmail = {
-      new_email: email,
-      current_password: currentPassword,
-    };
-    try {
-      const response = await api.put("/user-update/", updateEmail);
-      if (response.status === 200) {
-        console.log(response.data);
-      }
-    } catch (error) {
-      console.log(error.response.data);
-    }
-  };
-
   const updateUser = (e) => {
     e.preventDefault();
   };
@@ -75,7 +44,10 @@ const InformationProfile = ({ setSection, api }) => {
         <form onSubmit={updateUser}>
           <div className="flex flex-col gap-3 lg:flex-row lg:gap-10">
             <div className="flex flex-col gap-2 w-full lg:w-[35%]">
-              <label className="text-lg font-medium text-[#a8acb0]" htmlFor="Name">
+              <label
+                className="text-lg font-medium text-[#a8acb0]"
+                htmlFor="Name"
+              >
                 Usuario
               </label>
 
@@ -102,7 +74,10 @@ const InformationProfile = ({ setSection, api }) => {
             </div>
 
             <div className="flex flex-col gap-2 w-full lg:w-[50%]">
-              <label className="text-lg font-medium text-[#a8acb0]" htmlFor="Email">
+              <label
+                className="text-lg font-medium text-[#a8acb0]"
+                htmlFor="Email"
+              >
                 Email
               </label>
 
@@ -133,7 +108,10 @@ const InformationProfile = ({ setSection, api }) => {
 
           <div className="flex flex-col gap-3 lg:flex-row lg:gap-10">
             <div className="flex flex-col gap-2 mt-7 w-full lg:w-[35%]">
-              <label className="text-lg font-medium text-[#a8acb0]" htmlFor="Teléfono">
+              <label
+                className="text-lg font-medium text-[#a8acb0]"
+                htmlFor="Teléfono"
+              >
                 Teléfono
               </label>
 
@@ -157,7 +135,10 @@ const InformationProfile = ({ setSection, api }) => {
             </div>
 
             <div className="flex flex-col gap-2 mt-7 w-full lg:w-[35%]">
-              <label className="text-lg font-medium text-[#a8acb0]" htmlFor="DNI">
+              <label
+                className="text-lg font-medium text-[#a8acb0]"
+                htmlFor="DNI"
+              >
                 DNI
               </label>
 

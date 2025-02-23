@@ -208,7 +208,7 @@ const Login = () => {
                 >
                   Volver
                 </button>
-              </div>
+              </div> 
 
               <div className="w-full lg:w-[40%] mt-5">
                 <p className="font-medium text-sm mb-3 first-letter:uppercase text-[#acb1b6]">

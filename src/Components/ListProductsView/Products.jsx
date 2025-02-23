@@ -4,7 +4,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useAxios } from "../Hooks/useAxios";
 
 import OrderListFilter from "./Components/OrderListFilter";
-import OrderListFilterMob from "./Components/OrderListFilterMob";
+
 import Filters from "./Components/Filters";
 import ListProducts from "./Components/ListProducts";
 
@@ -155,15 +155,6 @@ const Products = () => {
         {/* ------PRODUCTS----- */}
         <div className="overflow-hidden lg:relative lg:flex lg:justify-between">
           {/* ------ORDEN LIST BUTTON MOB----- */}
-          {/* <OrderListFilterMob
-            setOrderListMobile={setOrderListMobile}
-            orderListMobile={orderListMobile}
-            setFilterMobile={setFilterMobile}
-            filterMobile={filterMobile}
-            valueOrder={valueOrder}
-            filters={filters}
-            handleFilterChange={handleFilterChange}
-          /> */}
 
           {/* ------FILTERS----- */}
 

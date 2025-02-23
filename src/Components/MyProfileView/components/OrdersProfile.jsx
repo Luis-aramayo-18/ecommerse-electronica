@@ -109,7 +109,7 @@ const OrdersProfile = () => {
                           {selectedOrder.order_items.map((item, idx) => (
                             <div
                               key={item.id || idx}
-                              className="flex justify-center"
+                              className="flex justify-center" 
                             >
                               {item.product.images.length > 0 && (
                                 <div className="w-full flex items-center justify-center">

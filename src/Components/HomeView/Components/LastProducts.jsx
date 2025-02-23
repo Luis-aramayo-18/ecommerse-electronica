@@ -7,7 +7,8 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
   const [categories, setCategories] = useState("");
   const [menu, setMenu] = useState(false);
 
-  const [homeView, setHomeView] = useState(true);
+
+  const homeView = true
 
   useEffect(() => {
     const fetchLastProducts = async () => {
