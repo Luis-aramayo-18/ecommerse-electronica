@@ -16,7 +16,8 @@ const RecipientForm = ({
     validateNumberPhone(shipmentInfo.numberPhone);
     validateName(shipmentInfo.name);
     validateStreet(shipmentInfo.street);
-    validateNumberStreet(shipmentInfo.numberStreet);
+    validateNumberStreet(shipmentInfo.numberStreet); 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     shipmentInfo.name,
     shipmentInfo.numberPhone,

@@ -21,7 +21,8 @@ const StyledSlider = styled(Slider)`
 const RelatedProducts = ({ product, api }) => {
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [error, setError] = useState("");
-  const [homeView, setHomeView] = useState(true);
+
+  const homeView = true;
 
   const settings = {
     dots: false,
@@ -99,6 +100,7 @@ const RelatedProducts = ({ product, api }) => {
 
       getRelateProduct();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
   console.log(Math.min(relatedProducts.length));
@@ -118,7 +120,11 @@ const RelatedProducts = ({ product, api }) => {
           ) : relatedProducts && relatedProducts.length > 0 ? (
             <StyledSlider {...settings} className="">
               {relatedProducts.map((product, idx) => (
-                <ProductCard key={product.id || idx} product={product} homeView={homeView} />
+                <ProductCard
+                  key={product.id || idx}
+                  product={product}
+                  homeView={homeView}
+                />
               ))}
             </StyledSlider>
           ) : (
