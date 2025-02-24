@@ -33,6 +33,7 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
     };
     fetchLastProducts();
     fetchCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

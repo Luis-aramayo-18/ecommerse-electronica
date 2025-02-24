@@ -29,6 +29,7 @@ const Header = ({ api }) => {
     }));
 
     setProvider(provider);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleImageChange = (e) => {
@@ -103,6 +104,7 @@ const Header = ({ api }) => {
       }
     };
     imageUpdate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imageFile]);
 
   return (

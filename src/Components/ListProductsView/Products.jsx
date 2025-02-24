@@ -93,6 +93,7 @@ const Products = () => {
     } else {
       setValueOrder("");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     filters.sort,
     filters.brand,
@@ -138,6 +139,7 @@ const Products = () => {
       fetchProduct();
       setIsDeletingFilters(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDeletingFilters]);
 
   return (

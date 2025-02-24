@@ -16,10 +16,12 @@ const Menu = ({ section, setSection, logoutUsername }) => {
     if (sectionUrl) {
       setSection(sectionUrl);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setSearchParams({ section });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [section]);
 
   return (

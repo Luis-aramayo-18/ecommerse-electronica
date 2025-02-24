@@ -25,7 +25,7 @@ const OrdersProfile = () => {
       }
     };
     loadOrderUser();
-  }, []);
+  }, [api]);
 
   const handleOpenModal = (order) => {
     setModalOrder(true);

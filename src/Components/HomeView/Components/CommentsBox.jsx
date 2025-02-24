@@ -26,6 +26,7 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
       }
     };
     fetchComments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const commentSubmit = async (e) => {

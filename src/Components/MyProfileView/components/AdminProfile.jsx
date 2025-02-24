@@ -70,6 +70,7 @@ const AdminProfile = () => {
       }
     };
     loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -77,6 +78,7 @@ const AdminProfile = () => {
       product.name?.toLowerCase().includes(searchProduct.toLowerCase())
     );
     setFilteredProducts(filtered);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchProduct]);
 
   const handleCategoryChange = (e) => {

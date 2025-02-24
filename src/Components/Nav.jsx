@@ -50,6 +50,7 @@ const Nav = () => {
       }
     };
     getCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchSuggestions = async (searchProduct) => {
@@ -95,6 +96,7 @@ const Nav = () => {
     return () => {
       debouncedFetch.cancel();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchProduct]);
 
   const handleSelectSuggestion = () => {

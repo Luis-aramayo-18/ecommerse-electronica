@@ -13,7 +13,7 @@ import BoxComments from "./Components/BoxComments";
 import RelatedProducts from "./Components/RelatedProducts";
 
 const Product = () => {
-  const api = useAxios();  
+  const api = useAxios();
   const userID = localStorage.getItem("userId");
 
   const [product, setProduct] = useState();
@@ -38,7 +38,7 @@ const Product = () => {
     });
 
     getProduct();
-  }, [productId]);
+  }, [productId, api]);
 
   useEffect(() => {
     if (product) {
@@ -47,7 +47,6 @@ const Product = () => {
           const response = await api.get(
             `/comments/get_comments?product=${product.id}`
           );
-          console.log(response);
 
           const sortedComments = response.data.sort((a, b) => {
             return a.user === userID ? -1 : 1;
@@ -60,7 +59,7 @@ const Product = () => {
 
       getCommentsProduct();
     }
-  }, [product]);
+  }, [product, api, userID]);
 
   // useEffect(() => {
   //   const productName = product.name;
