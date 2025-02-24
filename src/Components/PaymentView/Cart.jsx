@@ -20,12 +20,12 @@ export function Cart() {
 
   const handlePay = () => {
     navigate("/formCompra");
-    closeModal()
+    closeModal();
   };
 
   const deleteItemCart = () => {
-    clearCart()
-    closeModal()
+    clearCart();
+    closeModal();
   };
 
   useEffect(() => {
@@ -86,79 +86,83 @@ export function Cart() {
           ) : (
             <>
               <ul className="p-0 w-full overflow-y-scroll scroll-smooth">
-                {cart.map((product) => (
-                  <li key={product.id}>
-                    <div className="flex items-center gap-2 mt-3">
-                      <div className="w-28 m-2">
-                        <img
-                          className="w-full object-cover"
-                          src={product.images[0].image}
-                          alt={product.name}
-                        />
-                      </div>
+                {cart && cart.length > 0 ? (
+                  cart.map((product) => (
+                    <li key={product.id}>
+                      <div className="flex items-center gap-2 mt-3">
+                        <div className="w-28 m-2">
+                          <img
+                            className="w-full object-cover"
+                            src={product.images[0].image}
+                            alt={product.name}
+                          />
+                        </div>
 
-                      <div>
-                        <p className="text-lg font-semibold text-[#f0f7fe]">
-                          {product.name}
-                        </p>
                         <div>
+                          <p className="text-lg font-semibold text-[#f0f7fe]">
+                            {product.name}
+                          </p>
                           <div>
-                            <p className="text-lg font-semibold text-[#deecfb]">
-                              %{product.discount_percentage}
-                              <span className="uppercase text-base font-medium ms-2">
-                                off
-                              </span>
-                            </p>
+                            <div>
+                              <p className="text-lg font-semibold text-[#deecfb]">
+                                %{product.discount_percentage}
+                                <span className="uppercase text-base font-medium ms-2">
+                                  off
+                                </span>
+                              </p>
+                              <p
+                                className={`${
+                                  product.is_on_sale
+                                    ? "line-through text-sm font-light text-[#deecfb]"
+                                    : "text-[#deecfb]"
+                                }`}
+                              >
+                                $
+                                {new Intl.NumberFormat("es-CO", {
+                                  style: "decimal",
+                                  minimumFractionDigits: 0,
+                                }).format(product.price)}
+                              </p>
+                            </div>
                             <p
                               className={`${
                                 product.is_on_sale
-                                  ? "line-through text-sm font-light text-[#deecfb]"
+                                  ? "font-bold mt-2 text-[#deecfb]"
                                   : "text-[#deecfb]"
                               }`}
                             >
+                              <span className="text-sm font-light">
+                                Precio Final:
+                              </span>{" "}
                               $
                               {new Intl.NumberFormat("es-CO", {
                                 style: "decimal",
                                 minimumFractionDigits: 0,
-                              }).format(product.price)}
+                              }).format(product.final_price)}
                             </p>
-                          </div>
-                          <p
-                            className={`${
-                              product.is_on_sale
-                                ? "font-bold mt-2 text-[#deecfb]"
-                                : "text-[#deecfb]"
-                            }`}
-                          >
-                            <span className="text-sm font-light">
-                              Precio Final:
-                            </span>{" "}
-                            $
-                            {new Intl.NumberFormat("es-CO", {
-                              style: "decimal",
-                              minimumFractionDigits: 0,
-                            }).format(product.final_price)}
-                          </p>
-                          <div className="mt-4 flex items-center gap-2 text-[#deecfb]">
-                            <button
-                              className="rounded-lg border w-8 h-8 flex items-center justify-center"
-                              onClick={() => addToCart(product)}
-                            >
-                              +
-                            </button>
-                            <span className="">{product.quantity}</span>
-                            <button
-                              className="rounded-lg border w-8 h-8 flex items-center justify-center"
-                              onClick={() => removeFromCart(product)}
-                            >
-                              -
-                            </button>
+                            <div className="mt-4 flex items-center gap-2 text-[#deecfb]">
+                              <button
+                                className="rounded-lg border w-8 h-8 flex items-center justify-center"
+                                onClick={() => addToCart(product)}
+                              >
+                                +
+                              </button>
+                              <span className="">{product.quantity}</span>
+                              <button
+                                className="rounded-lg border w-8 h-8 flex items-center justify-center"
+                                onClick={() => removeFromCart(product)}
+                              >
+                                -
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </li>
-                ))}
+                    </li>
+                  ))
+                ) : (
+                  <p>no hay productos.</p>
+                )}
               </ul>
               <hr className="w-full m-0 mt-6 mb-5" />
 
@@ -167,7 +171,7 @@ export function Cart() {
                   <span className="text-xl font-light">Total:</span> $
                   {getTotalPrice()}
                 </h5>
-                <button onClick={deleteItemCart}> 
+                <button onClick={deleteItemCart}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
