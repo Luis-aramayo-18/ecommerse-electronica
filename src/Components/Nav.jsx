@@ -156,8 +156,8 @@ const Nav = () => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative flex flex-col gap-4 w-full">
-                <Link to="/" onClick={toggleMenu}>
-                  <div className="w-16">
+                <Link to="/" className="w-32" onClick={toggleMenu}>
+                  <div className="w-32">
                     <img
                       className="w-full object-cover"
                       src="/img/logonav.png"
@@ -342,7 +342,7 @@ const Nav = () => {
                   />
                 </Link>
               ) : (
-                <Link className="flex items-end text-white" to="/Login">
+                <Link className="flex items-end text-white" to="/login">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"

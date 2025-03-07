@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { CartProvider } from "./Context/CartContext";
 
@@ -12,14 +12,29 @@ import Login from "./LoginView/Login";
 import Nav from "./Nav";
 import MyAccount from "./MyProfileView/MyAccount";
 import GoogleLoginBtn from "./LoginView/Components/GoogleLoginBtn";
+import ErrorPage from "./ErrorPage";
+import About from "./AboutView/About";
+
+
 
 const RoutesApp = () => {
+  const location = useLocation();
+  const isErrorPage = location.pathname === '*' ||
+  location.pathname !== '/' &&
+  location.pathname !== '/products/category/:categoryId' &&
+  location.pathname !== '/google' &&
+  location.pathname !== '/products/category/:categoryId/product/:productId' &&
+  location.pathname !== '/contact' &&
+  location.pathname !== '/login' &&
+  location.pathname !== '/myAccount' &&
+  location.pathname !== '/formCompra' &&
+  location.pathname !== '/about'
+
   return (
     <>
       <ToastContainer />
       <CartProvider>
-        <Nav />
-
+        {!isErrorPage && <Nav />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products/category/:categoryId" element={<Products />} />
@@ -29,6 +44,7 @@ const RoutesApp = () => {
             element={<Product />}
           />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<RoutesAuth requiresAuth={true} />}>
             <Route path="/myAccount" element={<MyAccount />} />
@@ -39,9 +55,7 @@ const RoutesApp = () => {
           >
             <Route path="/formCompra" element={<FormCompra />} />
           </Route>
-          {/* <Route path="/" element={<RoutesAuth requiresAdmin={true} />}>
-            <Route path="/formProduct" element={<FormProduct />} />
-          </Route> */}
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </CartProvider>
     </>
