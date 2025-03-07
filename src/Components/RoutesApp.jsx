@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { CartProvider } from "./Context/CartContext";
 
@@ -15,26 +15,12 @@ import GoogleLoginBtn from "./LoginView/Components/GoogleLoginBtn";
 import ErrorPage from "./ErrorPage";
 import About from "./AboutView/About";
 
-
-
 const RoutesApp = () => {
-  const location = useLocation();
-  const isErrorPage = location.pathname === '*' ||
-  location.pathname !== '/' &&
-  location.pathname !== '/products/category/:categoryId' &&
-  location.pathname !== '/google' &&
-  location.pathname !== '/products/category/:categoryId/product/:productId' &&
-  location.pathname !== '/contact' &&
-  location.pathname !== '/login' &&
-  location.pathname !== '/myAccount' &&
-  location.pathname !== '/formCompra' &&
-  location.pathname !== '/about'
-
   return (
     <>
       <ToastContainer />
       <CartProvider>
-        {!isErrorPage && <Nav />}
+        <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products/category/:categoryId" element={<Products />} />
