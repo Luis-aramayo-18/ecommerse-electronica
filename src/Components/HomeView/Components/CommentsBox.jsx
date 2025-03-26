@@ -18,11 +18,13 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
   useEffect(() => {
     const fetchComments = async () => {
       const response = await api.get(
-        `/comments/get_comments?page_id=${pageId}`
+        `/comments/get_comments/?page_id=${pageId}`
       );
-
+      
+      
       if (response.status === 200) {
         setComments(response.data);
+        console.log(response);
       }
     };
     fetchComments();

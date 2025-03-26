@@ -43,6 +43,8 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const loginGoogle = async (credentialResponse) => {
+    console.log(credentialResponse);
+    
     try {
       const credentialLogin = credentialResponse.credential;
 
@@ -52,7 +54,6 @@ export const AuthProvider = ({ children }) => {
           credential: credentialLogin,
         }
       );
-      console.log(response);
 
       if (response.status === 200) {
         const {
@@ -134,7 +135,9 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}login/`,
         data
-      );      
+      );
+
+      console.log(response);
 
       if (response.status === 200) {
         const {
@@ -162,7 +165,6 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("userAdmin", response.data.is_staff);
         localStorage.setItem("userId", response.data.id);
         localStorage.setItem("userProvider", provider_auth);
-
 
         if (response.data.image) {
           const img = response.data.image;

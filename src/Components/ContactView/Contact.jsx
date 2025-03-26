@@ -3,8 +3,8 @@ import React from "react";
 const Contact = () => {
   return (
     <section className="flex justify-center">
-      <div className="flex border w-[45%] mt-20 text-white shadow-md shadow-slate-500">
-        <div className="w-[80%] p-4">
+      <div className="flex flex-col sm:flex-row border w-[90%] sm:w-[75%] md:w-[70%] lg:w-[55%] xl:w-[45%] my-20 text-white shadow-md shadow-slate-500">
+        <div className="w-full sm:w-[80%] p-4">
           <form action="">
             <div className="flex flex-col">
               <input
@@ -23,7 +23,7 @@ const Contact = () => {
             <div className="flex flex-col mt-5">
               <textarea
                 className="bg-transparent resize-none h-36 placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#FF3131] focus:outline-none focus:border-blue-500 px-2 py-2 w-full"
-                placeholder="mensaje"
+                placeholder="Mensaje"
               />
             </div>
             <button className="mt-4 p-3 w-full border" type="submit">
@@ -32,7 +32,7 @@ const Contact = () => {
           </form>
         </div>
 
-        <div className="w-3/5 bg-stone-950 h-full p-4">
+        <div className="w-full sm:w-[20%] bg-stone-950 h-full p-4">
           <ul className="mt-4">
             <li className="flex items-center gap-2">
               <i className="bx bxs-map"></i>

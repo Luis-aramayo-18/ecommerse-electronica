@@ -4,6 +4,7 @@ import { useAuth } from "../Hooks/useAuth";
 import { useAxios } from "../Hooks/useAxios";
 import apiServices from "../../api/apiServices";
 import GoogleLoginBtn from "./Components/GoogleLoginBtn";
+import { Bounce, toast } from "react-toastify";
 
 const Login = () => {
   const api = useAxios();
@@ -42,6 +43,7 @@ const Login = () => {
   const registerUser = async (data) => {
     try {
       const response = await requestApi.createUser(data);
+
       if (response.status === 201) {
         const user = data.username;
         localStorage.setItem("username", user);
@@ -51,14 +53,35 @@ const Login = () => {
         if (savedUsername) {
           setValue("username_or_email", savedUsername);
         }
-      } else {
-        console.log("No se pudo crear el usuario");
+
+        toast.success("Inicia sesion por favor", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
       }
     } catch (error) {
-      console.error(
-        "Error al crear el usuario:",
-        error.response?.data || error.message
-      );
+      const errors = error.response.data;
+      const firstErrorKey = Object.keys(errors)[0];
+      const errorMessage = errors[firstErrorKey][0];
+
+      toast.error(errorMessage, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
     }
   };
 
@@ -208,7 +231,7 @@ const Login = () => {
                 >
                   Volver
                 </button>
-              </div> 
+              </div>
 
               <div className="w-full lg:w-[40%] mt-5">
                 <p className="font-medium text-sm mb-3 first-letter:uppercase text-[#acb1b6]">
@@ -356,7 +379,10 @@ const Login = () => {
             </div>
           ) : (
             <div>
-              <form onSubmit={handleSubmitLogin(loginUser)} className="mt-6 p-4">
+              <form
+                onSubmit={handleSubmitLogin(loginUser)}
+                className="mt-6 p-4"
+              >
                 <div className="mb-8">
                   <input
                     {...registerLogin("username_or_email", {

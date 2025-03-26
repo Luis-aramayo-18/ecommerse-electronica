@@ -157,7 +157,7 @@ const Nav = () => {
             >
               <div className="relative flex flex-col gap-4 w-full">
                 <Link to="/" className="w-32" onClick={toggleMenu}>
-                  <div className="w-32">
+                  <div className="w-24">
                     <img
                       className="w-full object-cover"
                       src="/img/logonav.png"
