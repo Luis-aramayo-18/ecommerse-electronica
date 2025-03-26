@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
-const Menu = ({ section, setSection, logoutUsername }) => {
-  const [admin, setAdmin] = useState(false);
-
+const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
