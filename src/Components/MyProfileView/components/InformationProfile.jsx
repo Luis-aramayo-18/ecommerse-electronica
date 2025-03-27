@@ -35,12 +35,8 @@ const InformationProfile = ({ setSection, api }) => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-between">
-      <section className="hidden lg:block text-5xl font-semibold">
-        <h2>Información</h2>
-      </section>
-
-      <section className="mt-5 lg:mt-10 flex flex-col w-full relative">
+    <div className="w-full flex flex-col justify-between mt-5 lg:mt-0">
+      <section className="flex flex-col w-full relative">
         <form onSubmit={updateUser}>
           <div className="flex flex-col gap-3 lg:flex-row lg:gap-10">
             <div className="flex flex-col gap-2 w-full lg:w-[35%]">

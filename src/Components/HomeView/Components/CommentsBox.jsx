@@ -20,8 +20,7 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
       const response = await api.get(
         `/comments/get_comments/?page_id=${pageId}`
       );
-      
-      
+
       if (response.status === 200) {
         setComments(response.data);
         console.log(response);
@@ -214,6 +213,8 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
       <div className="flex items-center text-center gap-1 uppercase mb-12 tracking-widest text-2xl font-semibold text-[#f0f7fe]">
         <h2>El mejor servicio</h2>
       </div>
+
+      {/* -----COMMENTS------ */}
       <div className="my-4">
         <StyledSlider {...settings}>
           {comments.map((comment) => (
@@ -235,7 +236,7 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
                     />
                   ) : (
                     <img
-                      className="h-12 w-12 object-cover rounded-full border"
+                      className="h-12 w-24 object-cover rounded-full border"
                       src="/img/home/user.png"
                       alt=""
                     />
@@ -282,6 +283,7 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
         </StyledSlider>
       </div>
 
+      {/* --------BOX-COMMENTS-------- */}
       <div className="flex flex-col gap-4 mt-20 lg:ms-5 w-full">
         <div className="text-lg font-medium text-[#deecfb]">
           <h2>Déjanos tu comentario</h2>
@@ -291,7 +293,7 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
             className="w-full flex flex-col items-start gap-4 bg-[#0F172A]"
             onSubmit={commentSubmit}
           >
-            <textarea 
+            <textarea
               className="text-white  focus:outline-none focus:ring-2 focus:ring-[#9cccf4] shadow-lg  w-full px-4 pb-48 pt-4 resize-none border border-white bg-black/30 backdrop-blur-lg"
               ref={inputComment}
               onChange={(e) => setComment(e.target.value)}

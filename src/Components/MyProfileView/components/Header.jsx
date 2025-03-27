@@ -9,7 +9,7 @@ const Header = ({ api }) => {
   const [preview, setPreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
 
-  const { setUserData, userData } = useAuth(); 
+  const { setUserData, userData } = useAuth();
 
   useEffect(() => {
     const user = localStorage.getItem("username");
@@ -117,29 +117,23 @@ const Header = ({ api }) => {
             className="w-full h-full object-cover rounded-full absolute border border-gray-200"
           />
         ) : (
-          <img
-            src="/img/home/user.png"
-            alt="imagen genérica de perfil"
-            className="w-full object-cover rounded-full absolute"
-          />
-        )}
-
-        {provider === "email" && (
-          <div>
-            <label
-              htmlFor="profileImage"
-              className=" bg-white text-gray-800 border border-gray-600 flex justify-center items-center rounded-full text-center cursor-pointer absolute right-0 w-5 h-5 top-2/3"
-            >
-              <i className="bx bx-pencil"></i>
-            </label>
+          <label
+            className="w-full h-full relative cursor-pointer"
+            htmlFor="profileImage"
+          >
+            <img
+              src="/img/home/user.png"
+              alt="imagen genérica de perfil"
+              className="w-full object-cover rounded-full absolute"
+            />
             <input
               type="file"
               id="profileImage"
               accept="image/*"
-              className="hidden"
+              className="w-full h-full rounded-full cursor-pointer"
               onChange={handleImageChange}
             />
-          </div>
+          </label>
         )}
       </div>
 
@@ -147,7 +141,9 @@ const Header = ({ api }) => {
         <p className="text-base lg:text-lg font-semibold first-letter:uppercase text-[#f0f7fe]">
           {userData.username}
         </p>
-        <p className="text-[#deecfb] text-sm font-light lg:hidden">{userData.email}</p>
+        <p className="text-[#deecfb] text-sm font-light lg:hidden">
+          {userData.email}
+        </p>
       </div>
     </div>
   );

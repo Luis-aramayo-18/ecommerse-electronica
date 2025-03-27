@@ -8,6 +8,7 @@ import AuthProfile from "./components/AuthProfile";
 import Menu from "./components/Menu";
 import Header from "./components/Header";
 import AdminProfile from "./components/AdminProfile";
+
 import { useAuth } from "../Hooks/useAuth";
 
 const MyAccount = () => {
@@ -55,7 +56,7 @@ const MyAccount = () => {
           </div>
         </section>
 
-        <section className="w-full ms-[18%] hidden lg:block">
+        <section className="w-full ms-[20%] mt-5 hidden lg:block">
           {openSection(section)}
         </section>
 
@@ -67,7 +68,7 @@ const MyAccount = () => {
           </div>
 
           <div className="mt-20 mb-10">
-            <section className="shadow-sm shadow-slate-400 p-5 rounded-xl">
+            <section className="cursor-pointer shadow-sm shadow-slate-400 p-5 rounded-xl">
               <div
                 className="flex items-center gap-2 text-[#deecfb]"
                 onClick={() =>
@@ -110,7 +111,7 @@ const MyAccount = () => {
               {section === "information" && <div>{openSection(section)}</div>}
             </section>
 
-            <section className="shadow-sm shadow-slate-400 p-5 rounded-xl mt-10">
+            <section className="cursor-pointer shadow-sm shadow-slate-400 p-5 rounded-xl mt-10">
               <div
                 className="flex items-center gap-2 text-[#deecfb]"
                 onClick={() => setSection(section === "orders" ? "" : "orders")}
@@ -149,7 +150,7 @@ const MyAccount = () => {
               )}
             </section>
 
-            <section className="shadow-sm shadow-slate-400 p-5 rounded-xl mt-10">
+            <section className="cursor-pointer shadow-sm shadow-slate-400 p-5 rounded-xl mt-10">
               <div
                 className="flex items-center gap-2 text-[#deecfb]"
                 onClick={() =>
@@ -193,7 +194,7 @@ const MyAccount = () => {
             </section>
 
             {admin === true && (
-              <section className="shadow-sm shadow-slate-400 p-5 rounded-xl mt-10">
+              <section className="cursor-pointer shadow-sm shadow-slate-400 p-5 rounded-xl mt-10">
                 <div
                   className="flex items-center gap-2 text-[#deecfb]"
                   onClick={() => setSection(section === "admin" ? "" : "admin")}
@@ -238,7 +239,7 @@ const MyAccount = () => {
               </section>
             )}
 
-            <section className="shadow-sm shadow-[#FF3131] p-5 rounded-xl mt-10">
+            <section className="cursor-pointer shadow-sm shadow-[#FF3131] p-5 rounded-xl mt-10">
               <div
                 className="flex items-center gap-2 text-[#deecfb]"
                 onClick={logoutUsername}
