@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
 
   const loginGoogle = async (credentialResponse) => {
     console.log(credentialResponse);
-    
+
     try {
       const credentialLogin = credentialResponse.credential;
 
@@ -56,6 +56,18 @@ export const AuthProvider = ({ children }) => {
       );
 
       if (response.status === 200) {
+        toast.success(`Bienvenido`, {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+
         const {
           token,
           username,
@@ -105,7 +117,7 @@ export const AuthProvider = ({ children }) => {
         }
 
         if (is_staff) {
-          navigate("/formProduct");
+          navigate("/myAccount?section=admin");
         } else {
           navigate("/");
         }
@@ -137,9 +149,19 @@ export const AuthProvider = ({ children }) => {
         data
       );
 
-      console.log(response);
-
       if (response.status === 200) {
+        toast.success(`Bienvenido`, {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+
         const {
           token,
           username,
@@ -189,7 +211,7 @@ export const AuthProvider = ({ children }) => {
         }
 
         if (is_staff) {
-          navigate("/");
+          navigate("/myAccount?section=admin");
         } else {
           navigate("/");
         }

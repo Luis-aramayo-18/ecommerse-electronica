@@ -60,7 +60,7 @@ const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
           <button>Admin</button>
         </li>
       )}
-      <li>
+      <li className="p-2 transition-all duration-100 hover:text-white">
         <button onClick={logoutUsername}>Salir</button>
       </li>
     </ul>

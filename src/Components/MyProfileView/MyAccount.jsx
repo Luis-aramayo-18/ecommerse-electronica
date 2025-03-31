@@ -14,7 +14,7 @@ import { useAuth } from "../Hooks/useAuth";
 const MyAccount = () => {
   const api = useAxios();
 
-  const [section, setSection] = useState("");
+  const [section, setSection] = useState("information");
   const { logoutUsername } = useAuth();
   const [admin, setAdmin] = useState(false);
 
@@ -56,7 +56,7 @@ const MyAccount = () => {
           </div>
         </section>
 
-        <section className="w-full ms-[20%] mt-5 hidden lg:block">
+        <section className="w-full ms-[20%] hidden lg:block">
           {openSection(section)}
         </section>
 

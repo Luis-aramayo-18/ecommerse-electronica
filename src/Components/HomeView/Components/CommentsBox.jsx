@@ -23,7 +23,6 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
 
       if (response.status === 200) {
         setComments(response.data);
-        console.log(response);
       }
     };
     fetchComments();

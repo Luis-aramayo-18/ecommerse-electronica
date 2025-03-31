@@ -103,8 +103,6 @@ const RelatedProducts = ({ product, api }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
-  console.log(Math.min(relatedProducts.length));
-
   return (
     <section>
       <div className="mt-20">

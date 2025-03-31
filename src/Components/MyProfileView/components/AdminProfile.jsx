@@ -10,6 +10,8 @@ import Loading from "../../Loading";
 
 const AdminProfile = () => {
   const api = useAxios();
+  const productSection = useRef(null)
+
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const [products, setProducts] = useState([""]);
@@ -220,7 +222,9 @@ const AdminProfile = () => {
         setSelectedCategory("");
         setSelectedBrand("");
         setImage([]);
+        setDiscountPercentage("");
         fileInputRef.current.value = "";
+        productSection.current?.scrollIntoView({ behavior: "smooth" });
       }
     } catch (err) {
       const error = err.response.data;
@@ -374,8 +378,7 @@ const AdminProfile = () => {
       <section>
         <ul className="flex gap-10 text-sm mt-5 font-semibold">
           <li className="cursor-pointer text-white">Cargar producto</li>
-          <li className="cursor-pointer ">Cargar producto</li>
-          <li className="cursor-pointer ">Cargar producto</li>
+          <li className="cursor-pointer">Cargar Usuario</li>
         </ul>
       </section>
 
@@ -418,7 +421,7 @@ const AdminProfile = () => {
               ></textarea>
               <div className="flex justify-center gap-4">
                 <div className="w-full">
-                  {Array.isArray(categories) && categories.length > 0 ? (
+                  
                     <select
                       required
                       className="p-2 overflow-y-auto w-full"
@@ -435,9 +438,7 @@ const AdminProfile = () => {
                         </option>
                       ))}
                     </select>
-                  ) : (
-                    <Loading />
-                  )}
+                 
 
                   {showNewCategoryInput && (
                     <div className="flex flex-col mt-4">
@@ -461,7 +462,7 @@ const AdminProfile = () => {
                 </div>
 
                 <div className="w-full">
-                  {Array.isArray(brands) && brands.length > 0 ? (
+                 
                     <select
                       required
                       className="p-2 w-full"
@@ -479,9 +480,7 @@ const AdminProfile = () => {
                         </option>
                       ))}
                     </select>
-                  ) : (
-                    <Loading />
-                  )}
+               
 
                   {showNewBrandInput && (
                     <div className="flex flex-col mt-4">
@@ -570,7 +569,7 @@ const AdminProfile = () => {
           )}
         </div>
 
-        <div>
+        <div ref={productSection}>
           <h2 className="mt-10 text-gray-100 text-sm font-medium">PRODUCTOS</h2>
 
           <div className="relative flex items-center w-full lg:w-[40%] mt-5">
@@ -589,7 +588,7 @@ const AdminProfile = () => {
           <div className="flex flex-col mt-5">
             {Array.isArray(products) && products.length > 0 ? (
               <section className="overflow-x-auto">
-                <table className="mt-4 min-w-full"> 
+                <table className="mt-4 min-w-full">
                   <thead>
                     <tr>
                       <th>Id</th>
