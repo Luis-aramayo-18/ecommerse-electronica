@@ -4,8 +4,6 @@ import { Bounce, toast } from "react-toastify";
 import { useAuth } from "../../Hooks/useAuth";
 
 const Header = ({ api }) => {
-  const [provider, setProvider] = useState("");
-
   const [preview, setPreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
 
@@ -13,9 +11,8 @@ const Header = ({ api }) => {
 
   useEffect(() => {
     const user = localStorage.getItem("username");
-    const provider = localStorage.getItem("userProvider");
-
     const img = localStorage.getItem("profileImage");
+    
     if (img) {
       setUserData((prevUserData) => ({
         ...prevUserData,
@@ -28,7 +25,6 @@ const Header = ({ api }) => {
       username: user,
     }));
 
-    setProvider(provider);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
