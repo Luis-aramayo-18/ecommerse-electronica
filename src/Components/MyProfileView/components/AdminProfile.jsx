@@ -352,6 +352,7 @@ const AdminProfile = () => {
 
     try {
       setLoading(true);
+
       const response = await api.get(nextPage);
 
       if (response.status === 200) {
@@ -371,7 +372,21 @@ const AdminProfile = () => {
             ),
           ]);
 
-          setNextPage(response.data.next);
+          const nextUrl = response.data.next;
+
+          if (nextUrl) {
+            const urlObj = new URL(nextUrl);
+
+            let relativeUrl = urlObj.pathname + urlObj.search;
+
+            if (relativeUrl.startsWith("/api/")) {
+              relativeUrl = relativeUrl.replace("/api", "");
+
+              setNextPage(relativeUrl);
+            }
+          } else {
+            setNextPage(null);
+          }
         }
       }
     } catch (err) {
