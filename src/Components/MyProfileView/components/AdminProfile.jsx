@@ -10,7 +10,7 @@ import Loading from "../../Loading";
 
 const AdminProfile = () => {
   const api = useAxios();
-  const productSection = useRef(null)
+  const productSection = useRef(null);
 
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -61,8 +61,8 @@ const AdminProfile = () => {
         const categoriesData = await api.get("/categories/");
         const brandsData = await api.get("/brands/");
         const productsData = await api.get("/products/");
-        console.log(productsData);
 
+        setProducts(productsData.data.results);
         setCategories(categoriesData.data);
         setBrands(brandsData.data);
       } catch (error) {
@@ -82,6 +82,12 @@ const AdminProfile = () => {
     setFilteredProducts(filtered);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchProduct]);
+
+  useEffect(() => {
+    if (products.length < 10) {
+      setFilteredProducts(products);
+    }
+  }, [products]);
 
   const handleCategoryChange = (e) => {
     const selectedValue = e.target.value;
@@ -200,7 +206,6 @@ const AdminProfile = () => {
 
     try {
       const response = await api.post("/products/", formData);
-      console.log(response);
 
       if (response.status === 201) {
         toast.success("producto añadido a la lista", {
@@ -228,7 +233,7 @@ const AdminProfile = () => {
       }
     } catch (err) {
       const error = err.response.data;
-      console.log(error);
+      console.log(err);
 
       toast.error(error, {
         position: "bottom-center",
@@ -309,8 +314,21 @@ const AdminProfile = () => {
   const handleDelete = async (productID) => {
     try {
       const response = await api.delete(`/products/${productID}/`);
+      console.log(response);
+
       if (response.status === 204) {
-        console.log("Producto eliminado");
+        toast.success("producto eliminado", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+
         setProducts(products.filter((product) => product.id !== productID));
         setName("");
         setDescription("");
@@ -373,6 +391,32 @@ const AdminProfile = () => {
     setSelectedProduct(null);
   };
 
+  const handleDeletePhoto = async (id) => {
+    try {
+      const response = await api.delete(`/products/images/${id}/`);
+      console.log(response);
+
+      if (response.status === 204) {
+        const updatedImages = image.filter((img) => img.id !== id);
+        setImage(updatedImages);
+
+        toast.success("Imagen eliminada", {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
+      }
+    } catch (error) {
+      console.error("Error al eliminar la imagen:", error);
+    }
+  };
+
   return (
     <div className="">
       <section>
@@ -383,7 +427,7 @@ const AdminProfile = () => {
       </section>
 
       <section>
-        <div className="flex flex-col-reverse lg:first-letter:flex-row lg:justify-between">
+        <div className="flex flex-col-reverse lg:flex-row lg:justify-between">
           <section className="w-full lg:w-[48%] mt-10">
             <h2 className=" text-gray-100 text-sm font-medium">
               AGREGAR PRODUCTO
@@ -421,24 +465,22 @@ const AdminProfile = () => {
               ></textarea>
               <div className="flex justify-center gap-4">
                 <div className="w-full">
-                  
-                    <select
-                      required
-                      className="p-2 overflow-y-auto w-full"
-                      value={selectedCategory}
-                      onChange={handleCategoryChange}
-                    >
-                      <option value="" disabled>
-                        CATEGORÍA
+                  <select
+                    required
+                    className="p-2 overflow-y-auto w-full"
+                    value={selectedCategory}
+                    onChange={handleCategoryChange}
+                  >
+                    <option value="" disabled>
+                      CATEGORÍA
+                    </option>
+                    <option value="new-category">NUEVA CATEGORÍA</option>
+                    {categories.map((category, idx) => (
+                      <option key={category.id || idx} value={category.id}>
+                        {category.name}
                       </option>
-                      <option value="new-category">NUEVA CATEGORÍA</option>
-                      {categories.map((category, idx) => (
-                        <option key={category.id || idx} value={category.id}>
-                          {category.name}
-                        </option>
-                      ))}
-                    </select>
-                 
+                    ))}
+                  </select>
 
                   {showNewCategoryInput && (
                     <div className="flex flex-col mt-4">
@@ -462,25 +504,23 @@ const AdminProfile = () => {
                 </div>
 
                 <div className="w-full">
-                 
-                    <select
-                      required
-                      className="p-2 w-full"
-                      value={selectedBrand}
-                      onChange={handleBrandChange}
-                    >
-                      <option value="" disabled>
-                        MARCA
-                      </option>
-                      <option value="new-brand">NUEVA MARCA</option>
+                  <select
+                    required
+                    className="p-2 w-full"
+                    value={selectedBrand}
+                    onChange={handleBrandChange}
+                  >
+                    <option value="" disabled>
+                      MARCA
+                    </option>
+                    <option value="new-brand">NUEVA MARCA</option>
 
-                      {brands.map((brand, idx) => (
-                        <option key={brand.id || idx} value={brand.id}>
-                          {brand.name}
-                        </option>
-                      ))}
-                    </select>
-               
+                    {brands.map((brand, idx) => (
+                      <option key={brand.id || idx} value={brand.id}>
+                        {brand.name}
+                      </option>
+                    ))}
+                  </select>
 
                   {showNewBrandInput && (
                     <div className="flex flex-col mt-4">
@@ -554,15 +594,40 @@ const AdminProfile = () => {
           </section>
 
           {formEdit && image.length > 0 && (
-            <section className="mt-20 me-10 w-[450px]">
+            <section className="mt-20 me-10 w-[400px]">
               <Slider {...settings}>
                 {image.map((img, idx) => (
-                  <img
-                    src={img.image}
-                    alt={name}
-                    key={img.id || idx}
-                    className="object-cover w-full"
-                  />
+                  <div className="relative h-[400px]" key={img.id || idx}>
+                    <div className="z-20">
+                      <img
+                        src={img.image}
+                        alt={name}
+                        className="object-cover w-full"
+                      />
+                    </div>
+
+                    <div className="flex flex-col items-end gap-3 absolute top-2 right-2 z-50 cursor-pointer">
+                      <button
+                        onClick={() => handleDeletePhoto(img.id)}
+                        className="text-gray-500 transition-all duration-100 hover:text-gray-900"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="size-5"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
                 ))}
               </Slider>
             </section>

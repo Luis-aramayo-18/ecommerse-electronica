@@ -43,8 +43,6 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const loginGoogle = async (credentialResponse) => {
-    console.log(credentialResponse);
-
     try {
       const credentialLogin = credentialResponse.credential;
 

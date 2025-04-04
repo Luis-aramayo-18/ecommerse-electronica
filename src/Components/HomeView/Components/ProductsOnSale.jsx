@@ -8,7 +8,7 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
   const [menu, setMenu] = useState(false);
 
   const homeView = true;
-  
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {

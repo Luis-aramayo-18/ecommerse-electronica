@@ -25,20 +25,19 @@ const Product = () => {
     const getProduct = async () => {
       try {
         const response = await api.get(`/products/${productId}`);
+        if (response.status === 200) {
+          setProduct(response.data);
 
-        setProduct(response.data);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
       } catch (error) {
         console.log(error);
       }
     };
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-
     getProduct();
-  }, [productId, api]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productId]);
 
   useEffect(() => {
     if (product) {

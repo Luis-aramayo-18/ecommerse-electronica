@@ -84,9 +84,6 @@ const RelatedProducts = ({ product, api }) => {
           const allProduct = await api.get(
             `/products/${productId}/related-products`
           );
-
-          console.log(allProduct);
-
           if (allProduct.status === 200) {
             const related = allProduct.data;
             setRelatedProducts(related);
