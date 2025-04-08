@@ -52,6 +52,8 @@ export const AuthProvider = ({ children }) => {
           credential: credentialLogin,
         }
       );
+      console.log(response);
+      
 
       if (response.status === 200) {
         toast.success(`Bienvenido`, {

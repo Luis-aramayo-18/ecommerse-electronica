@@ -3,7 +3,7 @@ import { toast, Bounce } from "react-toastify";
 
 import moment from "moment";
 
-const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
+const CommentsBox = ({ api, userId, StyledSlider }) => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [optionsComment, setOptionsComment] = useState(false);
@@ -14,6 +14,18 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
   const inputComment = useRef();
 
   const pageId = "homePage";
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    autoplay: false,
+    autoplaySpeed: 5000,
+    adaptiveHeight: true,
+  };
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -26,6 +38,7 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
       }
     };
     fetchComments();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -37,7 +50,7 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
         page_id: pageId,
       };
       const response = await api.post("/comments/", commentData);
-      console.log(response);
+
       if (response.status === 201) {
         toast.success(`${response.data.message}`, {
           position: "bottom-center",
@@ -105,15 +118,12 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
   };
 
   const handleUpdateComment = async () => {
-    console.log("hola");
-
     const dataComment = {
       comment_text: comment,
       page_id: pageId,
     };
     try {
       const response = await api.put(`/comments/${commentId}/`, dataComment);
-      console.log(response);
 
       if (response.status === 200) {
         toast.success(`${response.data.message}`, {
@@ -207,6 +217,8 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
     return moment(dateString).format("D [de] MMMM");
   };
 
+  console.log(comments);
+
   return (
     <section className="mx-6 sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24 flex flex-col justify-center mt-10">
       <div className="flex items-center text-center gap-1 uppercase mb-12 tracking-widest text-2xl font-semibold text-[#f0f7fe]">
@@ -223,14 +235,10 @@ const CommentsBox = ({ api, userId, StyledSlider, settings }) => {
             >
               <div className="head-card flex items-center gap-3">
                 <div>
-                  {comment.user.image ? (
+                  {comment ? (
                     <img
-                      className="h-12 w-12 object-cover rounded-full border"
-                      src={
-                        comment.user.image
-                          ? `http://localhost:8000${comment.user.image}`
-                          : `/public/img/home/user.png`
-                      }
+                      className="w-12 h-12 object-cover rounded-full border"
+                      src={comment.user.image}
                       alt={comment.user.username}
                     />
                   ) : (
