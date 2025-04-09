@@ -249,8 +249,8 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
   };
 
   return (
-    <section className="mx-6 sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24 flex flex-col justify-center mt-10">
-      <div className="flex items-center text-center gap-1 uppercase mb-12 tracking-widest text-2xl font-semibold text-[#f0f7fe]">
+    <section className="mx-6 sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24 flex flex-col justify-center mt-28 sm:mt-10">
+      <div className="flex items-center text-center gap-1 uppercase mb-8 sm:mb-12 tracking-widest text-2xl font-semibold text-[#f0f7fe]">
         <h2>El mejor servicio</h2>
       </div>
 
@@ -320,7 +320,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
       </div>
 
       {/* --------BOX-COMMENTS-------- */}
-      <div className="flex flex-col gap-4 mt-20 lg:ms-5 w-full">
+      <div className="flex flex-col gap-4 mt-10 sm:mt-20 lg:ms-5 w-full">
         <div className="text-lg font-medium text-[#deecfb]">
           <h2>Déjanos tu comentario</h2>
         </div>

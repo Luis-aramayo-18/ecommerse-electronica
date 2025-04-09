@@ -118,7 +118,14 @@ const Nav = () => {
       document.body.style.overflow = "auto";
     };
   }, [openMenu]);
-  
+
+  const deleteSuggestions = () => {
+    setSearchProduct("");
+    setSuggestions({
+      products: [],
+      categories: [],
+    });
+  };
 
   return (
     <>
@@ -277,20 +284,43 @@ const Nav = () => {
                   value={searchProduct}
                   onChange={handleSearchProduct}
                 />
-                <i className="bx bx-search text-black absolute right-2 text-xl"></i>
+                {loading ? (
+                  <Loading />
+                ) : suggestions.products.length > 0 ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="size-4 absolute right-4 cursor-pointer z-20"
+                    onClick={deleteSuggestions}
+                  >
+                    <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="size-4 absolute right-4 z-20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                )}
               </div>
             </div>
 
-            {loading ? (
-              <Loading />
-            ) : suggestions.products.length > 0 ||
-              suggestions.categories.length > 0 ? (
-              <div className="absolute left-0 top-full m-auto w-full bg-gray-400 p-2">
-                <ul className="text-sm">
+            {suggestions.products.length > 0 ||
+            suggestions.categories.length > 0 ? (
+              <div className="absolute mt-2 left-0 top-full m-auto w-full bg-black/70 border border-gray-500 backdrop-blur-sm rounded-2xl p-2 max-h-[380px] overflow-y-auto">
+                <ul className="text-sm text-gray-300">
                   {suggestions.products.map((product) => (
-                    <li key={product.id} className="mt-3">
+                    <li key={product.id} className="mt-3 transition-all duration-150 lg:hover:bg-[#fea401] lg:hover:text-white rounded-2xl">
                       <Link
-                        className="flex gap-2"
+                        className="flex gap-2 items-center p-4"
                         to={`/products/category/${product.category_detail.id}/product/${product.id}`}
                         onClick={handleSelectSuggestion}
                       >
@@ -312,12 +342,13 @@ const Nav = () => {
 
                 <hr className="w-[80%] mt-5" />
 
-                <ul className="text-sm mt-5 mb-3">
+                <ul className="text-sm mt-5 mb-3 text-gray-300">
                   {suggestions.categories.map((category) => (
-                    <li key={category.id} className="mt-1">
+                    <li key={category.id} className="mt-1 p-4 first-letter:uppercase">
                       <Link
                         to={`/products/category/${category.id}?brand=${brand}`}
                         onClick={handleSelectSuggestion}
+                        className="transition-all duration-150 lg:hover:text-[#fea401] "
                       >
                         {category.name} {searchProduct}
                       </Link>
