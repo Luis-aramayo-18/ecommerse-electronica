@@ -15,7 +15,7 @@ const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
       setSection(sectionUrl);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     setSearchParams({ section });

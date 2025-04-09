@@ -2,6 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
   return (
     <section className="relative bg-black/90 backdrop-blur-sm px-6 sm:px-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 flex flex-col justify-center mt-28 py-5 sm:py-10">
       <div>
@@ -19,13 +25,13 @@ const Footer = () => {
           <h2 className="font-semibold sm:text-xl text-2xl text-[#9cccf4]">Ayuda</h2>
           <ul className="mt-5 text-lg sm:text-sm">
             <li className="transition-all duration-100 text-gray-400 hover:text-[#fea401] cursor-pointer">
-              <Link to="/contact">Contacto</Link>
+              <Link to="/contact" onClick={handleScrollToTop}>Contacto</Link>
             </li>
             <li className="transition-all duration-100 text-gray-400 hover:text-[#fea401] cursor-pointer">
-              <Link>Garantia de productos</Link>
+              <Link to="/warranty" onClick={handleScrollToTop}>Garantia de productos</Link>
             </li>
             <li className="transition-all duration-100 text-gray-400 hover:text-[#fea401] cursor-pointer">
-              <Link>Termino y condiciones</Link>
+              <Link to="/terms" onClick={handleScrollToTop}>Termino y condiciones</Link>
             </li>
           </ul>
         </div>
@@ -34,13 +40,13 @@ const Footer = () => {
           <h2 className="font-semibold sm:text-xl text-2xl text-[#9cccf4]">Mi cuenta</h2>
           <ul className="mt-5 text-lg sm:text-sm">
             <li className="transition-all duration-100 text-gray-400 hover:text-[#fea401] cursor-pointer">
-              <Link to="/myAccount?section=information">Mi perfil</Link>
+              <Link to="/myAccount?section=information" onClick={handleScrollToTop}>Mi perfil</Link>
             </li>
             <li className="transition-all duration-100 text-gray-400 hover:text-[#fea401] cursor-pointer">
-              <Link to="/myAccount?section=orders">Mis pedidos</Link>
+              <Link to="/myAccount?section=orders" onClick={handleScrollToTop}>Mis pedidos</Link>
             </li>
             <li className="transition-all duration-100 text-gray-400 hover:text-[#fea401] cursor-pointer">
-              <Link to="/myAccount?section=authentication">Seguridad</Link>
+              <Link to="/myAccount?section=authentication" onClick={handleScrollToTop}>Seguridad</Link>
             </li>
           </ul>
         </div>
@@ -49,13 +55,13 @@ const Footer = () => {
           <h2 className="font-semibold sm:text-xl text-2xl text-[#9cccf4]">Digital World</h2>
           <ul className="mt-5 text-lg sm:text-sm">
             <li className="transition-all duration-100 text-gray-400 hover:text-[#fea401] cursor-pointer">
-              <Link to="/about">Sobre la empresa</Link>
+              <Link to="/about" onClick={handleScrollToTop}>Sobre la empresa</Link>
             </li>
           </ul>
         </div>
 
         <div className="sm:absolute sm:right-0 sm:top-0">
-          <h2 className="text-white font-semibold">
+          <h2 className="text-[#fea401] font-semibold">
             SIGUENOS EN NUESTRAS REDES.
           </h2>
           <div className="flex sm:justify-center gap-5 mt-3 text-gray-400">
@@ -65,7 +71,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="text-sm  font-light text-[#fea401] mt-12 ms-5">
+      <div className="text-sm  font-light text-gray-500 mt-12 ms-5">
         <span>Copyright ©. Todos los derechos reservados.</span>
       </div>
     </section>

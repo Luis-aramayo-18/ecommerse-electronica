@@ -233,7 +233,7 @@ const Nav = () => {
                 {userData.token ? (
                   <Link
                     className="flex justify-between items-center m-0 text-xl font-medium"
-                    to="/myAccount"
+                    to="/myAccount?section=information"
                     onClick={toggleMenu}
                   >
                     <div className="flex items-center gap-3">
@@ -365,7 +365,7 @@ const Nav = () => {
               {userData.token ? (
                 <Link
                   className="flex items-center border border-white w-10 h-10 rounded-full overflow-hidden"
-                  to="/myAccount"
+                  to="/myAccount?section=information"
                 >
                   <img
                     className="object-cover w-full h-full"

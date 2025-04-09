@@ -15,6 +15,8 @@ import GoogleLoginBtn from "./LoginView/Components/GoogleLoginBtn";
 import ErrorPage from "./ErrorPage";
 import About from "./AboutView/About";
 import Footer from "./Footer";
+import Warranty from "./Warranty";
+import TermAndConditions from "./TermAndConditions";
 
 const RoutesApp = () => {
   return (
@@ -43,6 +45,8 @@ const RoutesApp = () => {
             <Route path="/formCompra" element={<FormCompra />} />
           </Route>
           <Route path="*" element={<ErrorPage />} />
+          <Route path="/warranty" element={<Warranty />} />
+          <Route path="/terms" element={<TermAndConditions />} />
         </Routes>
         <Footer />
       </CartProvider>
