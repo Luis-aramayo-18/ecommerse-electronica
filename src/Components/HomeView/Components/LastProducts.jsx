@@ -104,13 +104,13 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
       {/* -------BANNER LAPTOPS----- */}
       <div className="flex flex-col lg:flex-row gap-3 mt-10">
         <Link to="/products/category/2" className="w-[100%] lg:w-[19%]">
-          <img src="/img/home/banner-gamer-1.webp" alt="banner laptop" />
+          <img src="/img/home/banner-gamer-1.webp" alt="banner laptop" className="w-full h-full" />
         </Link>
         <Link to="/products/category/2" className="w-[100%] lg:w-3/5">
-          <img src="/img/home/banner-gamer-2.webp" alt="banner laptop" />
+          <img src="/img/home/banner-gamer-2.webp" alt="banner laptop" className="w-full h-full" />
         </Link>
         <Link to="/products/category/2" className="w-[100%] lg:w-[19%]">
-          <img src="/img/home/banner-gamer-3.webp" alt="banner laptop" />
+          <img src="/img/home/banner-gamer-3.webp" alt="banner laptop" className="w-full h-full" />
         </Link>
       </div>
     </section>
