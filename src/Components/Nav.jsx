@@ -118,6 +118,7 @@ const Nav = () => {
       document.body.style.overflow = "auto";
     };
   }, [openMenu]);
+  
 
   return (
     <>
@@ -295,7 +296,7 @@ const Nav = () => {
                       >
                         <div className="w-16 h-16 overflow-hidden">
                           <img
-                            src={`http://localhost:8000${product.images[0]?.image}`}
+                            src={`${product.images[0]?.image}`}
                             alt={`imagen de ${product.name}`}
                             className="object-contain w-full h-full"
                           />

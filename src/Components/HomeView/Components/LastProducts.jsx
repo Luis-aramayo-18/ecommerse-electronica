@@ -24,7 +24,7 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
     };
     const fetchCategories = async () => {
       try {
-        const response = await api.get("/categories/");
+        const response = await api.get("/categories/recent-categories/");
 
         if (response.status === 200) {
           setCategories(response.data);
@@ -60,7 +60,7 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
         {categories && (
           <nav className="relative w-full h-auto overflow-x-auto pb-3">
             <ul
-              className={`h-full flex items-center gap-3 transform transition-all duration-300 absolute left-0 text-sm font-medium text-[#deecfb] ${
+              className={`h-full flex items-center gap-3 transform overflow-x-scroll transition-all duration-300 absolute left-0 text-sm font-medium text-[#deecfb] ${
                 menu
                   ? " translate-x-0 opacity-100"
                   : " -translate-x-full opacity-0"

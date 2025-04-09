@@ -25,6 +25,37 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
     autoplay: false,
     autoplaySpeed: 5000,
     adaptiveHeight: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          dots: true,
+          slidesToShow: 4,
+          slidesToScroll: 1,
+          infinite: true,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 780,
+        settings: {
+          dots: true,
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+          arrows: false,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          dots: true,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          arrows: false,
+        },
+      },
+    ],
   };
 
   useEffect(() => {
@@ -217,8 +248,6 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
     return moment(dateString).format("D [de] MMMM");
   };
 
-  console.log(comments);
-
   return (
     <section className="mx-6 sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24 flex flex-col justify-center mt-10">
       <div className="flex items-center text-center gap-1 uppercase mb-12 tracking-widest text-2xl font-semibold text-[#f0f7fe]">
@@ -265,7 +294,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
 
               {comment.user.id === parseFloat(userId) && (
                 <div
-                  className="flex flex-col items-end gap-3 absolute top-2 right-2 z-50"
+                  className="flex flex-col items-end gap-3 absolute top-2 right-2 z-50 cursor-pointer"
                   onClick={() => setOptionsComment(!optionsComment)}
                 >
                   <i className="bx bx-dots-vertical-rounded text-3xl"></i>
