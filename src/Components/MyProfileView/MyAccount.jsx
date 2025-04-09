@@ -40,7 +40,7 @@ const MyAccount = () => {
   return (
     <>
       <div className="mt-10 w-full h-auto px-6 md:px-14 lg:px-24 flex">
-        <section className="w-[20%] fixed hidden lg:block">
+        <section className="w-[25%] hidden lg:block">
           <div>
             <Header api={api} />
           </div>
@@ -56,7 +56,7 @@ const MyAccount = () => {
           </div>
         </section>
 
-        <section className="w-full ms-[20%] hidden lg:block">
+        <section className="w-full ms-[5%] hidden lg:block">
           {openSection(section)}
         </section>
 
