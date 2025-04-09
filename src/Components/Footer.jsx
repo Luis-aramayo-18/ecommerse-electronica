@@ -3,7 +3,7 @@ import React from "react";
 const Footer = () => {
   return (
     <section className="section-footer mt-20">
-      {/* <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center">
           <div className="bg-blue-600 flex rounded-md p-3 px-3 m-10">
             <div className="offer flex items-center gap-4 px-4">
               <i className="bx bx-rocket"></i>
@@ -37,7 +37,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
 
       <div className="flex flex-col items-center gap-5">
         <div className="flex items-center border rounded-xl gap-5 p-5">

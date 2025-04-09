@@ -42,7 +42,8 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
           Últimos Agregados
         </h2>
       </div>
-
+      
+      {/* ---------PRODUCTS--------- */}
       <div className="flex gap-3 mb-6 relative">
         <button
           className="flex items-center text-lg font-semibold text-[#deecfb] ms-2 group"
@@ -100,27 +101,16 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
         </StyledSlider>
       </div>
 
+      {/* -------BANNER LAPTOPS----- */}
       <div className="flex flex-col lg:flex-row gap-3 mt-10">
-        <Link to="/products/category/2">
-          <img
-            src="/img/home/banner-gamer-1.webp"
-            className="w-[100%] lg:w-[19%]"
-            alt=""
-          />
+        <Link to="/products/category/2" className="w-[100%] lg:w-[19%]">
+          <img src="/img/home/banner-gamer-1.webp" alt="banner laptop" />
         </Link>
-        <Link to="/products/category/2">
-          <img
-            src="/img/home/banner-gamer-2.webp"
-            className="w-[100%] lg:w-3/5"
-            alt=""
-          />
+        <Link to="/products/category/2" className="w-[100%] lg:w-3/5">
+          <img src="/img/home/banner-gamer-2.webp" alt="banner laptop" />
         </Link>
-        <Link to="/products/category/2">
-          <img
-            src="/img/home/banner-gamer-3.webp"
-            className="w-[100%] lg:w-[19%]"
-            alt=""
-          />
+        <Link to="/products/category/2" className="w-[100%] lg:w-[19%]">
+          <img src="/img/home/banner-gamer-3.webp" alt="banner laptop" />
         </Link>
       </div>
     </section>
