@@ -14,6 +14,7 @@ import MyAccount from "./MyProfileView/MyAccount";
 import GoogleLoginBtn from "./LoginView/Components/GoogleLoginBtn";
 import ErrorPage from "./ErrorPage";
 import About from "./AboutView/About";
+import Footer from "./Footer";
 
 const RoutesApp = () => {
   return (
@@ -43,6 +44,7 @@ const RoutesApp = () => {
           </Route>
           <Route path="*" element={<ErrorPage />} />
         </Routes>
+        <Footer />
       </CartProvider>
     </>
   );

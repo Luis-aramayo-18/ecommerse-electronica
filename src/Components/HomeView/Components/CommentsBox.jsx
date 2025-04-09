@@ -291,7 +291,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
           {comments.map((comment) => (
             <div
               className={`${
-                comment.user.id === parseFloat(userId) ? "cursor-pointer" : ""
+                comment.user.id === parseFloat(userId) ? "cursor-pointer shadow-slate-400 hover:shadow-md " : ""
               } card-comments relative z-20  rounded-xl bg-black/70 border border-gray-500 backdrop-blur-sm p-5 min-h-[150px]`}
               key={comment.id}
               ref={(el) => (cardRefs.current[comment.id] = el)}
@@ -318,7 +318,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
                   )}
                 </div>
                 <div>
-                  <h3 className="text-lg font-medium first-letter:uppercase text-white">z
+                  <h3 className="text-lg font-medium first-letter:uppercase text-white">
                     {comment.user.username}
                   </h3>
                   <p className="text-sm font-light text-gray-400">
