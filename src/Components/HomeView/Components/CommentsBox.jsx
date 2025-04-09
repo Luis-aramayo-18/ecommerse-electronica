@@ -265,11 +265,11 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
         setActiveCommentId(null);
       }
     };
-  
+
     if (activeCommentId !== null) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-  
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -278,6 +278,8 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
   const handleCardClick = (id) => {
     setActiveCommentId((prevId) => (prevId === id ? null : id));
   };
+
+  console.log(comments);
 
   return (
     <section className="mx-6 sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24 flex flex-col justify-center mt-28 sm:mt-10">
@@ -291,7 +293,9 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
           {comments.map((comment) => (
             <div
               className={`${
-                comment.user.id === parseFloat(userId) ? "cursor-pointer shadow-slate-400 hover:shadow-md " : ""
+                comment.user.id === parseFloat(userId)
+                  ? "cursor-pointer shadow-slate-400 hover:shadow-md "
+                  : ""
               } card-comments relative z-20  rounded-xl bg-black/70 border border-gray-500 backdrop-blur-sm p-5 min-h-[150px]`}
               key={comment.id}
               ref={(el) => (cardRefs.current[comment.id] = el)}
@@ -325,13 +329,12 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
                     {formatDate(comment.created_at)}
                   </p>
                 </div>
-                {provider && (
-                  <img
-                    src="/img/home/google.png"
-                    alt="logo google"
-                    className="w-6 h-6 absolute right-0"
-                  />
-                )}
+
+                <img
+                  src="/img/home/google.png"
+                  alt="logo google"
+                  className="w-6 h-6 absolute right-0"
+                />
               </div>
 
               <div className="main-card mt-3 first-letter:uppercase text-white text-sm font-light">
