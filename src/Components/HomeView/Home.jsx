@@ -38,11 +38,11 @@ const Home = () => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 300,
     slidesToShow: 5,
     slidesToScroll: 1,
     initialSlide: 0,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 5000,
     adaptiveHeight: true,
     responsive: [

@@ -11,7 +11,6 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
   const [commentId, setCommentId] = useState();
   const [errors, setErrors] = useState({});
 
-  const [provider, setProvider] = useState(false);
   const [activeCommentId, setActiveCommentId] = useState(null);
 
   const cardRefs = useRef({});
@@ -73,12 +72,6 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
       }
     };
     fetchComments();
-
-    const prov = localStorage.getItem("userProvider");
-
-    if (prov === "google") {
-      setProvider(true);
-    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
