@@ -7,8 +7,7 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
   const [categories, setCategories] = useState("");
   const [menu, setMenu] = useState(false);
 
-
-  const homeView = true
+  const homeView = true;
 
   useEffect(() => {
     const fetchLastProducts = async () => {
@@ -102,21 +101,27 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-3 mt-10">
-        <img
-          src="/img/home/banner-gamer-1.webp"
-          className="w-[100%] lg:w-[19%]"
-          alt=""
-        />
-        <img
-          src="/img/home/banner-gamer-2.webp"
-          className="w-[100%] lg:w-3/5"
-          alt=""
-        />
-        <img
-          src="/img/home/banner-gamer-3.webp"
-          className="w-[100%] lg:w-[19%]"
-          alt=""
-        />
+        <Link to="/products/category/2">
+          <img
+            src="/img/home/banner-gamer-1.webp"
+            className="w-[100%] lg:w-[19%]"
+            alt=""
+          />
+        </Link>
+        <Link to="/products/category/2">
+          <img
+            src="/img/home/banner-gamer-2.webp"
+            className="w-[100%] lg:w-3/5"
+            alt=""
+          />
+        </Link>
+        <Link to="/products/category/2">
+          <img
+            src="/img/home/banner-gamer-3.webp"
+            className="w-[100%] lg:w-[19%]"
+            alt=""
+          />
+        </Link>
       </div>
     </section>
   );
