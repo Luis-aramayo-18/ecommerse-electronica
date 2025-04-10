@@ -9,32 +9,32 @@ const SliderImages = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 3000,
     arrows: false,
   };
 
   return (
-    <section className="z-10">
+    <section className="z-10 ">
       <Slider {...settingsSlider} className="w-full">
-        <div className="h-full w-full overflow-hidden">
+        <div className="h-full">
           <img
-            src="/img/home/banner-home.webp"
-            className="object-cover w-full h-[610px]"
+            src="/img/home/banner-home-3.webp"
+            className="object-cover w-full h-[580px]"
             alt="..."
           />
         </div>
         <div className="h-full">
           <img
             src="/img/home/banner-home-2.webp"
-            className="object-cover w-full h-[610px]"
+            className="object-cover w-full h-[580px]"
             alt="..."
           />
         </div>
-        <div className="h-full">
+        <div className="h-full w-full overflow-hidden">
           <img
-            src="/img/home/banner-home-3.webp"
-            className="object-cover w-full h-[610px]"
+            src="/img/home/banner-home.webp"
+            className="object-cover w-full h-[580px]"
             alt="..."
           />
         </div>

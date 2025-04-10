@@ -25,7 +25,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
     slidesToShow: 3,
     slidesToScroll: 1,
     initialSlide: 0,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 5000,
     adaptiveHeight: true,
     responsive: [

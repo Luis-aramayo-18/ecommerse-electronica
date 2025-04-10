@@ -34,6 +34,13 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section className="px-6 sm:x-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-6 lg:py-8 bg-[#334155]">
       <div className="flex flex-col items-start  text-2xl font-semibold text-[#f0f7fe] mb-2">
@@ -70,6 +77,7 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
                 >
                   <Link
                     to={`/products/category/${category.id}?sort=discount`}
+                    onClick={handleScrollToTop}
                     className=""
                   >
                     {category.name}

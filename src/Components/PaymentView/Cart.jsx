@@ -77,7 +77,7 @@ export function Cart() {
           onClick={(e) => e.stopPropagation()}
           className={`${
             isModalOpen ? "translate-x-0" : "translate-x-full"
-          } flex flex-col items-start fixed right-0 top-0 z-50 p-6 backdrop-blur-lg bg-[#0f172a] w-6/6 sm:w-4/6 md:w-3/6 lg:w-[30%] h-screen transform transition-transform duration-300`}
+          } flex flex-col items-start fixed right-0 top-0 z-50 p-6 backdrop-blur-lg bg-black/70 w-6/6 sm:w-4/6 md:w-3/6 lg:w-[30%] h-screen transform transition-transform duration-300`}
         >
           {cart.length === 0 ? (
             <p className="text-start mt-5 text-[#deecfb]">

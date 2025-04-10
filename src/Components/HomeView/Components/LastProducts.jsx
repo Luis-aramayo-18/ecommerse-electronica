@@ -35,6 +35,13 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section className="px-6 sm:x-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-4 lg:py-10 bg-[#334155] overflow-hidden">
       <div className="flex flex-col items-start  text-2xl font-semibold text-[#f0f7fe] mb-2">
@@ -73,6 +80,7 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
                 >
                   <Link
                     to={`/products/category/${category.id}?sort=latest`}
+                    onClick={handleScrollToTop}
                     className=""
                   >
                     {category.name}
@@ -103,13 +111,13 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
 
       {/* -------BANNER LAPTOPS----- */}
       <div className="flex flex-col lg:flex-row gap-3 mt-10">
-        <Link to="/products/category/2" className="w-[100%] lg:w-[19%]">
+        <Link to="/products/category/2" className="w-[100%] lg:w-[19%]" onClick={handleScrollToTop}>
           <img src="/img/home/banner-gamer-1.webp" alt="banner laptop" className="w-full h-full" />
         </Link>
-        <Link to="/products/category/2" className="w-[100%] lg:w-3/5">
+        <Link to="/products/category/2" className="w-[100%] lg:w-3/5" onClick={handleScrollToTop}>
           <img src="/img/home/banner-gamer-2.webp" alt="banner laptop" className="w-full h-full" />
         </Link>
-        <Link to="/products/category/2" className="w-[100%] lg:w-[19%]">
+        <Link to="/products/category/2" className="w-[100%] lg:w-[19%]" onClick={handleScrollToTop}>
           <img src="/img/home/banner-gamer-3.webp" alt="banner laptop" className="w-full h-full" />
         </Link>
       </div>

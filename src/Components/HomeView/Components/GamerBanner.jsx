@@ -7,6 +7,10 @@ const GamerBanner = () => {
   const navigateGamerProduct = () => {
     const category = 3;
     navigate(`/products/category/${category}`);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (

@@ -30,6 +30,10 @@ const Nav = () => {
 
   const toggleMenu = () => {
     setOpenMenu(!openMenu);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   useEffect(() => {
@@ -129,7 +133,7 @@ const Nav = () => {
 
   return (
     <>
-      <section className="border-b-2 bg-[#2a4fa3]/80 z-10 px-3 md:px-14 lg:px-24 h-[8vh] md:h-[10vh] sticky w-full top-0">
+      <section  className="border-b-2 bg-[#000000]/70 z-10 px-3 md:px-14 lg:px-24 h-[8vh] md:h-[10vh] sticky w-full top-0">
         <nav className="flex items-center justify-center h-full gap-4 relative">
           {/* ---- BURGER MENU ICON----- */}
           <button className="absolute left-0 text-white" onClick={toggleMenu}>
@@ -158,7 +162,7 @@ const Nav = () => {
             onClick={toggleMenu}
           >
             <div
-              className={`border-r-2 flex flex-col items-start fixed left-0 top-0 z-50 p-8 backdrop-blur-lg bg-[#0f172a] w-5/6 sm:w-3/6 md:w-[40%] lg:w-[25%] h-screen transform transition-transform duration-300 ${
+              className={`border-r-2 flex flex-col items-start fixed left-0 top-0 z-50 p-8 backdrop-blur-lg bg-black/70 w-5/6 sm:w-3/6 md:w-[40%] lg:w-[25%] h-screen transform transition-transform duration-300 ${
                 openMenu ? "translate-x-0" : "-translate-x-full"
               }`}
               onClick={(e) => e.stopPropagation()}
@@ -280,7 +284,7 @@ const Nav = () => {
                 <input
                   placeholder="Buscar..."
                   type="text"
-                  className="w-full p-2 px-4 text-black rounded-full"
+                  className="w-full p-2 px-4 text-white rounded-full bg-transparent border"
                   value={searchProduct}
                   onChange={handleSearchProduct}
                 />
@@ -291,7 +295,7 @@ const Nav = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    className="size-4 absolute right-4 cursor-pointer z-10"
+                    className="size-4 absolute right-4 cursor-pointer z-10 text-white"
                     onClick={deleteSuggestions}
                   >
                     <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
@@ -301,7 +305,7 @@ const Nav = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    className="size-4 absolute right-4 z-10"
+                    className="size-4 absolute right-4 z-10 text-white"
                   >
                     <path
                       fillRule="evenodd"
@@ -318,7 +322,10 @@ const Nav = () => {
               <div className="absolute mt-2 left-0 top-full m-auto w-full bg-black/70 border border-gray-500 backdrop-blur-sm rounded-2xl p-2 max-h-[380px] overflow-y-auto">
                 <ul className="text-sm text-gray-300">
                   {suggestions.products.map((product) => (
-                    <li key={product.id} className="mt-3 transition-all duration-150 lg:hover:bg-[#fea401] lg:hover:text-white rounded-2xl">
+                    <li
+                      key={product.id}
+                      className="mt-3 transition-all duration-150 lg:hover:bg-[#fea401] lg:hover:text-white rounded-2xl"
+                    >
                       <Link
                         className="flex gap-2 items-center px-2 md:px-4"
                         to={`/products/category/${product.category_detail.id}/product/${product.id}`}
@@ -344,7 +351,10 @@ const Nav = () => {
 
                 <ul className="text-sm mt-5 mb-3 text-gray-300">
                   {suggestions.categories.map((category) => (
-                    <li key={category.id} className="mt-2 px-2 md:px-4 first-letter:uppercase">
+                    <li
+                      key={category.id}
+                      className="mt-2 px-2 md:px-4 first-letter:uppercase"
+                    >
                       <Link
                         to={`/products/category/${category.id}?brand=${brand}`}
                         onClick={handleSelectSuggestion}

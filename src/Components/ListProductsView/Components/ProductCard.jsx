@@ -13,10 +13,18 @@ const ProductCard = ({ product, homeView }) => {
     return <div>Producto no disponible</div>;
   }
 
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className={`w-full flex flex-col lg:max-w-[200px] xl:max-w-[250px] group ${homeView ? 'h-[390px]' : 'h-300px'} sm:h-[360px] md:h-[360px] lg:h-[380px] relative border-none`}>
       <Link
         to={`/products/category/${product.category}/product/${product.id}`}
+        onClick={handleScrollToTop}
         className="h-[50%]"
       >
         <div className="transition duration-300 lg:group-hover:shadow-md lg:group-hover:shadow-white/70 h-full">
