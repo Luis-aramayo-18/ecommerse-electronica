@@ -126,7 +126,7 @@ const FormCompra = () => {
       <div className="px-6 sm:x-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-6 lg:py-8">
         <div className="flex flex-col-reverse lg:flex-row lg:justify-between items-start gap-10">
           {/* ----------- FORM ---------------- */}
-          <div className="col-lg-7 col-md-8 col-sm-12 w-full lg:min-w-[630px]">
+          <div className="col-lg-7 col-md-8 col-sm-12 w-full lg:min-w-[630px] border rounded-2xl p-6 bg-black/70 backdrop-blur shadow-md shadow-gray-400">
             <form onSubmit={handleFormSubmit} className="mt-4">
               <StepsForm step={step} isStepComplete={isStepComplete} />
 
@@ -154,13 +154,12 @@ const FormCompra = () => {
                 )}
 
                 {step === 2 && <ConfirmationForm shipmentInfo={shipmentInfo} />}
-                <hr />
               </div>
 
-              <div className="flex justify-between mt-4">
+              <div className="flex justify-between mt-5">
                 {step > 0 && (
                   <button
-                    className=" bg-yellow-500 text-white px-4 py-2 rounded shadow hover:bg-yellow-600 transition duration-200"
+                    className="border w-[35%] text-white px-4 py-2 rounded-xl flex justify-center shadow hover:bg-[#fea401] transition duration-200 bg-black/70 backdrop-blur-sm"
                     onClick={handleBack}
                   >
                     Atrás
@@ -168,7 +167,7 @@ const FormCompra = () => {
                 )}
                 {step < 2 && (
                   <button
-                    className=" bg-blue-500 text-white px-4 py-2 rounded shadow hover:bg-blue-600 transition duration-200"
+                    className="border w-[35%] text-white px-4 py-2 rounded-xl flex justify-center shadow hover:bg-[#fea401] transition duration-200 bg-black/70 backdrop-blur-sm"
                     onClick={handleNext}
                     type="button"
                   >
@@ -180,7 +179,7 @@ const FormCompra = () => {
           </div>
 
           {/* ------------- CART ---------------- */}
-          <div className="col-lg-4 col-md-4 col-12 mt-5">
+          <div className="col-lg-4 col-md-4 col-12 mt-5 border rounded-2xl p-6 bg-black/70 backdrop-blur shadow-md shadow-gray-400">
             <ul className="p-0">
               {cart.map((product) => (
                 <li key={product.id}>
@@ -194,13 +193,13 @@ const FormCompra = () => {
                     </div>
 
                     <div>
-                      <h2 className="text-lg font-medium">{product.name}</h2>
+                      <h2 className="text-lg font-medium text-white">{product.name}</h2>
 
-                      <div className="div-contenedor-precio">
-                        <p className="text-base font-medium">
+                      <div className="div-contenedor-precio text-gray-400">
+                        <p className="text-base font-medium mt-2">
                           ${product.final_price || product.price}
                         </p>
-                        <p className="text-sm font-light">
+                        <p className="text-sm font-light mt-2">
                           Cantidad: {product.quantity}
                         </p>
                       </div>
@@ -210,7 +209,7 @@ const FormCompra = () => {
               ))}
             </ul>
 
-            <h3 className="mt-6 mb-3 me-3 text-end text-lg font-medium">
+            <h3 className="mt-6 mb-3 me-3 text-end text-lg font-medium text-white">
               Total: ${getTotalPrice()}
             </h3>
           </div>

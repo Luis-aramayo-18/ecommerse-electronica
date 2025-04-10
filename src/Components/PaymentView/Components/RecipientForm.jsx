@@ -115,14 +115,13 @@ const RecipientForm = ({
   };
 
   return (
-    <div className="w-full">
-      <hr className="m-0 mb-3" />
+    <div className="w-full mt-5">
 
-      <h2 className="text-start text-2xl font-semibold">
+      <h2 className="text-start text-2xl font-semibold text-[#9cccf4]">
         Datos del destinatario
       </h2>
 
-      <span className="font-medium text-gray-800 mt-3">
+      <span className="font-medium text-xs text-[#c4d0dd] mt-3">
         El * indica que el campo es obligatorio
       </span>
 
@@ -131,7 +130,7 @@ const RecipientForm = ({
           <input
             placeholder="Nombre"
             type="text"
-            className={`block w-full px-3 py-2 border rounded-md focus:outline-none ${
+            className={`block text-white w-full px-3 py-2 border rounded-md focus:outline-none bg-black/70 backdrop-blur-sm  ${
               nameError
                 ? "border-red-500 text-red-600 focus:ring-red-500"
                 : "border-green-500 text-green-600 focus:ring-green-500"
@@ -153,7 +152,7 @@ const RecipientForm = ({
             maxLength="14"
             placeholder="Numero de teléfono"
             type="number"
-            className={`block w-full px-3 py-2 border rounded-md focus:outline-none ${
+            className={`block w-full text-white px-3 py-2 border rounded-md focus:outline-none bg-black/70 backdrop-blur-sm ${
               numberPhoneError
                 ? "border-red-500 text-red-600 focus:ring-red-500"
                 : "border-green-500 text-green-600 focus:ring-green-500"
@@ -172,7 +171,7 @@ const RecipientForm = ({
           <input
             placeholder="DNI"
             type="number"
-            className="block w-full px-3 py-2 border rounded-md focus:outline-none"
+            className="block text-white w-full px-3 py-2 border rounded-md focus:outline-none bg-black/70 backdrop-blur-sm"
             value={shipmentInfo.dni}
             onChange={handleDniChange}
             required
@@ -180,7 +179,7 @@ const RecipientForm = ({
         </div>
       </div>
 
-      <h2 className="text-start text-2xl font-semibold mt-5">
+      <h2 className="text-start text-2xl font-semibold mt-5 text-[#9cccf4]">
         Datos del domicilio
       </h2>
       <div className="flex flex-col lg:flex-row gap-4 mt-5">
@@ -188,7 +187,7 @@ const RecipientForm = ({
           <input
             placeholder="Calle"
             type="text"
-            className={`block w-full px-3 py-2 border rounded-md focus:outline-none ${
+            className={`block text-white w-full px-3 py-2 border rounded-md focus:outline-none bg-black/70 backdrop-blur-sm ${
               streetValueError
                 ? "border-red-500 text-red-600 focus:ring-red-500"
                 : "border-green-500 text-green-600 focus:ring-green-500"
@@ -207,7 +206,7 @@ const RecipientForm = ({
           <input
             placeholder="Altura"
             type="number"
-            className={`block w-full px-3 py-2 border rounded-md focus:outline-none ${
+            className={`block text-white w-full px-3 py-2 border rounded-md focus:outline-none bg-black/70 backdrop-blur-sm ${
               numberStreetError
                 ? "border-red-500 text-red-600 focus:ring-red-500"
                 : "border-green-500 text-green-600 focus:ring-green-500"
@@ -225,7 +224,7 @@ const RecipientForm = ({
 
       <textarea
         type="text"
-        className={`min-h-[120px] block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 mt-4 ${
+        className={`min-h-[120px] block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 mt-4 bg-black/70 backdrop-blur-sm ${
           shipmentInfo.comments
             ? "border-green-500 text-green-600 focus:ring-green-500"
             : "border-gray-300 text-gray-700 focus:ring-gray-500"
@@ -243,7 +242,7 @@ const RecipientForm = ({
 
       <div className="mt-5 text-start">
         <input
-          className="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top cursor-pointer"
+          className="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-black/70 backdrop-blur-sm  focus:outline-none transition duration-200 mt-1 align-top cursor-pointer"
           type="checkbox"
           value=""
           id="flexCheckChecked"
