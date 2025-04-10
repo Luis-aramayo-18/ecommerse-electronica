@@ -364,7 +364,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
       </div>
 
       {/* --------BOX-COMMENTS-------- */}
-      <div className="flex flex-col gap-4 mt-10 sm:mt-20 lg:ms-5 w-full">
+      <div className="flex flex-col gap-4 mt-10 sm:mt-20  w-full">
         <div className="text-lg font-medium text-[#deecfb]">
           <h2>Déjanos tu comentario</h2>
         </div>
@@ -374,7 +374,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
             onSubmit={commentSubmit}
           >
             <textarea
-              className="text-white me-10 focus:outline-none focus:ring-2 focus:ring-[#9cccf4] shadow-lg  w-[95%] px-4 pb-40 pt-4 resize-none bg-black/70 border border-white backdrop-blur-sm"
+              className="text-white rounded-2xl me-10 focus:outline-none focus:ring-2 focus:ring-[#9cccf4] shadow-lg  w-full px-4 pb-40 pt-4 resize-none bg-black/70 border border-white backdrop-blur-sm"
               ref={inputComment}
               onChange={(e) => setComment(e.target.value)}
               value={comment}
