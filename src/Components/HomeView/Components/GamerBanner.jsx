@@ -15,7 +15,7 @@ const GamerBanner = () => {
 
   return (
     <section
-      className="cursor-pointer mt-10"
+      className="cursor-pointer mt-10 shadow-[0_6px_8px_-2px_#6B7280]"
       onClick={() => navigateGamerProduct()}
     >
       <img

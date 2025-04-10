@@ -275,8 +275,8 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
   console.log(comments);
 
   return (
-    <section className="mx-6 sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24 flex flex-col justify-center mt-28 sm:mt-10">
-      <div className="flex items-center text-center gap-1 uppercase mb-8 sm:mb-12 tracking-widest text-2xl font-semibold text-[#f0f7fe]">
+    <section className="mx-3 bg-black/70 backdrop-blur shadow-md shadow-gray-500 py-10 px-4 rounded-2xl sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24 flex flex-col justify-center mt-28 sm:mt-28">
+      <div className="flex items-center text-center gap-1 uppercase mb-8 sm:mb-12 tracking-widest text-2xl font-semibold text-[#f0f7fe] sm:ms-5">
         <h2>El mejor servicio</h2>
       </div>
 
@@ -370,11 +370,11 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
         </div>
         <div className="flex items-start gap-4 w-full">
           <form
-            className="w-full flex flex-col items-start gap-4 bg-[#0F172A]"
+            className="w-full flex flex-col items-start gap-4 bg-transparent"
             onSubmit={commentSubmit}
           >
             <textarea
-              className="text-white  focus:outline-none focus:ring-2 focus:ring-[#9cccf4] shadow-lg  w-full px-4 pb-48 pt-4 resize-none bg-black/70 border border-gray-500 backdrop-blur-sm"
+              className="text-white me-10 focus:outline-none focus:ring-2 focus:ring-[#9cccf4] shadow-lg  w-[95%] px-4 pb-40 pt-4 resize-none bg-black/70 border border-white backdrop-blur-sm"
               ref={inputComment}
               onChange={(e) => setComment(e.target.value)}
               value={comment}

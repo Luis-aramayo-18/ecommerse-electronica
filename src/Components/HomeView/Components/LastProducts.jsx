@@ -43,15 +43,15 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
   };
 
   return (
-    <section className="shadow-md shadow-gray-500 sm:shadow-none mx-3 rounded-2xl sm:rounded-none sm:mx-0 sm:px-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-4 lg:py-10 bg-[#334155] overflow-hidden">
-      <div className="flex flex-col items-start  text-2xl font-semibold text-[#f0f7fe] mb-2 ms-3 sm:ms-0">
+    <section className="shadow-md shadow-gray-500 mx-3 rounded-2xl px-4 py-10 sm:mx-6 md:mx-14 lg:mx-24 bg-[#334155] overflow-hidden">
+      <div className="flex flex-col items-start  text-2xl font-semibold text-[#f0f7fe] mb-2 ms-3 sm:ms-5">
         <h2 className="text-center uppercase tracking-widest">
           Últimos Agregados
         </h2>
       </div>
       
       {/* ---------PRODUCTS--------- */}
-      <div className="flex gap-3 mb-6 ms-3 sm:ms-0 relative">
+      <div className="flex gap-3 mb-6 ms-3 sm:ms-5 relative">
         <button
           className="flex items-center text-lg font-semibold text-[#deecfb] ms-2 group"
           onClick={() => setMenu(!menu)}
