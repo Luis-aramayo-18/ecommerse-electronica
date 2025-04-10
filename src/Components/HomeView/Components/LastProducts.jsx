@@ -43,15 +43,15 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
   };
 
   return (
-    <section className="px-6 sm:x-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-4 lg:py-10 bg-[#334155] overflow-hidden">
-      <div className="flex flex-col items-start  text-2xl font-semibold text-[#f0f7fe] mb-2">
+    <section className="mx-3 rounded-2xl sm:rounded-none sm:mx-0 sm:px-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-4 lg:py-10 bg-[#334155] overflow-hidden">
+      <div className="flex flex-col items-start  text-2xl font-semibold text-[#f0f7fe] mb-2 ms-3 sm:ms-0">
         <h2 className="text-center uppercase tracking-widest">
           Últimos Agregados
         </h2>
       </div>
       
       {/* ---------PRODUCTS--------- */}
-      <div className="flex gap-3 mb-6 relative">
+      <div className="flex gap-3 mb-6 ms-3 sm:ms-0 relative">
         <button
           className="flex items-center text-lg font-semibold text-[#deecfb] ms-2 group"
           onClick={() => setMenu(!menu)}
@@ -110,7 +110,7 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
       </div>
 
       {/* -------BANNER LAPTOPS----- */}
-      <div className="flex flex-col lg:flex-row gap-3 mt-10">
+      <div className="flex flex-col lg:flex-row gap-3 mt-10 mx-3">
         <Link to="/products/category/2" className="w-[100%] lg:w-[19%]" onClick={handleScrollToTop}>
           <img src="/img/home/banner-gamer-1.webp" alt="banner laptop" className="w-full h-full" />
         </Link>
