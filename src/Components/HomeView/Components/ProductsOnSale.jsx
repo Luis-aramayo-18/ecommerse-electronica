@@ -42,7 +42,7 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
   };
 
   return (
-    <section className="mx-3 mt-2 rounded-2xl sm:rounded-none sm:mx-0 sm:px-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-6 lg:py-8 bg-[#334155]">
+    <section className="mx-3 shadow-md shadow-gray-500 sm:shadow-none mt-2 rounded-2xl sm:rounded-none sm:mx-0 sm:px-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-6 lg:py-8 bg-[#334155]">
       <div className="flex flex-col items-start  text-2xl font-semibold text-[#f0f7fe] mb-2 ms-3 sm:ms-0">
         <h2 className="text-center uppercase tracking-widest">Ofertas</h2>
       </div>
