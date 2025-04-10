@@ -43,7 +43,7 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
   };
 
   return (
-    <section className="shadow-[0_4px_10px_0_#6B7280] mx-3 rounded-2xl px-4 py-10 sm:mx-6 md:mx-14 lg:mx-24 bg-black/70 backdrop-blur overflow-hidden">
+    <section className="shadow-[0_4px_10px_0_#6B7280] mx-3 rounded-2xl px-4 py-10 sm:mx-6 md:mx-14 lg:mx-24 bg-black/70 backdrop-blur">
       <div className="flex flex-col items-start  text-2xl font-semibold text-[#f0f7fe] mb-2 ms-3 sm:ms-5">
         <h2 className="text-center uppercase tracking-widest">
           Últimos Agregados

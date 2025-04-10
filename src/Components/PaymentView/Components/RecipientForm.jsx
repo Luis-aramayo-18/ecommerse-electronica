@@ -132,8 +132,8 @@ const RecipientForm = ({
             type="text"
             className={`block text-white w-full px-3 py-2 border rounded-md focus:outline-none bg-black/70 backdrop-blur-sm  ${
               nameError
-                ? "border-red-500 text-red-600 focus:ring-red-500"
-                : "border-green-500 text-green-600 focus:ring-green-500"
+                ? " text-red-600 "
+                : " text-green-600 "
             }`}
             id="name"
             value={shipmentInfo.name}
@@ -154,8 +154,8 @@ const RecipientForm = ({
             type="number"
             className={`block w-full text-white px-3 py-2 border rounded-md focus:outline-none bg-black/70 backdrop-blur-sm ${
               numberPhoneError
-                ? "border-red-500 text-red-600 focus:ring-red-500"
-                : "border-green-500 text-green-600 focus:ring-green-500"
+                ? " text-red-600 "
+                : " text-green-600 "
             }`}
             onChange={handleNumberPhoneChange}
             value={shipmentInfo.numberPhone}
@@ -167,7 +167,7 @@ const RecipientForm = ({
           )}
         </div>
 
-        <div className="w-full mt-3 lg:[45%] lg:ms-5">
+        <div className="w-full mt-3 lg:[45%]">
           <input
             placeholder="DNI"
             type="number"
@@ -189,8 +189,8 @@ const RecipientForm = ({
             type="text"
             className={`block text-white w-full px-3 py-2 border rounded-md focus:outline-none bg-black/70 backdrop-blur-sm ${
               streetValueError
-                ? "border-red-500 text-red-600 focus:ring-red-500"
-                : "border-green-500 text-green-600 focus:ring-green-500"
+                ? " text-red-600 "
+                : " text-green-600 "
             }`}
             onChange={handleStreetChange}
             value={shipmentInfo.street}
@@ -208,8 +208,8 @@ const RecipientForm = ({
             type="number"
             className={`block text-white w-full px-3 py-2 border rounded-md focus:outline-none bg-black/70 backdrop-blur-sm ${
               numberStreetError
-                ? "border-red-500 text-red-600 focus:ring-red-500"
-                : "border-green-500 text-green-600 focus:ring-green-500"
+                ? " text-red-600 "
+                : " text-green-600 "
             }`}
             onChange={handleNumberStreet}
             value={shipmentInfo.numberStreet}
@@ -226,8 +226,8 @@ const RecipientForm = ({
         type="text"
         className={`min-h-[120px] block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 mt-4 bg-black/70 backdrop-blur-sm ${
           shipmentInfo.comments
-            ? "border-green-500 text-green-600 focus:ring-green-500"
-            : "border-gray-300 text-gray-700 focus:ring-gray-500"
+            ? " text-green-600 "
+            : " text-gray-700 "
         }`}
         placeholder="Deja un comentario"
         id="textReference"

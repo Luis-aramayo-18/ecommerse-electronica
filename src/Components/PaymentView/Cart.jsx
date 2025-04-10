@@ -47,7 +47,7 @@ export function Cart() {
         className="flex flex-col justify-center items-center relative text-white"
       >
         {cart.length > 0 && (
-          <span className="absolute top-0 -left-3 bg-gray-800 rounded-full w-5 h-5 flex items-center justify-center text-xs">
+          <span className="absolute top-0 -left-3 bg-[#fea401] rounded-full w-5 h-5 flex items-center justify-center text-xs">
             {cart.length}
           </span>
         )}
@@ -55,7 +55,7 @@ export function Cart() {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="size-7"
+          className={`size-7 ${cart.length > 0 ? "text-white" : "text-[#d4d4d4de]"} `}
         >
           <path
             fillRule="evenodd"
