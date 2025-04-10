@@ -62,9 +62,9 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
         </button>
 
         {categories && (
-          <nav className="relative w-full h-auto overflow-hidden">
+          <nav className="relative w-full h-auto overflow-x-auto pb-3">
             <ul
-              className={`h-full flex items-center overflow-x-scroll gap-3 transform transition-all duration-300 absolute left-0 text-sm font-medium text-[#deecfb] ${
+              className={`h-full flex items-center gap-3 overflow-x-scroll transform transition-all duration-300 absolute left-0 text-sm font-medium text-[#deecfb] ${
                 menu
                   ? " translate-x-0 opacity-100"
                   : " -translate-x-full opacity-0"
