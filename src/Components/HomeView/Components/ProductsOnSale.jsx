@@ -42,7 +42,7 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
   };
 
   return (
-    <section className="mx-3 shadow-md shadow-gray-500z rounded-2xl sm:mx-6 md:mx-14 mt-10 lg:mx-24 py-10 px-4 bg-[#334155]">
+    <section className="mx-3 shadow-[0_4px_10px_0_#6B7280] rounded-2xl sm:mx-6 md:mx-14 mt-10 lg:mx-24 py-10 px-4 bg-black/70 backdrop-blur">
       <div className="flex flex-col items-start  text-2xl font-semibold text-[#f0f7fe] mb-2 ms-3 sm:ms-5">
         <h2 className="text-center uppercase tracking-widest">Ofertas</h2>
       </div>
@@ -89,8 +89,8 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
         )}
       </div>
 
-      <div className="my-4">
-        <StyledSlider {...settings}>
+      <div>
+        <StyledSlider {...settings} className="h-full">
           {products.map((product, idx) => (
             <ProductCard
               key={product.id || idx}

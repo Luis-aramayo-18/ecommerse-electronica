@@ -275,7 +275,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
   console.log(comments);
 
   return (
-    <section className="mx-3 bg-black/70 backdrop-blur shadow-md shadow-gray-500 py-10 px-4 rounded-2xl sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24 flex flex-col justify-center mt-28 sm:mt-28">
+    <section className="mx-3 bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] py-10 px-4 rounded-2xl sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24 flex flex-col justify-center mt-28 sm:mt-28">
       <div className="flex items-center text-center gap-1 uppercase mb-8 sm:mb-12 tracking-widest text-2xl font-semibold text-[#f0f7fe] sm:ms-5">
         <h2>El mejor servicio</h2>
       </div>

@@ -43,7 +43,7 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
   };
 
   return (
-    <section className="shadow-md shadow-gray-500 mx-3 rounded-2xl px-4 py-10 sm:mx-6 md:mx-14 lg:mx-24 bg-[#334155] overflow-hidden">
+    <section className="shadow-[0_4px_10px_0_#6B7280] mx-3 rounded-2xl px-4 py-10 sm:mx-6 md:mx-14 lg:mx-24 bg-black/70 backdrop-blur overflow-hidden">
       <div className="flex flex-col items-start  text-2xl font-semibold text-[#f0f7fe] mb-2 ms-3 sm:ms-5">
         <h2 className="text-center uppercase tracking-widest">
           Últimos Agregados
@@ -92,7 +92,7 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
         )}
       </div>
 
-      <div className="my-4">
+      <div>
         <StyledSlider {...settings}>
           {lastProducts.map((product, idx) => (
             <div className="w-full relative" key={product.id || idx}>
@@ -109,18 +109,7 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
         </StyledSlider>
       </div>
 
-      {/* -------BANNER LAPTOPS----- */}
-      <div className="flex flex-col lg:flex-row gap-3 mt-10 mx-3">
-        <Link to="/products/category/2" className="w-[100%] lg:w-[19%] hidden sm:block" onClick={handleScrollToTop}>
-          <img src="/img/home/banner-gamer-1.webp" alt="banner laptop" className="w-full h-full" />
-        </Link>
-        <Link to="/products/category/2" className="w-[100%] lg:w-3/5" onClick={handleScrollToTop}>
-          <img src="/img/home/banner-gamer-2.webp" alt="banner laptop" className="w-full h-full" />
-        </Link>
-        <Link to="/products/category/2" className="w-[100%] lg:w-[19%] hidden sm:block" onClick={handleScrollToTop}>
-          <img src="/img/home/banner-gamer-3.webp" alt="banner laptop" className="w-full h-full" />
-        </Link>
-      </div>
+      
     </section>
   );
 };

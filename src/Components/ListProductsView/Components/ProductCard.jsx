@@ -21,7 +21,7 @@ const ProductCard = ({ product, homeView }) => {
   };
 
   return (
-    <div className={`w-full flex flex-col lg:max-w-[200px] xl:max-w-[250px] group ${homeView ? 'h-[390px]' : 'h-300px'} sm:h-[360px] md:h-[360px] lg:h-[380px] relative border-none`}>
+    <div className={`w-full flex flex-col lg:max-w-[200px] xl:max-w-[250px] group ${homeView ? 'h-[390px]' : 'h-300px'} sm:h-[360px] md:h-[360px] lg:h-[460px] relative border-none`}>
       <Link
         to={`/products/category/${product.category}/product/${product.id}`}
         onClick={handleScrollToTop}
@@ -89,7 +89,7 @@ const ProductCard = ({ product, homeView }) => {
 
         <div className={`sm:block lg:block ${homeView ? 'flex' : 'hidden'}`}>
           <button
-            className={`mt-2 w-full p-4 text-xs font-bold transition duration-300 border-[#deecfb] border-2 lg:group-hover:bg-[#6dafed] lg:group-hover:border-[#f0f7fe] lg:group-hover:text-white bg-[#334155] text-[#deecfb] ${
+            className={`mt-2 w-full p-4 text-xs font-bold transition duration-300 border-[#deecfb] border-2 lg:group-hover:bg-[#fea401] lg:group-hover:border-[#f0f7fe] lg:group-hover:text-white bg-[#334155] text-[#deecfb] ${
               isProductInCart(product) ? "bg-[#FF3131]" : "bg-black/80"
             }`}
             onClick={() =>

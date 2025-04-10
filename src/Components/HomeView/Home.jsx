@@ -14,6 +14,7 @@ import Brands from "./Components/Brands";
 import LastProducts from "./Components/LastProducts";
 import CommentsBox from "./Components/CommentsBox";
 import GamerBanner from "./Components/GamerBanner";
+import LaptopBanner from "./Components/LaptopBanner";
 
 const StyledSlider = styled(Slider)`
   .slick-list {
@@ -90,6 +91,9 @@ const Home = () => {
         api={api}
         
       />
+
+      {/* --------BANNER------ */}
+      <LaptopBanner />
 
       {/* --------MARCAS------ */}
       <Brands />
