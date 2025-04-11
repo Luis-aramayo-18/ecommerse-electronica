@@ -472,7 +472,6 @@ const AdminProfile = () => {
               <textarea
                 name=""
                 id=""
-                required
                 placeholder="Descripción"
                 className="p-2 w-full h-64 resize-none"
                 value={description}
@@ -613,7 +612,7 @@ const AdminProfile = () => {
               <Slider {...settings}>
                 {image.map((img, idx) => (
                   <div className="relative h-[400px]" key={img.id || idx}>
-                    <div className="z-20">
+                    <div className="z-20 bg-white">
                       <img
                         src={img.image}
                         alt={name}
@@ -666,137 +665,137 @@ const AdminProfile = () => {
           </div>
 
           <div className="flex flex-col mt-5">
-            {Array.isArray(products) && products.length > 0 ? (
-              <section className="overflow-x-auto">
-                <table className="mt-4 min-w-full">
-                  <thead>
-                    <tr>
-                      <th>Id</th>
-                      <th>Imagen</th>
-                      <th>Nombre</th>
-                      <th>Precio</th>
-                      <th>Categoría</th>
-                      <th>Marca</th>
-                      <th className="hidden lg:flex">Acciones</th>
-                    </tr>
-                  </thead>
-                  {filteredProducts.length > 0 ? (
-                    <tbody>
-                      {filteredProducts.map((product, index) => (
-                        <tr
-                          key={product.id || index}
-                          onClick={() => handleOpenModal(product)}
-                          className=""
-                        >
-                          <td className="text-gray-100 text-center">
-                            {product.id}
-                          </td>
-                          <td className="text-center flex justify-center h-full min-w-[55px] lg:w-auto ms-3">
-                            {product.images && product.images.length > 0 ? (
-                              <img
-                                src={product.images[0].image}
-                                alt={product.name}
-                                className="lg:h-full h-[55px] w-[55px] object-contain"
-                              />
-                            ) : (
-                              <span>No Image</span>
-                            )}
-                          </td>
-                          <td className="text-gray-100 text-sm font-medium text-center min-w-[180px] lg:w-auto lowercase first-letter:uppercase">
-                            {product.name}
-                          </td>
-                          <td className="text-center">{product.price}</td>
-                          <td className="text-center">
-                            {product.category_detail?.name || "Sin categoría"}
-                          </td>
-                          <td className="text-center">
-                            {product.brand_detail?.name || "Sin marca"}
-                          </td>
-                          <td className="text-center hidden lg:flex">
-                            <button
-                              type="button"
-                              className="mx-2"
-                              onClick={() => {
-                                handleEdit(product);
-                              }}
-                            >
-                              <i className="bx bxs-edit text-lg"></i>
-                            </button>
-                            <button
-                              type="button"
-                              className="mx-2"
-                              onClick={() => {
-                                handleDelete(product.id);
-                              }}
-                            >
-                              <i className="bx bxs-trash w-full h-full text-lg"></i>
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  ) : (
-                    <tbody>
-                      <tr>
-                        <td>
-                          <Loading />
+            <section className="overflow-x-auto">
+              <table className="mt-4 min-w-full">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Categoría</th>
+                    <th>Marca</th>
+                    <th className="hidden lg:flex">Acciones</th>
+                  </tr>
+                </thead>
+                {filteredProducts.length > 0 ? (
+                  <tbody>
+                    {filteredProducts.map((product, index) => (
+                      <tr
+                        key={product.id || index}
+                        onClick={() => handleOpenModal(product)}
+                        className=""
+                      >
+                        <td className="text-gray-100 text-center">
+                          {product.id}
+                        </td>
+                        <td className="text-center flex justify-center h-full min-w-[55px] lg:w-auto ms-3">
+                          {product.images && product.images.length > 0 ? (
+                            <img
+                              src={product.images[0].image}
+                              alt={product.name}
+                              className="lg:h-full h-[55px] w-[55px] object-contain"
+                            />
+                          ) : (
+                            <span>No Image</span>
+                          )}
+                        </td>
+                        <td className="text-gray-100 text-sm font-medium text-center min-w-[180px] lg:w-auto lowercase first-letter:uppercase">
+                          {product.name}
+                        </td>
+                        <td className="text-center">{product.price}</td>
+                        <td className="text-center">
+                          {product.category_detail?.name || "Sin categoría"}
+                        </td>
+                        <td className="text-center">
+                          {product.brand_detail?.name || "Sin marca"}
+                        </td>
+                        <td className="text-center hidden lg:flex">
+                          <button
+                            type="button"
+                            className="mx-2"
+                            onClick={() => {
+                              handleEdit(product);
+                            }}
+                          >
+                            <i className="bx bxs-edit text-lg"></i>
+                          </button>
+                          <button
+                            type="button"
+                            className="mx-2"
+                            onClick={() => {
+                              handleDelete(product.id);
+                            }}
+                          >
+                            <i className="bx bxs-trash w-full h-full text-lg"></i>
+                          </button>
                         </td>
                       </tr>
-                    </tbody>
-                  )}
-                </table>
+                    ))}
+                  </tbody>
+                ) : (
+                  <tbody>
+                    <tr>
+                      <td>
+                        <Loading />
+                      </td>
+                    </tr>
+                  </tbody>
+                )}
+              </table>
 
-                {selectedProduct && (
-                  <div
-                    onClick={handleCloseModal}
-                    className="w-screen h-screen fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center lg:hidden"
-                  >
-                    <div className="p-5 bg-black/60 rounded-xl shadow-md shadow-slate-300 w-[80%]">
-                      <p className="text-center text-sm font-medium mb-4 text-white">
-                        {selectedProduct.name}
-                      </p>
-                      <div className="flex justify-center gap-5">
-                        <button
-                          className="border text-gray-500 px-4 py-2 rounded-lg w-[40%]"
-                          onClick={() => {
-                            handleEdit(selectedProduct);
-                            handleCloseModal();
-                          }}
-                        >
-                          Editar
-                        </button>
-                        <button
-                          className="border text-gray-500 px-4 py-2 rounded-lg w-[40%]"
-                          onClick={() => {
-                            handleDelete(selectedProduct.id);
-                            handleCloseModal();
-                          }}
-                        >
-                          Eliminar
-                        </button>
-                      </div>
+              {selectedProduct && (
+                <div
+                  onClick={handleCloseModal}
+                  className="w-screen h-screen fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center lg:hidden"
+                >
+                  <div className="p-5 bg-black/60 rounded-xl shadow-md shadow-slate-300 w-[80%]">
+                    <p className="text-center text-sm font-medium mb-4 text-white">
+                      {selectedProduct.name}
+                    </p>
+                    <div className="flex justify-center gap-5">
+                      <button
+                        className="border text-gray-500 px-4 py-2 rounded-lg w-[40%]"
+                        onClick={() => {
+                          handleEdit(selectedProduct);
+                          handleCloseModal();
+                        }}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="border text-gray-500 px-4 py-2 rounded-lg w-[40%]"
+                        onClick={() => {
+                          handleDelete(selectedProduct.id);
+                          handleCloseModal();
+                        }}
+                      >
+                        Eliminar
+                      </button>
                     </div>
                   </div>
-                )}
-
-                <div className="my-10 flex justify-center">
-                  {loading ? (
-                    <Loading />
-                  ) : nextPage === null ? (
-                    <p className="text-gray-500">No hay más productos</p>
-                  ) : (
-                    <button
-                      onClick={loadProducts}
-                      className="p-4 border uppercase font-semibold"
-                    >
-                      Ver Más
-                    </button>
-                  )}
                 </div>
-              </section>
-            ) : (
-              <Loading />
-            )}
+              )}
+
+              <div className="my-10 flex justify-center">
+                {nextPage === null ? (
+                  <p className="text-gray-500">No hay más productos</p>
+                ) : (
+                  <button
+                    onClick={loadProducts}
+                    className="w-[110px] h-[40px] border rounded-2xl bg-black/70 backdrop-blur-sm relative"
+                  >
+                    {loading ? (
+                      <Loading />
+                    ) : (
+                      <p className="uppercase font-semibold text-xs text-white">
+                        Ver mas
+                      </p>
+                    )}
+                  </button>
+                )}
+              </div>
+            </section>
           </div>
         </div>
       </section>

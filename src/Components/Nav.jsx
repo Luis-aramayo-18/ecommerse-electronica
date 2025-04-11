@@ -287,7 +287,7 @@ const Nav = () => {
                   onChange={handleSearchProduct}
                 />
                 {loading ? (
-                  <Loading />
+                  <Loading className="absolute right-4" />
                 ) : suggestions.products.length > 0 ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

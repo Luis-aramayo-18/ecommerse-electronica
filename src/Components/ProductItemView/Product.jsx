@@ -11,6 +11,7 @@ import BreadCrumb from "./Components/BreadCrumb";
 import ProductItem from "./Components/ProductItem";
 import BoxComments from "./Components/BoxComments";
 import RelatedProducts from "./Components/RelatedProducts";
+import Loading from "../Loading";
 
 const Product = () => {
   const api = useAxios();
@@ -34,7 +35,6 @@ const Product = () => {
         console.log(error);
       }
     };
-
     getProduct();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId]);
@@ -58,45 +58,14 @@ const Product = () => {
 
       getCommentsProduct();
     }
-  }, [product, api, userID]);
-
-  // useEffect(() => {
-  //   const productName = product.name;
-  //   const productCategory = product.category_detail.name;
-
-  //   const searchProduct = async () => {
-  //     try {
-  //       const response = await axios.post(
-  //         `https://api.techspecs.io/v4/product/search?query=${productName}&keepCasing=true`,
-  //         { category: productCategory }, // Provide category in the body
-  //         {
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization:
-  //               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImN1c19RdUcxMXhDZTJla2QxVCIsIm1vZXNpZlByaWNpbmdJZCI6InByaWNlXzFNUXF5dkJESWxQbVVQcE1SWUVWdnlLZSIsImlhdCI6MTcyNzE1NjQ4NH0.l4MDMk2Fj0tb18DdwNiBSOCWRtPKvhYhEKNIjQ1OOpU", // Replace with your actual API key
-  //           },
-  //         }
-  //       );
-  //       console.log(response.data); // Output the response data
-  //     } catch (error) {
-  //       if (error.response) {
-  //         console.log("Error Response:", error.response.data);
-  //         console.log("Status Code:", error.response.status);
-  //       } else if (error.request) {
-  //         console.log("Error Request:", error.request);
-  //       } else {
-  //         console.log("Error", error.message);
-  //       }
-  //     }
-  //   };
-
-  //   searchProduct();
-  // }, [product]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product]);
 
   return (
     <>
       <div className="mt-10 w-full h-auto px-6 md:px-14 lg:px-24">
-        <div className="lg:mx-10">
+        {product && comments ? (
+          <div className="lg:mx-10">
           {/* ---- BREADCRUMB ----- */}
           <BreadCrumb product={product} categoryId={categoryId} />
 
@@ -116,6 +85,9 @@ const Product = () => {
           {/* ---- PRODUCTS RELATED ----- */}
           <RelatedProducts product={product} api={api} />
         </div>
+        ) : (
+          <Loading />
+        )}
       </div>
     </>
   );

@@ -7,6 +7,7 @@ import OrderListFilter from "./Components/OrderListFilter";
 
 import Filters from "./Components/Filters";
 import ListProducts from "./Components/ListProducts";
+import Loading from "../Loading";
 
 const Products = () => {
   const api = useAxios();
@@ -21,7 +22,7 @@ const Products = () => {
   const [brandsMenu, setBrandsMenu] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [brands, setBrands] = useState([]);
-  const [nexPage, setNexPage] = useState("");
+  const [nextPage, setNextPage] = useState(null);
   const [filters, setFilters] = useState({
     max_price: "",
     min_price: "",
@@ -47,9 +48,17 @@ const Products = () => {
 
       const response = await api.get(`/products/?${params.toString()}`);
       if (response.data.next) {
-        setNexPage(response.data.next);
-      } else {
-        setNexPage("");
+        const nextUrl = response.data.next;
+        const urlObj = new URL(nextUrl);
+        let relativeUrl = urlObj.pathname + urlObj.search;
+
+        if (relativeUrl.startsWith("/api/")) {
+          relativeUrl = relativeUrl.replace("/api", "");
+
+          setNextPage(relativeUrl);
+        } else {
+          setNextPage(null);
+        }
       }
 
       if (response.status === 200) {
@@ -156,10 +165,7 @@ const Products = () => {
 
         {/* ------PRODUCTS----- */}
         <div className="overflow-hidden lg:relative lg:flex lg:justify-between">
-          {/* ------ORDEN LIST BUTTON MOB----- */}
-
           {/* ------FILTERS----- */}
-
           <Filters
             filterMobile={filterMobile}
             setFilterMobile={setFilterMobile}
@@ -179,14 +185,18 @@ const Products = () => {
           />
 
           {/* ------PRODUCTS LIST----- */}
-          <ListProducts
-            setProducts={setProducts}
-            setFilteredProducts={setFilteredProducts}
-            filteredProducts={filteredProducts}
-            nexPage={nexPage}
-            setNexPage={setNexPage}
-            filters={filters}
-          />
+          {products ? (
+            <ListProducts
+              setProducts={setProducts}
+              setFilteredProducts={setFilteredProducts}
+              filteredProducts={filteredProducts}
+              nexPage={nextPage}
+              setNexPage={setNextPage}
+              filters={filters}
+            />
+          ) : (
+            <Loading />
+          )}
         </div>
       </div>
     </>

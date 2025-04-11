@@ -2,7 +2,7 @@ import React from "react";
 
 const Brands = () => {
   return (
-    <section className="mx-3 sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24 py-10">
+    <section className="mx-3 sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24">
       <div className="mt-10 mb-10 flex flex-col justify-center rounded-2xl py-10 px-5 bg-black/60 backdrop-blur shadow-[0_4px_10px_0_#6B7280]">
         <div className="flex justify-start items-center gap-1 uppercase tracking-widest text-2xl font-semibold text-[#f0f7fe] sm:ms-5">
           <h2>Las mejores marcas</h2>

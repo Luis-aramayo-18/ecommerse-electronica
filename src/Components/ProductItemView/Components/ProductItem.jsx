@@ -2,7 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import { useCart } from "../../Hooks/useCart";
 
-const ProductItem = ({ product, comments }) => {
+const ProductItem = ({ product, comments, loading }) => {
   const { addToCart, removeFromCart, cart } = useCart();
 
   const checkProductInCart = (product) => {
@@ -98,10 +98,10 @@ const ProductItem = ({ product, comments }) => {
     <section>
       <div className="flex flex-col lg:flex lg:flex-row">
         <div className="w-full lg:w-[60%] lg:max-w-[660px]">
-          {product ? (
+          
             <Slider {...settingsSlider}>
               {product.images.map((img, idx) => (
-                <div key={product.images.id || idx}>
+                <div key={product.images.id || idx} className="bg-white">
                   <img
                     key={img.id}
                     src={img.image}
@@ -111,13 +111,11 @@ const ProductItem = ({ product, comments }) => {
                 </div>
               ))}
             </Slider>
-          ) : (
-            <p>cargando</p>
-          )}
+         
         </div>
 
         <div className="mt-10 lg:ms-16 lg:mt-0 w-full lg:w-[40%] lg:max-w-[450px]">
-          {product ? (
+          
             <div>
               <div>
                 <div className="flex flex-col md:flex gap-2">
@@ -258,9 +256,7 @@ const ProductItem = ({ product, comments }) => {
                 </div>
               </div>
             </div>
-          ) : (
-            <p>Cargando</p>
-          )}
+       
         </div>
       </div>
     </section>

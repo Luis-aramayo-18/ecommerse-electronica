@@ -21,7 +21,7 @@ const ProductCard = ({ product, homeView }) => {
   };
 
   return (
-    <div className={`w-full flex flex-col lg:max-w-[200px] xl:max-w-[250px] group ${homeView ? 'h-[390px]' : 'h-300px'} sm:h-[360px] md:h-[360px] lg:h-[460px] relative border-none`}>
+    <div className={`w-full flex flex-col lg:max-w-[200px] xl:max-w-[250px] group ${homeView ? 'h-[390px]' : 'h-300px'} sm:h-[360px] md:h-[360px] lg:h-[430px] relative border-none`}>
       <Link
         to={`/products/category/${product.category}/product/${product.id}`}
         onClick={handleScrollToTop}
@@ -32,7 +32,7 @@ const ProductCard = ({ product, homeView }) => {
             <div className="h-full bg-white">
               <img
                 src={`${product.images[0]?.image}`}
-                className="w-full h-full object-contain cursor-pointer"
+                className="w-full h-full object-contain cursor-pointer bg-white"
                 alt={product.name}
               />
             </div>
