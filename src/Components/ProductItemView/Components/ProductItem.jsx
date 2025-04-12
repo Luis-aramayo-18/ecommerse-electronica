@@ -211,8 +211,7 @@ const ProductItem = ({ product, comments, loading }) => {
                 )}
               </button>
 
-              <div className="flex justify-center items-center lg:flex-col lg:items-center gap-5 font-medium mt-5 text-[#abafb4]">
-                <hr className="w-full " />
+              <div className="flex flex-col justify-center items-center  lg:items-center gap-5 font-medium mt-5 text-[#abafb4]">
                 <div className="flex items-center gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -231,6 +230,7 @@ const ProductItem = ({ product, comments, loading }) => {
 
                   <span>Calcular costo de Envió</span>
                 </div>
+
                 <div className="flex items-center gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -249,16 +249,15 @@ const ProductItem = ({ product, comments, loading }) => {
 
                   <span>Retirar en Tienda</span>
                 </div>
-                <hr className="w-full" />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="mt-20 shadow-[0_4px_10px_0_#6B7280] bg-black/70 backdrop-blur rounded-2xl overflow-hidden px-4 py-10">
-      <h2 className="uppercase font-medium text-white">descripcion</h2>
-      <p className="text-gray-400 mt-5">{product.description}</p>
+      <div className="lg:mt-20 mt-10 shadow-[0_4px_10px_0_#6B7280] bg-black/70 backdrop-blur rounded-2xl overflow-hidden px-4 py-10">
+        <h2 className="uppercase font-medium text-white">descripcion</h2>
+        <p className="text-gray-400 mt-5">{product.description}</p>
       </div>
     </section>
   );

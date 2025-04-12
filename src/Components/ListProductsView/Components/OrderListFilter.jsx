@@ -35,7 +35,7 @@ const OrderListFilter = ({
           </div>
 
           <div
-            className={` absolute  top-full z-50 w-full font-medium text-base transform transition-all duration-300 max-h-0 overflow-hidden ${
+            className={` absolute  top-full w-full font-medium text-base transform transition-all duration-300 max-h-0 overflow-hidden ${
               orderListMobile ? "max-h-52 shadow-lg shadow-black" : ""
             }`}
           >

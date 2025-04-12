@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../Hooks/useCart";
 
-const ProductCard = ({ product, homeView, className = "" }) => {
+const ProductCard = ({ product, homeView, className = "", button }) => {
   const { addToCart, removeFromCart, cart } = useCart();
   console.log(className);
   
@@ -94,7 +94,7 @@ const ProductCard = ({ product, homeView, className = "" }) => {
 
         <div className={`sm:block lg:block ${homeView ? "flex" : "hidden"}`}>
           <button
-            className={`mt-2 w-full p-4 text-xs font-bold transition duration-300 border-[#deecfb] border-2 lg:group-hover:bg-[#fea401] lg:group-hover:border-[#f0f7fe] lg:group-hover:text-white bg-[#334155] text-[#deecfb] ${
+            className={`${button ? "rounded-2xl" : ""} mt-2 w-full p-4 text-xs font-bold transition duration-300 border-[#deecfb] border-2 lg:group-hover:bg-[#fea401] lg:group-hover:border-[#f0f7fe] lg:group-hover:text-white bg-[#334155] text-[#deecfb] ${
               isProductInCart(product) ? "bg-[#FF3131]" : "bg-black/80"
             }`}
             onClick={() =>

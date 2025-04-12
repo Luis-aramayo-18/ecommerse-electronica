@@ -58,7 +58,7 @@ const ListProducts = ({
   };
 
   return (
-    <section>
+    <section className="">
       <div className="lg:me-2 mt-10 lg:mt-0 grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
         {filteredProducts.map((product, index) => {
           return (
@@ -67,7 +67,7 @@ const ListProducts = ({
               key={product.id || index}
             >
               {filters.sort === "best_rated" && (
-                <div className="bg-black text-[#fea401] z-20 absolute top-[0%] right-0  flex items-center justify-center gap-1 p-2 rounded-bl-xl border-none">
+                <div className="bg-black text-[#fea401] absolute top-[0%] right-0  flex items-center justify-center gap-1 p-2 rounded-bl-xl border-none">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
@@ -86,7 +86,7 @@ const ListProducts = ({
                   </p>
                 </div>
               )}
-              {<ProductCard product={product} className="px-4 py-6 bg-black/70 backdrop-blur" /> || (
+              {<ProductCard product={product} button className="lg:px-4 lg:py-6 p-4 bg-black/70 backdrop-blur" /> || (
                 <Loading />
               )}
             </div>

@@ -153,7 +153,7 @@ const Products = () => {
 
   return (
     <>
-      <div className="mt-10 w-full h-auto px-6 md:px-14 lg:px-24">
+      <div className="mt-10 w-full h-auto px-4 md:px-14 lg:px-24">
         {/* ------ORDER LIST BUTTON----- */}
         <OrderListFilter
           setOrderListMobile={setOrderListMobile}

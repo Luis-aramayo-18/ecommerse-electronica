@@ -298,7 +298,7 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
         </div>
 
         {/* --------BOX COMMENTS */}
-        <div className="mt-10 px-4">
+        <div className="mt-10 px-0 lg:px-4">
           <div>
             <h2 className="font-semibold text-[#deecfb]">Deja tu comentario</h2>
           </div>

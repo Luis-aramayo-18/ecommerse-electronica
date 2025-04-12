@@ -67,7 +67,7 @@ const RelatedProducts = ({ product, api }) => {
       {
         breakpoint: 480,
         settings: {
-          dots: true,
+          dots: false,
           slidesToShow: 1,
           slidesToScroll: 1,
           arrows: false,
@@ -102,14 +102,14 @@ const RelatedProducts = ({ product, api }) => {
 
   return (
     <section>
-      <div className="mt-20 px-4 py-10 bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] rounded-2xl">
+      <div className="mt-10 lg:mt-20 py-8 px-4 lg:py-10 bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] rounded-2xl">
         <div>
           <h2 className="text-lg font-bold text-[#f0f7fe]">
             También podría Interesarte
           </h2>
         </div>
 
-        <div className="mt-5 mb-10 w-full">
+        <div className="mt-8 w-full">
           {error ? (
             <p className="font-medium">{error}</p>
           ) : relatedProducts && relatedProducts.length > 0 ? (

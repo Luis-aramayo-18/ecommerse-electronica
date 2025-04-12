@@ -133,7 +133,7 @@ const Nav = () => {
 
   return (
     <>
-      <section className="shadow-md shadow-gray-500 bg-[#000000]/70 z-10 px-3 md:px-14 lg:px-24 h-[8vh] md:h-[10vh] sticky w-full top-0">
+      <section className="shadow-md shadow-gray-500 bg-[#000000]/70 z-50 px-3 md:px-14 lg:px-24 h-[8vh] md:h-[10vh] sticky w-full top-0">
         <nav className="flex items-center justify-center h-full gap-4 relative">
           {/* ---- BURGER MENU ICON----- */}
           <button className="absolute left-0 text-white" onClick={toggleMenu}>

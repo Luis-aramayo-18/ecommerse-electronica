@@ -181,7 +181,7 @@ const Filters = ({
 
         <div className="flex gap-4">
           <button
-            className={`flex transition-all duration-100 items-center justify-center h-20 gap-2 w-[50%] border lg:hidden text-[#f0f7fe] ${
+            className={`rounded-2xl bg-black/70 flex transition-all duration-100 items-center justify-center h-14 gap-2 w-[50%] border lg:hidden text-[#f0f7fe] ${
               filters.brand !== "All" ||
               filters.min_price > 0 ||
               filters.max_price > 0
@@ -190,7 +190,7 @@ const Filters = ({
             }`}
             onClick={() => setFilterMobile(!filterMobile)}
           >
-            <p className="text-sm">Filtrar</p>
+            <p className="text-sm font-semibold">Filtrar</p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -202,14 +202,14 @@ const Filters = ({
           </button>
 
           <button
-            className={`w-[50%] h-20 flex items-center justify-center gap-2 border p-2 relative ${
+            className={`w-[50%] bg-black/70 rounded-2xl h-14 flex items-center justify-center gap-2 border p-2 relative ${
               filters.sort !== "Default" ? "border border-[#fea401]" : "border"
             }`}
             onClick={() => setOrderListMobile(!orderListMobile)}
           >
             <div className="flex items-center gap-2 text-[#f0f7fe]">
               <div>
-                <p className="text-sm">Ordenar por</p>
+                <p className="text-sm font-semibold">Ordenar por</p>
                 <span className="text-sm font-bold text-[#fea401] uppercase">
                   {valueOrder}
                 </span>
@@ -231,11 +231,11 @@ const Filters = ({
             </div>
 
             <div
-              className={` absolute top-full z-50 w-full font-medium text-base transform transition-all duration-300 max-h-0 overflow-hidden ${
+              className={` absolute rounded-2xl overflow-hidden top-full mt-2 z-20 w-full font-medium text-base transform transition-all duration-300 max-h-0 ${
                 orderListMobile ? "max-h-52 shadow-lg shadow-black" : ""
               }`}
             >
-              <ul className="bg-gray-800 text-[#deecfb] border border-white p-4 flex flex-col w-full gap-2 backdrop-blur-md">
+              <ul className="bg-black/70 text-[#deecfb] border p-4 flex flex-col w-full gap-2 backdrop-blur-md">
                 <li
                   className={`cursor-pointer text-start transition-all duration-100 ${
                     filters.sort === "discount"
