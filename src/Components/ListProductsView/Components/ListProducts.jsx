@@ -7,7 +7,6 @@ const ListProducts = ({
   setProducts,
   setFilteredProducts,
   filteredProducts,
-  loadingPro,
   nexPage,
   setNexPage,
   filters,
@@ -60,11 +59,11 @@ const ListProducts = ({
 
   return (
     <section>
-      <div className="mt-10 lg:mt-0 grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-8 xl:gap-16">
+      <div className="lg:me-2 mt-10 lg:mt-0 grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
         {filteredProducts.map((product, index) => {
           return (
             <div
-              className="relative flex justify-center"
+              className="relative rounded-2xl flex justify-center shadow-md shadow-gray-500 overflow-hidden"
               key={product.id || index}
             >
               {filters.sort === "best_rated" && (
@@ -87,7 +86,7 @@ const ListProducts = ({
                   </p>
                 </div>
               )}
-              {<ProductCard product={product} className="mx-5" /> || (
+              {<ProductCard product={product} className="px-4 py-6 bg-black/70 backdrop-blur" /> || (
                 <Loading />
               )}
             </div>

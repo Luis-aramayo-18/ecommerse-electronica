@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { toast, Bounce } from "react-toastify";
-import Loading from "../../Loading";
 
 const BoxComments = ({ comments, setComments, product, userID, api }) => {
   const [rating, setRating] = useState(0);
@@ -230,86 +229,76 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
   };
 
   return (
-    <section className="mt-20">
-      <div>
+    <section className="mt-10">
+      <div className="rounded-2xl px-4 py-10 bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280]">
         <div>
-          <h2 className="text-lg font-bold text-[#f0f7fe]">
+          <h2 className="text-lg font-bold uppercase text-[#f0f7fe]">
             Opiniones del Producto
           </h2>
         </div>
 
-        <div className="mt-10 max-h-52 overflow-y-auto">
-          {comments && comments.length > 0 ? (
-            <div className="pe-10">
-              {comments.map((comment) => (
-                <div
-                  className="flex items-center gap-4 relative mb-8"
-                  key={comment.id}
-                >
-                  <div className="w-20 h-20 border flex items-center justify-center rounded-full overflow-hidden aspect-square">
-                    <img
-                      src={
-                        comment.user.image
-                          ? `http://localhost:8000${comment.user.image}`
-                          : `/img/home/user.png`
-                      }
-                      alt={`foto de perfil de ${comment.user.username}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+        <div className="mt-10 max-h-52 overflow-y-auto px-4">
+          {comments.map((comment) => (
+            <div
+              className="flex items-center gap-4 relative mb-8"
+              key={comment.id}
+            >
+              <div className="border flex items-center justify-center rounded-full overflow-hidden aspect-square">
+                <img
+                  src={
+                    comment.user.image
+                      ? `${comment.user.image}`
+                      : `/img/home/user.png`
+                  }
+                  alt={`foto de perfil de ${comment.user.username}`}
+                  className="w-20 h-20 object-cover"
+                />
+              </div>
 
-                  <div className="flex flex-col w-full">
-                    <div className="flex items-center gap-2">
-                      <h4 className="text-[#deecfb] font-semibold first-letter:uppercase">
-                        {comment.user.username}
-                      </h4>
-                      <p className="text-[#a0a5aa] text-xs font-light">
-                        {new Date(comment.created_at).toLocaleDateString(
-                          "es-ES",
-                          {
-                            day: "numeric",
-                            month: "long",
-                          }
-                        )}
-                      </p>
-                    </div>
-
-                    <div className="flex">{renderStars(comment.rating)}</div>
-
-                    <div>
-                      <p className="text-[#a3a7ab] lowercase first-letter:uppercase mt-1">
-                        {comment.comment_text}
-                      </p>
-                    </div>
-                  </div>
-
-                  {comment.user.id === parseFloat(userID) && (
-                    <div className="flex gap-3 absolute right-1 top-1">
-                      <div
-                        className="cursor-pointer opacity-70 lg:hover:opacity-100 transition-all duration-150"
-                        onClick={() => handleEditComment(comment)}
-                      >
-                        <i className="bx bxs-edit-alt text-lg text-white "></i>
-                      </div>
-                      <div
-                        className="cursor-pointer opacity-70 lg:hover:opacity-100 transition-all duration-150"
-                        onClick={() => handleDeleteComment(comment.id)}
-                      >
-                        <i className="bx bxs-trash text-lg text-white "></i>
-                      </div>
-                    </div>
-                  )}
+              <div className="flex flex-col w-full">
+                <div className="flex items-center gap-2">
+                  <h4 className="text-[#deecfb] font-semibold first-letter:uppercase">
+                    {comment.user.username}
+                  </h4>
+                  <p className="text-[#a0a5aa] text-xs font-light">
+                    {new Date(comment.created_at).toLocaleDateString("es-ES", {
+                      day: "numeric",
+                      month: "long",
+                    })}
+                  </p>
                 </div>
-              ))}
+
+                <div className="flex">{renderStars(comment.rating)}</div>
+
+                <div>
+                  <p className="text-[#a3a7ab] lowercase first-letter:uppercase mt-1">
+                    {comment.comment_text}
+                  </p>
+                </div>
+              </div>
+
+              {comment.user.id === parseFloat(userID) && (
+                <div className=" gap-3 absolute right-1 top-1 hidden">
+                  <div
+                    className="cursor-pointer opacity-70 lg:hover:opacity-100 transition-all duration-150"
+                    onClick={() => handleEditComment(comment)}
+                  >
+                    <i className="bx bxs-edit-alt text-lg text-white "></i>
+                  </div>
+                  <div
+                    className="cursor-pointer opacity-70 lg:hover:opacity-100 transition-all duration-150"
+                    onClick={() => handleDeleteComment(comment.id)}
+                  >
+                    <i className="bx bxs-trash text-lg text-white "></i>
+                  </div>
+                </div>
+              )}
             </div>
-          ) : comments.length === 0 ? (
-            <p className="text-[#9fa5ab]">No hay comentarios disponibles</p>
-          ) : (
-            <Loading />
-          )}
+          ))}
         </div>
 
-        <div className="mt-10">
+        {/* --------BOX COMMENTS */}
+        <div className="mt-10 px-4">
           <div>
             <h2 className="font-semibold text-[#deecfb]">Deja tu comentario</h2>
           </div>
@@ -344,7 +333,7 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
                   name=""
                   id=""
                   placeholder="Comentario..."
-                  className="text-white  focus:outline-none focus:ring-2 focus:ring-[#9cccf4] shadow-lg  w-full px-4 pb-48 pt-4 resize-none border border-white bg-black/30 backdrop-blur-lg"
+                  className="text-white rounded-2xl  focus:outline-none focus:ring-2 focus:ring-[#9cccf4] shadow-lg  w-full px-4 pb-48 pt-4 resize-none border border-gray-500 bg-black/70 backdrop-blur-lg"
                   onChange={(e) => setComment(e.target.value)}
                   value={comment}
                 ></textarea>
@@ -365,7 +354,7 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
               ) : (
                 <button
                   type="submit"
-                  className="text-white font-bold mt-3 border p-2 rounded-md"
+                  className="text-white font-bold text-xs mt-3 border p-4 rounded-2xl"
                 >
                   Enviar
                 </button>

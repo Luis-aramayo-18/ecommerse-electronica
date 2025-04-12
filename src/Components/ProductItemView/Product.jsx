@@ -65,7 +65,7 @@ const Product = () => {
     <>
       <div className="mt-10 w-full h-auto px-6 md:px-14 lg:px-24">
         {product && comments ? (
-          <div className="lg:mx-10">
+          <div className="lg:mx-10 mx-0">
           {/* ---- BREADCRUMB ----- */}
           <BreadCrumb product={product} categoryId={categoryId} />
 

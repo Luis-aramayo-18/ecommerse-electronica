@@ -100,7 +100,7 @@ const Login = () => {
   return (
     <div className="my-10 w-full h-auto px-2 md:px-14 lg:px-24">
       <section className="flex justify-center">
-        <div className="w-[90%] sm:w-[70%] md:w-[65%] lg:w-[55%] xl:w-[35%] rounded-2xl py-6 px-3 sm:p-6 mt-10 shadow-md shadow-slate-500">
+        <div className="w-[90%] sm:w-[70%] md:w-[65%] lg:w-[55%] xl:w-[35%] rounded-2xl py-6 px-4 bg-black/70 backdrop-blur sm:p-6 mt-10 shadow-md shadow-slate-500">
           {formRegister ? (
             <div className="flex flex-col-reverse gap-6 w-full md:flex md:flex-row md:justify-center md:gap-10">
               <div className="w-full lg:w-[60%]">
@@ -219,7 +219,7 @@ const Login = () => {
 
                   <button
                     type="submit"
-                    className="w-full text-sm font-semibold border p-3 mt-5 text-[#acb1b6] lg:hover:text-white lg:hover:border-white lg:hover:bg-[#fea401]"
+                    className="w-full text-sm font-semibold rounded-2xl border p-3 mt-5 text-[#acb1b6] lg:hover:text-white lg:hover:border-white lg:hover:bg-[#fea401]"
                   >
                     CREAR CUENTA
                   </button>
@@ -429,7 +429,7 @@ const Login = () => {
 
                 <button
                   type="submit"
-                  className="w-full transition-all duration-100 border p-3 mt-6 text-[#9fa3a7] lg:hover:text-white lg:hover:border-white lg:hover:bg-[#fea401]"
+                  className="w-full transition-all rounded-2xl duration-100 border p-3 mt-6 text-[#9fa3a7] lg:hover:text-white lg:hover:border-white lg:hover:bg-[#fea401]"
                 >
                   INGRESAR
                 </button>
