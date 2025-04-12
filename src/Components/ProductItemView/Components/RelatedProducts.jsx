@@ -34,7 +34,7 @@ const RelatedProducts = ({ product, api }) => {
         : 4,
     slidesToScroll: 1,
     initialSlide: 0,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 3000,
     adaptiveHeight: true,
     responsive: [
