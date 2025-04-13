@@ -47,11 +47,7 @@ const OrdersProfile = () => {
   };
 
   return (
-    <div className="w-full h-full">
-      <section className="hidden lg:block text-5xl font-semibold">
-        <h2>Compras</h2>
-      </section>
-
+    <div className="w-full h-full lg:bg-black/70 lg:backdrop-blur-md lg:rounded-2xl lg:px-4 lg:py-10 lg:shadow-[0_4px_10px_0_#6B7280]">
       <section className="h-full relative">
         <div className="flex flex-col">
           {orders && orders.length > 0 ? (
@@ -84,7 +80,9 @@ const OrdersProfile = () => {
                     <p className="hidden lg:block absolute right-1 top-3 text-xs font-medium">
                       {order.status}
                     </p>
-                    <p className="lg:text-xl text-xs font-medium ">{order.order_date}</p>
+                    <p className="lg:text-xl text-xs font-medium ">
+                      {order.order_date}
+                    </p>
                     <p className="font-semibold text-sm lg:text-xl">
                       <span className="font-medium">Total:</span> $
                       {order.total_amount}
@@ -103,13 +101,15 @@ const OrdersProfile = () => {
                   <div className=" bg-black/40 p-2 shadow-md shadow-slate-300 rounded-xl relative z-30">
                     <div className="flex flex-col lg:flew-row w-full gap-4">
                       <div className="flex flex-col justify-center items-center text-[#a8acb0]">
-                        <h3 className="text-base font-semibold">productos {selectedOrder.order_items.length}</h3>
+                        <h3 className="text-base font-semibold">
+                          productos {selectedOrder.order_items.length}
+                        </h3>
                         <hr />
                         <Slider {...settings} className="w-72 p-4">
                           {selectedOrder.order_items.map((item, idx) => (
                             <div
                               key={item.id || idx}
-                              className="flex justify-center" 
+                              className="flex justify-center"
                             >
                               {item.product.images.length > 0 && (
                                 <div className="w-full flex items-center justify-center">
@@ -121,7 +121,9 @@ const OrdersProfile = () => {
                                 </div>
                               )}
                               <div className="flex flex-col items-center mt-2">
-                                <p className="text-xs font-medium">{item.product.name}</p>
+                                <p className="text-xs font-medium">
+                                  {item.product.name}
+                                </p>
                                 <p className="text-xs font-medium">
                                   <span className="me-2">x{item.quantity}</span>
                                   $
@@ -137,18 +139,25 @@ const OrdersProfile = () => {
                       </div>
 
                       <div className="mt-5 text-[#a8acb0] p-4">
-                        <h3 className="text-base font-semibold">Detalles de la orden</h3>
+                        <h3 className="text-base font-semibold">
+                          Detalles de la orden
+                        </h3>
                         <hr className="my-5 w-[70%]" />
-                        <p className="text-xs font-light">{selectedOrder.status}</p>
+                        <p className="text-xs font-light">
+                          {selectedOrder.status}
+                        </p>
                         <p className="text-sm font-medium">
-                          Cliente: {selectedOrder.name}{" - "}
+                          Cliente: {selectedOrder.name}
+                          {" - "}
                           <span>{selectedOrder.phone_number}</span>
                         </p>
                         <p className="text-sm font-medium">
                           Domicilio: {selectedOrder.street}{" "}
                           <span>{selectedOrder.number_of_street}</span>
                         </p>
-                        <p className="text-sm font-medium">Metodo de pago: {selectedOrder.payment_method}</p>
+                        <p className="text-sm font-medium">
+                          Metodo de pago: {selectedOrder.payment_method}
+                        </p>
                         <p className="text-xs font-medium mt-3">
                           Total: $
                           {new Intl.NumberFormat("es-CO", {
@@ -175,7 +184,7 @@ const OrdersProfile = () => {
               )}
             </div>
           ) : (
-            <div className="absolute top-[35%] text-3xl text-gray-500 font-medium font-stretch-extra-expanded">
+            <div className="absolute text-sm text-gray-400 font-semibold font-stretch-extra-expanded">
               <p>No Tienes compras aun</p>
             </div>
           )}

@@ -5,8 +5,6 @@ const InformationProfile = ({ setSection, api }) => {
   const [email, setEmail] = useState("");
   const [provider, setProvider] = useState(false);
 
-  const [inputNumberDisabled, setInputNumberDisabled] = useState(true);
-  const [inputDniDisabled, setInputDniDisabled] = useState(true);
   const [inputUserDisabled, setInputUserDisabled] = useState(true);
   const [inputEmailDisabled, setInputEmailDisabled] = useState(true);
 
@@ -35,136 +33,105 @@ const InformationProfile = ({ setSection, api }) => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-between mt-5 lg:mt-0">
+    <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:bg-black/70 lg:backdrop-blur-md lg:rounded-2xl lg:px-4 lg:py-10 lg:shadow-[0_4px_10px_0_#6B7280]">
       <section className="flex flex-col w-full relative">
+        {/* <button className="text-sm font-semibold uppercase text-white text-start mx-2 mb-5 " disabled>editar</button> */}
         <form onSubmit={updateUser}>
-          <div className="flex flex-col gap-3 lg:flex-row lg:gap-10">
-            <div className="flex flex-col gap-2 w-full lg:w-[35%]">
-              <label
-                className="text-lg font-medium text-[#a8acb0]"
-                htmlFor="Name"
-              >
-                Usuario
-              </label>
-
-              <div className="relative">
-                <input
-                  id="Name"
-                  type="text"
-                  className="p-2 mt-2 rounded-md w-full text-lg"
-                  onChange={(e) => setUser(e.target.value)}
-                  value={user}
-                  disabled={inputUserDisabled}
-                />
-                {provider === true && (
-                  <button
-                    onClick={() => setInputUserDisabled(!inputUserDisabled)}
-                    className={`bg-white text-gray-800 border border-gray-600 flex justify-center items-center rounded-full w-2 h-2 p-3 absolute -top-[30%] -right-[5%]  hover:opacity-100 ${
-                      inputUserDisabled === false ? "opacity-100" : "opacity-50"
-                    }`}
-                  >
-                    <i className="bx bx-pencil text-base"></i>
-                  </button>
-                )}
-              </div>
-            </div>
-
+          <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 w-full lg:w-[50%]">
-              <label
-                className="text-lg font-medium text-[#a8acb0]"
-                htmlFor="Email"
-              >
-                Email
-              </label>
+              <div>
+                <p className="text-gray-400 text-sm font-semibold first-letter:uppercase mx-2 mb-2">
+                  usuario
+                </p>
+                <div className="relative flex items-center">
+                  <input
+                    id="Name"
+                    type="text"
+                    className="p-4 text-sm font-semibold bg-black/70 text-white mt-2 rounded-2xl w-full border"
+                    onChange={(e) => setUser(e.target.value)}
+                    value={user}
+                    disabled={inputUserDisabled}
+                  />
 
+                  {provider === true && (
+                    <button
+                      onClick={() => setInputUserDisabled(!inputUserDisabled)}
+                      className={` text-gray-400 mt-1 absolute right-4 transition-all duration-100 lg:hover:text-white ${
+                        inputUserDisabled === false
+                          ? "text-white"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                        />
+                      </svg>
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2 w-full lg:w-[50%] mt-5">
               <div className="relative">
-                <input
-                  type="text"
-                  className="p-2 mt-2 rounded-md w-full text-lg"
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
-                  disabled={inputEmailDisabled}
-                  id="Email"
-                />
-                {provider === true && (
-                  <button
-                    onClick={() => setInputEmailDisabled(!inputEmailDisabled)}
-                    className={`bg-white text-gray-800 border border-gray-600 flex justify-center items-center rounded-full w-2 h-2 p-3 absolute -top-[30%] -right-[5%]  hover:opacity-100 ${
-                      inputEmailDisabled === false
-                        ? "opacity-100"
-                        : "opacity-50"
-                    }`}
-                  >
-                    <i className="bx bx-pencil text-base"></i>
-                  </button>
-                )}
+                <p className="text-gray-400 text-sm font-semibold first-letter:uppercase mx-2 mb-2">
+                  email
+                </p>
+
+                <div className="relative flex items-center">
+                  <input
+                    type="text"
+                    className="p-4 text-sm font-semibold bg-black/70 text-white mt-2 rounded-2xl w-full border"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    disabled={inputEmailDisabled}
+                    id="Email"
+                  />
+
+                  {provider === true && (
+                    <button
+                      onClick={() => setInputEmailDisabled(!inputEmailDisabled)}
+                      className={`text-gray-400 mt-1 absolute right-4 transition-all duration-100 lg:hover:text-white ${
+                        inputEmailDisabled === false
+                          ? "text-white"
+                          : "text-gray-400"
+                      }`}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="size-5"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                        />
+                      </svg>
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 lg:flex-row lg:gap-10">
-            <div className="flex flex-col gap-2 mt-7 w-full lg:w-[35%]">
-              <label
-                className="text-lg font-medium text-[#a8acb0]"
-                htmlFor="Teléfono"
-              >
-                Teléfono
-              </label>
-
-              <div className="relative">
-                <input
-                  type="text"
-                  className="p-2 mt-2 rounded-md w-full text-lg"
-                  disabled={inputNumberDisabled}
-                  id="Teléfono"
-                />
-
-                <button
-                  onClick={() => setInputNumberDisabled(!inputNumberDisabled)}
-                  className={`bg-white text-gray-800 border border-gray-600 flex justify-center items-center rounded-full w-2 h-2 p-3 absolute -top-[30%] -right-[5%]  hover:opacity-100 ${
-                    inputNumberDisabled === false ? "opacity-100" : "opacity-50"
-                  }`}
-                >
-                  <i className="bx bx-pencil text-base"></i>
-                </button>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-2 mt-7 w-full lg:w-[35%]">
-              <label
-                className="text-lg font-medium text-[#a8acb0]"
-                htmlFor="DNI"
-              >
-                DNI
-              </label>
-
-              <div className="relative">
-                <input
-                  type="text"
-                  className="p-2 mt-2 rounded-md w-full text-lg"
-                  disabled={inputDniDisabled}
-                  id="DNI"
-                />
-
-                <button
-                  onClick={() => setInputDniDisabled(!inputDniDisabled)}
-                  className={`bg-white text-gray-800 border border-gray-600 flex justify-center items-center rounded-full w-2 h-2 p-3 absolute -top-[30%] -right-[5%]  hover:opacity-100 ${
-                    inputDniDisabled === false ? "opacity-100" : "opacity-50"
-                  }`}
-                >
-                  <i className="bx bx-pencil text-base"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {(inputNumberDisabled === false ||
-            inputUserDisabled === false ||
-            inputEmailDisabled === false ||
-            inputDniDisabled === false) && (
+          {(inputUserDisabled === false || inputEmailDisabled === false) && (
             <button
               type="button"
-              className="mt-10 border-2 rounded-lg p-4 uppercase font-bold"
+              className="mt-10 border bg-black/70 backdrop-blur rounded-2xl p-4 uppercase text-white text-xs font-semibold"
               onClick={() => setPasswordModal(!passwordModal)}
             >
               Actualizar

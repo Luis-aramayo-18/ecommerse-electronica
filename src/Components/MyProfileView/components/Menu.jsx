@@ -7,7 +7,7 @@ const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
   useEffect(() => {
     const adm = localStorage.getItem("userAdmin");
     if (adm === "true") {
-      setAdmin(true); 
+      setAdmin(true);
     }
 
     const sectionUrl = searchParams.get("section");
@@ -32,14 +32,7 @@ const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
       >
         <button>Información</button>
       </li>
-      <li
-        className={`cursor-pointer transition-all duration-100 hover:text-white hover:border-s-2 hover:border-white p-2 ${
-          section === "orders" ? "text-white border-s-2 border-white" : ""
-        }`}
-        onClick={() => setSection("orders")}
-      >
-        <button>Compras</button>
-      </li>
+
       <li
         className={`cursor-pointer transition-all duration-100 hover:text-white hover:border-s-2 hover:border-white p-2 ${
           section === "authentication"
@@ -50,7 +43,8 @@ const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
       >
         <button>Autenticación</button>
       </li>
-      {admin === true && (
+
+      {admin === true ? (
         <li
           className={`cursor-pointer transition-all duration-100 hover:text-white hover:border-s-2 p-2 hover:border-white ${
             section === "admin" ? "text-white border-s-2 border-white" : ""
@@ -59,7 +53,17 @@ const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
         >
           <button>Admin</button>
         </li>
+      ) : (
+        <li
+          className={`cursor-pointer transition-all duration-100 hover:text-white hover:border-s-2 hover:border-white p-2 ${
+            section === "orders" ? "text-white border-s-2 border-white" : ""
+          }`}
+          onClick={() => setSection("orders")}
+        >
+          <button>Compras</button>
+        </li>
       )}
+      
       <li className="p-2 transition-all duration-100 hover:text-white">
         <button onClick={logoutUsername}>Salir</button>
       </li>

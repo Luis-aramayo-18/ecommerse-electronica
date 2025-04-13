@@ -39,8 +39,8 @@ const MyAccount = () => {
 
   return (
     <>
-      <div className="mt-10 w-full h-auto px-6 md:px-14 lg:px-24 flex">
-        <section className="w-[25%] hidden lg:block">
+      <div className="mt-10 w-full h-auto px-4 md:px-14 lg:px-24 flex">
+        <section className="w-[30%] lg:h-[50%] px-4 py-10 bg-black/70 backdrop-blur border rounded-2xl hidden lg:block">
           <div>
             <Header api={api} />
           </div>
@@ -56,19 +56,19 @@ const MyAccount = () => {
           </div>
         </section>
 
-        <section className="w-full ms-[5%] hidden lg:block">
+        <section className="w-full ms-[2%] hidden lg:block">
           {openSection(section)}
         </section>
 
         {/* ------MOBILE----- */}
 
         <section className="w-full lg:hidden">
-          <div className="w-full flex justify-center p-3 shadow-md shadow-slate-400 rounded-xl">
+          <div className="w-full flex justify-center p-4 shadow-[0_4px_10px_0_#6B7280] rounded-2xl bg-black/70 backdrop-blur border">
             <Header />
           </div>
 
           <div className="mt-20 mb-10">
-            <section className="cursor-pointer shadow-sm shadow-slate-400 p-5 rounded-xl">
+            <section className="cursor-pointer bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] border px-4 py-6 rounded-2xl">
               <div
                 className="flex items-center gap-2 text-[#deecfb]"
                 onClick={() =>
@@ -111,46 +111,7 @@ const MyAccount = () => {
               {section === "information" && <div>{openSection(section)}</div>}
             </section>
 
-            <section className="cursor-pointer shadow-sm shadow-slate-400 p-5 rounded-xl mt-10">
-              <div
-                className="flex items-center gap-2 text-[#deecfb]"
-                onClick={() => setSection(section === "orders" ? "" : "orders")}
-              >
-                {section === "orders" ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="size-6 text-white"
-                  >
-                    <path d="M2.25 2.25a.75.75 0 0 0 0 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 0 0-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 0 0 0-1.5H5.378A2.25 2.25 0 0 1 7.5 15h11.218a.75.75 0 0 0 .674-.421 60.358 60.358 0 0 0 2.96-7.228.75.75 0 0 0-.525-.965A60.864 60.864 0 0 0 5.68 4.509l-.232-.867A1.875 1.875 0 0 0 3.636 2.25H2.25ZM3.75 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16.5 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="size-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                    />
-                  </svg>
-                )}
-
-                <p className="text-lg">Compras</p>
-              </div>
-
-              {section === "orders" && (
-                <div className="mt-5">{openSection(section)}</div>
-              )}
-            </section>
-
-            <section className="cursor-pointer shadow-sm shadow-slate-400 p-5 rounded-xl mt-10">
+            <section className="cursor-pointer bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] border px-4 py-6 rounded-2xl mt-10">
               <div
                 className="flex items-center gap-2 text-[#deecfb]"
                 onClick={() =>
@@ -193,8 +154,8 @@ const MyAccount = () => {
               )}
             </section>
 
-            {admin === true && (
-              <section className="cursor-pointer shadow-sm shadow-slate-400 p-5 rounded-xl mt-10">
+            {admin === true ? (
+              <section className="cursor-pointer bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] border px-4 py-6 rounded-2xl mt-10">
                 <div
                   className="flex items-center gap-2 text-[#deecfb]"
                   onClick={() => setSection(section === "admin" ? "" : "admin")}
@@ -237,9 +198,50 @@ const MyAccount = () => {
                   <div className="mt-5">{openSection(section)}</div>
                 )}
               </section>
+            ) : (
+              <section className="cursor-pointer bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] border px-4 py-6 rounded-2xl mt-10">
+                <div
+                  className="flex items-center gap-2 text-[#deecfb]"
+                  onClick={() =>
+                    setSection(section === "orders" ? "" : "orders")
+                  }
+                >
+                  {section === "orders" ? (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="size-6 text-white"
+                    >
+                      <path d="M2.25 2.25a.75.75 0 0 0 0 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 0 0-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 0 0 0-1.5H5.378A2.25 2.25 0 0 1 7.5 15h11.218a.75.75 0 0 0 .674-.421 60.358 60.358 0 0 0 2.96-7.228.75.75 0 0 0-.525-.965A60.864 60.864 0 0 0 5.68 4.509l-.232-.867A1.875 1.875 0 0 0 3.636 2.25H2.25ZM3.75 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16.5 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" />
+                    </svg>
+                  ) : (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="size-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                      />
+                    </svg>
+                  )}
+
+                  <p className="text-lg">Compras</p>
+                </div>
+
+                {section === "orders" && (
+                  <div className="mt-5">{openSection(section)}</div>
+                )}
+              </section>
             )}
 
-            <section className="cursor-pointer shadow-sm shadow-[#FF3131] p-5 rounded-xl mt-10">
+            <section className="cursor-pointer bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] border px-4 py-6 rounded-2xl mt-10">
               <div
                 className="flex items-center gap-2 text-[#deecfb]"
                 onClick={logoutUsername}

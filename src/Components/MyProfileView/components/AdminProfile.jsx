@@ -7,14 +7,17 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Bounce, toast } from "react-toastify";
 import Loading from "../../Loading";
+import Select from "react-select";
+import { debounce } from "lodash";
+import axios from "axios";
 
 const AdminProfile = () => {
   const api = useAxios();
   const productSection = useRef(null);
 
   const [selectedProduct, setSelectedProduct] = useState(null);
-
-  const [products, setProducts] = useState([""]);
+  const [suggestions, setSuggestions] = useState([]);
+  const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [productUpdate, setProductUpdate] = useState(null);
   const [searchProduct, setSearchProduct] = useState("");
@@ -32,7 +35,7 @@ const AdminProfile = () => {
   const [newBrand, setNewBrand] = useState("");
   const [showNewBrandInput, setShowNewBrandInput] = useState(false);
 
-  const [image, setImage] = useState([""]);
+  const [image, setImage] = useState([]);
 
   const [price, setPrice] = useState("");
   const [isOnSale, setIsOnSale] = useState(false);
@@ -43,7 +46,7 @@ const AdminProfile = () => {
 
   const fileInputRef = useRef(null);
 
-  const [nextPage, setNextPage] = useState("/products/?limit=10");
+  const [nextPage, setNextPage] = useState(null);
 
   const settings = {
     dots: true,
@@ -55,39 +58,73 @@ const AdminProfile = () => {
   };
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        loadProducts();
-        const categoriesData = await api.get("/categories/");
-        const brandsData = await api.get("/brands/");
-        const productsData = await api.get("/products/");
-
-        setProducts(productsData.data.results);
-        setCategories(categoriesData.data);
-        setBrands(brandsData.data);
-      } catch (error) {
-        console.error("Error al cargar datos:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadData();
+    fetchProducts();
+    fetchCategories();
+    fetchBrands();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    const filtered = products.filter((product) =>
-      product.name?.toLowerCase().includes(searchProduct.toLowerCase())
-    );
-    setFilteredProducts(filtered);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchProduct]);
 
   useEffect(() => {
     if (products.length < 10) {
       setFilteredProducts(products);
     }
   }, [products]);
+
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get("/products/");
+
+      if (response.status === 200) {
+        setProducts(response.data.results);
+        setFilteredProducts(response.data.results);
+      }
+
+      if (response.data.next) {
+        const nextUrl = response.data.next;
+
+        if (nextUrl) {
+          const urlObj = new URL(nextUrl);
+
+          let relativeUrl = urlObj.pathname + urlObj.search;
+
+          if (relativeUrl.startsWith("/api/")) {
+            relativeUrl = relativeUrl.replace("/api", "");
+
+            setNextPage(relativeUrl);
+          }
+        }
+      } else {
+        setNextPage(null);
+      }
+    } catch (error) {
+      console.error("Error al cargar productos:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const response = await api.get("/categories/");
+      if (response.status === 200) {
+        setCategories(response.data);
+      }
+    } catch (error) {
+      console.error("Error al cargar categorías:", error);
+    }
+  };
+
+  const fetchBrands = async () => {
+    try {
+      const response = await api.get("/brands/");
+      if (response.status === 200) {
+        setBrands(response.data);
+      }
+    } catch (error) {
+      console.error("Error al cargar marcas:", error);
+    }
+  };
 
   const handleCategoryChange = (e) => {
     const selectedValue = e.target.value;
@@ -186,7 +223,7 @@ const AdminProfile = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    setLoading(true);
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
@@ -228,6 +265,7 @@ const AdminProfile = () => {
         setSelectedBrand("");
         setImage([]);
         setDiscountPercentage("");
+        setIsOnSale(false);
         fileInputRef.current.value = "";
         productSection.current?.scrollIntoView({ behavior: "smooth" });
       }
@@ -246,6 +284,8 @@ const AdminProfile = () => {
         theme: "colored",
         transition: Bounce,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -432,17 +472,93 @@ const AdminProfile = () => {
     }
   };
 
-  return (
-    <div className="">
-      <section>
-        <ul className="flex gap-10 text-sm mt-5 font-semibold">
-          <li className="cursor-pointer text-white">Cargar producto</li>
-          <li className="cursor-pointer">Cargar Usuario</li>
-        </ul>
-      </section>
+  const fetchSuggestions = async (searchProduct) => {
+    try {
+      setLoading(true);
+      const response = await api.get(
+        `/products/search/?search=${searchProduct}`
+      );
 
-      <section>
-        <div className="flex flex-col-reverse lg:flex-row lg:justify-between">
+      if (response.status === 200) {
+        const suggestions = response.data.products;
+        setSuggestions(suggestions);
+
+        if (response.data.next) {
+          const nextUrl = response.data.next;
+
+          if (nextUrl) {
+            const urlObj = new URL(nextUrl);
+
+            let relativeUrl = urlObj.pathname + urlObj.search;
+
+            if (relativeUrl.startsWith("/api/")) {
+              relativeUrl = relativeUrl.replace("/api", "");
+
+              setNextPage(relativeUrl);
+            }
+          }
+        } else {
+          setNextPage(null);
+        }
+      }
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        console.log("Previous request canceled:", error.message);
+      } else {
+        console.error("Error fetching suggestions:", error);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const debouncedFetch = debounce(fetchSuggestions, 1000);
+
+  useEffect(() => {
+    if (suggestions.length > 0) {
+      setFilteredProducts(suggestions);
+    } else {
+      setFilteredProducts(products);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [suggestions]);
+
+  useEffect(() => {
+    if (searchProduct.trim() !== "") {
+      debouncedFetch(searchProduct);
+    } else {
+    }
+
+    return () => {
+      debouncedFetch.cancel();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchProduct]);
+
+  const handleSearchProduct = (e) => {
+    const query = e.target.value;
+    setSearchProduct(query);
+  };
+
+  const deleteSuggestions = () => {
+    setSearchProduct("");
+    setSuggestions([]);
+    fetchProducts();
+  };
+
+  console.log(nextPage);
+
+  return (
+    <div>
+      <section className="lg:bg-black/70 lg:backdrop-blur-md lg:rounded-2xl lg:px-4 lg:py-10 lg:shadow-[0_4px_10px_0_#6B7280]">
+        <section>
+          <ul className="flex gap-10 text-sm mt-5 font-semibold">
+            <li className="cursor-pointer text-white">Cargar producto</li>
+            <li className="cursor-pointer text-white transition-all duration-100 lg:text-gray-400 lg:hover:text-white">Cargar Usuario</li>
+          </ul>
+        </section>
+
+        <section className="flex flex-col-reverse lg:flex-row">
           <section className="w-full lg:w-[48%] mt-10">
             <h2 className=" text-gray-100 text-sm font-medium">
               AGREGAR PRODUCTO
@@ -454,7 +570,7 @@ const AdminProfile = () => {
                   required
                   placeholder="Nombre"
                   type="text"
-                  className="p-2 w-full"
+                  className="px-4 py-3 w-full bg-black/70 backdrop-blur text-white rounded-2xl focus:outline-none"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -464,7 +580,7 @@ const AdminProfile = () => {
                   required
                   placeholder="Precio"
                   type="number"
-                  className="p-2 w-full"
+                  className="px-4 py-3 w-full focus:outline-none bg-black/70 backdrop-blur text-white rounded-2xl"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                 />
@@ -473,7 +589,7 @@ const AdminProfile = () => {
                 name=""
                 id=""
                 placeholder="Descripción"
-                className="p-2 w-full h-64 resize-none"
+                className="p-4 w-full focus:outline-none h-64 resize-none bg-black/70 backdrop-blur text-white rounded-2xl"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></textarea>
@@ -481,12 +597,12 @@ const AdminProfile = () => {
                 <div className="w-full">
                   <select
                     required
-                    className="p-2 overflow-y-auto w-full"
+                    className="p-4 text-sm focus:outline-none font-semibold w-full rounded-2xl bg-black/70 backdrop-blur text-white"
                     value={selectedCategory}
                     onChange={handleCategoryChange}
                   >
                     <option value="" disabled>
-                      CATEGORÍA
+                      categoria
                     </option>
                     <option value="new-category">NUEVA CATEGORÍA</option>
                     {categories.map((category, idx) => (
@@ -518,23 +634,56 @@ const AdminProfile = () => {
                 </div>
 
                 <div className="w-full">
-                  <select
-                    required
-                    className="p-2 w-full"
-                    value={selectedBrand}
-                    onChange={handleBrandChange}
-                  >
-                    <option value="" disabled>
-                      MARCA
-                    </option>
-                    <option value="new-brand">NUEVA MARCA</option>
-
-                    {brands.map((brand, idx) => (
-                      <option key={brand.id || idx} value={brand.id}>
-                        {brand.name}
-                      </option>
-                    ))}
-                  </select>
+                  <Select
+                    options={[
+                      { value: "new-brand", label: "nueva marca" },
+                      ...brands.map((brand) => ({
+                        value: brand.id,
+                        label: brand.name,
+                      })),
+                    ]}
+                    onChange={(selectedOption) =>
+                      handleBrandChange(selectedOption.value)
+                    }
+                    placeholder="marca"
+                    styles={{
+                      control: (provided) => ({
+                        ...provided,
+                        padding: "1rem",
+                        fontSize: "0.875rem",
+                        fontWeight: "600",
+                        width: "100%",
+                        borderRadius: "1rem",
+                        backgroundColor: "rgba(0, 0, 0, 0.7)",
+                        backdropFilter: "blur(10px)",
+                        color: "white",
+                      }),
+                      menu: (provided) => ({
+                        ...provided,
+                        backgroundColor: "rgba(0, 0, 0, 0.7)",
+                        maxHeight: 200,
+                        overflowY: "auto",
+                        borderRadius: "1rem",
+                      }),
+                      option: (provided, state) => ({
+                        ...provided,
+                        padding: "0.75rem 1rem",
+                        fontSize: "0.875rem",
+                        fontWeight: "600",
+                        borderRadius: "0.75rem",
+                        backgroundColor: state.isSelected
+                          ? "rgba(0, 0, 0, 0.8)"
+                          : "transparent",
+                        color: "white",
+                        "&:hover": {
+                          backgroundColor: "transparent",
+                          color: "orange",
+                        },
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }),
+                    }}
+                  />
 
                   {showNewBrandInput && (
                     <div className="flex flex-col mt-4">
@@ -557,42 +706,51 @@ const AdminProfile = () => {
                   )}
                 </div>
               </div>
-              <div className="flex flex-col gap-2">
-                <label className="flex gap-2 items-center text-white">
-                  Producto en Oferta
+
+              <div className="flex">
+                <label className="text-sm font-semibold p-4 bg-black/70 backdrop-blur text-white rounded-2xl flex items-center justify-center cursor-pointer gap-2">
+                  imagenes
                   <input
-                    className="w-4 h-4"
-                    type="checkbox"
-                    checked={isOnSale}
-                    onChange={(e) => setIsOnSale(!isOnSale)}
+                    required
+                    type="file"
+                    className="hidden"
+                    multiple
+                    ref={fileInputRef}
+                    onChange={(e) => setImage(Array.from(e.target.files))}
                   />
+                  <p className="text-sm font-semibold text-[#9cccf4cb]">
+                    {image.length}
+                  </p>
                 </label>
-                {isOnSale && (
-                  <label htmlFor="">
+
+                <div className="flex items-center gap-2 ms-8">
+                  <label className="flex text-sm font-semibold gap-2 items-center text-white">
+                    En Oferta
                     <input
-                      type="number"
-                      placeholder="% Descuento"
-                      className="p-2 w-1/4"
-                      value={discountPercentage}
-                      onChange={(e) => setDiscountPercentage(e.target.value)}
+                      className="w"
+                      type="checkbox"
+                      checked={isOnSale}
+                      onChange={(e) => setIsOnSale(!isOnSale)}
                     />
                   </label>
-                )}
+                  {isOnSale && (
+                    <label>
+                      <input
+                        type="number"
+                        placeholder="%"
+                        className="p-2 w-[40%] bg-black/70 backdrop-blur text-white border border-gray-400 rounded-2xl focus:outline-none"
+                        value={discountPercentage}
+                        onChange={(e) => setDiscountPercentage(e.target.value)}
+                      />
+                    </label>
+                  )}
+                </div>
               </div>
-              <label>
-                <input
-                  required
-                  type="file"
-                  className=""
-                  multiple
-                  ref={fileInputRef}
-                  onChange={(e) => setImage(Array.from(e.target.files))}
-                />
-              </label>
+
               {formEdit ? (
                 <button
                   type="button"
-                  className="border p-2 text-gray-200"
+                  className="border rounded-2xl backdrop-blur bg-black/70 text-sm font-semibold p-4 text-gray-200"
                   onClick={() => {
                     handleUpdate();
                   }}
@@ -600,18 +758,27 @@ const AdminProfile = () => {
                   Actualizar Producto
                 </button>
               ) : (
-                <button type="submit" className="border p-2 text-gray-200">
-                  Cargar Producto
+                <button
+                  type="submit"
+                  className="lg:transition-all lg:duration-100 hover:bg-[#fea401] border border-gray-400 p-4 rounded-2xl bg-black/70 backdrop-blur text-gray-200"
+                >
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    <p className="text-xs font-semibold text-white uppercase">
+                      cargar
+                    </p>
+                  )}
                 </button>
               )}
             </form>
           </section>
 
           {formEdit && image.length > 0 && (
-            <section className="mt-20 me-10 w-[400px]">
+            <section className="mt-10 lg:mt-20 lg:w-[380px] ms-[4%]">
               <Slider {...settings}>
                 {image.map((img, idx) => (
-                  <div className="relative h-[400px]" key={img.id || idx}>
+                  <div className="relative lg:h-[380px] rounded-2xl overflow-hidden" key={img.id || idx}>
                     <div className="z-20 bg-white">
                       <img
                         src={img.image}
@@ -620,7 +787,7 @@ const AdminProfile = () => {
                       />
                     </div>
 
-                    <div className="flex flex-col items-end gap-3 absolute top-2 right-2 z-50 cursor-pointer">
+                    <div className="flex flex-col items-end gap-3 absolute top-2 right-2 z-20 cursor-pointer">
                       <button
                         onClick={() => handleDeletePhoto(img.id)}
                         className="text-gray-500 transition-all duration-100 hover:text-gray-900"
@@ -646,157 +813,188 @@ const AdminProfile = () => {
               </Slider>
             </section>
           )}
-        </div>
+        </section>
+      </section>
 
-        <div ref={productSection}>
-          <h2 className="mt-10 text-gray-100 text-sm font-medium">PRODUCTOS</h2>
+      <hr className="my-10" />
 
-          <div className="relative flex items-center w-full lg:w-[40%] mt-5">
+      {/* --------PRODUCTOS------- */}
+      <section ref={productSection}>
+        <div className="flex flex-col gap-5">
+          <div className="relative flex items-center w-full lg:w-[40%]">
             <input
               type="text"
-              placeholder="Ingresar Nombre"
-              className="p-2 w-full"
+              placeholder="Ingresar nombre"
+              className="p-3 w-full bg-black/70 border text-white border-gray-500 backdrop-blur rounded-2xl"
               value={searchProduct}
-              onChange={(e) => {
-                setSearchProduct(e.target.value);
-              }}
+              onChange={handleSearchProduct}
             />
-            <i className="bx bx-search text-2xl absolute right-2 top-2"></i>
+            {loading ? (
+              <Loading className="absolute right-4" />
+            ) : suggestions.length > 0 ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="size-5 absolute right-4 cursor-pointer text-white"
+                onClick={deleteSuggestions}
+              >
+                <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="size-5 absolute right-4 text-white"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            )}
           </div>
+        </div>
 
-          <div className="flex flex-col mt-5">
-            <section className="overflow-x-auto">
-              <table className="mt-4 min-w-full">
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Imagen</th>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Categoría</th>
-                    <th>Marca</th>
-                    <th className="hidden lg:flex">Acciones</th>
-                  </tr>
-                </thead>
-                {filteredProducts.length > 0 ? (
-                  <tbody>
-                    {filteredProducts.map((product, index) => (
-                      <tr
-                        key={product.id || index}
-                        onClick={() => handleOpenModal(product)}
-                        className=""
-                      >
-                        <td className="text-gray-100 text-center">
-                          {product.id}
-                        </td>
-                        <td className="text-center flex justify-center h-full min-w-[55px] lg:w-auto ms-3">
-                          {product.images && product.images.length > 0 ? (
-                            <img
-                              src={product.images[0].image}
-                              alt={product.name}
-                              className="lg:h-full h-[55px] w-[55px] object-contain"
-                            />
-                          ) : (
-                            <span>No Image</span>
-                          )}
-                        </td>
-                        <td className="text-gray-100 text-sm font-medium text-center min-w-[180px] lg:w-auto lowercase first-letter:uppercase">
-                          {product.name}
-                        </td>
-                        <td className="text-center">{product.price}</td>
-                        <td className="text-center">
-                          {product.category_detail?.name || "Sin categoría"}
-                        </td>
-                        <td className="text-center">
-                          {product.brand_detail?.name || "Sin marca"}
-                        </td>
-                        <td className="text-center hidden lg:flex">
-                          <button
-                            type="button"
-                            className="mx-2"
-                            onClick={() => {
-                              handleEdit(product);
-                            }}
-                          >
-                            <i className="bx bxs-edit text-lg"></i>
-                          </button>
-                          <button
-                            type="button"
-                            className="mx-2"
-                            onClick={() => {
-                              handleDelete(product.id);
-                            }}
-                          >
-                            <i className="bx bxs-trash w-full h-full text-lg"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                ) : (
-                  <tbody>
-                    <tr>
-                      <td>
-                        <Loading />
+        <div className="flex flex-col mt-5">
+          <section className="overflow-x-auto rounded-2xl bg-black/70 backdrop-blur p-5 shadow-md shadow-slate-300">
+            <table className="mt-4 min-w-full">
+              <thead className="text-white">
+                <tr>
+                  <th>Id</th>
+                  <th>Imagen</th>
+                  <th>Nombre</th>
+                  <th>Precio</th>
+                  <th>Categoría</th>
+                  <th>Marca</th>
+                  <th className="hidden lg:flex">Acciones</th>
+                </tr>
+              </thead>
+              {filteredProducts.length > 0 ? (
+                <tbody>
+                  {filteredProducts.map((product, index) => (
+                    <tr
+                      key={product.id || index}
+                      onClick={() => handleOpenModal(product)}
+                      className="text-gray-300"
+                    >
+                      <td className="text-center">{product.id}</td>
+
+                      <td className="text-center flex justify-center h-full min-w-[55px] lg:w-auto ms-3">
+                        {product.images && product.images.length > 0 ? (
+                          <img
+                            src={product.images[0].image}
+                            alt={product.name}
+                            className="lg:h-full h-[55px] w-[55px] object-contain"
+                          />
+                        ) : (
+                          <span>No Image</span>
+                        )}
+                      </td>
+
+                      <td className="text-sm font-medium text-center min-w-[180px] lg:w-auto lowercase first-letter:uppercase">
+                        {product.name}
+                      </td>
+
+                      <td className="text-center">{product.price}</td>
+
+                      <td className="text-center">
+                        {product.category_detail?.name || "Sin categoría"}
+                      </td>
+
+                      <td className="text-center">
+                        {product.brand_detail?.name || "Sin marca"}
+                      </td>
+
+                      <td className="text-cente h-full hidden lg:flex">
+                        <button
+                          type="button"
+                          className="mx-2"
+                          onClick={() => {
+                            handleEdit(product);
+                          }}
+                        >
+                          <i className="bx bxs-edit text-lg"></i>
+                        </button>
+
+                        <button
+                          type="button"
+                          className="mx-2"
+                          onClick={() => {
+                            handleDelete(product.id);
+                          }}
+                        >
+                          <i className="bx bxs-trash w-full h-full text-lg"></i>
+                        </button>
                       </td>
                     </tr>
-                  </tbody>
-                )}
-              </table>
+                  ))}
+                </tbody>
+              ) : (
+                <tbody>
+                  <tr>
+                    <td>
+                      <Loading />
+                    </td>
+                  </tr>
+                </tbody>
+              )}
+            </table>
 
-              {selectedProduct && (
-                <div
-                  onClick={handleCloseModal}
-                  className="w-screen h-screen fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center lg:hidden"
-                >
-                  <div className="p-5 bg-black/60 rounded-xl shadow-md shadow-slate-300 w-[80%]">
-                    <p className="text-center text-sm font-medium mb-4 text-white">
-                      {selectedProduct.name}
-                    </p>
-                    <div className="flex justify-center gap-5">
-                      <button
-                        className="border text-gray-500 px-4 py-2 rounded-lg w-[40%]"
-                        onClick={() => {
-                          handleEdit(selectedProduct);
-                          handleCloseModal();
-                        }}
-                      >
-                        Editar
-                      </button>
-                      <button
-                        className="border text-gray-500 px-4 py-2 rounded-lg w-[40%]"
-                        onClick={() => {
-                          handleDelete(selectedProduct.id);
-                          handleCloseModal();
-                        }}
-                      >
-                        Eliminar
-                      </button>
-                    </div>
+            {selectedProduct && (
+              <div
+                onClick={handleCloseModal}
+                className="w-screen h-screen fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center lg:hidden"
+              >
+                <div className="p-5 bg-black/60 rounded-xl shadow-md shadow-slate-300 w-[80%]">
+                  <p className="text-center text-sm font-medium mb-4 text-white">
+                    {selectedProduct.name}
+                  </p>
+                  <div className="flex justify-center gap-5">
+                    <button
+                      className="border text-gray-500 px-4 py-2 rounded-lg w-[40%]"
+                      onClick={() => {
+                        handleEdit(selectedProduct);
+                        handleCloseModal();
+                      }}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className="border text-gray-500 px-4 py-2 rounded-lg w-[40%]"
+                      onClick={() => {
+                        handleDelete(selectedProduct.id);
+                        handleCloseModal();
+                      }}
+                    >
+                      Eliminar
+                    </button>
                   </div>
                 </div>
-              )}
-
-              <div className="my-10 flex justify-center">
-                {nextPage === null ? (
-                  <p className="text-gray-500">No hay más productos</p>
-                ) : (
-                  <button
-                    onClick={loadProducts}
-                    className="w-[110px] h-[40px] border rounded-2xl bg-black/70 backdrop-blur-sm relative"
-                  >
-                    {loading ? (
-                      <Loading />
-                    ) : (
-                      <p className="uppercase font-semibold text-xs text-white">
-                        Ver mas
-                      </p>
-                    )}
-                  </button>
-                )}
               </div>
-            </section>
-          </div>
+            )}
+
+            <div className="my-10 flex justify-center">
+              {nextPage === null ? (
+                <p className="text-gray-500">No hay más productos</p>
+              ) : (
+                <button
+                  onClick={loadProducts}
+                  className="w-[110px] h-[40px] border rounded-2xl bg-black/70 backdrop-blur-sm relative"
+                >
+                  {loading ? (
+                    <Loading />
+                  ) : (
+                    <p className="uppercase font-semibold text-xs text-white">
+                      Ver mas
+                    </p>
+                  )}
+                </button>
+              )}
+            </div>
+          </section>
         </div>
       </section>
     </div>
