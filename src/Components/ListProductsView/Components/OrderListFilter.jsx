@@ -35,11 +35,11 @@ const OrderListFilter = ({
           </div>
 
           <div
-            className={` absolute  top-full w-full font-medium text-base transform transition-all duration-300 max-h-0 overflow-hidden ${
+            className={`z-30 absolute top-full w-full font-medium text-base transform transition-all duration-300 max-h-0 overflow-hidden ${
               orderListMobile ? "max-h-52 shadow-lg shadow-black" : ""
             }`}
           >
-            <ul className="bg-black/70 rounded-2xl shadow-[0_4px_10px_0_#6B7280] text-[#deecfb] border border-white p-4 flex flex-col w-full gap-2 backdrop-blur-md">
+            <ul className="bg-black/70 z-30 rounded-2xl shadow-[0_4px_10px_0_#6B7280] text-[#deecfb] border border-white p-4 flex flex-col w-full gap-2 backdrop-blur-md">
               <li
                 className={`cursor-pointer text-start transition-all duration-100 ${
                   filters.sort === "discount"

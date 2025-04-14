@@ -42,6 +42,17 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  // const registerUser = async (data) => {
+  //   try {
+  //     const response = await axios.post(
+  //       `${process.env.REACT_APP_BASE_URL}register/`,
+  //       data
+  //     );
+  //   } catch (error) {
+      
+  //   }
+  // }
+
   const loginGoogle = async (credentialResponse) => {
     try {
       const credentialLogin = credentialResponse.credential;
@@ -142,7 +153,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const loginUsername = async (data) => {
+  const loginEmail = async (data) => {
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}login/`,
@@ -281,10 +292,9 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         setUserData,
-        // setListenerUpdates,
         userData,
         loginGoogle,
-        loginUsername,
+        loginEmail,
         logoutUsername,
         authError,
       }}

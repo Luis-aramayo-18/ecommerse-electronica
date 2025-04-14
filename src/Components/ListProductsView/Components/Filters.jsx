@@ -39,7 +39,7 @@ const Filters = ({
   return (
     <>
       <section
-        className={`backdrop-blur border shadow-[0_4px_10px_0_#6B7280] rounded-2xl bg-black/70 fixed left-0 top-0 z-40 h-full w-[75%] md:w-[60%] lg:z-0 lg:px-4 lg:py-10 lg:relative lg:w-[22%] lg:translate-x-0 transform transition-transform duration-300 ${
+        className={`backdrop-blur border shadow-[0_4px_10px_0_#6B7280] rounded-2xl bg-black/70 fixed left-0 top-0 z-50 h-full w-[75%] md:w-[60%] lg:z-0 lg:px-4 lg:py-10 lg:relative lg:w-[22%] lg:translate-x-0 transform transition-transform duration-300 ${
           filterMobile ? "translate-x-0" : "-translate-x-full"
         }`}
       >

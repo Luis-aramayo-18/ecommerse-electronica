@@ -185,7 +185,7 @@ const OrdersProfile = () => {
             </div>
           ) : (
             <div className="absolute text-sm text-gray-400 font-semibold font-stretch-extra-expanded">
-              <p>No Tienes compras aun</p>
+              <p>No tienes compras aun.</p>
             </div>
           )}
         </div>

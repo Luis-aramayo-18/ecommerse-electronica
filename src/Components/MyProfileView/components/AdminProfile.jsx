@@ -42,7 +42,14 @@ const AdminProfile = () => {
   const [discountPercentage, setDiscountPercentage] = useState("");
 
   const [formEdit, setFormEdit] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({
+    post: false,
+    search: false,
+    get: false,
+    update: false,
+    delete: false,
+    seeMore: false,
+  });
 
   const fileInputRef = useRef(null);
 
@@ -72,7 +79,7 @@ const AdminProfile = () => {
 
   const fetchProducts = async () => {
     try {
-      setLoading(true);
+      setLoading((prev) => ({ ...prev, get: true }));
       const response = await api.get("/products/");
 
       if (response.status === 200) {
@@ -100,7 +107,7 @@ const AdminProfile = () => {
     } catch (error) {
       console.error("Error al cargar productos:", error);
     } finally {
-      setLoading(false);
+      setLoading((prev) => ({ ...prev, get: false }));
     }
   };
 
@@ -223,7 +230,7 @@ const AdminProfile = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
+    setLoading((prev) => ({ ...prev, post: true }));
     const formData = new FormData();
     formData.append("name", name);
     formData.append("description", description);
@@ -285,12 +292,13 @@ const AdminProfile = () => {
         transition: Bounce,
       });
     } finally {
-      setLoading(false);
+      setLoading((prev) => ({ ...prev, post: false }));
     }
   };
 
   const handleUpdate = async () => {
     try {
+      setLoading((prev) => ({ ...prev, update: true }));
       const updateProductData = {
         name: name,
         description: description,
@@ -333,6 +341,8 @@ const AdminProfile = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading((prev) => ({ ...prev, update: false }));
     }
   };
 
@@ -353,8 +363,8 @@ const AdminProfile = () => {
 
   const handleDelete = async (productID) => {
     try {
+      setLoading((prev) => ({ ...prev, delete: true }));
       const response = await api.delete(`/products/${productID}/`);
-      console.log(response);
 
       if (response.status === 204) {
         toast.success("producto eliminado", {
@@ -382,6 +392,8 @@ const AdminProfile = () => {
       }
     } catch (error) {
       console.log("Error al eliminar el producto:", error);
+    } finally {
+      setLoading((prev) => ({ ...prev, delete: false }));
     }
   };
 
@@ -391,7 +403,7 @@ const AdminProfile = () => {
     }
 
     try {
-      setLoading(true);
+      setLoading((prev) => ({ ...prev, seeMore: true }));
 
       const response = await api.get(nextPage);
 
@@ -432,7 +444,7 @@ const AdminProfile = () => {
     } catch (err) {
       console.error("Error al cargar productos:", err);
     } finally {
-      setLoading(false);
+      setLoading((prev) => ({ ...prev, seeMore: false }));
     }
   };
 
@@ -474,7 +486,7 @@ const AdminProfile = () => {
 
   const fetchSuggestions = async (searchProduct) => {
     try {
-      setLoading(true);
+      setLoading((prev) => ({ ...prev, search: true }));
       const response = await api.get(
         `/products/search/?search=${searchProduct}`
       );
@@ -508,7 +520,7 @@ const AdminProfile = () => {
         console.error("Error fetching suggestions:", error);
       }
     } finally {
-      setLoading(false);
+      setLoading((prev) => ({ ...prev, search: false }));
     }
   };
 
@@ -546,15 +558,16 @@ const AdminProfile = () => {
     fetchProducts();
   };
 
-  console.log(nextPage);
-
   return (
     <div>
       <section className="lg:bg-black/70 lg:backdrop-blur-md lg:rounded-2xl lg:px-4 lg:py-10 lg:shadow-[0_4px_10px_0_#6B7280]">
+        {/* --------CARGAR PRODUCTO---------- */}
         <section>
           <ul className="flex gap-10 text-sm mt-5 font-semibold">
             <li className="cursor-pointer text-white">Cargar producto</li>
-            <li className="cursor-pointer text-white transition-all duration-100 lg:text-gray-400 lg:hover:text-white">Cargar Usuario</li>
+            <li className="cursor-pointer text-white transition-all duration-100 lg:text-gray-400 lg:hover:text-white">
+              Cargar Usuario
+            </li>
           </ul>
         </section>
 
@@ -570,34 +583,37 @@ const AdminProfile = () => {
                   required
                   placeholder="Nombre"
                   type="text"
-                  className="px-4 py-3 w-full bg-black/70 backdrop-blur text-white rounded-2xl focus:outline-none"
+                  className="px-4 py-3 w-full bg-black/70 backdrop-blur text-white rounded-2xl lg:focus:outline-none"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </label>
+
               <label>
                 <input
                   required
                   placeholder="Precio"
                   type="number"
-                  className="px-4 py-3 w-full focus:outline-none bg-black/70 backdrop-blur text-white rounded-2xl"
+                  className="px-4 py-3 w-full lg:focus:outline-none bg-black/70 backdrop-blur text-white rounded-2xl"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                 />
               </label>
+
               <textarea
                 name=""
                 id=""
                 placeholder="Descripción"
-                className="p-4 w-full focus:outline-none h-64 resize-none bg-black/70 backdrop-blur text-white rounded-2xl"
+                className="p-4 w-full lg:focus:outline-none h-64 resize-none bg-black/70 backdrop-blur text-white rounded-2xl"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></textarea>
+
               <div className="flex justify-center gap-4">
                 <div className="w-full">
                   <select
                     required
-                    className="p-4 text-sm focus:outline-none font-semibold w-full rounded-2xl bg-black/70 backdrop-blur text-white"
+                    className="p-4 text-sm lg:focus:outline-none font-semibold w-full rounded-2xl bg-black/70 backdrop-blur text-white"
                     value={selectedCategory}
                     onChange={handleCategoryChange}
                   >
@@ -707,7 +723,7 @@ const AdminProfile = () => {
                 </div>
               </div>
 
-              <div className="flex">
+              <div className="flex gap-2">
                 <label className="text-sm font-semibold p-4 bg-black/70 backdrop-blur text-white rounded-2xl flex items-center justify-center cursor-pointer gap-2">
                   imagenes
                   <input
@@ -723,8 +739,8 @@ const AdminProfile = () => {
                   </p>
                 </label>
 
-                <div className="flex items-center gap-2 ms-8">
-                  <label className="flex text-sm font-semibold gap-2 items-center text-white">
+                <div className="flex items-center relative">
+                  <label className="flex text-sm font-semibold text-white">
                     En Oferta
                     <input
                       className="w"
@@ -733,12 +749,13 @@ const AdminProfile = () => {
                       onChange={(e) => setIsOnSale(!isOnSale)}
                     />
                   </label>
+
                   {isOnSale && (
-                    <label>
+                    <label className="ms-2 w-[30%]">
                       <input
                         type="number"
-                        placeholder="%"
-                        className="p-2 w-[40%] bg-black/70 backdrop-blur text-white border border-gray-400 rounded-2xl focus:outline-none"
+                        placeholder="Descuento %"
+                        className="p-4 bg-black/70 backdrop-blur text-white rounded-2xl lg:focus:outline-none"
                         value={discountPercentage}
                         onChange={(e) => setDiscountPercentage(e.target.value)}
                       />
@@ -755,14 +772,20 @@ const AdminProfile = () => {
                     handleUpdate();
                   }}
                 >
-                  Actualizar Producto
+                  {loading.update ? (
+                    <Loading />
+                  ) : (
+                    <p className="text-xs font-semibold text-white uppercase">
+                      actualizar
+                    </p>
+                  )}
                 </button>
               ) : (
                 <button
                   type="submit"
                   className="lg:transition-all lg:duration-100 hover:bg-[#fea401] border border-gray-400 p-4 rounded-2xl bg-black/70 backdrop-blur text-gray-200"
                 >
-                  {loading ? (
+                  {loading.post ? (
                     <Loading />
                   ) : (
                     <p className="text-xs font-semibold text-white uppercase">
@@ -778,7 +801,10 @@ const AdminProfile = () => {
             <section className="mt-10 lg:mt-20 lg:w-[380px] ms-[4%]">
               <Slider {...settings}>
                 {image.map((img, idx) => (
-                  <div className="relative lg:h-[380px] rounded-2xl overflow-hidden" key={img.id || idx}>
+                  <div
+                    className="relative lg:h-[380px] rounded-2xl overflow-hidden"
+                    key={img.id || idx}
+                  >
                     <div className="z-20 bg-white">
                       <img
                         src={img.image}
@@ -829,7 +855,7 @@ const AdminProfile = () => {
               value={searchProduct}
               onChange={handleSearchProduct}
             />
-            {loading ? (
+            {loading.search ? (
               <Loading className="absolute right-4" />
             ) : suggestions.length > 0 ? (
               <svg
@@ -859,7 +885,7 @@ const AdminProfile = () => {
         </div>
 
         <div className="flex flex-col mt-5">
-          <section className="overflow-x-auto rounded-2xl bg-black/70 backdrop-blur p-5 shadow-md shadow-slate-300">
+          <section className="overflow-x-auto lg:rounded-2xl lg:bg-black/70 lg:backdrop-blur lg:p-5 lg:shadow-[0_4px_10px_0_#6B7280]">
             <table className="mt-4 min-w-full">
               <thead className="text-white">
                 <tr>
@@ -872,7 +898,15 @@ const AdminProfile = () => {
                   <th className="hidden lg:flex">Acciones</th>
                 </tr>
               </thead>
-              {filteredProducts.length > 0 ? (
+              {loading.get ? (
+                <tbody>
+                  <tr>
+                    <td>
+                      <Loading />
+                    </td>
+                  </tr>
+                </tbody>
+              ) : (
                 <tbody>
                   {filteredProducts.map((product, index) => (
                     <tr
@@ -932,14 +966,6 @@ const AdminProfile = () => {
                     </tr>
                   ))}
                 </tbody>
-              ) : (
-                <tbody>
-                  <tr>
-                    <td>
-                      <Loading />
-                    </td>
-                  </tr>
-                </tbody>
               )}
             </table>
 
@@ -984,7 +1010,7 @@ const AdminProfile = () => {
                   onClick={loadProducts}
                   className="w-[110px] h-[40px] border rounded-2xl bg-black/70 backdrop-blur-sm relative"
                 >
-                  {loading ? (
+                  {loading.seeMore ? (
                     <Loading />
                   ) : (
                     <p className="uppercase font-semibold text-xs text-white">

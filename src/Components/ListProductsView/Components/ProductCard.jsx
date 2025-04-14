@@ -4,7 +4,6 @@ import { useCart } from "../../Hooks/useCart";
 
 const ProductCard = ({ product, homeView, className = "", button }) => {
   const { addToCart, removeFromCart, cart } = useCart();
-  console.log(className);
   
   const isProductInCart = (product) => {
     return cart.some((item) => item.id === product.id);

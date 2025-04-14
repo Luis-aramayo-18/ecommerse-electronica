@@ -4,16 +4,13 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { useAxios } from "../Hooks/useAxios";
 
 import OrderListFilter from "./Components/OrderListFilter";
-
 import Filters from "./Components/Filters";
 import ListProducts from "./Components/ListProducts";
-import Loading from "../Loading";
 
 const Products = () => {
   const api = useAxios();
   const { categoryId } = useParams();
   const [isDeletingFilters, setIsDeletingFilters] = useState(false);
-  const [loadingPro, setLoadingPro] = useState(false);
   const [orderListMobile, setOrderListMobile] = useState(false);
   const [filterMobile, setFilterMobile] = useState(false);
   const [valueOrder, setValueOrder] = useState("");
@@ -23,6 +20,11 @@ const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [brands, setBrands] = useState([]);
   const [nextPage, setNextPage] = useState(null);
+  const [loading, setLoading] = useState({
+    products: false,
+    categories: false,
+    seeMore: false,
+  });
   const [filters, setFilters] = useState({
     max_price: "",
     min_price: "",
@@ -35,8 +37,7 @@ const Products = () => {
 
   const fetchProduct = async () => {
     try {
-      setLoadingPro(true);
-
+      setLoading((prev) => ({ ...prev, products: true, seeMore: true }));
       const params = new URLSearchParams();
 
       params.append("category", categoryId);
@@ -49,6 +50,8 @@ const Products = () => {
       const response = await api.get(`/products/?${params.toString()}`);
       if (response.data.next) {
         const nextUrl = response.data.next;
+        console.log("hola");
+
         const urlObj = new URL(nextUrl);
         let relativeUrl = urlObj.pathname + urlObj.search;
 
@@ -56,9 +59,9 @@ const Products = () => {
           relativeUrl = relativeUrl.replace("/api", "");
 
           setNextPage(relativeUrl);
-        } else {
-          setNextPage(null);
         }
+      } else {
+        setNextPage(null);
       }
 
       if (response.status === 200) {
@@ -68,13 +71,13 @@ const Products = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoadingPro(false);
+      setLoading((prev) => ({ ...prev, products: false, seeMore: false }));
     }
   };
 
   const fetchCategories = async () => {
     try {
-      setLoadingPro(true);
+      setLoading((prev) => ({ ...prev, categories: true }));
       const response = await api.get(`/brands/?category=${categoryId}`);
 
       if (response.status === 200) {
@@ -83,7 +86,7 @@ const Products = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoadingPro(false);
+      setLoading((prev) => ({ ...prev, categories: false }));
     }
   };
 
@@ -151,6 +154,8 @@ const Products = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDeletingFilters]);
 
+  console.log(nextPage);
+
   return (
     <>
       <div className="mt-10 w-full h-auto px-4 md:px-14 lg:px-24">
@@ -176,7 +181,7 @@ const Products = () => {
             setBrandsMenu={setBrandsMenu}
             products={products}
             deleteFilters={deleteFilters}
-            loadingPro={loadingPro}
+            loading={loading}
             isDeletingFilters={isDeletingFilters}
             brands={brands}
             valueOrder={valueOrder}
@@ -185,18 +190,16 @@ const Products = () => {
           />
 
           {/* ------PRODUCTS LIST----- */}
-          {products ? (
-            <ListProducts
-              setProducts={setProducts}
-              setFilteredProducts={setFilteredProducts}
-              filteredProducts={filteredProducts}
-              nexPage={nextPage}
-              setNexPage={setNextPage}
-              filters={filters}
-            />
-          ) : (
-            <Loading />
-          )}
+          <ListProducts
+            setProducts={setProducts}
+            setFilteredProducts={setFilteredProducts}
+            filteredProducts={filteredProducts}
+            nexPage={nextPage}
+            setNexPage={setNextPage}
+            filters={filters}
+            loading={loading}
+            setLoading={setLoading}
+          />
         </div>
       </div>
     </>

@@ -5,6 +5,7 @@ import { useAxios } from "../Hooks/useAxios";
 import apiServices from "../../api/apiServices";
 import GoogleLoginBtn from "./Components/GoogleLoginBtn";
 import { Bounce, toast } from "react-toastify";
+import Loading from "../Loading";
 
 const Login = () => {
   const api = useAxios();
@@ -14,7 +15,11 @@ const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmed, setShowPasswordConfirmed] = useState(false);
-  const { authError, loginUsername } = useAuth();
+  const [loading, setLoading] = useState({
+    login: false,
+    register: false,
+  });
+  const { authError, loginEmail } = useAuth();
 
   const {
     register: registerLogin,
@@ -42,6 +47,7 @@ const Login = () => {
 
   const registerUser = async (data) => {
     try {
+      setLoading({ ...loading, register: true });
       const response = await requestApi.createUser(data);
 
       if (response.status === 201) {
@@ -82,11 +88,13 @@ const Login = () => {
         theme: "colored",
         transition: Bounce,
       });
+    } finally {
+      setLoading({ ...loading, register: false });
     }
   };
 
   const loginUser = async (data) => {
-    await loginUsername(data);
+    await loginEmail(data);
   };
 
   const validations = {
@@ -221,7 +229,13 @@ const Login = () => {
                     type="submit"
                     className="w-full text-xs font-semibold rounded-2xl border p-4 mt-5 text-white lg:hover:bg-[#fea401]"
                   >
-                    CREAR CUENTA
+                    {loading.register ? (
+                      <Loading />
+                    ) : (
+                      <p className="text-xs font-semibold uppercase">
+                        registrar
+                      </p>
+                    )}
                   </button>
                 </form>
 

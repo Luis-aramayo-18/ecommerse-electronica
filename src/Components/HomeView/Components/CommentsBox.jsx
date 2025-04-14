@@ -5,6 +5,13 @@ import moment from "moment";
 import Loading from "../../Loading";
 
 const CommentsBox = ({ api, userId, StyledSlider }) => {
+  const [loading, setLoading] = useState({
+    get: false,
+    post: false,
+    put: false,
+    delete: false,
+  });
+
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
@@ -64,12 +71,19 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
 
   useEffect(() => {
     const fetchComments = async () => {
-      const response = await api.get(
-        `/comments/get_comments/?page_id=${pageId}`
-      );
+      setLoading((prev) => ({ ...prev, get: true }));
+      try {
+        const response = await api.get(
+          `/comments/get_comments/?page_id=${pageId}`
+        );
 
-      if (response.status === 200) {
-        setComments(response.data);
+        if (response.status === 200) {
+          setComments(response.data);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading((prev) => ({ ...prev, get: false }));
       }
     };
     fetchComments();
@@ -79,6 +93,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
 
   const commentSubmit = async (e) => {
     e.preventDefault();
+    setLoading((prev) => ({ ...prev, post: true }));
     try {
       const commentData = {
         comment_text: comment,
@@ -140,6 +155,8 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
           transition: Bounce,
         });
       }
+    } finally {
+      setLoading((prev) => ({ ...prev, get: false }));
     }
   };
 
@@ -153,10 +170,12 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
   };
 
   const handleUpdateComment = async () => {
+    setLoading((prev) => ({ ...prev, put: true }));
     const dataComment = {
       comment_text: comment,
       page_id: pageId,
     };
+
     try {
       const response = await api.put(`/comments/${commentId}/`, dataComment);
 
@@ -216,10 +235,13 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
           transition: Bounce,
         });
       }
+    } finally {
+      setLoading((prev) => ({ ...prev, put: true }));
     }
   };
 
   const handleDeleteComment = async (commentID) => {
+    setLoading((prev) => ({ ...prev, delete: true }));
     try {
       const response = await api.delete(`/comments/${commentID}`);
 
@@ -245,6 +267,8 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading((prev) => ({ ...prev, delete: true }));
     }
   };
 
@@ -275,134 +299,133 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
 
   return (
     <section className="mx-3 bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] py-10 px-4 rounded-2xl sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24 flex flex-col justify-center mt-28 sm:mt-28">
-      {comments ? (
-        <>
-          <div className="flex items-center text-center gap-1 uppercase mb-8 sm:mb-12 tracking-widest text-2xl font-semibold text-[#f0f7fe] sm:ms-5">
-            <h2>El mejor servicio</h2>
-          </div>
+      <div className="flex items-center text-center gap-1 uppercase mb-8 sm:mb-12 tracking-widest text-2xl font-semibold text-[#f0f7fe] sm:ms-5">
+        <h2>El mejor servicio</h2>
+      </div>
 
-          {/* -----COMMENTS------ */}
-          <div className="my-4">
-            <StyledSlider {...settings}>
-              {comments.map((comment) => (
-                <div
-                  className={`${
-                    comment.user.id === parseFloat(userId)
-                      ? "cursor-pointer shadow-slate-400 hover:shadow-md "
-                      : ""
-                  } card-comments relative z-20  rounded-xl bg-black/70 border border-gray-500 backdrop-blur-sm p-5 min-h-[150px]`}
-                  key={comment.id}
-                  ref={(el) => (cardRefs.current[comment.id] = el)}
-                  onClick={
-                    comment.user.id === parseFloat(userId)
-                      ? () => handleCardClick(comment.id)
-                      : null
-                  }
-                >
-                  <div className="head-card flex items-center relative w-full gap-3">
-                    <div className="relative">
-                      {comment ? (
-                        <img
-                          className="w-12 h-12 object-cover rounded-full border"
-                          src={comment.user.image}
-                          alt={comment.user.username}
-                        />
-                      ) : (
-                        <img
-                          className="h-12 w-24 object-cover rounded-full border"
-                          src="/img/home/user.png"
-                          alt=""
-                        />
-                      )}
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-medium first-letter:uppercase text-white">
-                        {comment.user.username}
-                      </h3>
-                      <p className="text-sm font-light text-gray-400">
-                        {formatDate(comment.created_at)}
-                      </p>
-                    </div>
-
-                    <img
-                      src="/img/home/google.png"
-                      alt="logo google"
-                      className="w-6 h-6 absolute right-0"
-                    />
-                  </div>
-
-                  <div className="main-card mt-3 first-letter:uppercase text-white text-sm font-light">
-                    <p>{comment.comment_text}</p>
-                  </div>
-
-                  <div
-                    className={`absolute top-0 left-0 w-full rounded-xl overflow-hidden bg-black/50 backdrop-blur-sm transition-all duration-200 ease-in-out ${
-                      activeCommentId === comment.id
-                        ? "h-full opacity-100"
-                        : "h-0 opacity-0"
-                    } flex flex-col justify-center items-center`}
-                  >
-                    <button
-                      onClick={(e) => {
-                        handleEditComment(comment);
-                      }}
-                      className="w-[40%] border p-3 rounded-xl lg:hover:bg-[#fea401] cursor-pointer text-sm font-semibold text-white"
-                    >
-                      Editar
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        handleDeleteComment(comment.id);
-                      }}
-                      className="w-[40%] border p-3 mt-2 rounded-xl lg:hover:bg-[#fea401] cursor-pointer text-sm font-semibold text-white"
-                    >
-                      Eliminar
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </StyledSlider>
-          </div>
-
-          {/* --------BOX-COMMENTS-------- */}
-          <div className="flex flex-col gap-4 mt-10 sm:mt-20  w-full">
-            <div className="text-lg font-medium text-[#deecfb]">
-              <h2>Déjanos tu comentario</h2>
-            </div>
-            <div className="flex items-start gap-4 w-full">
-              <form
-                className="w-full flex flex-col items-start gap-4 bg-transparent"
-                onSubmit={commentSubmit}
+      {/* -----COMMENTS------ */}
+      <div className="my-4">
+        {loading.get === false && comments ? (
+          <StyledSlider {...settings}>
+            {comments.map((comment) => (
+              <div
+                className={`${
+                  comment.user.id === parseFloat(userId)
+                    ? "cursor-pointer shadow-slate-400 hover:shadow-md "
+                    : ""
+                } card-comments relative z-20  rounded-xl bg-black/70 border border-gray-500 backdrop-blur-sm p-5 min-h-[150px]`}
+                key={comment.id}
+                ref={(el) => (cardRefs.current[comment.id] = el)}
+                onClick={
+                  comment.user.id === parseFloat(userId)
+                    ? () => handleCardClick(comment.id)
+                    : null
+                }
               >
-                <textarea
-                  className="text-white rounded-2xl me-10 focus:outline-none focus:ring-2 focus:ring-[#9cccf4] shadow-lg  w-full px-4 pb-40 pt-4 resize-none bg-black/70 border border-white backdrop-blur-sm"
-                  ref={inputComment}
-                  onChange={(e) => setComment(e.target.value)}
-                  value={comment}
-                ></textarea>
-                {isEditing ? (
+                <div className="head-card flex items-center relative w-full gap-3">
+                  <div className="relative">
+                    {comment ? (
+                      <img
+                        className="w-12 h-12 object-cover rounded-full border"
+                        src={comment.user.image}
+                        alt={comment.user.username}
+                      />
+                    ) : (
+                      <img
+                        className="h-12 w-24 object-cover rounded-full border"
+                        src="/img/home/user.png"
+                        alt=""
+                      />
+                    )}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-medium first-letter:uppercase text-white">
+                      {comment.user.username}
+                    </h3>
+                    <p className="text-sm font-light text-gray-400">
+                      {formatDate(comment.created_at)}
+                    </p>
+                  </div>
+
+                  <img
+                    src="/img/home/google.png"
+                    alt="logo google"
+                    className="w-6 h-6 absolute right-0"
+                  />
+                </div>
+
+                <div className="main-card mt-3 first-letter:uppercase text-white text-sm font-light">
+                  <p>{comment.comment_text}</p>
+                </div>
+
+                <div
+                  className={`absolute top-0 left-0 w-full rounded-xl overflow-hidden bg-black/50 backdrop-blur-sm transition-all duration-200 ease-in-out ${
+                    activeCommentId === comment.id
+                      ? "h-full opacity-100"
+                      : "h-0 opacity-0"
+                  } flex flex-col justify-center items-center`}
+                >
                   <button
-                    className="text-white mt-3 p-4 border rounded-xl hover:bg-[#9cccf4] cursor-pointer text-sm font-semibold"
-                    type="button"
-                    onClick={() => handleUpdateComment()}
+                    onClick={(e) => {
+                      handleEditComment(comment);
+                    }}
+                    className="w-[40%] border p-3 rounded-xl lg:hover:bg-[#fea401] cursor-pointer text-sm font-semibold text-white"
                   >
-                    Actualizar
+                    Editar
                   </button>
-                ) : (
+
                   <button
-                    className="text-white mt-3 p-4 border-2 rounded-xl hover:bg-[#9cccf4] cursor-pointer text-sm font-semibold"
-                    type="submit"
+                    onClick={(e) => {
+                      handleDeleteComment(comment.id);
+                    }}
+                    className="w-[40%] border p-3 mt-2 rounded-xl lg:hover:bg-[#fea401] cursor-pointer text-sm font-semibold text-white"
                   >
-                    Enviar
+                    {loading.delete ? <Loading /> : <p>eliminar</p>}
                   </button>
-                )}
-              </form>
-            </div>
-          </div>
-        </>
-      ) : (
-        <Loading />
-      )}
+                </div>
+              </div>
+            ))}
+          </StyledSlider>
+        ) : (
+          <Loading />
+        )}
+      </div>
+
+      {/* --------BOX-COMMENTS-------- */}
+      <div className="flex flex-col gap-4 mt-10 sm:mt-20  w-full">
+        <div className="text-lg font-medium text-[#deecfb]">
+          <h2>Déjanos tu comentario</h2>
+        </div>
+        <div className="flex items-start gap-4 w-full">
+          <form
+            className="w-full flex flex-col items-start gap-4 bg-transparent"
+            onSubmit={commentSubmit}
+          >
+            <textarea
+              className="text-white rounded-2xl me-10 focus:outline-none focus:ring-2 focus:ring-[#9cccf4] shadow-lg  w-full px-4 pb-40 pt-4 resize-none bg-black/70 border border-white backdrop-blur-sm"
+              ref={inputComment}
+              onChange={(e) => setComment(e.target.value)}
+              value={comment}
+            ></textarea>
+            {isEditing ? (
+              <button
+                className="text-white mt-3 p-4 border rounded-xl hover:bg-[#9cccf4] cursor-pointer text-sm font-semibold"
+                type="button"
+                onClick={() => handleUpdateComment()}
+              >
+                {loading.put ? <Loading /> : <p>actualizar</p>}
+              </button>
+            ) : (
+              <button
+                className="text-white mt-3 p-4 border-2 rounded-xl hover:bg-[#9cccf4] cursor-pointer text-sm font-semibold"
+                type="submit"
+              >
+                {loading.post ? <Loading /> : <p>enviar</p>}
+              </button>
+            )}
+          </form>
+        </div>
+      </div>
     </section>
   );
 };
