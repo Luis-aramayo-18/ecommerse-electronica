@@ -175,8 +175,7 @@ const AdminProfile = () => {
     }
   };
 
-  const handleBrandChange = (e) => {
-    const value = e.target.value;
+  const handleBrandChange = (value) => {    
     if (value === "new-brand") {
       setShowNewBrandInput(true);
     } else {
@@ -921,7 +920,7 @@ const AdminProfile = () => {
                           <img
                             src={product.images[0].image}
                             alt={product.name}
-                            className="lg:h-full h-[55px] w-[55px] object-contain"
+                            className="lg:h-full h-[55px] w-[55px] object-contain bg-white"
                           />
                         ) : (
                           <span>No Image</span>

@@ -98,7 +98,7 @@ const Filters = ({
               </div>
 
               <button
-                className="p-2 font-medium border w-[30%]"
+                className="p-3 mt-2 font-medium border rounded-2xl bg-black/70 backdrop-blur text-white"
                 onClick={handlePriceChange}
               >
                 Filtrar

@@ -324,7 +324,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
               >
                 <div className="head-card flex items-center relative w-full gap-3">
                   <div className="relative">
-                    {comment ? (
+                    {comment.user.image ? (
                       <img
                         className="w-12 h-12 object-cover rounded-full border"
                         src={comment.user.image}
@@ -332,7 +332,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
                       />
                     ) : (
                       <img
-                        className="h-12 w-24 object-cover rounded-full border"
+                        className="h-12 w-12 object-cover rounded-full border"
                         src="/img/home/user.png"
                         alt=""
                       />

@@ -333,7 +333,7 @@ const Nav = () => {
                           <img
                             src={`${product.images[0]?.image}`}
                             alt={`imagen de ${product.name}`}
-                            className="object-contain w-full h-full"
+                            className="object-contain w-full h-full bg-white"
                           />
                         </div>
 
