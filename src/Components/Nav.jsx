@@ -133,10 +133,10 @@ const Nav = () => {
 
   return (
     <>
-      <section className="border-b border-black/35 bg-[#fce803] z-50 px-3 md:px-14 lg:px-24 h-[8vh] md:h-[10vh] sticky w-full top-0">
+      <section className="border-b border-white/35 bg-black/65 z-50 px-3 md:px-14 lg:px-24 h-[8vh] md:h-[10vh] sticky w-full top-0">
         <nav className="flex items-center justify-center h-full gap-4 relative">
           {/* ---- BURGER MENU ICON----- */}
-          <button className="absolute left-0 text-black" onClick={toggleMenu}>
+          <button className="absolute left-0 text-white" onClick={toggleMenu}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -156,13 +156,13 @@ const Nav = () => {
           <div
             className={`fixed inset-0 z-20 transition-all duration-300 ${
               openMenu
-                ? "bg-black/50 backdrop-blur-sm"
+                ? "bg-black/75 backdrop-blur-sm"
                 : "opacity-0 pointer-events-none"
             }`}
             onClick={toggleMenu}
           >
             <div
-              className={`border-r-2 flex flex-col items-start fixed left-0 top-0 z-50 p-8 backdrop-blur-lg bg-black/70 w-5/6 sm:w-3/6 md:w-[40%] lg:w-[25%] h-screen transform transition-transform duration-300 ${
+              className={`border-r border-white/25 flex flex-col items-start fixed left-0 top-0 z-50 p-8 backdrop-blur-lg w-5/6 sm:w-3/6 md:w-[40%] lg:w-[25%] h-screen transform transition-transform duration-300 ${
                 openMenu ? "translate-x-0" : "-translate-x-full"
               }`}
               onClick={(e) => e.stopPropagation()}
@@ -182,7 +182,7 @@ const Nav = () => {
                   className="mt-16 cursor-pointer"
                   onClick={() => setCategoryMenu(!categoryMenu)}
                 >
-                  <div className="flex justify-between items-center m-0 text-xl font-medium text-[#f0f7fe]">
+                  <div className="flex justify-between items-center m-0 text-xl font-medium text-white">
                     <h2 className="">Productos</h2>
 
                     <i
@@ -201,11 +201,11 @@ const Nav = () => {
                         onClick={toggleMenu}
                         to={`/products/category/${category.id}`}
                         key={category.id || idx}
-                        className={`block transition-all duration-100 hover:text-[#fea401] 
+                        className={`block transition-all mt-1 font-semibold duration-100 hover:text-[#fce803]
                           ${
                             category.id === parseInt(categoryIdFromUrl)
-                              ? "text-[#fea401]"
-                              : "text-[#deecfb]"
+                              ? "text-[#fce803]"
+                              : "text-white/65"
                           }`}
                       >
                         <p>{category.name}</p>
@@ -225,7 +225,7 @@ const Nav = () => {
                     <i className="bx bxs-chevron-right text-3xl"></i>
                   </div>
                 </Link>
-                <hr className="relative z-50" />
+                <hr className="relative z-50 lg:hidden" />
               </div>
 
               <div
@@ -282,7 +282,7 @@ const Nav = () => {
                 <input
                   placeholder="Buscar..."
                   type="text"
-                  className="w-full p-2 px-4 placeholder-black/65 focus:outline-none text-black/85 text-sm font-bold rounded-full bg-[#fce803]/35 backdrop-blur-lg border-2 border-black"
+                  className="w-full p-2 px-4 placeholder-black/65 focus:outline-none text-black/85 text-sm font-bold rounded-full bg-[#fce803]/70 focus:bg-[#fce803] backdrop-blur-lg border border-white/35"
                   value={searchProduct}
                   onChange={handleSearchProduct}
                 />
@@ -293,7 +293,7 @@ const Nav = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    className="size-4 absolute right-4 cursor-pointer z-10 text-black/65"
+                    className="size-5 absolute right-4 cursor-pointer z-10 text-black"
                     onClick={deleteSuggestions}
                   >
                     <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
@@ -303,7 +303,7 @@ const Nav = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    className="size-4 absolute right-4 z-10 text-black/65"
+                    className="size-4 absolute right-4 z-10 text-black"
                   >
                     <path
                       fillRule="evenodd"

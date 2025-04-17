@@ -402,7 +402,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
             onSubmit={commentSubmit}
           >
             <textarea
-              className="text-white rounded-2xl me-10  shadow-lg w-full px-4 pb-40 pt-4 resize-none bg-black/30 backdrop-blur-sm"
+              className="text-white rounded-2xl me-10 shadow-lg w-full px-4 pb-40 pt-4 resize-none bg-black/30 backdrop-blur-sm"
               ref={inputComment}
               onChange={(e) => setComment(e.target.value)}
               value={comment}

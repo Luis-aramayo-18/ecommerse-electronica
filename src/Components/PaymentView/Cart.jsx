@@ -47,7 +47,7 @@ export function Cart() {
         className="flex flex-col justify-center items-center relative"
       >
         {cart.length > 0 && (
-          <span className="absolute top-0 -left-3 bg-[#fea401] rounded-full w-5 h-5 flex items-center justify-center text-xs">
+          <span className="absolute top-0 -left-3 bg-[#fce803] rounded-full w-5 h-5 flex items-center justify-center text-xs">
             {cart.length}
           </span>
         )}
@@ -55,7 +55,7 @@ export function Cart() {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className={`size-7 ${cart.length > 0 ? "text-black" : "text-black/85"} `}
+          className={`size-7 ${cart.length > 0 ? "text-white" : "text-white/75"} `}
         >
           <path
             fillRule="evenodd"
@@ -77,7 +77,7 @@ export function Cart() {
           onClick={(e) => e.stopPropagation()}
           className={`${
             isModalOpen ? "translate-x-0" : "translate-x-full"
-          } flex flex-col items-start fixed right-0 top-0 z-50 p-6 backdrop-blur-lg bg-black/70 w-6/6 sm:w-4/6 md:w-3/6 lg:w-[30%] h-screen transform transition-transform duration-300`}
+          } flex flex-col items-start fixed right-0 top-0 z-50 p-6 border-l border-white/25 backdrop-blur-lg bg-black/75 w-6/6 sm:w-4/6 md:w-3/6 lg:w-[30%] h-screen transform transition-transform duration-300`}
         >
           {cart.length === 0 ? (
             <p className="text-start mt-5 text-[#deecfb]">
@@ -98,12 +98,12 @@ export function Cart() {
                       </div>
 
                       <div>
-                        <p className="text-lg font-semibold text-[#f0f7fe]">
+                        <p className="text-lg font-semibold text-white">
                           {product.name}
                         </p>
                         <div>
                           <div>
-                            <p className="text-lg font-semibold text-[#deecfb]">
+                            <p className="text-lg font-semibold text-white/65">
                               %{product.discount_percentage}
                               <span className="uppercase text-base font-medium ms-2">
                                 off
@@ -112,7 +112,7 @@ export function Cart() {
                             <p
                               className={`${
                                 product.is_on_sale
-                                  ? "line-through text-sm font-light text-[#deecfb]"
+                                  ? "line-through text-sm font-light text-white/65"
                                   : "text-[#deecfb]"
                               }`}
                             >
@@ -126,7 +126,7 @@ export function Cart() {
                           <p
                             className={`${
                               product.is_on_sale
-                                ? "font-bold mt-2 text-[#deecfb]"
+                                ? "font-bold mt-2 text-white/85"
                                 : "text-[#deecfb]"
                             }`}
                           >
@@ -139,7 +139,7 @@ export function Cart() {
                               minimumFractionDigits: 0,
                             }).format(product.final_price)}
                           </p>
-                          <div className="mt-4 flex items-center gap-2 text-[#deecfb]">
+                          <div className="mt-4 flex items-center gap-2 text-white/65">
                             <button
                               className="rounded-lg border w-8 h-8 flex items-center justify-center"
                               onClick={() => addToCart(product)}
@@ -162,12 +162,12 @@ export function Cart() {
               </ul>
               <hr className="w-full m-0 mt-6 mb-5" />
 
-              <div className="flex items-center w-full justify-between text-[#deecfb]">
-                <h5 className="text-xl font-semibold ms-2">
-                  <span className="text-xl font-light">Total:</span> $
+              <div className="flex items-center w-full justify-between text-white/65">
+                <h5 className="text-xl font-semibold ms-2 text-white">
+                  <span className="text-xl font-light text-white/65">Total:</span> $
                   {getTotalPrice()}
                 </h5>
-                <button onClick={deleteItemCart}>
+                <button onClick={deleteItemCart} className="transition-all duration-100 lg:hover:text-white">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -186,7 +186,7 @@ export function Cart() {
               </div>
 
               <button
-                className="mt-5 w-full p-4 text-center border-2 transition-all duration-150 text-white font-semibold text-sm hover:bg-[#fea401]"
+                className="mt-5 w-full lg:bg-black/80 bg-[#fce803] p-4 text-center border border-white/25 rounded-full transition-all duration-100 text-black lg:text-white font-semibold text-sm hover:bg-[#fce803] lg:hover:text-black"
                 onClick={handlePay}
               >
                 COMPRAR
