@@ -93,8 +93,8 @@ const ProductCard = ({ product, homeView, className = "", button }) => {
 
         <div className={`sm:block lg:block ${homeView ? "flex" : "hidden"}`}>
           <button
-            className={`${button ? " " : ""} bg-black/30 border border-white/25 text-white rounded-full mt-2 w-full p-4 text-xs font-bold transition-all duration-200 lg:group-hover:bg-[#fce803] lg:group-hover:text-black  ${
-              isProductInCart(product) ? "bg-[#FF3131]" : ""
+            className={`${button ? " " : ""} border border-white/25 rounded-full mt-2 w-full p-4 text-xs font-bold transition-all duration-200 lg:group-hover:bg-[#fce803] lg:group-hover:text-black  ${
+              isProductInCart(product) ? "bg-[#fce803] text-black" : "bg-black/30 text-white"
             }`}
             onClick={() =>
               isProductInCart(product)

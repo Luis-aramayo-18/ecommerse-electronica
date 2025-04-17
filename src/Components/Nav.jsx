@@ -317,12 +317,12 @@ const Nav = () => {
 
             {suggestions.products.length > 0 ||
             suggestions.categories.length > 0 ? (
-              <div className="absolute mt-2 left-0 top-full m-auto w-full bg-black/70 border border-gray-500 backdrop-blur-sm rounded-2xl p-2 max-h-[380px] overflow-y-auto">
-                <ul className="text-sm text-gray-300">
+              <div className="glass-box absolute mt-2 left-0 top-full m-auto w-full rounded-2xl p-2 max-h-[380px] overflow-y-auto">
+                <ul className="text-sm font-semibold text-white">
                   {suggestions.products.map((product) => (
                     <li
                       key={product.id}
-                      className="mt-3 transition-all duration-150 lg:hover:bg-[#fea401] lg:hover:text-white rounded-2xl"
+                      className="mt-3 transition-all duration-150 lg:hover:bg-[#fce803] lg:hover:text-black rounded-2xl"
                     >
                       <Link
                         className="flex gap-2 items-center px-2 md:px-4"
