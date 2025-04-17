@@ -13,7 +13,7 @@ const LaptopBanner = () => {
     <div className="flex flex-col lg:flex-row gap-3 mt-10 mx-3 sm:mx-6 md:mx-14 lg:mx-24">
       <Link
         to="/products/category/2"
-        className="w-[100%] lg:w-[19%] hidden lg:block rounded-2xl shadow-[0_4px_10px_0_#6B7280]"
+        className="w-[100%] lg:w-[19%] hidden lg:block glass-box"
         onClick={handleScrollToTop}
       >
         <img
@@ -25,7 +25,7 @@ const LaptopBanner = () => {
 
       <Link
         to="/products/category/2"
-        className="w-[100%] lg:w-3/5 rounded-2xl shadow-[0_4px_10px_0_#6B7280]"
+        className="w-[100%] lg:w-3/5 glass-box"
         onClick={handleScrollToTop}
       >
         <img
@@ -37,7 +37,7 @@ const LaptopBanner = () => {
       
       <Link
         to="/products/category/2"
-        className="w-[100%] lg:w-[19%] hidden lg:block rounded-2xl shadow-[0_4px_10px_0_#6B7280]"
+        className="w-[100%] lg:w-[19%] hidden lg:block glass-box"
         onClick={handleScrollToTop}
       >
         <img

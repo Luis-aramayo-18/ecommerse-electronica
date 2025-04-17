@@ -8,7 +8,13 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  background-color: #0F172A;
+  /* background-color: #0f172a; */
+  background: -webkit-linear-gradient(135deg, #101318, #1a1c21);
+  background: linear-gradient(
+    135deg,
+    #101318,
+    #1a1c21
+  );
 }
 
 code {
@@ -41,4 +47,27 @@ code {
     background-color: #025dc5;
     border-radius: 4px;
   }
+}
+
+.button{
+  background-color: #fce803;
+  color: #101318;
+  border-radius: 50%;
+}
+
+.glass-box {
+  background-color: rgba(0, 0, 0, 0.2); /* fondo oscuro elegante */
+  border: 1px solid rgba(255, 255, 255, 0.04); /* borde suave */
+  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.4); /* solo sombra interna */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+.yellow-glow{
+  background: radial-gradient(circle, #fce803 0%, rgba(252, 232, 3, 0) 100%);
+  opacity: 0.2;
+  filter: blur(80px);
+  pointer-events: none;
 }

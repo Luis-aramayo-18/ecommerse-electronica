@@ -31,7 +31,7 @@ const ProductCard = ({ product, homeView, className = "", button }) => {
         onClick={handleScrollToTop}
         className="h-[50%]"
       >
-        <div className="transition duration-300 h-full">
+        <div className="transition duration-300 h-full lg:group-hover:shadow-md lg:group-hover:shadow-white">
           {product.images && product.images.length > 0 ? (
             <div className="h-full bg-white">
               <img
@@ -48,12 +48,12 @@ const ProductCard = ({ product, homeView, className = "", button }) => {
 
       <div className={`h-[50%] w-full flex flex-col justify-between pt-2 ${className}`}>
         <div>
-          <h2 className="font-bold text-sm lg:text-base text-[#f0f7fe]">
+          <h2 className="font-bold text-sm lg:text-base text-white/90">
             {product.name}
           </h2>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-[#CBD5E1]">
+        <div className="flex items-center gap-2 text-xs text-white/65">
           <p className={`${product.is_on_sale ? "line-through" : ""}`}>
             <span className="font-medium">
               {product.is_on_sale ? "" : "Precio: "}
@@ -67,13 +67,13 @@ const ProductCard = ({ product, homeView, className = "", button }) => {
           <span
             className={`${
               product.is_on_sale
-                ? "font-medium text-xs bg-[#FF3131] p-2"
+                ? "font-medium text-[#101318] text-xs bg-[#fce803]/85 p-2"
                 : "hidden"
             }`}
           >{`%${product.discount_percentage} OFF!`}</span>
         </div>
 
-        <div className="text-[#CBD5E1]">
+        <div className="text-white/65">
           <div>
             <p
               className={`${
@@ -93,8 +93,8 @@ const ProductCard = ({ product, homeView, className = "", button }) => {
 
         <div className={`sm:block lg:block ${homeView ? "flex" : "hidden"}`}>
           <button
-            className={`${button ? "rounded-2xl" : ""} mt-2 w-full p-4 text-xs font-bold transition duration-300 border-[#deecfb] border-2 lg:group-hover:bg-[#fea401] lg:group-hover:border-[#f0f7fe] lg:group-hover:text-white bg-[#334155] text-[#deecfb] ${
-              isProductInCart(product) ? "bg-[#FF3131]" : "bg-black/80"
+            className={`${button ? " " : ""} bg-[#fce803] rounded-full mt-2 w-full p-4 text-xs font-bold transition-all duration-200 lg:group-hover:text-black text-[#101318] ${
+              isProductInCart(product) ? "bg-[#FF3131]" : "bg-[#fce803]"
             }`}
             onClick={() =>
               isProductInCart(product)

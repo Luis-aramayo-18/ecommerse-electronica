@@ -298,8 +298,8 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
   };
 
   return (
-    <section className="mx-3 bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] py-10 px-4 rounded-2xl sm:mx-6 md:mx-14 lg:mx-24 xl:mx-24 2xl:mx-24 flex flex-col justify-center mt-28 sm:mt-28">
-      <div className="flex items-center text-center gap-1 uppercase mb-8 sm:mb-12 tracking-widest text-2xl font-semibold text-[#f0f7fe] sm:ms-5">
+    <section className="mx-3 glass-box py-10 px-4 sm:mx-6 md:mx-14 lg:mx-24 flex flex-col justify-center mt-28 sm:mt-28">
+      <div className="flex items-center text-center gap-1 uppercase mb-8 sm:mb-12 tracking-widest text-2xl font-semibold text-white sm:ms-5">
         <h2>El mejor servicio</h2>
       </div>
 
@@ -313,7 +313,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
                   comment.user.id === parseFloat(userId)
                     ? "cursor-pointer shadow-slate-400 hover:shadow-md "
                     : ""
-                } card-comments relative z-20  rounded-xl bg-black/70 border border-gray-500 backdrop-blur-sm p-5 min-h-[150px]`}
+                } card-comments relative z-20 rounded-xl bg-[#fce803] backdrop-blur-lg p-5 min-h-[150px]`}
                 key={comment.id}
                 ref={(el) => (cardRefs.current[comment.id] = el)}
                 onClick={
@@ -339,10 +339,10 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
                     )}
                   </div>
                   <div>
-                    <h3 className="text-lg font-medium first-letter:uppercase text-white">
+                    <h3 className="text-lg font-semibold first-letter:uppercase text-black">
                       {comment.user.username}
                     </h3>
-                    <p className="text-sm font-light text-gray-400">
+                    <p className="text-sm font-light text-black/65">
                       {formatDate(comment.created_at)}
                     </p>
                   </div>
@@ -354,7 +354,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
                   />
                 </div>
 
-                <div className="main-card mt-3 first-letter:uppercase text-white text-sm font-light">
+                <div className="main-card mt-3 first-letter:uppercase text-black/85 text-sm font-normal">
                   <p>{comment.comment_text}</p>
                 </div>
 
@@ -393,7 +393,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
 
       {/* --------BOX-COMMENTS-------- */}
       <div className="flex flex-col gap-4 mt-10 sm:mt-20  w-full">
-        <div className="text-lg font-medium text-[#deecfb]">
+        <div className="text-lg lg:ms-5 font-medium text-white/85">
           <h2>Déjanos tu comentario</h2>
         </div>
         <div className="flex items-start gap-4 w-full">
@@ -402,14 +402,14 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
             onSubmit={commentSubmit}
           >
             <textarea
-              className="text-white rounded-2xl me-10 focus:outline-none focus:ring-2 focus:ring-[#9cccf4] shadow-lg  w-full px-4 pb-40 pt-4 resize-none bg-black/70 border border-white backdrop-blur-sm"
+              className="text-white rounded-2xl me-10  shadow-lg w-full px-4 pb-40 pt-4 resize-none bg-black/30 backdrop-blur-sm"
               ref={inputComment}
               onChange={(e) => setComment(e.target.value)}
               value={comment}
             ></textarea>
             {isEditing ? (
               <button
-                className="text-white mt-3 p-4 border rounded-xl hover:bg-[#9cccf4] cursor-pointer text-sm font-semibold"
+                className="text-black mt-3 p-4 ounded-xl border bg-[#fce803] cursor-pointer text-sm font-semibold uppercase"
                 type="button"
                 onClick={() => handleUpdateComment()}
               >
@@ -417,7 +417,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
               </button>
             ) : (
               <button
-                className="text-white mt-3 p-4 border-2 rounded-xl hover:bg-[#9cccf4] cursor-pointer text-sm font-semibold"
+                className="text-black mt-3 p-4 transition-all duration-200 lg:hover:text-black lg:hover:bg-[#fce803] rounded-xl border border-white/25 text-white/65 bg-black/30 cursor-pointer text-sm font-semibold uppercase"
                 type="submit"
               >
                 {loading.post ? <Loading /> : <p>enviar</p>}
@@ -426,6 +426,8 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
           </form>
         </div>
       </div>
+
+      <div className="yellow-glow absolute w-[50%] h-[50%] top-[10%] left-[20%]"></div>
     </section>
   );
 };
