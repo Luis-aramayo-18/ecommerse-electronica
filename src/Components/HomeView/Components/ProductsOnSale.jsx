@@ -122,7 +122,7 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
           )}
         </div>
       </div>
-      <div className="yellow-glow w-[50%] h-[40%] absolute top-0 left-[-10%] z-0"></div>
+      <div className="yellow-glow w-[100%] h-[40%] absolute bottom-0 z-0"></div>
     </section>
   );
 };
