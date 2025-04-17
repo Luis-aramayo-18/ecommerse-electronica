@@ -9,7 +9,7 @@ const Footer = () => {
     });
   };
   return (
-    <section className="relative bg-black/90 backdrop-blur-sm px-6 sm:px-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 flex flex-col justify-center mt-28 py-5 sm:py-10">
+    <section className="relative bg-black/75 backdrop-blur-sm px-6 sm:px-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 flex flex-col justify-center mt-28 py-5 sm:py-10">
       <div>
         <Link to="/" onClick={handleScrollToTop}>
           <img
@@ -22,21 +22,21 @@ const Footer = () => {
 
       <div className="flex flex-col md:flex-row gap-16 ms-5 mt-10 relative">
         <div>
-          <h2 className="font-semibold sm:text-xl text-2xl text-[#9cccf4]">
+          <h2 className="font-semibold sm:text-xl text-2xl text-white">
             Ayuda
           </h2>
           <ul className="mt-5 text-lg sm:text-sm">
-            <li className="transition-all duration-100 text-gray-400 hover:text-[#fea401] cursor-pointer">
+            <li className="transition-all duration-100 text-white/65 hover:text-[#fce803] cursor-pointer">
               <Link to="/contact" onClick={handleScrollToTop}>
                 Contacto
               </Link>
             </li>
-            <li className="transition-all duration-100 text-gray-400 hover:text-[#fea401] cursor-pointer">
+            <li className="transition-all duration-100 text-white/65 hover:text-[#fce803] cursor-pointer">
               <Link to="/warranty" onClick={handleScrollToTop}>
                 Garantia de productos
               </Link>
             </li>
-            <li className="transition-all duration-100 text-gray-400 hover:text-[#fea401] cursor-pointer">
+            <li className="transition-all duration-100 text-white/65 hover:text-[#fce803] cursor-pointer">
               <Link to="/terms" onClick={handleScrollToTop}>
                 Termino y condiciones
               </Link>
@@ -45,11 +45,11 @@ const Footer = () => {
         </div>
 
         <div>
-          <h2 className="font-semibold sm:text-xl text-2xl text-[#9cccf4]">
+          <h2 className="font-semibold sm:text-xl text-2xl text-white">
             Mi cuenta
           </h2>
           <ul className="mt-5 text-lg sm:text-sm">
-            <li className="transition-all duration-100 text-gray-400 hover:text-[#fea401] cursor-pointer">
+            <li className="transition-all duration-100 text-white/65 hover:text-[#fce803] cursor-pointer">
               <Link
                 to="/myAccount?section=information"
                 onClick={handleScrollToTop}
@@ -57,12 +57,12 @@ const Footer = () => {
                 Mi perfil
               </Link>
             </li>
-            <li className="transition-all duration-100 text-gray-400 hover:text-[#fea401] cursor-pointer">
+            <li className="transition-all duration-100 text-white/65 hover:text-[#fce803] cursor-pointer">
               <Link to="/myAccount?section=orders" onClick={handleScrollToTop}>
                 Mis pedidos
               </Link>
             </li>
-            <li className="transition-all duration-100 text-gray-400 hover:text-[#fea401] cursor-pointer">
+            <li className="transition-all duration-100 text-white/65 hover:text-[#fce803] cursor-pointer">
               <Link
                 to="/myAccount?section=authentication"
                 onClick={handleScrollToTop}
@@ -74,11 +74,11 @@ const Footer = () => {
         </div>
 
         <div>
-          <h2 className="font-semibold sm:text-xl text-2xl text-[#9cccf4]">
+          <h2 className="font-semibold sm:text-xl text-2xl text-white">
             Digital World
           </h2>
           <ul className="mt-5 text-lg sm:text-sm">
-            <li className="transition-all duration-100 text-gray-400 hover:text-[#fea401] cursor-pointer">
+            <li className="transition-all duration-100 text-white/65 hover:text-[#fce803] cursor-pointer">
               <Link to="/about" onClick={handleScrollToTop}>
                 Sobre la empresa
               </Link>
@@ -87,7 +87,7 @@ const Footer = () => {
         </div>
 
         <div className="sm:absolute sm:right-0 sm:top-0">
-          <h2 className="text-[#fea401] font-semibold">
+          <h2 className="text-[#fce803] font-semibold">
             SIGUENOS EN NUESTRAS REDES.
           </h2>
           <div className="flex sm:justify-center gap-5 mt-3 text-gray-400">
