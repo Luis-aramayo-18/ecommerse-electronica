@@ -108,9 +108,9 @@ const Login = () => {
   return (
     <div className="my-10 w-full h-auto px-2 md:px-14 lg:px-24">
       <section className="flex justify-center">
-        <div className="w-[95%] sm:w-[70%] md:w-[65%] lg:w-[55%] xl:w-[35%] py-6 px-4 sm:p-6 mt-10 glass-box">
+        <div className="mt-10 w-full flex justify-center">
           {formRegister ? (
-            <div className="flex flex-col-reverse gap-6 w-full md:flex md:flex-row md:justify-center md:gap-10">
+            <div className="glass-box relative overflow-hidden px-4 py-10 w-[95%] sm:w-[70%] md:w-[65%] lg:w-[55%] xl:w-[50%] flex flex-col-reverse gap-6 md:flex md:flex-row md:justify-center md:gap-10">
               <div className="w-full lg:w-[60%]">
                 <form onSubmit={handleSubmitRegister(registerUser)}>
                   <div className="mb-8">
@@ -133,7 +133,7 @@ const Login = () => {
                       })}
                       type="text"
                       placeholder="Nombre de usuario"
-                      className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-[#fce803] focus:outline-none py-2 w-full"
+                      className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] py-2 w-full"
                     />
                     <p className="mt-1 text-xs font-extralight text-[#ec5050e0]">
                       {errorsRegister.username?.message}
@@ -164,7 +164,7 @@ const Login = () => {
                       })}
                       type="email"
                       placeholder="Correo electrónico"
-                      className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-[#fce803] focus:outline-none py-2 w-full"
+                      className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] py-2 w-full"
                     />
                     <p className="mt-1 text-xs font-extralight text-[#ec5050e0]">
                       {errorsRegister.email?.message}
@@ -178,7 +178,7 @@ const Login = () => {
                       })}
                       type={showPassword ? "text" : "password"}
                       placeholder="Contraseña"
-                      className="text-white bg-transparent placeholder:text-xs placeholder:text-white/65 border-b border-[#fce803] focus:outline-none py-2 w-full"
+                      className="text-white bg-transparent placeholder:text-xs placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] py-2 w-full"
                     />
                     <button
                       type="button"
@@ -205,7 +205,7 @@ const Login = () => {
                       })}
                       type={showPasswordConfirmed ? "text" : "password"}
                       placeholder="Repetir contraseña"
-                      className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-[#fce803] focus:outline-none py-2 w-full"
+                      className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] py-2 w-full"
                     />
                     <button
                       type="button"
@@ -240,7 +240,7 @@ const Login = () => {
                 </form>
 
                 <button
-                  className="text-white/85 mt-6"
+                  className="text-white/85 transition-all duration-100 lg:hover:text-white mt-6"
                   onClick={showRegisterForm}
                 >
                   Volver
@@ -390,9 +390,11 @@ const Login = () => {
                   </li>
                 </ul>
               </div>
+
+              <div className="yellow-glow absolute w-[50%] h-[50%] top-[-10%] right-[-10%]"></div>
             </div>
           ) : (
-            <div>
+            <div className="w-[95%] sm:w-[70%] md:w-[65%] lg:w-[55%] xl:w-[35%] glass-box relative overflow-hidden px-4 py-10">
               <form
                 onSubmit={handleSubmitLogin(loginUser)}
                 className="mt-6 px-4"
@@ -410,7 +412,7 @@ const Login = () => {
                         message: "Por favor complete este campo",
                       },
                     })}
-                    className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-[#fce803] focus:outline-none py-2 w-full"
+                    className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] py-2 w-full"
                     placeholder="Correo electrónico o usuario"
                   />
                   <p className="mt-1 text-xs font-extralight text-[#ec5050e0]">
@@ -428,7 +430,7 @@ const Login = () => {
                     })}
                     type={passwordVisible ? "text" : "password"}
                     placeholder="Contraseña"
-                    className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-[#fce803] focus:outline-none py-2 w-full"
+                    className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] py-2 w-full"
                   />
                   <p className="mt-1 text-xs font-extralight text-[#ec5050e0]">
                     {errorsLogin.password?.message}
@@ -449,7 +451,7 @@ const Login = () => {
                 <div className="flex flex-col gap-3 items-center justify-center">
                   <button
                     type="submit"
-                    className="w-[190px] bg-[#fce803] text-black border border-black/25 text-xs font-semibold transition-all rounded-lg duration-100  lg:border-white/25 p-3 lg:text-white lg:bg-black/30 lg:hover:text-black lg:hover:border-black/25 lg:hover:bg-[#fce803]"
+                    className="w-[240px] bg-[#fce803] text-black border border-black/25 text-xs font-semibold transition-all rounded-lg duration-100  lg:border-white/25 p-3 lg:text-white lg:bg-black/30 lg:hover:text-black lg:hover:border-black/25 lg:hover:bg-[#fce803]"
                   >
                     INGRESAR
                   </button>
@@ -469,6 +471,8 @@ const Login = () => {
                   ¿ Aun no tienes cuenta ?
                 </p>
               </div>
+
+              <div className="yellow-glow absolute w-[50%] h-[50%] top-[-10%] right-[-10%]"></div>
             </div>
           )}
         </div>

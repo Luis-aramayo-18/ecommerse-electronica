@@ -3,31 +3,34 @@ import React from "react";
 const Contact = () => {
   return (
     <section className="flex justify-center">
-      <div className="flex bg-black/70 rounded-2xl overflow-hidden flex-col sm:flex-row border w-[90%] sm:w-[75%] md:w-[70%] lg:w-[55%] xl:w-[45%] my-20 text-white shadow-md shadow-slate-500">
+      <div className="glass-box overflow-hidden relative flex flex-col sm:flex-row w-[90%] sm:w-[75%] md:w-[70%] lg:w-[55%] xl:w-[50%] my-20">
         <div className="w-full sm:w-[60%] px-4 py-8">
           <form action="">
             <div className="flex flex-col">
               <input
-                className="bg-transparent placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#9cccf4cb] focus:outline-none  px-2 py-2 w-full"
+                className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] px-2 py-2 w-full"
                 placeholder="Nombre completo"
                 type="text"
               />
             </div>
+
             <div className="flex flex-col mt-5">
               <input
-                className="bg-transparent placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#9cccf4cb] focus:outline-none px-2 py-2 w-full"
+                className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] px-2 py-2 w-full"
                 placeholder="Correo electrónico"
                 type="email"
               />
             </div>
+
             <div className="flex flex-col mt-5">
               <textarea
-                className="bg-transparent resize-none h-36 placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#9cccf4cb] focus:outline-none px-2 py-2 w-full"
+                className="bg-transparent resize-none h-44 placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] px-2 py-2 w-full"
                 placeholder="Mensaje"
               />
             </div>
+
             <button
-              className="mt-4 p-4 rounded-2xl border uppercase text-xs font-semibold w-[30%] lg:transition-all lg:duration-100 lg:hover:bg-[#fea401]"
+              className="mt-6 p-4 rounded-lg border uppercase text-sm font-semibold w-[100%] bg-[#fce803] text-black border-black/25 lg:bg-black/30 lg:text-white lg:border-white/25 lg:transition-all lg:duration-100 lg:hover:bg-[#fce803] lg:hover:text-black lg:hover:border-black/25"
               type="submit"
             >
               Enviar
@@ -35,10 +38,11 @@ const Contact = () => {
           </form>
         </div>
 
-        <div className="w-full sm:w-[40%] bg-[#9cccf4cb]  h-full px-4 py-8">
-          <h2 className="text-white text-sm font-bold uppercase text-center">
+        <div className="w-full sm:w-[40%] bg-[#fce803] h-full px-4 py-8">
+          <h2 className="text-black text-sm font-bold uppercase ms-1">
             digital world
           </h2>
+
           <ul className="mt-4">
             <li className="flex items-start gap-2">
               <svg
@@ -54,7 +58,7 @@ const Contact = () => {
                 />
               </svg>
 
-              <p className="text-xs font-bold text-[#0a2540]">
+              <p className="text-xs text-black/65">
                 Tech Innovation Hub – Suite 804 <br /> 88 Silicon Avenue <br />
                 San Francisco, CA 94107 United States
               </p>
@@ -75,7 +79,7 @@ const Contact = () => {
                 />
               </svg>
 
-              <p className="text-xs font-bold text-[#0a2540]">
+              <p className="text-xs text-black/65">
                 +1 (415) 555-9284
               </p>
             </li>
@@ -94,12 +98,14 @@ const Contact = () => {
                 />
               </svg>
 
-              <p className="text-xs font-bold text-[#0a2540]">
+              <p className="text-xs text-black/65">
                 contact@digitalworld.tech
               </p>
             </li>
           </ul>
         </div>
+
+        <div className="yellow-glow absolute top-0 right-0 h-full w-[40%]"></div>
       </div>
     </section>
   );
