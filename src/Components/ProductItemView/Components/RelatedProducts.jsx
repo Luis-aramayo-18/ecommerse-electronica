@@ -102,9 +102,9 @@ const RelatedProducts = ({ product, api }) => {
 
   return (
     <section>
-      <div className="mt-10 lg:mt-20 py-8 px-4 lg:py-10 bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] rounded-2xl">
+      <div className="mt-10 lg:mt-20 py-8 px-4 lg:py-10 glass-box relative overflow-hidden">
         <div>
-          <h2 className="text-lg font-bold text-[#f0f7fe]">
+          <h2 className="text-lg font-bold text-white">
             También podría Interesarte
           </h2>
         </div>
@@ -126,6 +126,8 @@ const RelatedProducts = ({ product, api }) => {
             <Loading />
           )}
         </div>
+
+        <div className="yellow-glow absolute w-full h-[30%] bottom-[-10%] left-0"></div>
       </div>
     </section>
   );

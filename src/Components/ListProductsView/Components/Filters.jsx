@@ -39,13 +39,13 @@ const Filters = ({
   return (
     <>
       <section
-        className={`backdrop-blur border shadow-[0_4px_10px_0_#6B7280] rounded-2xl bg-black/70 fixed left-0 top-0 z-50 h-full w-[75%] md:w-[60%] lg:z-0 lg:px-4 lg:py-10 lg:relative lg:w-[22%] lg:translate-x-0 transform transition-transform duration-300 ${
+        className={`glass-box fixed left-0 top-0 z-50 h-full w-[75%] md:w-[60%] lg:z-0 lg:px-4 lg:py-10 lg:relative lg:w-[25%] lg:translate-x-0 transform transition-transform duration-300 ${
           filterMobile ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="bg-black p-6 lg:p-0 lg:bg-transparent flex items-center gap-2 text-[#f0f7fe]">
+        <div className="bg-black p-6 lg:p-0 lg:bg-transparent flex items-center gap-2 text-white/90">
           <h2 className="lg:text-lg xl:text-2xl font-bold">FILTRAR:</h2>
-          <span className="lg:text-sm xl:text-base font-normal text-[#deecfb]">
+          <span className="lg:text-sm xl:text-base font-normal mt-1 text-white/65">
             Unidades: {filteredProducts.length}
           </span>
         </div>
@@ -55,12 +55,12 @@ const Filters = ({
             className="mt-5 py-4 mb-2 border-white cursor-pointer m-6 lg:m-0"
             onClick={() => setPriceMenu(!priceMenu)}
           >
-            <div className="flex items-center justify-between text-[#deecfb]">
+            <div className="flex items-center justify-between text-white/75">
               <h4
                 className={`lg:text-base xl:text-xl font-semibold ${
                   filters.min_price > 0 || filters.max_price > 0
                     ? "text-white"
-                    : "text-[#deecfb]"
+                    : "text-white/75"
                 }`}
               >
                 Precio
@@ -78,11 +78,11 @@ const Filters = ({
                 priceMenu ? "max-h-52" : ""
               }`}
             >
-              <div className="flex">
+              <div className="flex gap-2">
                 <input
                   type="number"
                   placeholder="min"
-                  className="w-[50%] p-2"
+                  className="w-[50%] p-2 px-4 placeholder:text-white/65 bg-black/30 rounded-2xl border border-white/35"
                   onChange={(e) => setMinPrice(e.target.value)}
                   value={minPrice}
                   onClick={(e) => e.stopPropagation()}
@@ -90,7 +90,7 @@ const Filters = ({
                 <input
                   type="number"
                   placeholder="max"
-                  className="w-[50%] ms-2 p-2"
+                  className="w-[50%] p-2 px-4 placeholder:text-white/65 bg-black/30 rounded-2xl border border-white/35"
                   onChange={(e) => setMaxPrice(e.target.value)}
                   value={maxPrice}
                   onClick={(e) => e.stopPropagation()}
@@ -98,7 +98,7 @@ const Filters = ({
               </div>
 
               <button
-                className="p-3 mt-2 font-medium border rounded-2xl bg-black/70 backdrop-blur text-white"
+                className="p-3 mt-2 font-medium border transition-all duration-100 border-white/35 rounded-full bg-black/30 backdrop-blur text-white/65 lg:hover:bg-[#fce803] lg:hover:text-black"
                 onClick={handlePriceChange}
               >
                 Filtrar
@@ -110,7 +110,7 @@ const Filters = ({
             className="py-4 mb-2 border-white cursor-pointer m-6 lg:m-0"
             onClick={() => setBrandsMenu(!brandsMenu)}
           >
-            <div className="flex items-center justify-between text-[#deecfb]">
+            <div className="flex items-center justify-between text-white/75">
               <h4
                 className={`lg:text-base xl:text-xl font-semibold ${
                   filters.brand !== "All" ? "text-white" : "text-[#deecfb]"
@@ -126,7 +126,7 @@ const Filters = ({
             </div>
 
             <ul
-              className={`flex flex-col gap-2 mt-2 max-h-0 overflow-hidden transition-all duration-300 text-[#deecfb] ${
+              className={`flex flex-col gap-2 mt-2 max-h-0 overflow-hidden transition-all duration-300 text-white/65 ${
                 brandsMenu ? "max-h-52" : ""
               }`}
             >
@@ -134,8 +134,8 @@ const Filters = ({
                 <li
                   key={brand.id}
                   onClick={() => handleFilterChange("brand", brand.name)}
-                  className={`cursor-pointer text-sm lg:text-sm xl:text-base font-medium transition-all duration-100 hover:text-[#fea401] ${
-                    filters.brand === brand.name ? "text-[#fea401]" : ""
+                  className={`cursor-pointer text-sm lg:text-sm xl:text-base font-medium transition-all duration-100 hover:text-[#fce803] ${
+                    filters.brand === brand.name ? "text-[#fce803]" : ""
                   }`}
                 >
                   {brand.name}
@@ -148,7 +148,7 @@ const Filters = ({
 
           <div className="p-6 lg:p-0 mt-4">
             <button
-              className="border flex justify-center text-white border-white p-3 rounded-2xl transition-all duration-100 lg:hover:bg-[#FF3131] w-full"
+              className="border flex justify-center text-white/65 border-white/35 bg-black/30 p-3 rounded-full transition-all duration-100 lg:hover:bg-[#fce803] lg:hover:text-black w-full"
               onClick={deleteFilters}
             >
               <svg
@@ -210,7 +210,7 @@ const Filters = ({
             <div className="flex items-center gap-2 text-[#f0f7fe]">
               <div>
                 <p className="text-sm font-semibold">Ordenar por</p>
-                <span className="text-sm font-bold text-[#fea401] uppercase">
+                <span className="text-sm font-bold text-[#fce803] uppercase">
                   {valueOrder}
                 </span>
               </div>

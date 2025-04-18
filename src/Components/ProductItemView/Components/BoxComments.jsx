@@ -18,7 +18,7 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            className="size-4 text-[#fea401]"
+            className="size-4 text-black"
             key={i}
           >
             <path
@@ -36,7 +36,7 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="size-4 text-[#a3a7ab]"
+            className="size-4 text-black/65"
             key={i}
           >
             <path
@@ -230,20 +230,21 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
 
   return (
     <section className="mt-10">
-      <div className="rounded-2xl px-4 py-10 bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280]">
+      <div className="px-4 py-10 glass-box relative overflow-hidden">
         <div>
-          <h2 className="text-lg font-bold uppercase text-[#f0f7fe]">
+          <h2 className="text-lg font-bold uppercase text-white">
             Opiniones del Producto
           </h2>
         </div>
 
+        {/* --------COMMENTS------ */}
         <div className="mt-10 max-h-52 overflow-y-auto px-4">
           {comments.map((comment) => (
             <div
-              className="flex items-center gap-4 relative mb-8"
+              className="flex items-center gap-4 relative mb-8 bg-[#fce803] rounded-xl  backdrop-blur-lg p-5"
               key={comment.id}
             >
-              <div className="border flex items-center justify-center rounded-full overflow-hidden aspect-square">
+              <div className="border border-black/25 flex items-center justify-center rounded-full overflow-hidden">
                 <img
                   src={
                     comment.user.image
@@ -257,10 +258,10 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
 
               <div className="flex flex-col w-full">
                 <div className="flex items-center gap-2">
-                  <h4 className="text-[#deecfb] font-semibold first-letter:uppercase">
+                  <h4 className="text-black font-semibold first-letter:uppercase">
                     {comment.user.username}
                   </h4>
-                  <p className="text-[#a0a5aa] text-xs font-light">
+                  <p className="text-black/65 text-xs font-light">
                     {new Date(comment.created_at).toLocaleDateString("es-ES", {
                       day: "numeric",
                       month: "long",
@@ -271,7 +272,7 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
                 <div className="flex">{renderStars(comment.rating)}</div>
 
                 <div>
-                  <p className="text-[#a3a7ab] lowercase first-letter:uppercase mt-1">
+                  <p className="text-black/65 lowercase first-letter:uppercase mt-1">
                     {comment.comment_text}
                   </p>
                 </div>
@@ -297,10 +298,10 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
           ))}
         </div>
 
-        {/* --------BOX COMMENTS */}
+        {/* --------BOX COMMENTS------ */}
         <div className="mt-10 px-0 lg:px-4">
           <div>
-            <h2 className="font-semibold text-[#deecfb]">Deja tu comentario</h2>
+            <h2 className="font-semibold text-white/85">Deja tu comentario</h2>
           </div>
 
           <div className="mt-4">
@@ -313,7 +314,7 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
                       key={star}
                       onClick={() => setRating(star)}
                       className={`w-8 h-8 text-2xl ${
-                        star <= rating ? "text-[#fea401]" : "text-[#a3a7ab]"
+                        star <= rating ? "text-[#fce803]" : "text-white/65"
                       }`}
                     >
                       ★
@@ -332,8 +333,9 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
                 <textarea
                   name=""
                   id=""
+                  required
                   placeholder="Comentario..."
-                  className="text-white rounded-2xl  focus:outline-none focus:ring-2 focus:ring-[#9cccf4] shadow-lg  w-full px-4 pb-48 pt-4 resize-none border border-gray-500 bg-black/70 backdrop-blur-lg"
+                  className="text-white rounded-2xl w-full px-4 pb-48 pt-4 resize-none bg-black/30 backdrop-blur-sm"
                   onChange={(e) => setComment(e.target.value)}
                   value={comment}
                 ></textarea>
@@ -346,7 +348,7 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
               {editingComment ? (
                 <button
                   type="button"
-                  className="text-white font-bold mt-3 border p-2 rounded-md"
+                  className="text-white font-bold mt-3 border p-2 rounded-full"
                   onClick={() => handleUpdateComment()}
                 >
                   Actualizar Comentario
@@ -354,7 +356,7 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
               ) : (
                 <button
                   type="submit"
-                  className="text-white font-bold text-xs mt-3 border p-4 rounded-2xl"
+                  className="text-white font-bold text-xs mt-3 transition-all duration-100 border border-white/25 p-4 rounded-full uppercase lg:hover:bg-[#fce803] lg:hover:text-black lg:hover:border-black/25"
                 >
                   Enviar
                 </button>
@@ -362,6 +364,8 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
             </form>
           </div>
         </div>
+
+        <div className="yellow-glow absolute h-[30%] w-[30%] top-[-10%] right-[-10%]"></div>
       </div>
     </section>
   );

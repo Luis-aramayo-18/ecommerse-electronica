@@ -44,7 +44,7 @@ export function Cart() {
     <>
       <button
         onClick={openModal}
-        className="flex flex-col justify-center items-center relative"
+        className="flex flex-col justify-center items-center relative transition-all duration-100 lg:hover:text-white"
       >
         {cart.length > 0 && (
           <span className="absolute top-0 -left-3 bg-[#fce803] rounded-full w-5 h-5 flex items-center justify-center text-xs">
@@ -55,7 +55,7 @@ export function Cart() {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className={`size-7 ${cart.length > 0 ? "text-white" : "text-white/75"} `}
+          className={`size-7 ${cart.length > 0 ? "text-white" : "text-white/75 transition-all duration-100 lg:hover:text-white"} `}
         >
           <path
             fillRule="evenodd"

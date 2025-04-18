@@ -49,7 +49,7 @@ const ProductItem = ({ product, comments, loading }) => {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            className="size-4 text-[#fea401]"
+            className="size-4 text-[#fce803]"
             key={`full-${i}`}
           >
             <path
@@ -65,7 +65,7 @@ const ProductItem = ({ product, comments, loading }) => {
         average.push(
           <i
             key="half"
-            className="bx bxs-star-half text-[1rem] text-[#fea401]"
+            className="bx bxs-star-half text-[1rem] text-[#fce803]"
           ></i>
         );
       }
@@ -94,43 +94,45 @@ const ProductItem = ({ product, comments, loading }) => {
     return <div className="flex">{average}</div>;
   };
 
+  console.log(isProductInCart);
+
   return (
     <section>
       <div className="flex flex-col lg:flex-row lg:gap-4">
-        <div className="w-full lg:w-[50%] rounded-2xl lg:max-w-[660px]">
+        <div className="w-full lg:w-[50%] lg:max-w-[660px]">
           <Slider {...settingsSlider}>
             {product.images.map((img, idx) => (
               <div
                 key={product.images.id || idx}
-                className="bg-white rounded-2xl overflow-hidden"
+                className="bg-white rounded-[32px] overflow-hidden"
               >
                 <img
                   key={img.id}
                   src={img.image}
                   alt={product.name}
-                  className="object-contain w-full "
+                  className="object-contain w-full h-full"
                 />
               </div>
             ))}
           </Slider>
         </div>
 
-        <div className="mt-10 lg:ms-10 lg:mt-0 w-full border bg-black/70 backdrop-blur rounded-2xl px-4 py-10 shadow-[0_4px_10px_0_#6B7280]">
+        <div className="mt-10 lg:ms-10 lg:mt-0 w-full px-4 py-10 glass-box relative">
           <div>
             <div>
               <div className="flex flex-col md:flex gap-2">
-                <h2 className="text-xl font-bold uppercase text-[#f0f7fe]">
+                <h2 className="text-xl font-bold uppercase text-white">
                   {product.name}
                 </h2>
                 <div className="text-lg">{ratingProduct()}</div>
               </div>
             </div>
 
-            <div className="mt-4 flex items-center gap-4 text-[#f0f7fe]">
+            <div className="mt-4 flex items-center gap-4">
               <p
                 className={`${
                   product.is_on_sale
-                    ? "line-through text-white text-sm"
+                    ? "line-through text-white/65 text-sm"
                     : "text-light text-lg font-semibold"
                 }`}
               >
@@ -143,7 +145,7 @@ const ProductItem = ({ product, comments, loading }) => {
               <p
                 className={`${
                   product.is_on_sale
-                    ? "font-semibold text-white text-xl border p-2 shadow-md shadow-black bg-[#FF3131]"
+                    ? "font-bold text-black text-xl border border-black/25 p-2 shadow-md shadow-[#fce803] bg-[#fce803]"
                     : "invisible overflow-hidden h-0"
                 }`}
               >
@@ -151,12 +153,12 @@ const ProductItem = ({ product, comments, loading }) => {
               </p>
             </div>
 
-            <div className="mt-5 flex items-center gap-2 text-[#f0f7fe]">
-              <span>Precio:</span>
+            <div className="mt-5 flex items-center gap-2">
+              <span className="text-white/65">Precio:</span>
               <h2
                 className={`${
                   product.is_on_sale
-                    ? "text-lg font-bold"
+                    ? "text-lg font-bold text-white/85"
                     : "invisible overflow-hidden h-0"
                 }`}
               >
@@ -168,8 +170,8 @@ const ProductItem = ({ product, comments, loading }) => {
               </h2>
             </div>
 
-            <div className="mt-5 flex items-center gap-4 text-[#f0f7fe]">
-              <h4 className="font-medium">Cantidad:</h4>
+            <div className="mt-5 flex items-center gap-4 text-white/65">
+              <h4 className="font-medium ">Cantidad:</h4>
 
               <div className="flex items-center gap-3">
                 <button
@@ -179,7 +181,7 @@ const ProductItem = ({ product, comments, loading }) => {
                   -
                 </button>
 
-                <span className="text-base">
+                <span className="text-base text-white/85">
                   {cart.find((item) => item.id === product.id)?.quantity || 0}
                 </span>
 
@@ -194,10 +196,11 @@ const ProductItem = ({ product, comments, loading }) => {
 
             <div className="flex flex-col gap-4 mt-5">
               <button
-                className="mt-5 flex justify-center transition-all duration-100 text-white bg-black/70 p-4 border lg:hover:bg-[#fea401] lg:hover:shadow-md lg:hover:text-white lg:hover:border-white rounded-2xl"
-                style={{
-                  backgroundColor: isProductInCart ? "bg-[#FF3131]" : "",
-                }}
+                className={`mt-5 flex justify-center transition-all duration-100 text-white p-4 border border-white/25 lg:hover:bg-[#fce803] lg:hover:shadow-md lg:hover:text-black lg:hover:border-black/25 rounded-full ${
+                  isProductInCart
+                    ? "bg-[#fce803] border-black/25 text-black"
+                    : "bg-black/30"
+                }`}
                 onClick={() => {
                   isProductInCart
                     ? removeFromCart(product)
@@ -205,7 +208,7 @@ const ProductItem = ({ product, comments, loading }) => {
                 }}
               >
                 {isProductInCart ? (
-                  <p className="font-bold">ELIMINAR</p>
+                  <p className="font-bold text-black">ELIMINAR</p>
                 ) : (
                   <p className="font-bold">AGREGAR</p>
                 )}
@@ -252,12 +255,18 @@ const ProductItem = ({ product, comments, loading }) => {
               </div>
             </div>
           </div>
+
+          <div className="yellow-glow absolute w-[80%] h-[30%] left-[10%] bottom-[20%]"></div>
         </div>
       </div>
 
-      <div className="lg:mt-20 mt-10 shadow-[0_4px_10px_0_#6B7280] bg-black/70 backdrop-blur rounded-2xl overflow-hidden px-4 py-10">
-        <h2 className="uppercase font-medium text-white">descripcion</h2>
-        <p className="text-gray-400 mt-5">{product.description}</p>
+      <div className="relative glass-box overflow-hidden mt-10 lg:mt-20 px-4 py-10 ">
+        <div>
+          <h2 className="uppercase font-medium text-white">descripcion</h2>
+          <p className="text-white/65 mt-5">{product.description}</p>
+        </div>
+
+        <div className="yellow-glow absolute h-[100%] w-[50%] bottom-0 left-[-10%]"></div>
       </div>
     </section>
   );

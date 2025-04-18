@@ -65,7 +65,7 @@ const ListProducts = ({
           {filteredProducts.map((product, index) => {
             return (
               <div
-                className="relative rounded-2xl flex justify-center shadow-md shadow-gray-500 overflow-hidden"
+                className="relative rounded-[28px] flex justify-center overflow-hidden"
                 key={product.id || index}
               >
                 {filters.sort === "best_rated" && (
@@ -91,8 +91,9 @@ const ListProducts = ({
                 <ProductCard
                   product={product}
                   button
-                  className="lg:px-4 lg:py-6 p-4 bg-black/70 backdrop-blur"
+                  className="lg:px-4 lg:py-6 p-4 glass-card"
                 />
+                <div className="yellow-glow absolute w-[100%] h-[20%] bottom-0"></div>
               </div>
             );
           })}
@@ -105,7 +106,7 @@ const ListProducts = ({
         ) : (
           <button
             onClick={loadProducts}
-            className="w-[110px] h-[40px] border rounded-2xl bg-black/70 backdrop-blur-sm relative"
+            className="w-[110px] h-[40px] border border-white/25 rounded-full bg-black/30 backdrop-blur-sm relative"
           >
             {loading.seeMore ? (
               <Loading />

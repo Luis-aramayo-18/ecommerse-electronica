@@ -6,7 +6,7 @@ const BreadCrumb = ({ loading, product }) => {
     <section>
    
         <nav>
-          <ol className="flex items-center gap-1 mb-10 text-[#afb6be]">
+          <ol className="flex items-center gap-1 mb-10 text-white/65">
             <li className="cursor-pointer font-medium text-sm hover:text-white">
               <Link to="/">Home</Link>
             </li>

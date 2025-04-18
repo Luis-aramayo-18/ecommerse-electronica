@@ -317,52 +317,58 @@ const Nav = () => {
 
             {suggestions.products.length > 0 ||
             suggestions.categories.length > 0 ? (
-              <div className="glass-box absolute mt-2 left-0 top-full m-auto w-full rounded-2xl p-2 max-h-[380px] overflow-y-auto">
-                <ul className="text-sm font-semibold text-white">
-                  {suggestions.products.map((product) => (
-                    <li
-                      key={product.id}
-                      className="mt-3 transition-all duration-150 lg:hover:bg-[#fce803] lg:hover:text-black rounded-2xl"
-                    >
-                      <Link
-                        className="flex gap-2 items-center px-2 md:px-4"
-                        to={`/products/category/${product.category_detail.id}/product/${product.id}`}
-                        onClick={handleSelectSuggestion}
-                      >
-                        <div className="w-16 h-16 overflow-hidden">
-                          <img
-                            src={`${product.images[0]?.image}`}
-                            alt={`imagen de ${product.name}`}
-                            className="object-contain w-full h-full bg-white"
-                          />
-                        </div>
+              <div className="glass-box bg-black/70 absolute mt-2 left-0 top-full m-auto w-full rounded-2xl p-2 max-h-[380px] overflow-y-auto">
+                <div className="relative">
+                  <div>
+                    <ul className="text-sm font-semibold text-white">
+                      {suggestions.products.map((product) => (
+                        <li
+                          key={product.id}
+                          className="mt-3 transition-all duration-150 lg:hover:bg-[#fce803] lg:hover:text-black rounded-2xl"
+                        >
+                          <Link
+                            className="flex gap-2 items-center px-2 md:px-4"
+                            to={`/products/category/${product.category_detail.id}/product/${product.id}`}
+                            onClick={handleSelectSuggestion}
+                          >
+                            <div className="w-16 h-16 overflow-hidden">
+                              <img
+                                src={`${product.images[0]?.image}`}
+                                alt={`imagen de ${product.name}`}
+                                className="object-contain w-full h-full bg-white"
+                              />
+                            </div>
 
-                        <div>
-                          <h2>{product.name}</h2>
-                        </div>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                            <div>
+                              <h2>{product.name}</h2>
+                            </div>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
 
-                <hr className="w-[80%] mt-5" />
+                    <hr className="w-[80%] mt-5" />
 
-                <ul className="text-sm mt-5 mb-3 text-gray-300">
-                  {suggestions.categories.map((category) => (
-                    <li
-                      key={category.id}
-                      className="mt-2 px-2 md:px-4 first-letter:uppercase"
-                    >
-                      <Link
-                        to={`/products/category/${category.id}?brand=${brand}`}
-                        onClick={handleSelectSuggestion}
-                        className="transition-all duration-150 lg:hover:text-[#fea401] "
-                      >
-                        {category.name} {searchProduct}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                    <ul className="text-sm mt-5 mb-3 text-gray-300">
+                      {suggestions.categories.map((category) => (
+                        <li
+                          key={category.id}
+                          className="mt-2 px-2 md:px-4 first-letter:uppercase"
+                        >
+                          <Link
+                            to={`/products/category/${category.id}?brand=${brand}`}
+                            onClick={handleSelectSuggestion}
+                            className="transition-all duration-150 lg:hover:text-[#fea401] "
+                          >
+                            {category.name} {searchProduct}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="yellow-glow absolute w-[50%] h-[50%] top-0 left-[10%]"></div>
+                </div>
               </div>
             ) : null}
           </div>
@@ -382,7 +388,7 @@ const Nav = () => {
                   />
                 </Link>
               ) : (
-                <Link className="flex items-end text-white" to="/login">
+                <Link className="flex items-end transition-all duration-100 text-white/75 lg:hover:text-white" to="/login">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"

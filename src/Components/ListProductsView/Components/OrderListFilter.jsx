@@ -16,7 +16,7 @@ const OrderListFilter = ({
         >
           <div className="hidden lg:flex items-center justify-end gap-2 text-start text-[#f0f7fe]">
             <p className="font-semibold text-sm">
-              ORDENAR POR: <span className="text-[#fea401]">{valueOrder}</span>
+              ORDENAR POR: <span className="text-[#fce803]">{valueOrder}</span>
             </p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -43,8 +43,8 @@ const OrderListFilter = ({
               <li
                 className={`cursor-pointer text-start transition-all duration-100 ${
                   filters.sort === "discount"
-                    ? "text-[#fea401]"
-                    : "hover:text-[#fea401]"
+                    ? "text-[#fce803]"
+                    : "hover:text-[#fce803]"
                 }`}
                 onClick={() => handleFilterChange("sort", "discount")}
               >
@@ -54,8 +54,8 @@ const OrderListFilter = ({
               <li
                 className={`cursor-pointer text-start transition-all duration-100 ${
                   filters.sort === "best_selling"
-                    ? "text-[#fea401]"
-                    : "hover:text-[#fea401]"
+                    ? "text-[#fce803]"
+                    : "hover:text-[#fce803]"
                 }`}
                 onClick={() => handleFilterChange("sort", "best_selling")}
               >
@@ -65,8 +65,8 @@ const OrderListFilter = ({
               <li
                 className={`cursor-pointer text-start transition-all duration-100 ${
                   filters.sort === "best_rated"
-                    ? "text-[#fea401]"
-                    : "hover:text-[#fea401]"
+                    ? "text-[#fce803]"
+                    : "hover:text-[#fce803]"
                 }`}
                 onClick={() => handleFilterChange("sort", "best_rated")}
               >
@@ -76,8 +76,8 @@ const OrderListFilter = ({
               <li
                 className={`cursor-pointer text-start transition-all duration-100 ${
                   filters.sort === "latest"
-                    ? "text-[#fea401]"
-                    : "hover:text-[#fea401]"
+                    ? "text-[#fce803]"
+                    : "hover:text-[#fce803]"
                 }`}
                 onClick={() => handleFilterChange("sort", "latest")}
               >

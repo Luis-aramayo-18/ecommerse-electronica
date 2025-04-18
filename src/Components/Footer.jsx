@@ -22,7 +22,7 @@ const Footer = () => {
 
       <div className="flex flex-col md:flex-row gap-16 ms-5 mt-10 relative">
         <div>
-          <h2 className="font-semibold sm:text-xl text-2xl text-white">
+          <h2 className="font-semibold sm:text-xl text-2xl text-[#fce803]">
             Ayuda
           </h2>
           <ul className="mt-5 text-lg sm:text-sm">
@@ -45,7 +45,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h2 className="font-semibold sm:text-xl text-2xl text-white">
+          <h2 className="font-semibold sm:text-xl text-2xl text-[#fce803]">
             Mi cuenta
           </h2>
           <ul className="mt-5 text-lg sm:text-sm">
@@ -74,7 +74,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h2 className="font-semibold sm:text-xl text-2xl text-white">
+          <h2 className="font-semibold sm:text-xl text-2xl text-[#fce803]">
             Digital World
           </h2>
           <ul className="mt-5 text-lg sm:text-sm">
