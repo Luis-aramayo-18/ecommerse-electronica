@@ -108,7 +108,7 @@ const Login = () => {
   return (
     <div className="my-10 w-full h-auto px-2 md:px-14 lg:px-24">
       <section className="flex justify-center">
-        <div className="w-[90%] sm:w-[70%] md:w-[65%] lg:w-[55%] xl:w-[35%] border rounded-2xl py-6 px-4 bg-black/70 backdrop-blur sm:p-6 mt-10 shadow-md shadow-slate-500">
+        <div className="w-[95%] sm:w-[70%] md:w-[65%] lg:w-[55%] xl:w-[35%] py-6 px-4 sm:p-6 mt-10 glass-box">
           {formRegister ? (
             <div className="flex flex-col-reverse gap-6 w-full md:flex md:flex-row md:justify-center md:gap-10">
               <div className="w-full lg:w-[60%]">
@@ -133,7 +133,7 @@ const Login = () => {
                       })}
                       type="text"
                       placeholder="Nombre de usuario"
-                      className="bg-transparent placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#9cccf4cb] focus:outline-none py-2 w-full"
+                      className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-[#fce803] focus:outline-none py-2 w-full"
                     />
                     <p className="mt-1 text-xs font-extralight text-[#ec5050e0]">
                       {errorsRegister.username?.message}
@@ -164,7 +164,7 @@ const Login = () => {
                       })}
                       type="email"
                       placeholder="Correo electrónico"
-                      className="bg-transparent placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#9cccf4cb] focus:outline-none py-2 w-full"
+                      className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-[#fce803] focus:outline-none py-2 w-full"
                     />
                     <p className="mt-1 text-xs font-extralight text-[#ec5050e0]">
                       {errorsRegister.email?.message}
@@ -178,12 +178,12 @@ const Login = () => {
                       })}
                       type={showPassword ? "text" : "password"}
                       placeholder="Contraseña"
-                      className="text-white bg-transparent placeholder:text-xs placeholder:text-[#deecfb] border-b border-[#9cccf4cb] focus:outline-none py-2 w-full"
+                      className="text-white bg-transparent placeholder:text-xs placeholder:text-white/65 border-b border-[#fce803] focus:outline-none py-2 w-full"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute top-2 right-2 text-gray-500"
+                      className="absolute top-2 right-2 text-white/65"
                     >
                       {showPassword ? (
                         <i className="bx bx-hide"></i>
@@ -205,14 +205,14 @@ const Login = () => {
                       })}
                       type={showPasswordConfirmed ? "text" : "password"}
                       placeholder="Repetir contraseña"
-                      className="bg-transparent placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#9cccf4cb] focus:outline-none py-2 w-full"
+                      className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-[#fce803] focus:outline-none py-2 w-full"
                     />
                     <button
                       type="button"
                       onClick={() =>
                         setShowPasswordConfirmed(!showPasswordConfirmed)
                       }
-                      className="absolute top-2 right-2 text-gray-500"
+                      className="absolute top-2 right-2 text-white/65"
                     >
                       {showPasswordConfirmed ? (
                         <i className="bx bx-hide"></i>
@@ -227,7 +227,7 @@ const Login = () => {
 
                   <button
                     type="submit"
-                    className="w-full text-xs font-semibold rounded-2xl border p-4 mt-5 text-white lg:hover:bg-[#fea401]"
+                    className="w-full text-xs font-semibold rounded-lg border p-4 mt-5 bg-[#fce803] text-black border-black/25 lg:bg-black/30 lg:text-white lg:border-white/25 lg:hover:bg-[#fce803] lg:hover:text-black lg:hover:border-black/25"
                   >
                     {loading.register ? (
                       <Loading />
@@ -240,7 +240,7 @@ const Login = () => {
                 </form>
 
                 <button
-                  className="text-gray-400 mt-5"
+                  className="text-white/85 mt-6"
                   onClick={showRegisterForm}
                 >
                   Volver
@@ -248,10 +248,10 @@ const Login = () => {
               </div>
 
               <div className="w-full lg:w-[40%] mt-5">
-                <p className="font-medium text-sm mb-3 first-letter:uppercase text-[#acb1b6]">
+                <p className="font-medium text-sm mb-3 first-letter:uppercase text-white">
                   La contraseña debe contener:
                 </p>
-                <ul className="flex flex-col gap-3 text-[#acb1b6] text-xs">
+                <ul className="flex flex-col gap-3 text-white/65 text-xs">
                   <li className="flex items-center gap-2 font-light">
                     <p>Una letra mayúscula y minúscula</p>
                     {validations.hasUppercase && validations.hasLowercase ? (
@@ -276,7 +276,7 @@ const Login = () => {
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"
                         stroke="currentColor"
-                        className="size-4 text-[#fea401]"
+                        className="size-4 text-[#fce803]"
                       >
                         <path
                           strokeLinecap="round"
@@ -310,7 +310,7 @@ const Login = () => {
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"
                         stroke="currentColor"
-                        className="size-4 text-[#fea401]"
+                        className="size-4 text-[#fce803]"
                       >
                         <path
                           strokeLinecap="round"
@@ -344,7 +344,7 @@ const Login = () => {
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"
                         stroke="currentColor"
-                        className="size-4 text-[#fea401]"
+                        className="size-4 text-[#fce803]"
                       >
                         <path
                           strokeLinecap="round"
@@ -378,7 +378,7 @@ const Login = () => {
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"
                         stroke="currentColor"
-                        className="size-4 text-[#fea401]"
+                        className="size-4 text-[#fce803]"
                       >
                         <path
                           strokeLinecap="round"
@@ -410,7 +410,7 @@ const Login = () => {
                         message: "Por favor complete este campo",
                       },
                     })}
-                    className="bg-transparent placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#9cccf4cb] focus:outline-none py-2 w-full"
+                    className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-[#fce803] focus:outline-none py-2 w-full"
                     placeholder="Correo electrónico o usuario"
                   />
                   <p className="mt-1 text-xs font-extralight text-[#ec5050e0]">
@@ -428,7 +428,7 @@ const Login = () => {
                     })}
                     type={passwordVisible ? "text" : "password"}
                     placeholder="Contraseña"
-                    className="bg-transparent placeholder:text-xs text-white placeholder:text-[#deecfb] border-b border-[#9cccf4cb] focus:outline-none py-2 w-full"
+                    className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-[#fce803] focus:outline-none py-2 w-full"
                   />
                   <p className="mt-1 text-xs font-extralight text-[#ec5050e0]">
                     {errorsLogin.password?.message}
@@ -436,7 +436,7 @@ const Login = () => {
                   <button
                     type="button"
                     onClick={() => setPasswordVisible(!passwordVisible)}
-                    className="absolute right-2 text-[#deecfb]"
+                    className="absolute right-2 text-white/65"
                   >
                     {passwordVisible ? (
                       <i className="bx bx-hide"></i>
@@ -449,7 +449,7 @@ const Login = () => {
                 <div className="flex flex-col gap-3 items-center justify-center">
                   <button
                     type="submit"
-                    className="w-[190px] text-xs font-semibold transition-all rounded-md duration-100 border p-3 text-[#ffffff] lg:hover:text-white lg:hover:border-white lg:hover:bg-[#fea401]"
+                    className="w-[190px] bg-[#fce803] text-black border border-black/25 text-xs font-semibold transition-all rounded-lg duration-100  lg:border-white/25 p-3 lg:text-white lg:bg-black/30 lg:hover:text-black lg:hover:border-black/25 lg:hover:bg-[#fce803]"
                   >
                     INGRESAR
                   </button>
@@ -461,7 +461,7 @@ const Login = () => {
 
               <div className="w-full flex flex-col items-center justify-center mt-3 gap-3"></div>
 
-              <div className="flex items-center gap-2 flex-col mt-4 font-medium text-[#9fa3a7]">
+              <div className="flex items-center gap-2 flex-col mt-4 font-medium text-white/85">
                 <p
                   className="cursor-pointer transition-all duration-100 lg:hover:text-white"
                   onClick={showRegisterForm}

@@ -238,7 +238,7 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
         </div>
 
         {/* --------COMMENTS------ */}
-        <div className="mt-10 max-h-52 overflow-y-auto px-4">
+        <div className="mt-10 max-h-52 overflow-y-auto">
           {comments.map((comment) => (
             <div
               className="flex items-center gap-4 relative mb-8 bg-[#fce803] rounded-xl  backdrop-blur-lg p-5"
@@ -314,7 +314,7 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
                       key={star}
                       onClick={() => setRating(star)}
                       className={`w-8 h-8 text-2xl ${
-                        star <= rating ? "text-[#fce803]" : "text-white/65"
+                        star <= rating ? "text-v" : "text-white/65"
                       }`}
                     >
                       ★
