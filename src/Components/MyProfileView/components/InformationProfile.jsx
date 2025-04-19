@@ -33,7 +33,7 @@ const InformationProfile = ({ setSection, api }) => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box">
+    <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box relative">
       <section className="flex flex-col w-full relative">
         {/* <button className="text-sm font-semibold uppercase text-white text-start mx-2 mb-5 " disabled>editar</button> */}
         <form onSubmit={updateUser}>
@@ -201,6 +201,8 @@ const InformationProfile = ({ setSection, api }) => {
           )}
         </form>
       </section>
+
+      <section className="yellow-glow absolute w-[40%] h-[30%] right-[5%] bottom-0"></section>
     </div>
   );
 };

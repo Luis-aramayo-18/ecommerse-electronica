@@ -134,10 +134,10 @@ const Header = ({ api }) => {
       </div>
 
       <div className="text-2xl font-semibold">
-        <p className="text-base lg:text-lg font-semibold first-letter:uppercase text-black">
+        <p className="text-lg font-bold lg:text-lg first-letter:uppercase text-black">
           {userData.username}
         </p>
-        <p className="text-black/65 text-sm font-light lg:hidden">
+        <p className="text-black/65 text-sm font-semibold lg:hidden">
           {userData.email}
         </p>
       </div>

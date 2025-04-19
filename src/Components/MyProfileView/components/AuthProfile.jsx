@@ -120,7 +120,7 @@ const AuthProfile = () => {
   };
 
   return (
-    <div className="w-full h-full lg:px-4 lg:py-10 lg:glass-box">
+    <div className="w-full h-full lg:px-4 lg:py-10 lg:glass-box relative">
       <section className="h-full relative">
         <div className="flex flex-col">
           {hasPassword === true ? (
@@ -602,6 +602,8 @@ const AuthProfile = () => {
           )}
         </div>
       </section>
+
+      <section className="yellow-glow absolute top-[10%] right-[15%] w-[40%] h-[30%]"></section>
     </div>
   );
 };

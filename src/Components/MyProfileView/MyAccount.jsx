@@ -63,12 +63,12 @@ const MyAccount = () => {
         {/* ------MOBILE----- */}
 
         <section className="w-full lg:hidden">
-          <div className="glass-box relative overflow-hidden">
+          <div className="bg-[#fce803] border border-black/25 text-black rounded-[32px] relative overflow-hidden">
             <div className="w-full flex justify-center p-4">
               <Header />
             </div>
 
-            <div className="yellow-glow absolute top-[10%] left-[5%] h-[80%] w-[40%]"></div>
+            {/* <div className="yellow-glow absolute top-[10%] left-[5%] h-[80%] w-[40%]"></div> */}
           </div>
 
           <div className="mt-20 mb-10">
