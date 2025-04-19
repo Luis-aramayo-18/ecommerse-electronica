@@ -451,7 +451,7 @@ const Login = () => {
                 <div className="flex flex-col gap-3 items-center justify-center">
                   <button
                     type="submit"
-                    className="w-[240px] bg-[#fce803] text-black border border-black/25 text-xs font-semibold transition-all rounded-lg duration-100  lg:border-white/25 p-3 lg:text-white lg:bg-black/30 lg:hover:text-black lg:hover:border-black/25 lg:hover:bg-[#fce803]"
+                    className="w-[220px] bg-[#fce803] text-black border border-black/25 text-xs font-semibold transition-all rounded-lg duration-100  lg:border-white/25 p-3 lg:text-white lg:bg-black/30 lg:hover:text-black lg:hover:border-black/25 lg:hover:bg-[#fce803]"
                   >
                     INGRESAR
                   </button>

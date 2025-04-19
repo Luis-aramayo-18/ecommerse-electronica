@@ -181,12 +181,12 @@ const Filters = ({
 
         <div className="flex gap-4">
           <button
-            className={`rounded-2xl bg-black/70 flex transition-all duration-100 items-center justify-center h-14 gap-2 w-[50%] border lg:hidden text-[#f0f7fe] ${
+            className={`rounded-[10px] flex transition-all duration-100 items-center justify-center h-14 gap-2 w-[50%] border lg:hidden ${
               filters.brand !== "All" ||
               filters.min_price > 0 ||
               filters.max_price > 0
-                ? "border border-[#fea401]"
-                : "border"
+                ? "bg-[#fce803] text-black border-black/25"
+                : "bg-black/30 text-white border-white/25"
             }`}
             onClick={() => setFilterMobile(!filterMobile)}
           >
@@ -202,17 +202,16 @@ const Filters = ({
           </button>
 
           <button
-            className={`w-[50%] bg-black/70 rounded-2xl h-14 flex items-center justify-center gap-2 border p-2 relative ${
-              filters.sort !== "Default" ? "border border-[#fea401]" : "border"
+            className={`w-[50%] rounded-[10px] h-14 flex items-center justify-center gap-2 border p-2 relative ${
+              filters.sort !== "Default"
+                ? "bg-[#fce803] text-black border-black/25"
+                : "bg-black/30 text-white border-white/25"
             }`}
             onClick={() => setOrderListMobile(!orderListMobile)}
           >
-            <div className="flex items-center gap-2 text-[#f0f7fe]">
+            <div className="flex items-center gap-2">
               <div>
                 <p className="text-sm font-semibold">Ordenar por</p>
-                <span className="text-sm font-bold text-[#fce803] uppercase">
-                  {valueOrder}
-                </span>
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -235,12 +234,12 @@ const Filters = ({
                 orderListMobile ? "max-h-52 shadow-lg shadow-black" : ""
               }`}
             >
-              <ul className="bg-black/70 text-[#deecfb] border p-4 flex flex-col w-full gap-2 backdrop-blur-md">
+              <ul className="bg-black/70 text-white/65 border border-white/25 p-4 flex flex-col w-full gap-2 backdrop-blur-md">
                 <li
                   className={`cursor-pointer text-start transition-all duration-100 ${
                     filters.sort === "discount"
-                      ? "text-[#fea401]"
-                      : "hover:text-[#fea401]"
+                      ? "text-[#fce803]"
+                      : ""
                   }`}
                   onClick={() => handleFilterChange("sort", "discount")}
                 >
@@ -250,8 +249,8 @@ const Filters = ({
                 <li
                   className={`cursor-pointer text-start transition-all duration-100 ${
                     filters.sort === "best_selling"
-                      ? "text-[#fea401]"
-                      : "hover:text-[#fea401]"
+                      ? "text-[#fce803]"
+                      : ""
                   }`}
                   onClick={() => handleFilterChange("sort", "best_selling")}
                 >
@@ -261,8 +260,8 @@ const Filters = ({
                 <li
                   className={`cursor-pointer text-start transition-all duration-100 ${
                     filters.sort === "best_rated"
-                      ? "text-[#fea401]"
-                      : "hover:text-[#fea401]"
+                      ? "text-[#fce803]"
+                      : ""
                   }`}
                   onClick={() => handleFilterChange("sort", "best_rated")}
                 >
@@ -272,8 +271,8 @@ const Filters = ({
                 <li
                   className={`cursor-pointer text-start transition-all duration-100 ${
                     filters.sort === "latest"
-                      ? "text-[#fea401]"
-                      : "hover:text-[#fea401]"
+                      ? "text-[#fce803]"
+                      : ""
                   }`}
                   onClick={() => handleFilterChange("sort", "latest")}
                 >

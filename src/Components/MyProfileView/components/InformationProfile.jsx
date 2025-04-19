@@ -33,7 +33,7 @@ const InformationProfile = ({ setSection, api }) => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:bg-black/70 lg:backdrop-blur-md lg:rounded-2xl lg:px-4 lg:py-10 lg:shadow-[0_4px_10px_0_#6B7280]">
+    <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box">
       <section className="flex flex-col w-full relative">
         {/* <button className="text-sm font-semibold uppercase text-white text-start mx-2 mb-5 " disabled>editar</button> */}
         <form onSubmit={updateUser}>
@@ -47,7 +47,7 @@ const InformationProfile = ({ setSection, api }) => {
                   <input
                     id="Name"
                     type="text"
-                    className="p-4 text-sm font-semibold bg-black/70 text-white mt-2 rounded-2xl w-full border"
+                    className="p-4 text-sm font-semibold bg-black/30 text-white mt-2 rounded-2xl w-full"
                     onChange={(e) => setUser(e.target.value)}
                     value={user}
                     disabled={inputUserDisabled}
@@ -91,7 +91,7 @@ const InformationProfile = ({ setSection, api }) => {
                 <div className="relative flex items-center">
                   <input
                     type="text"
-                    className="p-4 text-sm font-semibold bg-black/70 text-white mt-2 rounded-2xl w-full border"
+                    className="p-4 text-sm font-semibold bg-black/30 text-white mt-2 rounded-2xl w-full"
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                     disabled={inputEmailDisabled}

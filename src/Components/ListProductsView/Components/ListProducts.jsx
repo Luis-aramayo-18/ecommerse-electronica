@@ -65,7 +65,7 @@ const ListProducts = ({
           {filteredProducts.map((product, index) => {
             return (
               <div
-                className="relative rounded-[28px] flex justify-center overflow-hidden"
+                className="relative sm:rounded-[28px] rounded-[10px] flex justify-center overflow-hidden"
                 key={product.id || index}
               >
                 {filters.sort === "best_rated" && (
@@ -91,7 +91,7 @@ const ListProducts = ({
                 <ProductCard
                   product={product}
                   button
-                  className="lg:px-4 lg:py-6 p-4 glass-card"
+                  className="lg:px-4 lg:py-6 p-4 glass-card sm:rounded-b-[28px] rounded-[10px]"
                 />
                 <div className="yellow-glow absolute w-[100%] h-[20%] bottom-0"></div>
               </div>

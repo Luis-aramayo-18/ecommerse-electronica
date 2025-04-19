@@ -110,7 +110,7 @@ const Header = ({ api }) => {
           <img
             src={userData.image}
             alt={userData.username}
-            className="w-full h-full object-cover rounded-full absolute border border-gray-200"
+            className="w-full h-full object-cover rounded-full absolute"
           />
         ) : (
           <label
@@ -134,10 +134,10 @@ const Header = ({ api }) => {
       </div>
 
       <div className="text-2xl font-semibold">
-        <p className="text-base lg:text-lg font-semibold first-letter:uppercase text-[#f0f7fe]">
+        <p className="text-base lg:text-lg font-semibold first-letter:uppercase text-black">
           {userData.username}
         </p>
-        <p className="text-[#deecfb] text-sm font-light lg:hidden">
+        <p className="text-black/65 text-sm font-light lg:hidden">
           {userData.email}
         </p>
       </div>

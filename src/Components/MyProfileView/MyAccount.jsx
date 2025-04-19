@@ -40,7 +40,7 @@ const MyAccount = () => {
   return (
     <>
       <div className="mt-10 w-full h-auto px-4 md:px-14 lg:px-24 flex">
-        <section className="w-[30%] lg:h-[50%] px-4 py-10 bg-black/70 backdrop-blur border rounded-2xl hidden lg:block">
+        <section className="w-[30%] lg:h-[50%] px-4 py-10 bg-[#fce803] backdrop-blur border border-black/25 rounded-[32px] hidden lg:block">
           <div>
             <Header api={api} />
           </div>
@@ -63,14 +63,18 @@ const MyAccount = () => {
         {/* ------MOBILE----- */}
 
         <section className="w-full lg:hidden">
-          <div className="w-full flex justify-center p-4 shadow-[0_4px_10px_0_#6B7280] rounded-2xl bg-black/70 backdrop-blur border">
-            <Header />
+          <div className="glass-box relative overflow-hidden">
+            <div className="w-full flex justify-center p-4">
+              <Header />
+            </div>
+
+            <div className="yellow-glow absolute top-[10%] left-[5%] h-[80%] w-[40%]"></div>
           </div>
 
           <div className="mt-20 mb-10">
-            <section className="cursor-pointer bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] border px-4 py-6 rounded-2xl">
+            <section className="cursor-pointer px-4 py-6 glass-box">
               <div
-                className="flex items-center gap-2 text-[#deecfb]"
+                className="flex items-center gap-3 text-white"
                 onClick={() =>
                   setSection(section === "information" ? "" : "information")
                 }
@@ -105,15 +109,15 @@ const MyAccount = () => {
                   </svg>
                 )}
 
-                <p className="text-lg">Información</p>
+                <h2 className="text-sm font-bold uppercase">Información</h2>
               </div>
 
               {section === "information" && <div>{openSection(section)}</div>}
             </section>
 
-            <section className="cursor-pointer bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] border px-4 py-6 rounded-2xl mt-10">
+            <section className="cursor-pointer px-4 py-6 glass-box mt-10">
               <div
-                className="flex items-center gap-2 text-[#deecfb]"
+                className="flex items-center gap-3 text-white"
                 onClick={() =>
                   setSection(
                     section === "authentication" ? "" : "authentication"
@@ -146,7 +150,7 @@ const MyAccount = () => {
                   </svg>
                 )}
 
-                <p className="text-lg">Autenticación</p>
+                <p className="text-sm font-bold uppercase">Autenticación</p>
               </div>
 
               {section === "authentication" && (
@@ -155,9 +159,9 @@ const MyAccount = () => {
             </section>
 
             {admin === true ? (
-              <section className="cursor-pointer bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] border px-4 py-6 rounded-2xl mt-10">
+              <section className="cursor-pointer px-4 py-6 glass-box mt-10">
                 <div
-                  className="flex items-center gap-2 text-[#deecfb]"
+                  className="flex items-center gap-2 text-white"
                   onClick={() => setSection(section === "admin" ? "" : "admin")}
                 >
                   {section === "admin" ? (
@@ -191,7 +195,7 @@ const MyAccount = () => {
                     </svg>
                   )}
 
-                  <p className="text-lg">Admin</p>
+                  <p className="text-sm font-bold uppercase">Admin</p>
                 </div>
 
                 {section === "admin" && (
@@ -199,7 +203,7 @@ const MyAccount = () => {
                 )}
               </section>
             ) : (
-              <section className="cursor-pointer bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] border px-4 py-6 rounded-2xl mt-10">
+              <section className="cursor-pointer px-4 py-6 glass-box mt-10">
                 <div
                   className="flex items-center gap-2 text-[#deecfb]"
                   onClick={() =>
@@ -241,9 +245,9 @@ const MyAccount = () => {
               </section>
             )}
 
-            <section className="cursor-pointer bg-black/70 backdrop-blur shadow-[0_4px_10px_0_#6B7280] border px-4 py-6 rounded-2xl mt-10">
+            <section className="cursor-pointer px-4 py-6 glass-box mt-10">
               <div
-                className="flex items-center gap-2 text-[#deecfb]"
+                className="flex items-center gap-2 text-white"
                 onClick={logoutUsername}
               >
                 <svg

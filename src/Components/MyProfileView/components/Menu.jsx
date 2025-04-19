@@ -23,10 +23,10 @@ const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
   }, [section]);
 
   return (
-    <ul className="flex flex-col gap-5 text-base font-medium text-gray-500">
+    <ul className="flex flex-col gap-5 text-base font-medium text-black/65">
       <li
-        className={`cursor-pointer transition-all duration-100 hover:text-white hover:border-s-2 hover:border-white p-2 ${
-          section === "information" ? "text-white border-s-2 border-white" : ""
+        className={`cursor-pointer transition-all duration-100 hover:text-black hover:border-s-2 hover:border-black p-2 ${
+          section === "information" ? "text-black border-s-2 border-black" : ""
         }`}
         onClick={() => setSection("information")}
       >
@@ -34,9 +34,9 @@ const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
       </li>
 
       <li
-        className={`cursor-pointer transition-all duration-100 hover:text-white hover:border-s-2 hover:border-white p-2 ${
+        className={`cursor-pointer transition-all duration-100 hover:text-black hover:border-s-2 hover:border-black p-2 ${
           section === "authentication"
-            ? "text-white border-s-2 border-white"
+            ? "text-black border-s-2 border-black"
             : ""
         }`}
         onClick={() => setSection("authentication")}
@@ -46,8 +46,8 @@ const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
 
       {admin === true ? (
         <li
-          className={`cursor-pointer transition-all duration-100 hover:text-white hover:border-s-2 p-2 hover:border-white ${
-            section === "admin" ? "text-white border-s-2 border-white" : ""
+          className={`cursor-pointer transition-all duration-100 hover:text-black hover:border-s-2 p-2 hover:border-black ${
+            section === "admin" ? "text-black border-s-2 border-black" : ""
           }`}
           onClick={() => setSection("admin")}
         >
@@ -55,8 +55,8 @@ const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
         </li>
       ) : (
         <li
-          className={`cursor-pointer transition-all duration-100 hover:text-white hover:border-s-2 hover:border-white p-2 ${
-            section === "orders" ? "text-white border-s-2 border-white" : ""
+          className={`cursor-pointer transition-all duration-100 hover:text-black hover:border-s-2 hover:border-black p-2 ${
+            section === "orders" ? "text-black border-s-2 border-black" : ""
           }`}
           onClick={() => setSection("orders")}
         >
@@ -64,7 +64,7 @@ const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
         </li>
       )}
       
-      <li className="p-2 transition-all duration-100 hover:text-white">
+      <li className="p-2 transition-all duration-100 hover:text-black">
         <button onClick={logoutUsername}>Salir</button>
       </li>
     </ul>

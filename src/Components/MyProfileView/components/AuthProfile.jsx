@@ -28,7 +28,6 @@ const AuthProfile = () => {
     hasMinLength: false,
   });
 
-
   useEffect(() => {
     const password = localStorage.getItem("hasPassword");
 
@@ -121,13 +120,13 @@ const AuthProfile = () => {
   };
 
   return (
-    <div className="w-full h-full lg:bg-black/70 lg:backdrop-blur-md lg:rounded-2xl lg:px-4 lg:py-10 lg:shadow-[0_4px_10px_0_#6B7280]">
+    <div className="w-full h-full lg:px-4 lg:py-10 lg:glass-box">
       <section className="h-full relative">
         <div className="flex flex-col">
           {hasPassword === true ? (
             <div>
               <div className="flex flex-col-reverse lg:flex-row lg:mt-5">
-                <form className="flex flex-col gap-3 w-full lg:w-[50%] mt-10 lg:mt-0 text-[#acb1b6]">
+                <form className="flex flex-col gap-3 w-full lg:w-[50%] mt-10 lg:mt-0 text-white">
                   <div className="flex items-center gap-2 relative">
                     <input
                       type={`${showCurrentPassword ? "text" : "password"}`}
@@ -135,7 +134,7 @@ const AuthProfile = () => {
                         setCurrentPasswordForPasswordForm(e.target.value)
                       }
                       value={currentPasswordForPasswordForm}
-                      className="p-4 bg-black/70 backdrop-blur text-sm font-semibold rounded-2xl w-full"
+                      className="py-4 bg-transparent placeholder:text-sm border-b border-white/25 text-sm font-semibold w-full focus:border-[#fce803] focus:outline-none"
                       required
                       placeholder="Contraseña actual"
                     />
@@ -191,7 +190,7 @@ const AuthProfile = () => {
                       type={`${showNewPassword ? "text" : "password"}`}
                       onChange={(e) => setNewPassword(e.target.value)}
                       value={newPassword}
-                      className="p-4 bg-black/70 backdrop-blur text-sm font-semibold rounded-2xl w-full"
+                      className="py-4 bg-transparent placeholder:text-sm border-b border-white/25 text-sm font-semibold w-full focus:border-[#fce803] focus:outline-none"
                       required
                       placeholder="Nueva Contraseña"
                     />
@@ -245,7 +244,7 @@ const AuthProfile = () => {
                       type={`${showNewPassword2 ? "text" : "password"}`}
                       onChange={(e) => setNewPassword2(e.target.value)}
                       value={newPassword2}
-                      className="p-4 bg-black/70 backdrop-blur text-sm font-semibold rounded-2xl w-full"
+                      className="py-4 bg-transparent placeholder:text-sm border-b border-white/25 text-sm font-semibold w-full focus:border-[#fce803] focus:outline-none"
                       required
                       placeholder="Repetir Nueva Contraseña"
                     />
@@ -294,7 +293,7 @@ const AuthProfile = () => {
                   </div>
 
                   <button
-                    className="border rounded-2xl p-4 bg-black/70 backdrop-blur mt-5 text-sm font-semibold"
+                    className="uppercase border border-black/25 bg-[#fce803] text-black lg:border-white/25 lg:bg-black/30 lg:text-white lg:hover:bg-[#fce803] lg:hover:text-black lg:hover:border-black/25 rounded-2xl p-4 backdrop-blur mt-5 text-xs font-semibold"
                     type="submit"
                   >
                     Actualizar Contraseña
@@ -302,10 +301,10 @@ const AuthProfile = () => {
                 </form>
 
                 <div className="lg:px-5 lg:ms-10">
-                  <p className="font-medium text-sm mb-3 first-letter:uppercase text-[#acb1b6]">
+                  <p className="font-medium text-sm mb-3 first-letter:uppercase text-white/85">
                     La contraseña debe contener:
                   </p>
-                  <ul className="flex flex-col gap-3 text-[#acb1b6] text-xs">
+                  <ul className="flex flex-col gap-3 text-white/65 text-xs">
                     <li className="flex items-center gap-2 font-light">
                       <p>Una letra mayúscula y minúscula</p>
                       {validations.hasUppercase ? (
@@ -330,7 +329,7 @@ const AuthProfile = () => {
                           viewBox="0 0 24 24"
                           strokeWidth="1.5"
                           stroke="currentColor"
-                          className="size-4 text-[#fea401]"
+                          className="size-4 text-[#fce803]"
                         >
                           <path
                             strokeLinecap="round"
@@ -364,7 +363,7 @@ const AuthProfile = () => {
                           viewBox="0 0 24 24"
                           strokeWidth="1.5"
                           stroke="currentColor"
-                          className="size-4 text-[#fea401]"
+                          className="size-4 text-[#fce803]"
                         >
                           <path
                             strokeLinecap="round"
@@ -398,7 +397,7 @@ const AuthProfile = () => {
                           viewBox="0 0 24 24"
                           strokeWidth="1.5"
                           stroke="currentColor"
-                          className="size-4 text-[#fea401]"
+                          className="size-4 text-[#fce803]"
                         >
                           <path
                             strokeLinecap="round"
@@ -432,7 +431,7 @@ const AuthProfile = () => {
                           viewBox="0 0 24 24"
                           strokeWidth="1.5"
                           stroke="currentColor"
-                          className="size-4 text-[#fea401]"
+                          className="size-4 text-[#fce803]"
                         >
                           <path
                             strokeLinecap="round"

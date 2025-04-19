@@ -50,7 +50,6 @@ const Products = () => {
       const response = await api.get(`/products/?${params.toString()}`);
       if (response.data.next) {
         const nextUrl = response.data.next;
-        console.log("hola");
 
         const urlObj = new URL(nextUrl);
         let relativeUrl = urlObj.pathname + urlObj.search;
@@ -153,8 +152,6 @@ const Products = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDeletingFilters]);
-
-  console.log(nextPage);
 
   return (
     <>

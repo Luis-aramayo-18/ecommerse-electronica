@@ -15,6 +15,7 @@ const AdminProfile = () => {
   const api = useAxios();
   const productSection = useRef(null);
 
+  const [nextPage, setNextPage] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
   const [products, setProducts] = useState([]);
@@ -42,6 +43,7 @@ const AdminProfile = () => {
   const [discountPercentage, setDiscountPercentage] = useState("");
 
   const [formEdit, setFormEdit] = useState(false);
+  const fileInputRef = useRef(null);
   const [loading, setLoading] = useState({
     post: false,
     search: false,
@@ -51,9 +53,76 @@ const AdminProfile = () => {
     seeMore: false,
   });
 
-  const fileInputRef = useRef(null);
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      backgroundColor: "transparent",
+      boxShadow: "none",
+      borderTop: "none",
+      borderLeft: "none",
+      borderRight: "none",
+      borderColor: state.isFocused ? "#fce803" : "#ffffff40",
+      color: "white",
+      padding: "10px 0",
+      cursor: "pointer",
+      "&:hover": {
+        boxShadow: "none",
+      },
+    }),
+    menu: (provided) => ({
+      ...provided,
+      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      backdropFilter: "blur(12px)",
+      borderColor: "rgba(255, 255, 255, 0.25)",
+      borderWidth: "1px",
+      color: "white",
+    }),
+    menuList: (provided) => ({
+      ...provided,
+      maxHeight: "15rem",
+      overflowY: "auto",
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "white",
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: "transparent",
+      fontWeight: "600",
+      fontSize: "0.9rem",
+      margin: "0, 1rem",
+      color:
+        state.data.value === "new-brand" || state.data.value === "new-category"
+          ? "#fce803"
+          : "rgba(255, 255, 255, 0.7)",
+      cursor: "pointer",
+      "&:hover": {
+        color: "#fff",
+      },
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      fontSize: "14px",
+      color: "rgba(255, 255, 255, 0.65)"
+    }),
+  };
 
-  const [nextPage, setNextPage] = useState(null);
+  const brandOptions = [
+    { value: "new-brand", label: "nueva marca" },
+    ...brands.map((brand) => ({
+      value: brand.id,
+      label: brand.name,
+    })),
+  ];
+
+  const categoriesOptions = [
+    { value: "new-category", label: "nueva categoria" },
+    ...categories.map((categorie) => ({
+      value: categorie.id,
+      label: categorie.name,
+    })),
+  ];
 
   const settings = {
     dots: true,
@@ -133,14 +202,12 @@ const AdminProfile = () => {
     }
   };
 
-  const handleCategoryChange = (e) => {
-    const selectedValue = e.target.value;
-    setSelectedCategory(selectedValue);
-
-    if (selectedValue === "new-category") {
+  const handleCategoryChange = (value) => {
+    if (value === "new-category") {
       setShowNewCategoryInput(true);
     } else {
       setShowNewCategoryInput(false);
+      setSelectedCategory(value);
     }
   };
 
@@ -175,7 +242,7 @@ const AdminProfile = () => {
     }
   };
 
-  const handleBrandChange = (value) => {    
+  const handleBrandChange = (value) => {
     if (value === "new-brand") {
       setShowNewBrandInput(true);
     } else {
@@ -559,12 +626,12 @@ const AdminProfile = () => {
 
   return (
     <div>
-      <section className="lg:bg-black/70 lg:backdrop-blur-md lg:rounded-2xl lg:px-4 lg:py-10 lg:shadow-[0_4px_10px_0_#6B7280]">
+      <section className="lg:glass-box relative lg:px-4 lg:py-10">
         {/* --------CARGAR PRODUCTO---------- */}
         <section>
           <ul className="flex gap-10 text-sm mt-5 font-semibold">
             <li className="cursor-pointer text-white">Cargar producto</li>
-            <li className="cursor-pointer text-white transition-all duration-100 lg:text-gray-400 lg:hover:text-white">
+            <li className="cursor-pointer text-white/65 transition-all duration-100 lg:text-gray-400 lg:hover:text-white">
               Cargar Usuario
             </li>
           </ul>
@@ -572,7 +639,7 @@ const AdminProfile = () => {
 
         <section className="flex flex-col-reverse lg:flex-row">
           <section className="w-full lg:w-[48%] mt-10">
-            <h2 className=" text-gray-100 text-sm font-medium">
+            <h2 className=" text-white/85 text-sm font-medium">
               AGREGAR PRODUCTO
             </h2>
 
@@ -582,7 +649,7 @@ const AdminProfile = () => {
                   required
                   placeholder="Nombre"
                   type="text"
-                  className="px-4 py-3 w-full bg-black/70 backdrop-blur text-white rounded-2xl lg:focus:outline-none"
+                  className="px-2 py-3 w-full bg-transparent border-b border-white/25 text-white placeholder:text-white/65 placeholder:text-sm focus:border-[#fce803] focus:outline-none"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -593,7 +660,7 @@ const AdminProfile = () => {
                   required
                   placeholder="Precio"
                   type="number"
-                  className="px-4 py-3 w-full lg:focus:outline-none bg-black/70 backdrop-blur text-white rounded-2xl"
+                  className="px-2 py-3 w-full bg-transparent border-b border-white/25 text-white placeholder:text-white/65 placeholder:text-sm focus:border-[#fce803] focus:outline-none"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                 />
@@ -603,29 +670,21 @@ const AdminProfile = () => {
                 name=""
                 id=""
                 placeholder="Descripción"
-                className="p-4 w-full lg:focus:outline-none h-64 resize-none bg-black/70 backdrop-blur text-white rounded-2xl"
+                className="px-2 py-3 w-full bg-transparent border-b border-white/25 text-white placeholder:text-white/65 placeholder:text-sm focus:border-[#fce803] focus:outline-none h-64 resize-none"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               ></textarea>
 
-              <div className="flex justify-center gap-4">
+              <div className="flex justify-center gap-4 mt-5">
                 <div className="w-full">
-                  <select
-                    required
-                    className="p-4 text-sm lg:focus:outline-none font-semibold w-full rounded-2xl bg-black/70 backdrop-blur text-white"
-                    value={selectedCategory}
-                    onChange={handleCategoryChange}
-                  >
-                    <option value="" disabled>
-                      categoria
-                    </option>
-                    <option value="new-category">NUEVA CATEGORÍA</option>
-                    {categories.map((category, idx) => (
-                      <option key={category.id || idx} value={category.id}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </select>
+                  <Select
+                    placeholder="Categorias"
+                    options={categoriesOptions}
+                    styles={customStyles}
+                    onChange={(selectedOption) =>
+                      handleCategoryChange(selectedOption.value)
+                    }
+                  />
 
                   {showNewCategoryInput && (
                     <div className="flex flex-col mt-4">
@@ -650,54 +709,12 @@ const AdminProfile = () => {
 
                 <div className="w-full">
                   <Select
-                    options={[
-                      { value: "new-brand", label: "nueva marca" },
-                      ...brands.map((brand) => ({
-                        value: brand.id,
-                        label: brand.name,
-                      })),
-                    ]}
+                    options={brandOptions}
+                    styles={customStyles}
                     onChange={(selectedOption) =>
                       handleBrandChange(selectedOption.value)
                     }
-                    placeholder="marca"
-                    styles={{
-                      control: (provided) => ({
-                        ...provided,
-                        padding: "1rem",
-                        fontSize: "0.875rem",
-                        fontWeight: "600",
-                        width: "100%",
-                        borderRadius: "1rem",
-                        backgroundColor: "rgba(0, 0, 0, 0.7)",
-                        backdropFilter: "blur(10px)",
-                        color: "white",
-                      }),
-                      menu: (provided) => ({
-                        ...provided,
-                        backgroundColor: "rgba(0, 0, 0, 0.7)",
-                        maxHeight: 200,
-                        overflowY: "auto",
-                        borderRadius: "1rem",
-                      }),
-                      option: (provided, state) => ({
-                        ...provided,
-                        padding: "0.75rem 1rem",
-                        fontSize: "0.875rem",
-                        fontWeight: "600",
-                        borderRadius: "0.75rem",
-                        backgroundColor: state.isSelected
-                          ? "rgba(0, 0, 0, 0.8)"
-                          : "transparent",
-                        color: "white",
-                        "&:hover": {
-                          backgroundColor: "transparent",
-                          color: "orange",
-                        },
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }),
-                    }}
+                    placeholder="Marca"
                   />
 
                   {showNewBrandInput && (
@@ -723,7 +740,7 @@ const AdminProfile = () => {
               </div>
 
               <div className="flex gap-2">
-                <label className="text-sm font-semibold p-4 bg-black/70 backdrop-blur text-white rounded-2xl flex items-center justify-center cursor-pointer gap-2">
+                <label className="text-sm p-4 font-semibold border-b border-white/25 rounded-md text-white/65 lg:hover:text-white flex items-center justify-center cursor-pointer gap-2">
                   imagenes
                   <input
                     required
@@ -733,13 +750,13 @@ const AdminProfile = () => {
                     ref={fileInputRef}
                     onChange={(e) => setImage(Array.from(e.target.files))}
                   />
-                  <p className="text-sm font-semibold text-[#9cccf4cb]">
+                  <p className="text-sm font-semibold text-white/65 bg-transparent">
                     {image.length}
                   </p>
                 </label>
 
-                <div className="flex items-center relative">
-                  <label className="flex text-sm font-semibold text-white">
+                <div className="flex items-center gap-2">
+                  <label className="flex text-sm font-semibold text-white w-[40%]">
                     En Oferta
                     <input
                       className="w"
@@ -750,15 +767,15 @@ const AdminProfile = () => {
                   </label>
 
                   {isOnSale && (
-                    <label className="ms-2 w-[30%]">
+                 
                       <input
                         type="number"
                         placeholder="Descuento %"
-                        className="p-4 bg-black/70 backdrop-blur text-white rounded-2xl lg:focus:outline-none"
+                        className="p-4 bg-transparent placeholder:text-sm placeholder:text-white/65 border-b border-white/25 w-[60%] text-white rounded-md focus:border-[#fce803] focus:outline-none"
                         value={discountPercentage}
                         onChange={(e) => setDiscountPercentage(e.target.value)}
                       />
-                    </label>
+            
                   )}
                 </div>
               </div>
@@ -766,7 +783,7 @@ const AdminProfile = () => {
               {formEdit ? (
                 <button
                   type="button"
-                  className="border rounded-2xl backdrop-blur bg-black/70 text-sm font-semibold p-4 text-gray-200"
+                  className="border mt-5 rounded-2xl bg-[#fce803] text-black border-black/25 backdrop-blur lg:bg-black/30 lg:border-white/25 text-sm font-semibold p-4 lg:text-white lg:hover:bg-[#fce803] lg:hover:text-black lg:hover:border-black/25"
                   onClick={() => {
                     handleUpdate();
                   }}
@@ -774,7 +791,7 @@ const AdminProfile = () => {
                   {loading.update ? (
                     <Loading />
                   ) : (
-                    <p className="text-xs font-semibold text-white uppercase">
+                    <p className=" font-semibold text-white uppercase">
                       actualizar
                     </p>
                   )}
@@ -782,12 +799,12 @@ const AdminProfile = () => {
               ) : (
                 <button
                   type="submit"
-                  className="lg:transition-all lg:duration-100 hover:bg-[#fea401] border border-gray-400 p-4 rounded-2xl bg-black/70 backdrop-blur text-gray-200"
+                  className="border mt-5 rounded-2xl bg-[#fce803] text-black border-black/25 backdrop-blur lg:bg-black/30 lg:border-white/25 text-sm font-semibold p-4 lg:text-white lg:hover:bg-[#fce803] lg:hover:text-black lg:hover:border-black/25"
                 >
                   {loading.post ? (
                     <Loading />
                   ) : (
-                    <p className="text-xs font-semibold text-white uppercase">
+                    <p className=" font-semibold uppercase">
                       cargar
                     </p>
                   )}
@@ -797,7 +814,7 @@ const AdminProfile = () => {
           </section>
 
           {formEdit && image.length > 0 && (
-            <section className="mt-10 lg:mt-20 lg:w-[380px] ms-[4%]">
+            <section className="mt-10 lg:mt-16 lg:w-[380px] ms-[6%]">
               <Slider {...settings}>
                 {image.map((img, idx) => (
                   <div
@@ -839,6 +856,8 @@ const AdminProfile = () => {
             </section>
           )}
         </section>
+
+        <section className="yellow-glow absolute left-[70%] top-[20%] h-[70%] w-[50%]"></section>
       </section>
 
       <hr className="my-10" />
@@ -850,7 +869,7 @@ const AdminProfile = () => {
             <input
               type="text"
               placeholder="Ingresar nombre"
-              className="p-3 w-full bg-black/70 border text-white border-gray-500 backdrop-blur rounded-2xl"
+              className="p-3 w-full bg-black/30 border placeholder:text-sm text-white border-white/25 backdrop-blur rounded-2xl"
               value={searchProduct}
               onChange={handleSearchProduct}
             />
@@ -884,8 +903,8 @@ const AdminProfile = () => {
         </div>
 
         <div className="flex flex-col mt-5">
-          <section className="overflow-x-auto lg:rounded-2xl lg:bg-black/70 lg:backdrop-blur lg:p-5 lg:shadow-[0_4px_10px_0_#6B7280]">
-            <table className="mt-4 min-w-full">
+          <section className="overflow-x-auto lg:glass-box relative px-4 py-10">
+            <table className="min-w-full">
               <thead className="text-white">
                 <tr>
                   <th>Id</th>
@@ -1001,13 +1020,13 @@ const AdminProfile = () => {
               </div>
             )}
 
-            <div className="my-10 flex justify-center">
+            <div className="mt-10 flex justify-center">
               {nextPage === null ? (
                 <p className="text-gray-500">No hay más productos</p>
               ) : (
                 <button
                   onClick={loadProducts}
-                  className="w-[110px] h-[40px] border rounded-2xl bg-black/70 backdrop-blur-sm relative"
+                  className="w-[110px] h-[40px] border rounded-2xl bg-black/30 backdrop-blur-sm relative"
                 >
                   {loading.seeMore ? (
                     <Loading />
@@ -1019,6 +1038,8 @@ const AdminProfile = () => {
                 </button>
               )}
             </div>
+
+            <div className="yellow-glow absolute w-[20%] h-[90%] left-0 top-[-10%]"></div>
           </section>
         </div>
       </section>
