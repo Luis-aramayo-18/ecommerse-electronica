@@ -16,7 +16,7 @@ const RecipientForm = ({
     validateNumberPhone(shipmentInfo.numberPhone);
     validateName(shipmentInfo.name);
     validateStreet(shipmentInfo.street);
-    validateNumberStreet(shipmentInfo.numberStreet); 
+    validateNumberStreet(shipmentInfo.numberStreet);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     shipmentInfo.name,
@@ -116,106 +116,108 @@ const RecipientForm = ({
 
   return (
     <div className="w-full mt-5">
-
-      <h2 className="text-start text-2xl font-semibold text-[#9cccf4]">
+      <h2 className="text-start text-2xl font-semibold text-white">
         Datos del destinatario
       </h2>
 
-      <span className="font-medium text-xs text-[#c4d0dd] mt-3">
+      <span className="font-medium text-xs text-white/65 mt-3">
         El * indica que el campo es obligatorio
       </span>
 
       <div className="flex flex-wrap mt-5">
-        <div className="w-full lg:w-[45%] relative">
-          <input
-            placeholder="Nombre"
-            type="text"
-            className={`block text-white w-full px-3 py-2 border rounded-md focus:outline-none bg-black/70 backdrop-blur-sm  ${
-              nameError
-                ? " text-red-600 "
-                : " text-green-600 "
-            }`}
-            id="name"
-            value={shipmentInfo.name}
-            onChange={handleNameChange}
-            required
-          />
-          <div className="absolute -right-3 -top-4 text-2xl">*</div>
-          {nameError && (
-            <p className="text-sm text-red-500 mt-1">{nameError}</p>
-          )}
+        <div className="flex flex-col-reverse lg:flex-row w-full gap-5">
+          <div className="lg:w-[100%] relative">
+            <div className="flex items-center">
+              <input
+                placeholder="Nombre"
+                type="text"
+                className={`block bg-transparent text-white placeholder:text-sm w-full py-3 border-b border-white/25 focus:border-[#fce803] focus:outline-none${
+                  nameError ? " text-red-600 " : " text-green-600 "
+                }`}
+                id="name"
+                value={shipmentInfo.name}
+                onChange={handleNameChange}
+                required
+              />
+              <p className="absolute right-3 text-2xl text-white/65">*</p>
+            </div>
+            {nameError && (
+              <p className="text-sm text-red-500 mt-1">{nameError}</p>
+            )}
+          </div>
+
+          <div className="w-full">
+            <input
+              placeholder="DNI"
+              type="number"
+              className="block bg-transparent text-white placeholder:text-sm w-full py-3 border-b border-white/25 focus:border-[#fce803] focus:outline-none"
+              value={shipmentInfo.dni}
+              onChange={handleDniChange}
+              required
+            />
+          </div>
         </div>
 
-        <div className="w-full lg:[45%] mt-3 relative">
-          <input
-            minLength="10"
-            maxLength="14"
-            placeholder="Numero de teléfono"
-            type="number"
-            className={`block w-full text-white px-3 py-2 border rounded-md focus:outline-none bg-black/70 backdrop-blur-sm ${
-              numberPhoneError
-                ? " text-red-600 "
-                : " text-green-600 "
-            }`}
-            onChange={handleNumberPhoneChange}
-            value={shipmentInfo.numberPhone}
-            required
-          />
-          <div className="absolute -right-3 -top-4 text-2xl">*</div>
+        <div className="w-full lg:w-[50%] mt-5 relative">
+          <div className="flex items-center">
+            <input
+              minLength="10"
+              maxLength="14"
+              placeholder="Numero de teléfono"
+              type="number"
+              className={`block bg-transparent text-white placeholder:text-sm w-full py-3 border-b border-white/25 focus:border-[#fce803] focus:outline-none ${
+                numberPhoneError ? " text-red-600 " : " text-green-600 "
+              }`}
+              onChange={handleNumberPhoneChange}
+              value={shipmentInfo.numberPhone}
+              required
+            />
+            <p className="absolute right-3 text-white/65 text-2xl">*</p>
+          </div>
           {numberPhoneError && (
             <div className="text-sm text-red-500 mt-1">{numberPhoneError}</div>
           )}
         </div>
-
-        <div className="w-full mt-3 lg:[45%]">
-          <input
-            placeholder="DNI"
-            type="number"
-            className="block text-white w-full px-3 py-2 border rounded-md focus:outline-none bg-black/70 backdrop-blur-sm"
-            value={shipmentInfo.dni}
-            onChange={handleDniChange}
-            required
-          />
-        </div>
       </div>
 
-      <h2 className="text-start text-2xl font-semibold mt-5 text-[#9cccf4]">
+      <h2 className="text-start text-2xl font-semibold mt-5 text-white">
         Datos del domicilio
       </h2>
+
       <div className="flex flex-col lg:flex-row gap-4 mt-5">
-        <div className="relative w-full lg:w-[55%]">
-          <input
-            placeholder="Calle"
-            type="text"
-            className={`block text-white w-full px-3 py-2 border rounded-md focus:outline-none bg-black/70 backdrop-blur-sm ${
-              streetValueError
-                ? " text-red-600 "
-                : " text-green-600 "
-            }`}
-            onChange={handleStreetChange}
-            value={shipmentInfo.street}
-            required
-          />
-          <div className="absolute -right-3 -top-4 text-2xl">*</div>
+        <div className="relative w-full lg:w-[50%]">
+          <div className="flex items-center">
+            <input
+              placeholder="Calle"
+              type="text"
+              className={`block bg-transparent text-white placeholder:text-sm w-full py-3 border-b border-white/25 focus:border-[#fce803] focus:outline-none ${
+                streetValueError ? " text-red-600 " : " text-green-600 "
+              }`}
+              onChange={handleStreetChange}
+              value={shipmentInfo.street}
+              required
+            />
+            <p className="absolute right-3 text-white/65 text-2xl">*</p>
+          </div>
           {streetValueError && (
             <div className="text-sm text-red-500 mt-1">{streetValueError}</div>
           )}
         </div>
 
         <div className=" lg:ms-3 relative">
-          <input
-            placeholder="Altura"
-            type="number"
-            className={`block text-white w-full px-3 py-2 border rounded-md focus:outline-none bg-black/70 backdrop-blur-sm ${
-              numberStreetError
-                ? " text-red-600 "
-                : " text-green-600 "
-            }`}
-            onChange={handleNumberStreet}
-            value={shipmentInfo.numberStreet}
-            required
-          />
-          <div className="absolute -right-3 -top-4 text-2xl">*</div>
+          <div className="flex items-center">
+            <input
+              placeholder="Altura"
+              type="number"
+              className={`block bg-transparent text-white placeholder:text-sm w-full py-3 border-b border-white/25 focus:border-[#fce803] focus:outline-none ${
+                numberStreetError ? " text-red-600 " : " text-green-600 "
+              }`}
+              onChange={handleNumberStreet}
+              value={shipmentInfo.numberStreet}
+              required
+            />
+            <p className="absolute right-3 text-white/65 text-2xl">*</p>
+          </div>
           {numberStreetError && (
             <div className="text-sm text-red-500 mt-1">{numberStreetError}</div>
           )}
@@ -224,10 +226,8 @@ const RecipientForm = ({
 
       <textarea
         type="text"
-        className={`min-h-[120px] block w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 mt-4 bg-black/70 backdrop-blur-sm ${
-          shipmentInfo.comments
-            ? " text-green-600 "
-            : " text-gray-700 "
+        className={`min-h-[120px] placeholder:text-sm resize-none bg-transparent block w-full py-2 border-b border-white/25 focus:outline-none focus:border-[#fce803] mt-5 ${
+          shipmentInfo.comments ? " text-green-600 " : " text-gray-700 "
         }`}
         placeholder="Deja un comentario"
         id="textReference"

@@ -126,7 +126,7 @@ const FormCompra = () => {
       <div className="px-6 sm:x-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-6 lg:py-8">
         <div className="flex flex-col-reverse lg:flex-row lg:justify-between items-start gap-10 lg:mx-10">
           {/* ----------- FORM ---------------- */}
-          <div className="col-lg-7 col-md-8 col-sm-12 w-full lg:min-w-[600px] rounded-2xl px-4 py-8 bg-black/70 backdrop-blur shadow-md shadow-gray-400">
+          <div className="col-lg-7 col-md-8 col-sm-12 w-full lg:min-w-[600px] rounded-[32px] px-4 py-8 glass-box relative">
             <form onSubmit={handleFormSubmit} className="mt-4">
               <StepsForm step={step} isStepComplete={isStepComplete} />
 
@@ -159,15 +159,15 @@ const FormCompra = () => {
               <div className="flex justify-between mt-5">
                 {step > 0 && (
                   <button
-                    className="border w-[35%] text-white px-4 py-2 rounded-xl flex justify-center shadow hover:bg-[#fea401] transition duration-200 bg-black/70 backdrop-blur-sm"
+                    className="bg-black/30 mt-6 text-white border-black/25 text-sm uppercase font-bold p-4 rounded-md lg:btn-glass"
                     onClick={handleBack}
                   >
-                    Atrás
+                    Regresar
                   </button>
                 )}
                 {step < 2 && (
                   <button
-                    className="border w-[35%] text-white px-4 py-2 rounded-xl flex justify-center shadow hover:bg-[#fea401] transition duration-200 bg-black/70 backdrop-blur-sm"
+                    className="mt-6 btn-glass-sm lg:btn-glass"
                     onClick={handleNext}
                     type="button"
                   >
@@ -176,10 +176,12 @@ const FormCompra = () => {
                 )}
               </div>
             </form>
+
+            <div className="yellow-glow absolute top-0 w-[120%] h-[10%]"></div>
           </div>
 
           {/* ------------- CART ---------------- */}
-          <div className="col-lg-4 col-md-4 col-12 rounded-2xl px-4 py-8 bg-black/70 backdrop-blur shadow-md shadow-gray-400">
+          <div className="col-lg-4 col-md-4 col-12 border border-black/25 rounded-[32px] px-4 py-10 bg-[#fce803] backdrop-blur shadow-[inset_0_4px_6px_rgba(0,0,0,0.4)]">
             <ul className="p-0">
               {cart.map((product) => (
                 <li key={product.id}>
@@ -193,9 +195,9 @@ const FormCompra = () => {
                     </div>
 
                     <div>
-                      <h2 className="text-lg font-medium text-white">{product.name}</h2>
+                      <h2 className="text-lg font-medium text-black">{product.name}</h2>
 
-                      <div className="div-contenedor-precio text-gray-400">
+                      <div className="div-contenedor-precio text-black/65">
                         <p className="text-base font-medium mt-2">
                           ${product.final_price || product.price}
                         </p>
@@ -209,7 +211,7 @@ const FormCompra = () => {
               ))}
             </ul>
 
-            <h3 className="mt-6 mb-3 me-3 text-end text-lg font-medium text-white">
+            <h3 className="mt-6 mb-3 me-3 text-end text-lg font-medium text-black">
               Total: ${getTotalPrice()}
             </h3>
           </div>

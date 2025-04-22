@@ -52,6 +52,19 @@ code {
     .glass-box {
       @apply bg-black/20 border border-white/5 shadow-[inset_0_4px_6px_rgba(0,0,0,0.4)] backdrop-blur-[12px] rounded-[32px] overflow-hidden;
     }
+
+    .btn-glass {
+      @apply bg-black/30 text-white border border-white/25 
+             hover:bg-[#fce803] hover:text-black hover:border-black/25 
+             transition-all duration-100 rounded-2xl uppercase
+             p-4 text-sm font-bold cursor-pointer;
+    }
+
+    .btn-glass-sm {
+      @apply bg-[#fce803]
+             text-black border-black/25 rounded-md uppercase p-4 
+             text-sm font-bold cursor-pointer;
+    }
   }
 }
 
