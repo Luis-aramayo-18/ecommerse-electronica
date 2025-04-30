@@ -123,7 +123,7 @@ const FormCompra = () => {
 
   return (
     <>
-      <div className="px-6 sm:x-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-6 lg:py-8">
+      <div className="px-4  sm:x-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-6 lg:py-8">
         <div className="flex flex-col-reverse lg:flex-row lg:justify-between items-start gap-10 lg:mx-10">
           {/* ----------- FORM ---------------- */}
           <div className="col-lg-7 col-md-8 col-sm-12 w-full lg:min-w-[600px] rounded-[32px] px-4 py-8 glass-box relative">

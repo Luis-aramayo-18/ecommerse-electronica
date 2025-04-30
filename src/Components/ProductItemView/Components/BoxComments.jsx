@@ -356,7 +356,7 @@ const BoxComments = ({ comments, setComments, product, userID, api }) => {
               ) : (
                 <button
                   type="submit"
-                  className="text-white font-bold text-xs mt-3 transition-all duration-100 border border-white/25 p-4 rounded-full uppercase lg:hover:bg-[#fce803] lg:hover:text-black lg:hover:border-black/25"
+                  className="btn-glass-sm lg:btn-glass"
                 >
                   Enviar
                 </button>

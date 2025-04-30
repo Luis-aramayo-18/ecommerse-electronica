@@ -409,7 +409,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
             ></textarea>
             {isEditing ? (
               <button
-                className="text-black mt-3 p-4 ounded-xl border bg-[#fce803] cursor-pointer text-sm font-semibold uppercase"
+                className="btn-glass-sm lg:btn-glass"
                 type="button"
                 onClick={() => handleUpdateComment()}
               >
@@ -417,7 +417,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
               </button>
             ) : (
               <button
-                className="text-black mt-3 p-4 transition-all duration-200 lg:hover:text-black lg:hover:bg-[#fce803] rounded-full border border-white/25 text-white/65 bg-black/30 cursor-pointer text-sm font-semibold uppercase"
+                className="btn-glass-sm lg:btn-glass"
                 type="submit"
               >
                 {loading.post ? <Loading /> : <p>enviar</p>}
