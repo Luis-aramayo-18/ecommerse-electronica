@@ -11,6 +11,7 @@ const ListProducts = ({
   filters,
   loading,
   setLoading,
+  errorMessage,
 }) => {
   const api = useAxios();
 
@@ -58,7 +59,9 @@ const ListProducts = ({
 
   return (
     <section>
-      {loading.products ? (
+      {errorMessage ? (
+        <p className="text-xs text-center text-[#fce803]">{errorMessage}</p>
+      ) : loading.products ? (
         <Loading />
       ) : (
         <div className="lg:me-2 mt-10 lg:mt-0 grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">

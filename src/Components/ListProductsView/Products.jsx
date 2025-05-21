@@ -25,6 +25,10 @@ const Products = () => {
     categories: false,
     seeMore: false,
   });
+  const [errorMessage, setErrorMessage] = useState({
+    products: "",
+    brands: "",
+  });
   const [filters, setFilters] = useState({
     max_price: "",
     min_price: "",
@@ -68,7 +72,10 @@ const Products = () => {
         setFilteredProducts(response.data.results);
       }
     } catch (error) {
-      console.log(error);
+      setErrorMessage((prev) => ({
+        ...prev,
+        products: error.response.data.message,
+      }));
     } finally {
       setLoading((prev) => ({ ...prev, products: false, seeMore: false }));
     }
@@ -83,7 +90,10 @@ const Products = () => {
         setBrands(response.data);
       }
     } catch (error) {
-      console.log(error);
+      setErrorMessage((prev) => ({
+        ...prev,
+        brands: error.response.data.message,
+      }));
     } finally {
       setLoading((prev) => ({ ...prev, categories: false }));
     }
@@ -184,6 +194,7 @@ const Products = () => {
             valueOrder={valueOrder}
             orderListMobile={orderListMobile}
             setOrderListMobile={setOrderListMobile}
+            errorMessage={errorMessage.brands}
           />
 
           {/* ------PRODUCTS LIST----- */}
@@ -196,6 +207,7 @@ const Products = () => {
             filters={filters}
             loading={loading}
             setLoading={setLoading}
+            errorMessage={errorMessage.products}
           />
         </div>
       </div>

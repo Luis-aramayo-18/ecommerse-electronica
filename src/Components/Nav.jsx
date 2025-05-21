@@ -10,6 +10,7 @@ import Loading from "./Loading";
 const Nav = () => {
   const { setUserData, userData } = useAuth();
 
+  const [errorMessage, setErrorMessage] = useState("");
   const [searchProduct, setSearchProduct] = useState("");
   const [openMenu, setOpenMenu] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -50,7 +51,7 @@ const Nav = () => {
 
         setCategories(response.data);
       } catch (error) {
-        console.log(error);
+        setErrorMessage(error.response.data.message);
       }
     };
     getCategories();
@@ -191,37 +192,48 @@ const Nav = () => {
                       }`}
                     ></i>
                   </div>
+
                   <div
                     className={`ms-2 max-h-0 overflow-hidden transition-all duration-300 ${
                       categoryMenu ? "max-h-80" : ""
                     }`}
                   >
-                    {categories.map((category, idx) => (
-                      <Link
-                        onClick={toggleMenu}
-                        to={`/products/category/${category.id}`}
-                        key={category.id || idx}
-                        className={`block transition-all mt-1 font-semibold duration-100 hover:text-[#fce803]
+                    {errorMessage ? (
+                      <p className="text-xs text-center text-[#fce803]">
+                        {errorMessage}
+                      </p>
+                    ) : (
+                      <div>
+                        {categories.map((category, idx) => (
+                          <Link
+                            onClick={toggleMenu}
+                            to={`/products/category/${category.id}`}
+                            key={category.id || idx}
+                            className={`block transition-all mt-1 font-semibold duration-100 hover:text-[#fce803]
                           ${
                             category.id === parseInt(categoryIdFromUrl)
                               ? "text-[#fce803]"
                               : "text-white/65"
                           }`}
-                      >
-                        <p>{category.name}</p>
-                      </Link>
-                    ))}
+                          >
+                            <p>{category.name}</p>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
+
                 <Link to="/about" onClick={toggleMenu}>
                   <div className="flex justify-between items-center m-0 text-xl font-medium text-[#f0f7fe]">
                     <p>¿Quienes somos?</p>
                     <i className="bx bxs-chevron-right text-3xl"></i>
                   </div>
                 </Link>
-                <Link to="/contact" onClick={toggleMenu}>
+
+                <Link to="/faq" onClick={toggleMenu}>
                   <div className="flex justify-between items-center m-0 text-xl font-medium text-[#f0f7fe]">
-                    <p>Contacto</p>
+                    <p>Preguntas Frecuentes</p>
                     <i className="bx bxs-chevron-right text-3xl"></i>
                   </div>
                 </Link>
@@ -388,7 +400,10 @@ const Nav = () => {
                   />
                 </Link>
               ) : (
-                <Link className="flex items-end transition-all duration-100 text-white/75 lg:hover:text-white" to="/login">
+                <Link
+                  className="flex items-end transition-all duration-100 text-white/75 lg:hover:text-white"
+                  to="/login"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"

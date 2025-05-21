@@ -8,8 +8,8 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
   const [categories, setCategories] = useState("");
   const [menu, setMenu] = useState(false);
   const [errorMessage, setErrorMessage] = useState({
-    products: '',
-    categories: '',
+    products: "",
+    categories: "",
   });
   const [loading, setLoading] = useState({
     products: false,
@@ -26,18 +26,14 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
 
         setProducts(products.data.results);
       } catch (error) {
-       setErrorMessage((prev) => ({
+        setErrorMessage((prev) => ({
           ...prev,
-          products: "Error al cargar los productos en oferta",
+          products: error.response.data.message,
         }));
-        console.log(error); 
-       
       } finally {
         setLoading((prev) => ({ ...prev, products: false }));
       }
     };
-
-    console.log(errorMessage);
 
     const fetchCategories = async () => {
       setLoading((prev) => ({ ...prev, categories: true }));
@@ -49,7 +45,10 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
           setCategories(categories.data);
         }
       } catch (error) {
-        console.log(error);
+        setErrorMessage((prev) => ({
+          ...prev,
+          categories: error.response.data.message,
+        }));
       } finally {
         setLoading((prev) => ({ ...prev, categories: false }));
       }
@@ -88,7 +87,9 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
           </button>
 
           <nav className="relative w-full h-auto overflow-x-auto mt-1">
-            {loading.categories === false && categories ? (
+            {errorMessage.categories ? (
+              <p className="text-xs text-center text-[#fce803]">{errorMessage.categories}</p>
+            ) : loading.categories === false && categories ? (
               <ul
                 className={`h-full mb-0 flex items-center gap-3 overflow-x-scroll transform transition-all duration-300 absolute left-0 text-sm font-medium text-white/65 ${
                   menu
@@ -118,7 +119,9 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
         </div>
 
         <div>
-          {loading.products ? (
+          {errorMessage.products ? (
+            <p className="text-xs text-center text-[#fce803]">{errorMessage.products}</p>
+          ) : loading.products ? (
             <Loading />
           ) : (
             <StyledSlider {...settings} className="h-full">

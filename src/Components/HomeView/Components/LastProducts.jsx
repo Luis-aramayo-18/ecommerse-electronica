@@ -7,6 +7,10 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
   const [lastProducts, setLastProducts] = useState([]);
   const [categories, setCategories] = useState("");
   const [menu, setMenu] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({
+    products: "",
+    categories: "",
+  });
   const [loading, setLoading] = useState({
     products: false,
     categories: false,
@@ -24,7 +28,10 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
           setLastProducts(response.data.results);
         }
       } catch (error) {
-        console.log(error);
+        setErrorMessage((prev) => ({
+          ...prev,
+          products: error.response.data.message,
+        }));
       } finally {
         setLoading((prev) => ({ ...prev, products: false }));
       }
@@ -39,11 +46,15 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
           setCategories(response.data);
         }
       } catch (error) {
-        console.log(error);
+        setErrorMessage((prev) => ({
+          ...prev,
+          categories: error.response.data.message,
+        }));
       } finally {
         setLoading((prev) => ({ ...prev, categories: false }));
       }
     };
+
     fetchLastProducts();
     fetchCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,7 +90,11 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
         </button>
 
         <nav className="relative w-full h-auto overflow-x-auto mt-1">
-          {loading.categories === false && categories ? (
+          {errorMessage.categories ? (
+            <p className="text-xs text-center text-[#fce803]">
+              {errorMessage.categories}
+            </p>
+          ) : loading.categories === false && categories ? (
             <ul
               className={`h-full flex items-center gap-3 transform overflow-x-scroll transition-all duration-300 absolute left-0 text-sm font-medium text-[#deecfb] ${
                 menu
@@ -111,6 +126,10 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
       <div className="z-10">
         {loading.products ? (
           <Loading />
+        ) : errorMessage.products ? (
+          <p className="text-xs text-center text-[#fce803]">
+            {errorMessage.products}
+          </p>
         ) : (
           <StyledSlider {...settings}>
             {lastProducts.map((product, idx) => (

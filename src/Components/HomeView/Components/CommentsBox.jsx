@@ -12,6 +12,8 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
     delete: false,
   });
 
+  const [error, setError] = useState("");
+
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
@@ -81,7 +83,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
           setComments(response.data);
         }
       } catch (error) {
-        console.log(error);
+        setError(error.response.data.message);
       } finally {
         setLoading((prev) => ({ ...prev, get: false }));
       }
@@ -305,7 +307,9 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
 
       {/* -----COMMENTS------ */}
       <div className="my-4">
-        {loading.get === false && comments ? (
+        {error ? (
+          <p className="text-xs text-center text-[#fce803]">{error}</p>
+        ) : loading.get === false && comments ? (
           <StyledSlider {...settings}>
             {comments.map((comment) => (
               <div
@@ -416,10 +420,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
                 {loading.put ? <Loading /> : <p>actualizar</p>}
               </button>
             ) : (
-              <button
-                className="btn-glass-sm lg:btn-glass"
-                type="submit"
-              >
+              <button className="btn-glass-sm lg:btn-glass" type="submit">
                 {loading.post ? <Loading /> : <p>enviar</p>}
               </button>
             )}

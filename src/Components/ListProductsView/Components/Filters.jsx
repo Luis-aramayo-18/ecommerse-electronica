@@ -8,7 +8,7 @@ const Filters = ({
   handleFilterChange,
   brandsMenu,
   setBrandsMenu,
-  valueOrder,
+  errorMessage,
   deleteFilters,
   isDeletingFilters,
   brands,
@@ -125,23 +125,31 @@ const Filters = ({
               ></i>
             </div>
 
-            <ul
+            <div
               className={`flex flex-col gap-2 mt-2 max-h-0 overflow-hidden transition-all duration-300 text-white/65 ${
                 brandsMenu ? "max-h-52" : ""
               }`}
             >
-              {brands.map((brand) => (
-                <li
-                  key={brand.id}
-                  onClick={() => handleFilterChange("brand", brand.name)}
-                  className={`cursor-pointer text-sm lg:text-sm xl:text-base font-medium transition-all duration-100 hover:text-[#fce803] ${
-                    filters.brand === brand.name ? "text-[#fce803]" : ""
-                  }`}
-                >
-                  {brand.name}
-                </li>
-              ))}
-            </ul>
+              <ul>
+                {errorMessage ? (
+                  <li className="text-xs text-center text-[#fce803]">
+                    {errorMessage}
+                  </li>
+                ) : (
+                  brands.map((brand) => (
+                    <li
+                      key={brand.id}
+                      onClick={() => handleFilterChange("brand", brand.name)}
+                      className={`cursor-pointer text-sm lg:text-sm xl:text-base font-medium transition-all duration-100 hover:text-[#fce803] ${
+                        filters.brand === brand.name ? "text-[#fce803]" : ""
+                      }`}
+                    >
+                      {brand.name}
+                    </li>
+                  ))
+                )}
+              </ul>
+            </div>
           </div>
 
           <hr className="w-full" />
@@ -237,9 +245,7 @@ const Filters = ({
               <ul className="bg-black/70 text-white/65 border border-white/25 p-4 flex flex-col w-full gap-2 backdrop-blur-md">
                 <li
                   className={`cursor-pointer text-start transition-all duration-100 ${
-                    filters.sort === "discount"
-                      ? "text-[#fce803]"
-                      : ""
+                    filters.sort === "discount" ? "text-[#fce803]" : ""
                   }`}
                   onClick={() => handleFilterChange("sort", "discount")}
                 >
@@ -248,9 +254,7 @@ const Filters = ({
 
                 <li
                   className={`cursor-pointer text-start transition-all duration-100 ${
-                    filters.sort === "best_selling"
-                      ? "text-[#fce803]"
-                      : ""
+                    filters.sort === "best_selling" ? "text-[#fce803]" : ""
                   }`}
                   onClick={() => handleFilterChange("sort", "best_selling")}
                 >
@@ -259,9 +263,7 @@ const Filters = ({
 
                 <li
                   className={`cursor-pointer text-start transition-all duration-100 ${
-                    filters.sort === "best_rated"
-                      ? "text-[#fce803]"
-                      : ""
+                    filters.sort === "best_rated" ? "text-[#fce803]" : ""
                   }`}
                   onClick={() => handleFilterChange("sort", "best_rated")}
                 >
@@ -270,9 +272,7 @@ const Filters = ({
 
                 <li
                   className={`cursor-pointer text-start transition-all duration-100 ${
-                    filters.sort === "latest"
-                      ? "text-[#fce803]"
-                      : ""
+                    filters.sort === "latest" ? "text-[#fce803]" : ""
                   }`}
                   onClick={() => handleFilterChange("sort", "latest")}
                 >

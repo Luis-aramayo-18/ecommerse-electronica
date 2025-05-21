@@ -94,8 +94,6 @@ const ProductItem = ({ product, comments, loading }) => {
     return <div className="flex">{average}</div>;
   };
 
-  console.log(isProductInCart);
-
   return (
     <section>
       <div className="flex flex-col lg:flex-row lg:gap-4">
