@@ -7,6 +7,10 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState("");
   const [menu, setMenu] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({
+    products: '',
+    categories: '',
+  });
   const [loading, setLoading] = useState({
     products: false,
     categories: false,
@@ -22,11 +26,14 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
 
         setProducts(products.data.results);
       } catch (error) {
-        console.log(error);
+       console.log(error.response.data);
+       
       } finally {
         setLoading((prev) => ({ ...prev, products: false }));
       }
     };
+
+    console.log(errorMessage);
 
     const fetchCategories = async () => {
       setLoading((prev) => ({ ...prev, categories: true }));
@@ -79,27 +86,27 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
           <nav className="relative w-full h-auto overflow-x-auto mt-1">
             {loading.categories === false && categories ? (
               <ul
-              className={`h-full mb-0 flex items-center gap-3 overflow-x-scroll transform transition-all duration-300 absolute left-0 text-sm font-medium text-white/65 ${
-                menu
-                  ? " translate-x-0 opacity-100"
-                  : " -translate-x-full opacity-0"
-              }`}
-            >
-              {categories.map((category) => (
-                <li
-                  key={category.id}
-                  className="transition-all duration-150 hover:text-[#fce803]"
-                >
-                  <Link
-                    to={`/products/category/${category.id}?sort=discount`}
-                    onClick={handleScrollToTop}
-                    className=""
+                className={`h-full mb-0 flex items-center gap-3 overflow-x-scroll transform transition-all duration-300 absolute left-0 text-sm font-medium text-white/65 ${
+                  menu
+                    ? " translate-x-0 opacity-100"
+                    : " -translate-x-full opacity-0"
+                }`}
+              >
+                {categories.map((category) => (
+                  <li
+                    key={category.id}
+                    className="transition-all duration-150 hover:text-[#fce803]"
                   >
-                    {category.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                    <Link
+                      to={`/products/category/${category.id}?sort=discount`}
+                      onClick={handleScrollToTop}
+                      className=""
+                    >
+                      {category.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             ) : (
               <Loading />
             )}
