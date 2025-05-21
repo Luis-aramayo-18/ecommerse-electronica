@@ -26,7 +26,11 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
 
         setProducts(products.data.results);
       } catch (error) {
-       console.log(error.response.data);
+       setErrorMessage((prev) => ({
+          ...prev,
+          products: "Error al cargar los productos en oferta",
+        }));
+        console.log(error); 
        
       } finally {
         setLoading((prev) => ({ ...prev, products: false }));
