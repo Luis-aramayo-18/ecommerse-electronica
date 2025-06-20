@@ -1,23 +1,59 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../Hooks/useCart";
+import { useAxios } from "../../Hooks/useAxios";
 
 const ProductCard = ({ product, homeView, className = "", button }) => {
-  const { addToCart, removeFromCart, cart } = useCart();
-  
-  const isProductInCart = (product) => {
-    return cart.some((item) => item.id === product.id);
-  };
+  const { addToCart, cart, setLoading, setCart, setTotalPrice } = useCart();
+  const api = useAxios();
 
-  if (!product) {
-    return <div>Producto no disponible</div>;
-  }
+  const isProductInCart = (product) => {
+    return cart.some((item) => item.product_detail.id === product.id);
+  };
 
   const handleScrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
+  };
+
+  function formatPrice(price) {
+    return price.toLocaleString("es-AR");
+  }
+  
+  const removeFromCart = async (product) => {
+    const sessionKey = localStorage.getItem("sessionKey");
+    
+    try {
+      setLoading((prev) => ({ ...prev, removeFromCart: true }));
+      if (sessionKey) {
+
+        const response = await api.delete(
+          "/cart/remove-item/",
+          {
+            data: {
+              product_id: product.id,
+            },
+            headers: {
+              "X-Session-Key": sessionKey,
+            },
+          }
+        );        
+  
+        if (response.status === 200) {
+          const updateCart = cart.filter(
+            (item) => item.product_detail.id !== product.id
+          );
+          setCart(updateCart);
+          setTotalPrice(response.data.total_price);
+        }
+      }
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
+    } finally {
+      setLoading((prev) => ({ ...prev, removeFromCart: false }));
+    }
   };
 
   return (
@@ -46,7 +82,9 @@ const ProductCard = ({ product, homeView, className = "", button }) => {
         </div>
       </Link>
 
-      <div className={`h-[50%] w-full flex flex-col justify-between pt-2 ${className}`}>
+      <div
+        className={`h-[50%] w-full flex flex-col justify-between pt-2 ${className}`}
+      >
         <div>
           <h2 className="font-bold text-sm lg:text-base text-white/90">
             {product.name}
@@ -58,11 +96,7 @@ const ProductCard = ({ product, homeView, className = "", button }) => {
             <span className="font-medium">
               {product.is_on_sale ? "" : "Precio: "}
             </span>
-            $
-            {new Intl.NumberFormat("es-CO", {
-              style: "decimal",
-              minimumFractionDigits: 0,
-            }).format(product.price)}
+            ${formatPrice(product.price)}
           </p>
           <span
             className={`${
@@ -82,11 +116,7 @@ const ProductCard = ({ product, homeView, className = "", button }) => {
                   : "overflow-hidden invisible h-0"
               }`}
             >
-              Precio: $
-              {new Intl.NumberFormat("es-CO", {
-                style: "decimal",
-                minimumFractionDigits: 0,
-              }).format(product.final_price)}
+              Precio: ${formatPrice(product.final_price)}
             </p>
           </div>
         </div>
@@ -94,7 +124,9 @@ const ProductCard = ({ product, homeView, className = "", button }) => {
         <div className={`sm:block lg:block ${homeView ? "flex" : "hidden"}`}>
           <button
             className={`border border-white/25 rounded-full mt-2 w-full p-4 text-xs font-bold transition-all duration-200 lg:group-hover:bg-[#fce803] lg:group-hover:text-black  ${
-              isProductInCart(product) ? "bg-[#fce803] text-black" : "bg-black/30 text-white"
+              isProductInCart(product)
+                ? "bg-[#fce803] text-black"
+                : "bg-black/30 text-white"
             }`}
             onClick={() =>
               isProductInCart(product)

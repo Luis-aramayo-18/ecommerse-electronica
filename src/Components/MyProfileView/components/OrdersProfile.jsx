@@ -18,14 +18,14 @@ const OrdersProfile = () => {
       const userId = localStorage.getItem("userId");
       try {
         const response = await api.get(`/orders/get_orders?user_id=${userId}`);
-
+        
         setOrders(response.data);
       } catch (error) {
         console.log(error);
       }
     };
     loadOrderUser();
-  }, [api]);
+  }, []);
 
   const handleOpenModal = (order) => {
     setModalOrder(true);

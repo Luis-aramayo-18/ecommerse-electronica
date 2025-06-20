@@ -1,205 +1,431 @@
+import { update } from "lodash";
 import React, { useEffect, useState } from "react";
+import Loading from "../../Loading";
 
-const InformationProfile = ({ setSection, api }) => {
-  const [user, setUser] = useState("");
-  const [email, setEmail] = useState("");
-  const [provider, setProvider] = useState(false);
+const InformationProfile = ({ api }) => {
+  const [userData, setUserData] = useState({
+    user: "",
+    email: "",
+    dni: "",
+    phoneNumber: "",
+  });
+  const [loading2, setLoading2] = useState(false);
+  const [dni, setDni] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [banner, setBanner] = useState({
+    phone: false,
+    dni: false,
+  });
+  const [loading, setLoading] = useState({
+    dni: false,
+    phone_number: false,
+    username: false,
+    email: false,
+    user_data: false,
+  });
 
-  const [inputUserDisabled, setInputUserDisabled] = useState(true);
-  const [inputEmailDisabled, setInputEmailDisabled] = useState(true);
+  const getUserInfo = async () => {
+    try {
+      setLoading((prevState) => ({
+        ...prevState,
+        user_data: true,
+      }));
 
-  const [passwordModal, setPasswordModal] = useState(false);
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+      const response = await api.get("/my-user-info/");
+
+      if (response.status === 200) {
+        const { username, dni, email, phone_number } = response.data;
+
+        setUserData((prevState) => ({
+          ...prevState,
+          user: username,
+          dni: dni,
+          email: email,
+          phoneNumber: phone_number,
+        }));
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading((prevState) => ({
+        ...prevState,
+        user_data: false,
+      }));
+    }
+  };
+
+  const handlePhoneNumberChange = (e) => {
+    const value = e.target.value;
+
+    setPhoneNumber(value);
+  };
+
+  const handleDniChange = (e) => {
+    const value = e.target.value;
+
+    setDni(value);
+  };
+
+  const updatePhoneNumber = async () => {
+    try {
+      setLoading((prevState) => ({
+        ...prevState,
+        phone_number: true,
+      }));
+
+      if (phoneNumber) {
+        const userData = {
+          phone_number: phoneNumber,
+        };
+
+        const response = await api.patch("/user-update/", userData);
+
+        if (response.status === 200) {
+          setUserData((prevState) => ({
+            ...prevState,
+            phoneNumber: response.data.phone_number,
+          }));
+
+          setBanner((prevState) => ({
+            ...prevState,
+            phone: false,
+          }));
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading((prevState) => ({
+        ...prevState,
+        phone_number: false,
+      }));
+    }
+  };
+
+  const updateDni = async () => {
+    try {
+      setLoading((prevState) => ({
+        ...prevState,
+        dni: true,
+      }));
+
+      if (dni) {
+        const userData = {
+          dni: dni,
+        };
+
+        const response = await api.patch("/user-update/", userData);
+
+        if (response.status === 200) {
+          setUserData((prevState) => ({
+            ...prevState,
+            dni: response.data.dni,
+          }));
+
+          setBanner((prevState) => ({
+            ...prevState,
+            dni: false,
+          }));
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading((prevState) => ({
+        ...prevState,
+        dni: false,
+      }));
+    }
+  };
 
   useEffect(() => {
-    const loadDataUser = async () => {
-      const user = localStorage.getItem("username");
-      const email = localStorage.getItem("userEmail");
-      const provider = localStorage.getItem("userProvider");
-
-      setUser(user);
-      setEmail(email);
-
-      if (provider === "email") {
-        setProvider(true);
-      }
-    };
-    loadDataUser();
+    getUserInfo();
   }, []);
-
-  const updateUser = (e) => {
-    e.preventDefault();
-  };
 
   return (
     <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box relative">
       <section className="flex flex-col w-full relative">
-        {/* <button className="text-sm font-semibold uppercase text-white text-start mx-2 mb-5 " disabled>editar</button> */}
-        <form onSubmit={updateUser}>
-          <div className="flex flex-col gap-3">
-            <div className="flex flex-col gap-2 w-full lg:w-[50%]">
-              <div>
-                <p className="text-gray-400 text-sm font-semibold first-letter:uppercase mx-2 mb-2">
-                  usuario
-                </p>
-                <div className="relative flex items-center">
-                  <input
-                    id="Name"
-                    type="text"
-                    className="p-4 text-sm font-semibold bg-black/30 text-white mt-2 rounded-2xl w-full"
-                    onChange={(e) => setUser(e.target.value)}
-                    value={user}
-                    disabled={inputUserDisabled}
-                  />
+        <div className="flex flex-col">
+          {loading.user_data ? (
+            <Loading />
+          ) : (
+            <>
+              {/* --------EMAIL------- */}
+              <div className="flex flex-col w-full min-h-32 max-h-36 lg:min-h-28 lg:max-h-32">
+                <div className="flex items-center">
+                  <p className="text-gray-400 text-lg font-light first-letter:uppercase mx-2">
+                    Email
+                  </p>
 
-                  {provider === true && (
-                    <button
-                      onClick={() => setInputUserDisabled(!inputUserDisabled)}
-                      className={` text-gray-400 mt-1 absolute right-4 transition-all duration-100 lg:hover:text-white ${
-                        inputUserDisabled === false
-                          ? "text-white"
-                          : "text-gray-400"
-                      }`}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="size-5"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-                        />
-                      </svg>
-                    </button>
-                  )}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="size-5 text-green-400"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.403 12.652a3 3 0 0 0 0-5.304 3 3 0 0 0-3.75-3.751 3 3 0 0 0-5.305 0 3 3 0 0 0-3.751 3.75 3 3 0 0 0 0 5.305 3 3 0 0 0 3.75 3.751 3 3 0 0 0 5.305 0 3 3 0 0 0 3.751-3.75Zm-2.546-4.46a.75.75 0 0 0-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
+
+                <div>
+                  <p className="text-white first-letter:uppercase mx-2 mb-2 font-semibold text-sm">
+                    {userData.email}
+                  </p>
                 </div>
               </div>
-            </div>
 
-            <div className="flex flex-col gap-2 w-full lg:w-[50%] mt-5">
-              <div className="relative">
-                <p className="text-gray-400 text-sm font-semibold first-letter:uppercase mx-2 mb-2">
-                  email
-                </p>
+              <hr className="w-full my-5 m-0 bg-white/10 border-0 h-px" />
 
-                <div className="relative flex items-center">
-                  <input
-                    type="text"
-                    className="p-4 text-sm font-semibold bg-black/30 text-white mt-2 rounded-2xl w-full"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                    disabled={inputEmailDisabled}
-                    id="Email"
-                  />
-
-                  {provider === true && (
-                    <button
-                      onClick={() => setInputEmailDisabled(!inputEmailDisabled)}
-                      className={`text-gray-400 mt-1 absolute right-4 transition-all duration-100 lg:hover:text-white ${
-                        inputEmailDisabled === false
-                          ? "text-white"
-                          : "text-gray-400"
-                      }`}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="size-5"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-                        />
-                      </svg>
-                    </button>
-                  )}
+              {/* --------USER------- */}
+              <div className="flex flex-col w-full mt-2 min-h-32 max-h-36 lg:min-h-28 lg:max-h-32">
+                <div className="flex items-center">
+                  <p className="text-gray-400 text-lg font-light first-letter:uppercase mx-2">
+                    usuario
+                  </p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="size-5 text-green-400"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.403 12.652a3 3 0 0 0 0-5.304 3 3 0 0 0-3.75-3.751 3 3 0 0 0-5.305 0 3 3 0 0 0-3.751 3.75 3 3 0 0 0 0 5.305 3 3 0 0 0 3.75 3.751 3 3 0 0 0 5.305 0 3 3 0 0 0 3.751-3.75Zm-2.546-4.46a.75.75 0 0 0-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                 </div>
+                <p className="text-white first-letter:uppercase mx-2 mb-2 font-semibold text-sm">
+                  {userData.user}
+                </p>
+                {/* <button className="mb-2 mt-2 btn-glass p-2">Actualizar</button> */}
               </div>
-            </div>
-          </div>
 
-          {(inputUserDisabled === false || inputEmailDisabled === false) && (
-            <button
-              type="button"
-              className="mt-10 border bg-black/70 backdrop-blur rounded-2xl p-4 uppercase text-white text-xs font-semibold"
-              onClick={() => setPasswordModal(!passwordModal)}
-            >
-              Actualizar
-            </button>
-          )}
+              <hr className="w-full my-5 m-0 bg-white/10 border-0 h-px" />
 
-          {passwordModal && (
-            <div className="fixed z-10 top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm	 flex justify-center items-center">
-              <div className="border p-8 w-[400px] relative">
-                {provider === true ? (
-                  <div>
-                    <div className="flex flex-col justify-center items-center gap-2 w-full">
-                      <label
-                        className="flex justify-start w-full uppercase font-semibold text-gray-400"
-                        htmlFor="password"
+              {/* --------PHONE------- */}
+              <div className="flex flex-col w-full">
+                {loading.phone_number ? (
+                  <Loading />
+                ) : (
+                  <>
+                    <div className="flex items-center">
+                      <p className="text-gray-400 text-lg font-light first-letter:uppercase mx-2">
+                        Numero de telefono
+                      </p>
+
+                      {userData.phoneNumber === "" ? (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="size-5 text-yellow-500"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-8-5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 10 5Zm0 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="size-5 text-green-400"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.403 12.652a3 3 0 0 0 0-5.304 3 3 0 0 0-3.75-3.751 3 3 0 0 0-5.305 0 3 3 0 0 0-3.751 3.75 3 3 0 0 0 0 5.305 3 3 0 0 0 3.75 3.751 3 3 0 0 0 5.305 0 3 3 0 0 0 3.751-3.75Zm-2.546-4.46a.75.75 0 0 0-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
+                    </div>
+
+                    <div className="relative w-full min-h-32 max-h-36 lg:min-h-28 lg:max-h-32 overflow-hidden">
+                      <div
+                        className={`
+                absolute top-0 left-0 w-full h-full flex flex-col items-start justify-between
+                transition-all duration-500 ease-in-out mx-2
+                ${
+                  banner.phone
+                    ? "-translate-x-full opacity-0"
+                    : "translate-x-0 opacity-100"
+                }
+              `}
                       >
-                        Ingresar Actual Contraseña
-                      </label>
-                      <div className="flex items-center gap-2 relative w-full mt-3">
+                        {userData.phoneNumber ? (
+                          <p className="text-white first-letter:uppercase font-semibold text-sm">
+                            {userData.phoneNumber}
+                          </p>
+                        ) : (
+                          <p className="text-white first-letter:uppercase font-semibold text-sm text-center">
+                            No tienes ningún número de teléfono asignado.
+                          </p>
+                        )}
+                        <button
+                          onClick={() =>
+                            setBanner((prevState) => ({
+                              ...prevState,
+                              phone: true,
+                            }))
+                          }
+                          type="button"
+                          className="btn-glass p-2 w-[50%] lg:w-[20%]"
+                        >
+                          Agregar
+                        </button>
+                      </div>
+
+                      <div
+                        className={`
+                absolute top-0 left-0 w-full h-full flex flex-col items-center justify-between
+                transition-all duration-500 ease-in-out
+                ${
+                  banner.phone
+                    ? "translate-x-0 opacity-100"
+                    : "translate-x-full opacity-0"
+                }
+              `}
+                      >
                         <input
-                          type={`${showCurrentPassword ? "text" : "password"}`}
-                          onChange={(e) => setCurrentPassword(e.target.value)}
-                          value={currentPassword}
-                          className="p-2 rounded-md w-full"
-                          required
-                          id="password"
+                          placeholder="Ingresar número de teléfono"
+                          type="number"
+                          value={phoneNumber}
+                          onChange={handlePhoneNumberChange}
+                          className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] w-[60%] lg:w-[40%] py-2 text-center"
                         />
 
                         <button
-                          className="absolute right-2"
                           type="button"
-                          onClick={() =>
-                            setShowCurrentPassword(!showCurrentPassword)
-                          }
+                          className="btn-glass p-2 w-[50%] lg:w-[20%]"
+                          onClick={updatePhoneNumber}
                         >
-                          {showCurrentPassword ? (
-                            <i class="bx bx-hide"></i>
-                          ) : (
-                            <i class="bx bx-show"></i>
-                          )}
+                          Actualizar
                         </button>
                       </div>
                     </div>
-
-                    <button
-                      type="submit"
-                      className="p-2 mt-5 border uppercase w-full font-medium"
-                    >
-                      Actualizar
-                    </button>
-                  </div>
-                ) : (
-                  <button onClick={() => setSection("authentication")}>
-                    <p className="uppercase text-sm font-bold underline underline-offset-8 text-gray-400 hover:text-blue-400">
-                      Ingrese una contraseña para continuar
-                    </p>
-                  </button>
+                  </>
                 )}
-                <button
-                  className="text-white absolute top-2 right-2"
-                  onClick={() => setPasswordModal(!passwordModal)}
-                >
-                  <i className="bx bx-x text-xl"></i>
-                </button>
               </div>
-            </div>
+
+              <hr className="w-full m-0 my-5 bg-white/10 border-0 h-px" />
+
+              {/* --------DNI------- */}
+              <div className="flex flex-col w-full">
+                {loading.dni ? (
+                  <Loading />
+                ) : (
+                  <>
+                    <div className="flex items-center">
+                      <p className="text-gray-400 text-lg font-light first-letter:uppercase mx-2">
+                        DNI
+                      </p>
+
+                      {userData.dni === "" ? (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="size-5 text-yellow-500"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-8-5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 10 5Zm0 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                          className="size-5 text-green-400"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.403 12.652a3 3 0 0 0 0-5.304 3 3 0 0 0-3.75-3.751 3 3 0 0 0-5.305 0 3 3 0 0 0-3.751 3.75 3 3 0 0 0 0 5.305 3 3 0 0 0 3.75 3.751 3 3 0 0 0 5.305 0 3 3 0 0 0 3.751-3.75Zm-2.546-4.46a.75.75 0 0 0-1.214-.883l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
+                    </div>
+
+                    <div className="relative w-full min-h-32 max-h-36 lg:min-h-28 lg:max-h-32 overflow-hidden">
+                      <div
+                        className={`
+                absolute top-0 left-0 w-full h-full flex flex-col items-start justify-between
+                transition-all duration-500 ease-in-out mx-2
+                ${
+                  banner.dni
+                    ? "-translate-x-full opacity-0"
+                    : "translate-x-0 opacity-100"
+                }
+              `}
+                      >
+                        {userData.dni ? (
+                          <p className="text-white first-letter:uppercase font-semibold text-sm">
+                            {userData.dni}
+                          </p>
+                        ) : (
+                          <p className="text-white first-letter:uppercase font-semibold text-sm text-center">
+                            No tienes un DNI asignado.
+                          </p>
+                        )}
+                        <button
+                          onClick={() =>
+                            setBanner((prevState) => ({
+                              ...prevState,
+                              dni: true,
+                            }))
+                          }
+                          type="button"
+                          className="btn-glass p-2 w-[50%] lg:w-[20%]"
+                        >
+                          Agregar
+                        </button>
+                      </div>
+
+                      <div
+                        className={`
+                absolute top-0 left-0 w-full h-full flex flex-col items-center justify-between
+                transition-all duration-500 ease-in-out
+                ${
+                  banner.dni
+                    ? "translate-x-0 opacity-100"
+                    : "translate-x-full opacity-0"
+                }
+              `}
+                      >
+                        <input
+                          required
+                          placeholder="Ingresar DNI"
+                          type="number"
+                          value={dni}
+                          onChange={handleDniChange}
+                          className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] w-[60%] lg:w-[40%] py-2 text-center"
+                        />
+
+                        <button
+                          type="button"
+                          className="btn-glass p-2 w-[50%] lg:w-[20%]"
+                          onClick={updateDni}
+                        >
+                          Actualizar
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </>
           )}
-        </form>
+        </div>
       </section>
 
       <section className="yellow-glow absolute w-[40%] h-[30%] right-[5%] bottom-0"></section>

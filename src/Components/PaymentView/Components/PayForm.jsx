@@ -10,10 +10,11 @@ const PayForm = ({ setShipmentInfo, shipmentInfo }) => {
       <div className="payment-options mb-4">
         {/* Opción Efectivo */}
         <div
-          className="flex items-center mt-4 gap-3 cursor-pointer text-white/65 lg:hover:bg-[#fce803] lg:hover:text-black p-2 rounded-lg transition-all"
+          className="flex items-center mt-5 gap-3 cursor-pointer text-white/65 lg:hover:bg-[#fce803] lg:hover:text-black p-2 rounded-lg transition-all h-20 overflow-hidden"
           onClick={() => setShipmentInfo({ ...shipmentInfo, pay: "efectivo" })}
         >
           <input
+            required
             type="radio"
             id="cash"
             name="paymentMethod"
@@ -27,13 +28,12 @@ const PayForm = ({ setShipmentInfo, shipmentInfo }) => {
           </label>
         </div>
 
-        {/* Opción Transferencia */}
         <div
-          className="flex items-center mt-4 gap-3 cursor-pointer text-white/65 lg:hover:bg-[#fce803] lg:hover:text-black p-2 rounded-lg transition-all"
+          className="flex items-center mt-4 gap-3 cursor-pointer text-white/65 lg:hover:bg-[#fce803] lg:hover:text-black p-2 rounded-lg transition-all h-20 overflow-hidden"
           onClick={() =>
             setShipmentInfo({
               ...shipmentInfo,
-              pay: "transferencia",
+              pay: "mercado-pago",
             })
           }
         >
@@ -42,37 +42,31 @@ const PayForm = ({ setShipmentInfo, shipmentInfo }) => {
             id="transfers"
             name="paymentMethod"
             value="transfers"
-            checked={shipmentInfo.pay === "transferencia"}
+            checked={shipmentInfo.pay === "mercado-pago"}
             onChange={() => {}}
             className="h-5 w-5"
           />
-          <label htmlFor="transfers" className="font-medium">
-            Transferencia
-          </label>
+          <img src="/img/payment/mercadopago.png" className="w-[20%]" alt="" />
         </div>
 
-        {/* Opción Tarjeta Crédito/Débito */}
-        <div
-          className="flex items-center mt-4 gap-3 cursor-pointer text-white/65 lg:hover:bg-[#fce803] lg:hover:text-black p-2 rounded-lg transition-all"
-          onClick={() =>
-            setShipmentInfo({
-              ...shipmentInfo,
-              pay: "tarjeta",
-            })
-          }
-        >
-          <input
-            type="radio"
-            id="creditCard"
-            name="paymentMethod"
-            value="creditCard"
-            checked={shipmentInfo.pay === "tarjeta"}
-            onChange={() => {}}
-            className="h-5 w-5 "
-          />
-          <label htmlFor="creditCard" className="font-medium">
-            Tarjeta Crédito/Débito
-          </label>
+        <div className="mt-5 flex items-center gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            className="size-5 text-[#fce803]/90"
+          >
+            <path
+              fillRule="evenodd"
+              d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-8-5a.75.75 0 0 1 .75.75v4.5a.75.75 0 0 1-1.5 0v-4.5A.75.75 0 0 1 10 5Zm0 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+              clipRule="evenodd"
+            />
+          </svg>
+
+          <span className="font-medium text-xs text-[#fce803]/90">
+            Una vez finalize la compra, se acordara costo de envio con el
+            vendedor.
+          </span>
         </div>
       </div>
     </div>

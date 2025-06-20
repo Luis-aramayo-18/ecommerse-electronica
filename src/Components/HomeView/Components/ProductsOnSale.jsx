@@ -23,8 +23,8 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
       setLoading((prev) => ({ ...prev, products: true }));
       try {
         const products = await api.get("/products/?sort=discount");
-
         setProducts(products.data.results);
+        
       } catch (error) {
         setErrorMessage((prev) => ({
           ...prev,
@@ -39,7 +39,6 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
       setLoading((prev) => ({ ...prev, categories: true }));
       try {
         const categories = await api.get("/categories/on-sale-categories/");
-        console.log(categories);
 
         if (categories.status === 200) {
           setCategories(categories.data);
@@ -88,7 +87,9 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
 
           <nav className="relative w-full h-auto overflow-x-auto mt-1">
             {errorMessage.categories ? (
-              <p className="text-xs text-center text-[#fce803]">{errorMessage.categories}</p>
+              <p className="text-xs text-center text-[#fce803]">
+                {errorMessage.categories}
+              </p>
             ) : loading.categories === false && categories ? (
               <ul
                 className={`h-full mb-0 flex items-center gap-3 overflow-x-scroll transform transition-all duration-300 absolute left-0 text-sm font-medium text-white/65 ${
@@ -120,7 +121,9 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
 
         <div>
           {errorMessage.products ? (
-            <p className="text-xs text-center text-[#fce803]">{errorMessage.products}</p>
+            <p className="text-xs text-center text-[#fce803]">
+              {errorMessage.products}
+            </p>
           ) : loading.products ? (
             <Loading />
           ) : (

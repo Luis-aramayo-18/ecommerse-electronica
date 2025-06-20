@@ -15,7 +15,7 @@ const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
       setSection(sectionUrl);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
+  }, []);
 
   useEffect(() => {
     setSearchParams({ section });
@@ -30,18 +30,7 @@ const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
         }`}
         onClick={() => setSection("information")}
       >
-        <button>Información</button>
-      </li>
-
-      <li
-        className={`cursor-pointer transition-all duration-100 hover:text-black hover:border-s-2 hover:border-black p-2 ${
-          section === "authentication"
-            ? "text-black border-s-2 border-black"
-            : ""
-        }`}
-        onClick={() => setSection("authentication")}
-      >
-        <button>Autenticación</button>
+        <button>Mis datos</button>
       </li>
 
       {admin === true ? (
@@ -60,10 +49,30 @@ const Menu = ({ section, setSection, logoutUsername, admin, setAdmin }) => {
           }`}
           onClick={() => setSection("orders")}
         >
-          <button>Compras</button>
+          <button>Mis Compras</button>
         </li>
       )}
-      
+
+      <li
+        className={`cursor-pointer transition-all duration-100 hover:text-black hover:border-s-2 hover:border-black p-2 ${
+          section === "directions" ? "text-black border-s-2 border-black" : ""
+        }`}
+        onClick={() => setSection("directions")}
+      >
+        <button>Mis direcciones</button>
+      </li>
+
+      <li
+        className={`cursor-pointer transition-all duration-100 hover:text-black hover:border-s-2 hover:border-black p-2 ${
+          section === "authentication"
+            ? "text-black border-s-2 border-black"
+            : ""
+        }`}
+        onClick={() => setSection("authentication")}
+      >
+        <button>Autenticación</button>
+      </li>
+
       <li className="p-2 transition-all duration-100 hover:text-black">
         <button onClick={logoutUsername}>Salir</button>
       </li>

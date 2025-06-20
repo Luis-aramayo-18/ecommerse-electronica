@@ -10,11 +10,12 @@ import Header from "./components/Header";
 import AdminProfile from "./components/AdminProfile";
 
 import { useAuth } from "../Hooks/useAuth";
+import DirectionsProfiles from "./components/DirectionsProfiles";
 
 const MyAccount = () => {
   const api = useAxios();
 
-  const [section, setSection] = useState("");
+  const [section, setSection] = useState("information");
   const { logoutUsername } = useAuth();
   const [admin, setAdmin] = useState(false);
 
@@ -25,6 +26,9 @@ const MyAccount = () => {
 
       case "orders":
         return <OrdersProfile />;
+
+      case "directions":
+        return <DirectionsProfiles />;
 
       case "authentication":
         return <AuthProfile />;

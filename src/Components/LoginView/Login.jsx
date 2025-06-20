@@ -15,11 +15,8 @@ const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmed, setShowPasswordConfirmed] = useState(false);
-  const [loading, setLoading] = useState({
-    login: false,
-    register: false,
-  });
-  const { authError, loginEmail } = useAuth();
+
+  const { authError, loginEmail, loading } = useAuth();
 
   const {
     register: registerLogin,
@@ -47,7 +44,6 @@ const Login = () => {
 
   const registerUser = async (data) => {
     try {
-      setLoading({ ...loading, register: true });
       const response = await requestApi.createUser(data);
 
       if (response.status === 201) {
@@ -89,12 +85,14 @@ const Login = () => {
         transition: Bounce,
       });
     } finally {
-      setLoading({ ...loading, register: false });
     }
   };
 
   const loginUser = async (data) => {
     await loginEmail(data);
+
+    if (loading.loginGoogle === false) {
+    }
   };
 
   const validations = {
@@ -453,7 +451,7 @@ const Login = () => {
                     type="submit"
                     className="w-[220px] bg-[#fce803] text-black border border-black/25 text-xs font-semibold transition-all rounded-lg duration-100  lg:border-white/25 p-3 lg:text-white lg:bg-black/30 lg:hover:text-black lg:hover:border-black/25 lg:hover:bg-[#fce803]"
                   >
-                    INGRESAR
+                    {loading.loginGoogle ? <Loading /> : <p>INGRESAR</p>}
                   </button>
 
                   <GoogleLoginBtn className="w-full" />

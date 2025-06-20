@@ -51,7 +51,11 @@ const Nav = () => {
 
         setCategories(response.data);
       } catch (error) {
-        setErrorMessage(error.response.data.message);
+        if (error) {
+          setErrorMessage(error.response.data.message);
+          console.log(error);
+          
+        }
       }
     };
     getCategories();

@@ -17,38 +17,44 @@ import About from "./AboutView/About";
 import Footer from "./Footer";
 import Warranty from "./Warranty";
 import TermAndConditions from "./TermAndConditions";
+import { AuthProvider } from "./Context/AuthContext";
 
 const RoutesApp = () => {
   return (
     <>
       <ToastContainer />
       <CartProvider>
-        <Nav />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products/category/:categoryId" element={<Products />} />
-          <Route path="/google" element={<GoogleLoginBtn />} />
-          <Route
-            path="/products/category/:categoryId/product/:productId"
-            element={<Product />}
-          />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<RoutesAuth requiresAuth={true} />}>
-            <Route path="/myAccount" element={<MyAccount />} />
-          </Route>
-          <Route
-            path="/"
-            element={<RoutesAuth requiresAuth={true} requiresCart={true} />}
-          >
-            <Route path="/formCompra" element={<FormCompra />} />
-          </Route>
-          <Route path="*" element={<ErrorPage />} />
-          <Route path="/warranty" element={<Warranty />} />
-          <Route path="/terms" element={<TermAndConditions />} />
-        </Routes>
-        <Footer />
+        <AuthProvider>
+          <Nav />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/products/category/:categoryId"
+              element={<Products />}
+            />
+            <Route path="/google" element={<GoogleLoginBtn />} />
+            <Route
+              path="/products/category/:categoryId/product/:productId"
+              element={<Product />}
+            />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<RoutesAuth requiresAuth={true} />}>
+              <Route path="/myAccount" element={<MyAccount />} />
+            </Route>
+            <Route
+              path="/"
+              element={<RoutesAuth requiresAuth={true} requiresCart={true} />}
+            >
+              <Route path="/formCompra" element={<FormCompra />} />
+            </Route>
+            <Route path="*" element={<ErrorPage />} />
+            <Route path="/warranty" element={<Warranty />} />
+            <Route path="/terms" element={<TermAndConditions />} />
+          </Routes>
+          <Footer />
+        </AuthProvider>
       </CartProvider>
     </>
   );

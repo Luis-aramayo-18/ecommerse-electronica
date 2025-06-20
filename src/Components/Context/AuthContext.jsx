@@ -6,13 +6,20 @@ import { Bounce, toast } from "react-toastify";
 import { googleLogout } from "@react-oauth/google";
 
 import axios from "axios";
+import { set } from "lodash";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState({
+    loginGoogle: false,
+    loginEmail: false,
+    register: false,
+  });
   const [authError, setAuthError] = useState("");
+
   const [userData, setUserData] = useState({
     token: localStorage.getItem("authToken") || "",
     username: localStorage.getItem("username") || "",
@@ -49,22 +56,30 @@ export const AuthProvider = ({ children }) => {
   //       data
   //     );
   //   } catch (error) {
-      
+
   //   }
   // }
 
   const loginGoogle = async (credentialResponse) => {
+    const sessionKey = localStorage.getItem("sessionKey");
     try {
+      setLoading((prevState) => ({
+        ...prevState,
+        loginGoogle: true,
+      }));
       const credentialLogin = credentialResponse.credential;
 
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}google-login/`,
         {
           credential: credentialLogin,
+        },
+        {
+          headers: {
+            "X-Session-Key": sessionKey,
+          },
         }
       );
-      console.log(response);
-      
 
       if (response.status === 200) {
         toast.success(`Bienvenido`, {
@@ -87,36 +102,30 @@ export const AuthProvider = ({ children }) => {
           id,
           provider_auth,
           has_password,
+          image,
+          cart,
         } = response.data;
 
-        setUserData({
+        let newUserData = {
           token: token,
           username: username,
           email: email,
           userAdmin: is_staff,
           userId: id,
-        });
+          image: null,
+          cart: cart,
+        };
 
-        localStorage.setItem("authToken", token);
-        localStorage.setItem("username", response.data.username);
-        localStorage.setItem("userEmail", response.data.email);
-        localStorage.setItem("userAdmin", response.data.is_staff);
-        localStorage.setItem("userId", response.data.id);
-        localStorage.setItem("userProvider", provider_auth);
-        localStorage.setItem("hasPassword", has_password);
-
-        if (response.data.image) {
-          const img = response.data.image;
-
-          if (img.startsWith("http://") || img.startsWith("https://")) {
+        if (image) {
+          if (image.startsWith("http://") || image.startsWith("https://")) {
             setUserData((prevState) => ({
               ...prevState,
-              image: img,
+              image: image,
             }));
 
-            localStorage.setItem("profileImage", img);
+            localStorage.setItem("profileImage", image);
           } else {
-            const imgUrl = `http://localhost:8000${img}`;
+            const imgUrl = `http://localhost:8000${image}`;
 
             setUserData((prevState) => ({
               ...prevState,
@@ -127,12 +136,24 @@ export const AuthProvider = ({ children }) => {
           }
         }
 
+        setUserData(newUserData);
+
+        localStorage.setItem("authToken", token);
+        localStorage.setItem("username", username);
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userAdmin", is_staff);
+        localStorage.setItem("userId", id);
+        localStorage.setItem("userProvider", provider_auth);
+        localStorage.setItem("hasPassword", has_password);
+
         if (is_staff) {
           navigate("/myAccount?section=admin");
         } else {
           navigate("/");
         }
-        setAuthError(null);
+        setAuthError("null");
+
+        return { success: true, userData: newUserData };
       }
     } catch (error) {
       const errorMessage =
@@ -150,14 +171,31 @@ export const AuthProvider = ({ children }) => {
         theme: "colored",
         transition: Bounce,
       });
+    } finally {
+      setLoading((prevState) => ({
+        ...prevState,
+        loginGoogle: false,
+      }));
     }
   };
 
   const loginEmail = async (data) => {
+    const sessionKey = localStorage.getItem("sessionKey");
+
     try {
+      setLoading((prevState) => ({
+        ...prevState,
+        loginEmail: true,
+      }));
+
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}login/`,
-        data
+        data,
+        {
+          headers: {
+            "X-Session-Key": sessionKey,
+          },
+        }
       );
 
       if (response.status === 200) {
@@ -181,36 +219,30 @@ export const AuthProvider = ({ children }) => {
           id,
           provider_auth,
           has_password,
+          image,
+          cart,
         } = response.data;
 
-        setUserData({
+        let newUserData = {
           token: token,
           username: username,
           email: email,
           userAdmin: is_staff,
           userId: id,
-        });
+          image: null,
+          cart: cart,
+        };
 
-        localStorage.setItem("authToken", token);
-        localStorage.setItem("username", response.data.username);
-        localStorage.setItem("userEmail", response.data.email);
-        localStorage.setItem("hasPassword", has_password);
-        localStorage.setItem("userAdmin", response.data.is_staff);
-        localStorage.setItem("userId", response.data.id);
-        localStorage.setItem("userProvider", provider_auth);
-
-        if (response.data.image) {
-          const img = response.data.image;
-
-          if (img.startsWith("http://") || img.startsWith("https://")) {
+        if (image) {
+          if (image.startsWith("http://") || image.startsWith("https://")) {
             setUserData((prevState) => ({
               ...prevState,
-              image: img,
+              image: image,
             }));
 
-            localStorage.setItem("profileImage", img);
+            localStorage.setItem("profileImage", image);
           } else {
-            const imgUrl = `http://localhost:8000${img}`;
+            const imgUrl = `http://localhost:8000${image}`;
 
             setUserData((prevState) => ({
               ...prevState,
@@ -220,6 +252,16 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem("profileImage", imgUrl);
           }
         }
+
+        setUserData(newUserData);
+
+        localStorage.setItem("authToken", token);
+        localStorage.setItem("username", username);
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userAdmin", is_staff);
+        localStorage.setItem("userId", id);
+        localStorage.setItem("userProvider", provider_auth);
+        localStorage.setItem("hasPassword", has_password);
 
         if (is_staff) {
           navigate("/myAccount?section=admin");
@@ -244,6 +286,11 @@ export const AuthProvider = ({ children }) => {
         theme: "colored",
         transition: Bounce,
       });
+    } finally {
+      setLoading((prevState) => ({
+        ...prevState,
+        loginEmail: false,
+      }));
     }
   };
 
@@ -297,6 +344,7 @@ export const AuthProvider = ({ children }) => {
         loginEmail,
         logoutUsername,
         authError,
+        loading,
       }}
     >
       {children}
