@@ -10,7 +10,7 @@ import Loading from "./Loading";
 const Nav = () => {
   const { setUserData, userData } = useAuth();
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
   const [searchProduct, setSearchProduct] = useState("");
   const [openMenu, setOpenMenu] = useState(false);
   const [categories, setCategories] = useState([]);
@@ -54,7 +54,6 @@ const Nav = () => {
         if (error) {
           setErrorMessage(error.response.data.message);
           console.log(error);
-          
         }
       }
     };
@@ -68,6 +67,7 @@ const Nav = () => {
       const response = await api.get(
         `/products/search/?search=${searchProduct}`
       );
+      console.log(response);
 
       if (response.status === 200) {
         setBrand(response.data.products[0].brand_detail.name);
@@ -76,20 +76,27 @@ const Nav = () => {
           categories: response.data.categories,
           products: response.data.products,
         });
+
+        setErrorMessage(null);
       }
     } catch (error) {
+      setErrorMessage(error.response.data.message);
+
       if (axios.isCancel(error)) {
         console.log("Previous request canceled:", error.message);
       } else {
         console.error("Error fetching suggestions:", error);
       }
     } finally {
-      setLoading(false); // Finaliza la carga
+      setLoading(false);
     }
   };
 
   const handleSearchProduct = (e) => {
     const query = e.target.value;
+    if (query.trim() === "") {
+      setErrorMessage(null);
+    }
     setSearchProduct(query);
   };
 
@@ -129,12 +136,14 @@ const Nav = () => {
   }, [openMenu]);
 
   const deleteSuggestions = () => {
+    setErrorMessage(null);
     setSearchProduct("");
     setSuggestions({
       products: [],
       categories: [],
     });
   };
+
 
   return (
     <>
@@ -331,8 +340,14 @@ const Nav = () => {
               </div>
             </div>
 
-            {suggestions.products.length > 0 ||
-            suggestions.categories.length > 0 ? (
+            {errorMessage ? (
+              <div className="glass-box bg-black/70 absolute mt-2 left-0 top-full m-auto w-full rounded-2xl px-2 py-6 max-h-[380px] overflow-y-auto">
+                <p className="text-xs text-center font-semibold text-[#fce803]">
+                  {errorMessage}
+                </p>
+              </div>
+            ) : suggestions.categories.length > 0 ||
+              suggestions.products.length > 0 ? (
               <div className="glass-box bg-black/70 absolute mt-2 left-0 top-full m-auto w-full rounded-2xl p-2 max-h-[380px] overflow-y-auto">
                 <div className="relative">
                   <div>

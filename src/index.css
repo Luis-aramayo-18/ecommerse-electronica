@@ -50,7 +50,7 @@ code {
 
   @layer utilities {
     .glass-box {
-      @apply bg-black/20 border border-white/5 shadow-[inset_0_4px_6px_rgba(0,0,0,0.4)] backdrop-blur-[12px] rounded-[32px] overflow-hidden;
+      @apply bg-black/20 border border-white/5 shadow-[inset_0_4px_6px_rgba(0,0,0,0.4)] backdrop-blur-[12px] rounded-[32px] overflow-hidden z-10;
     }
 
     .btn-glass {
@@ -74,7 +74,7 @@ code {
   border-radius: 50%;
 }
 
-.glass-box {
+/* .glass-box {
   background-color: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.04);
   box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.4);
@@ -82,7 +82,7 @@ code {
   -webkit-backdrop-filter: blur(12px);
   border-radius: 32px;
   overflow: hidden;
-}
+} */
 
 .glass-card {
   background-color: rgba(0, 0, 0, 0.2);
@@ -102,4 +102,45 @@ code {
   opacity: 0.2;
   filter: blur(80px);
   pointer-events: none;
+}
+
+.slick-dots {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slick-dots li {
+  display: inline-flex;
+  align-items: center; 
+  justify-content: center;
+  margin: 0 5px; 
+  padding: 0; 
+  width: auto;
+  height: auto;
+}
+
+.slick-dots li button {
+  display: block; /* Asegura que el botón se comporte como un bloque para width/height */
+  width: 12px; /* Ancho del punto */
+  height: 12px; /* Alto del punto */
+  padding: 0; /* MUY IMPORTANTE: Elimina cualquier padding interno que pueda descentrarlo */
+  border: 0; /* Remueve el borde por defecto del botón */
+  outline: none; /* Remueve el contorno al hacer clic */
+  background-color: rgba(255, 255, 255, 0.4); /* Color de los inactivos (blanco semitransparente) */
+  border-radius: 50%; /* Los hace circulares */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Suaviza el cambio de color */
+
+  /* Oculta el número '1' o cualquier texto dentro del botón */
+  font-size: 0;
+  line-height: 0;
+  color: transparent;
+}
+
+.slick-dots li.slick-active button {
+  background-color: white; 
+  /* width: 14px;
+  height: 14px; */
 }

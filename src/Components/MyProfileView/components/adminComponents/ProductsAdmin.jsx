@@ -107,7 +107,7 @@ const ProductsAdmin = () => {
       color: "rgba(255, 255, 255, 0.65)",
     }),
   };
-  
+
   const settings = {
     dots: true,
     infinite: true,
@@ -135,7 +135,7 @@ const ProductsAdmin = () => {
       setLoading((prev) => ({ ...prev, get: true }));
       const response = await api.get("/products/");
 
-      if (response.status === 200) {        
+      if (response.status === 200) {
         setProducts(response.data.results);
         setFilteredProducts(response.data.results);
       }
@@ -304,6 +304,7 @@ const ProductsAdmin = () => {
     formData.append("category", selectedCategory);
     formData.append("brand", selectedBrand);
     formData.append("is_on_sale", isOnSale);
+    formData.append("stock", stock)
     if (isOnSale) {
       formData.append("discount_percentage", discountPercentage);
     }
@@ -316,6 +317,7 @@ const ProductsAdmin = () => {
 
     try {
       const response = await api.post("/products/", formData);
+      console.log(response);
 
       if (response.status === 201) {
         toast.success("producto añadido a la lista", {
@@ -624,6 +626,23 @@ const ProductsAdmin = () => {
     fetchProducts();
   };
 
+  function formatPriceForDisplay(priceInput) {
+    const priceAsNumber = parseFloat(priceInput);
+
+    if (isNaN(priceAsNumber)) {
+      return "Formato de número inválido";
+    }
+
+    const formatter = new Intl.NumberFormat("es-AR", {
+      style: "decimal",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+      useGrouping: true,
+    });
+
+    return formatter.format(priceAsNumber);
+  }
+
   return (
     <div className="w-full">
       <section className="w-full lg:w-[55%] mt-10">
@@ -766,7 +785,6 @@ const ProductsAdmin = () => {
             <label className="text-sm w-[25%] px-2 py-3 font-semibold border rounded-xl border-white/25 text-white/65 lg:hover:text-white flex items-center justify-center cursor-pointer gap-2">
               imagenes
               <input
-                required
                 type="file"
                 className="hidden"
                 multiple
@@ -930,7 +948,7 @@ const ProductsAdmin = () => {
                         {product.name}
                       </td>
 
-                      <td className="text-center">{product.price}</td>
+                      <td className="text-center">{formatPriceForDisplay(product.final_price)}</td>
 
                       <td className="text-center">
                         {product.category_detail?.name || "Sin categoría"}

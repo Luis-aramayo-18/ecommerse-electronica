@@ -41,7 +41,7 @@ const DirectionsProfiles = () => {
       borderRight: "none",
       borderColor: state.isFocused ? "#fce803" : "#ffffff40",
       color: "white",
-      padding: "10px 0",
+      padding: "8px 0",
       cursor: "pointer",
       "&:hover": {
         boxShadow: "none",
@@ -78,7 +78,7 @@ const DirectionsProfiles = () => {
     }),
     placeholder: (provided) => ({
       ...provided,
-      fontSize: "14px",
+      fontSize: "13px",
       color: "rgba(255, 255, 255, 0.65)",
     }),
   };
@@ -190,17 +190,17 @@ const DirectionsProfiles = () => {
         }
       }
     } catch (error) {
-        toast.error(`${error.response.data.message}`, {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
+      toast.error(`${error.response.data.message}`, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        transition: Bounce,
+      });
     } finally {
       setLoading((prevState) => ({
         ...prevState,
@@ -245,7 +245,7 @@ const DirectionsProfiles = () => {
 
   return (
     <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box relative">
-      <section className="relative min-h-[350px]">
+      <section className={`relative ${formActive ? "min-h-[430px]" : "min-h-[250px]"}`}>
         <div
           className={`
                  w-full h-full
@@ -393,14 +393,40 @@ const DirectionsProfiles = () => {
               <p>Recuerda, solo puedes agregar hasta 3 direcciones.</p>
             </div>
 
-            <div className="flex justify-between mt-5">
+            <div className="flex items-center gap-10 mt-5">
+              <div className="w-[30%]">
+                <Select
+                  required
+                  placeholder="Direccion"
+                  onChange={handleDirectionChange}
+                  value={options.find(
+                    (option) => option.value === directionData.direction
+                  )}
+                  options={options}
+                  styles={customStyles}
+                />
+              </div>
+
+              <div className="w-[60%] lg:w-[30%] h-full">
+                <input
+                  required
+                  onChange={handleCPChange}
+                  value={directionData.cp}
+                  placeholder="Codigo postal"
+                  type="number"
+                  className="bg-transparent h-full placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] py-2"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-10 mt-5">
               <input
                 required
                 onChange={handleStreetChange}
                 value={directionData.street}
                 placeholder="Calle"
                 type="text"
-                className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] w-[60%] lg:w-[45%] py-2"
+                className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] w-[60%] lg:w-[40%] py-2"
               />
 
               <input
@@ -409,36 +435,16 @@ const DirectionsProfiles = () => {
                 value={directionData.number}
                 placeholder="Numero"
                 type="number"
-                className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] w-[60%] lg:w-[20%] py-2"
-              />
-
-              <Select
-                required
-                placeholder="Direccion"
-                onChange={handleDirectionChange}
-                value={options.find(
-                  (option) => option.value === directionData.direction
-                )}
-                options={options}
-                styles={customStyles}
+                className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] w-[60%] lg:w-[25%] py-2"
               />
             </div>
 
-            <div className="flex items-end gap-10 mt-5">
+            <div className="flex items-end mt-5">
               <textarea
                 onChange={handleReferenceChange}
                 value={directionData.reference}
-                className="bg-transparent resize-none h-28 placeholder:text-sm text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] py-2 w-[50%]"
+                className="bg-transparent resize-none h-36 placeholder:text-sm text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] py-2 w-[80%]"
                 placeholder="Referencia:  barrio, dpto, piso, manzana, etc."
-              />
-
-              <input
-                required
-                onChange={handleCPChange}
-                value={directionData.cp}
-                placeholder="Codigo postal"
-                type="number"
-                className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] w-[60%] lg:w-[20%] py-2"
               />
             </div>
 

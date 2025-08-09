@@ -11,8 +11,12 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
     put: false,
     delete: false,
   });
-
-  const [error, setError] = useState("");
+  const [error, setError] = useState({
+    get: null,
+    post: null,
+    put: null,
+    delete: null,
+  });
 
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
@@ -94,9 +98,9 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
   }, []);
 
   const commentSubmit = async (e) => {
-    e.preventDefault();
-    setLoading((prev) => ({ ...prev, post: true }));
     try {
+      e.preventDefault();
+      setLoading((prev) => ({ ...prev, post: true }));
       const commentData = {
         comment_text: comment,
         page_id: pageId,
@@ -116,12 +120,15 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
           transition: Bounce,
         });
         setComment("");
-        setErrors({});
+        setErrors({
+          get: null,
+          post: null,
+          put: null,
+          delete: null,
+        });
         setComments((prevComments) => [...prevComments, response.data.data]);
       }
     } catch (error) {
-      console.log(error);
-
       const errorFields = error.response.data.non_field_errors;
       const errorLogin = error.response.data.message;
       if (error.response) {
@@ -158,7 +165,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
         });
       }
     } finally {
-      setLoading((prev) => ({ ...prev, get: false }));
+      setLoading((prev) => ({ ...prev, post: false }));
     }
   };
 
@@ -172,15 +179,16 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
   };
 
   const handleUpdateComment = async () => {
-    setLoading((prev) => ({ ...prev, put: true }));
-    const dataComment = {
-      comment_text: comment,
-      page_id: pageId,
-    };
-
     try {
-      const response = await api.put(`/comments/${commentId}/`, dataComment);
+      setLoading((prev) => ({ ...prev, put: true }));
+      const dataComment = {
+        comment_text: comment,
+        page_id: pageId,
+      };
 
+      const response = await api.put(`/comments/${commentId}/`, dataComment);
+      console.log(response);
+      
       if (response.status === 200) {
         toast.success(`${response.data.message}`, {
           position: "bottom-center",
@@ -194,14 +202,19 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
           transition: Bounce,
         });
         setComment("");
-        setErrors({});
+        setErrors({
+          get: null,
+          post: null,
+          put: null,
+          delete: null,
+        });
         setIsEditing(false);
         const newComment = comments.map((comment) =>
           comment.id === commentId ? { ...comment, ...dataComment } : comment
         );
         setComments(newComment);
       }
-    } catch (error) {
+    } catch (error) {      
       const errorFields = error.response.data.non_field_errors;
       const errorLogin = error.response.data.message;
       if (error.response) {
@@ -238,13 +251,13 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
         });
       }
     } finally {
-      setLoading((prev) => ({ ...prev, put: true }));
+      setLoading((prev) => ({ ...prev, put: false }));
     }
   };
 
   const handleDeleteComment = async (commentID) => {
-    setLoading((prev) => ({ ...prev, delete: true }));
     try {
+      setLoading((prev) => ({ ...prev, delete: true }));
       const response = await api.delete(`/comments/${commentID}`);
 
       if (response.status === 200) {
@@ -264,13 +277,18 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
         );
         setComments(newComments);
         setComment("");
-        setErrors({});
+        setErrors({
+          get: null,
+          post: null,
+          put: null,
+          delete: null,
+        });
         setIsEditing(false);
       }
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading((prev) => ({ ...prev, delete: true }));
+      setLoading((prev) => ({ ...prev, delete: false }));
     }
   };
 
@@ -307,9 +325,17 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
 
       {/* -----COMMENTS------ */}
       <div className="my-4">
-        {error ? (
-          <p className="text-xs text-center text-[#fce803]">{error}</p>
-        ) : loading.get === false && comments ? (
+        {loading.delete || loading.get || loading.post || loading.put ? (
+          <Loading />
+        ) : error.delete ? (
+          <p className="text-xs text-center text-[#fce803]">{error.delete}</p>
+        ) : error.get ? (
+          <p className="text-xs text-center text-[#fce803]">{error.get}</p>
+        ) : error.post ? (
+          <p className="text-xs text-center text-[#fce803]">{error.post}</p>
+        ) : error.put ? (
+          <p className="text-xs text-center text-[#fce803]">{error.put}</p>
+        ) : (
           <StyledSlider {...settings}>
             {comments.map((comment) => (
               <div
@@ -390,8 +416,6 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
               </div>
             ))}
           </StyledSlider>
-        ) : (
-          <Loading />
         )}
       </div>
 

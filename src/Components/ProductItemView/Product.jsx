@@ -61,6 +61,9 @@ const Product = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
+  console.log(product);
+  
+
   return (
     <>
       <div className="mt-10 w-full h-auto px-3 md:px-14 lg:px-24">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useAxios } from "../Hooks/useAxios";
 
@@ -11,6 +11,8 @@ import AdminProfile from "./components/AdminProfile";
 
 import { useAuth } from "../Hooks/useAuth";
 import DirectionsProfiles from "./components/DirectionsProfiles";
+import AdminMenu from "./components/adminComponents/AdminMenu";
+import SoldsAdmin from "./components/adminComponents/SoldsAdmin";
 
 const MyAccount = () => {
   const api = useAxios();
@@ -18,6 +20,13 @@ const MyAccount = () => {
   const [section, setSection] = useState("information");
   const { logoutUsername } = useAuth();
   const [admin, setAdmin] = useState(false);
+
+  useEffect(() => {
+    const adm = localStorage.getItem("userAdmin");
+    if (adm === "true") {
+      setAdmin(true);
+    }
+  }, []);
 
   const openSection = (section) => {
     switch (section) {
@@ -36,6 +45,9 @@ const MyAccount = () => {
       case "admin":
         return <AdminProfile />;
 
+      case "solds":
+        return <SoldsAdmin />;
+
       default:
         return <InformationProfile />;
     }
@@ -50,13 +62,21 @@ const MyAccount = () => {
           </div>
 
           <div className="mt-10">
-            <Menu
-              section={section}
-              setSection={setSection}
-              logoutUsername={logoutUsername}
-              admin={admin}
-              setAdmin={setAdmin}
-            />
+            {admin ? (
+              <AdminMenu
+                section={section}
+                setSection={setSection}
+                logoutUsername={logoutUsername}
+              />
+            ) : (
+              <Menu
+                section={section}
+                setSection={setSection}
+                logoutUsername={logoutUsername}
+                admin={admin}
+                setAdmin={setAdmin}
+              />
+            )}
           </div>
         </section>
 

@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import { useCart } from "../../Hooks/useCart";
 
 const ProductItem = ({ product, comments, loading }) => {
-  const { addToCart, removeFromCart, cart } = useCart();
+  const { addToCart, removeFromCart, cart, formatPrice } = useCart();
 
   const checkProductInCart = (product) => {
     if (product) {
@@ -134,11 +134,7 @@ const ProductItem = ({ product, comments, loading }) => {
                     : "text-light text-lg font-semibold"
                 }`}
               >
-                $
-                {new Intl.NumberFormat("es-CO", {
-                  style: "decimal",
-                  minimumFractionDigits: 0,
-                }).format(product.price)}
+                ${formatPrice(product.price)}
               </p>
               <p
                 className={`${
@@ -161,10 +157,7 @@ const ProductItem = ({ product, comments, loading }) => {
                 }`}
               >
                 $
-                {new Intl.NumberFormat("es-CO", {
-                  style: "decimal",
-                  minimumFractionDigits: 0,
-                }).format(product.final_price)}
+                {formatPrice(product.final_price)}
               </h2>
             </div>
 

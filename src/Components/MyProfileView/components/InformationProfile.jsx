@@ -140,7 +140,7 @@ const InformationProfile = ({ api }) => {
 
   useEffect(() => {
     getUserInfo();
-  }, []);
+  }, []);  
 
   return (
     <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box relative">
@@ -218,7 +218,7 @@ const InformationProfile = ({ api }) => {
                         Numero de telefono
                       </p>
 
-                      {userData.phoneNumber === "" ? (
+                      {userData.phoneNumber === null ? (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 20 20"
@@ -327,7 +327,7 @@ const InformationProfile = ({ api }) => {
                         DNI
                       </p>
 
-                      {userData.dni === "" ? (
+                      {userData.dni === null ? (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 20 20"

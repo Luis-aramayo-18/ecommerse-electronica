@@ -1,17 +1,19 @@
 import React, { createContext, useEffect, useState } from "react";
 import { useAxios } from "../Hooks/useAxios";
-import { set } from "lodash";
+import { useNavigate } from "react-router-dom";
 
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const api = useAxios();
+  const navigate = useNavigate();
 
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [updatingItemId, setUpdatingItemId] = useState(null);
   const [loading, setLoading] = useState({
+    addMultiplateItems: false,
     addToCart: false,
     removeFromCart: false,
     increment: false,
@@ -31,7 +33,7 @@ export function CartProvider({ children }) {
               "X-Session-Key": sessionKey,
             },
           });
-          
+
           if (response.status === 200) {
             const fetchedCart = response.data.items;
             setCart(fetchedCart);
@@ -48,15 +50,16 @@ export function CartProvider({ children }) {
   }, []);
 
   const addToCart = async (product) => {
-    const sessionKey = localStorage.getItem("sessionKey");
+    console.log(product);
 
     try {
+      const sessionKey = localStorage.getItem("sessionKey");
       setLoading((prev) => ({ ...prev, addToCart: true }));
       const response = await api.post(
         "/cart/add-item/",
         {
           product_id: product.id,
-          quantity: 1,
+          quantity: product.quantity ? product.quantity : 1,
         },
         {
           headers: {
@@ -71,11 +74,43 @@ export function CartProvider({ children }) {
 
         setCart(response.data.items);
         setTotalPrice(response.data.total_price);
+        navigate("/formCompra");
       }
     } catch (error) {
       console.error("Error adding item to cart:", error);
     } finally {
       setLoading((prev) => ({ ...prev, addToCart: false }));
+    }
+  };
+
+  const addToMultiplateItems = async (productItems) => {
+    try {
+      const sessionKey = localStorage.getItem("sessionKey");
+      setLoading((prev) => ({ ...prev, addMultiplateItems: true }));
+      const response = await api.post(
+        "/cart/add-multiplate-items/",
+        productItems,
+        {
+          headers: {
+            "X-Session-Key": sessionKey,
+          },
+        }
+      );
+      console.log(response);
+
+      if (response.status === 200) {
+        const sessionKey = response.data.session_key;
+        localStorage.setItem("sessionKey", sessionKey);
+
+        setCart(response.data.items);
+        setTotalPrice(response.data.total_price);
+
+        navigate("/formCompra");
+      }
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+    } finally {
+      setLoading((prev) => ({ ...prev, addMultiplateItems: false }));
     }
   };
 
@@ -189,6 +224,23 @@ export function CartProvider({ children }) {
     }
   };
 
+  const formatPrice = (price) => {
+    const priceAsNumber = parseFloat(price);
+
+    if (isNaN(priceAsNumber)) {
+      return "Formato de número inválido";
+    }
+
+    const formatter = new Intl.NumberFormat("es-AR", {
+      style: "decimal",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+      useGrouping: true,
+    });
+
+    return formatter.format(priceAsNumber);
+  };
+
   const clearCart = () => {
     setCart([]);
   };
@@ -199,6 +251,7 @@ export function CartProvider({ children }) {
         cart,
         setCart,
         addToCart,
+        addToMultiplateItems,
         removeFromCart,
         incrementQuantity,
         decrementQuantity,
@@ -207,6 +260,7 @@ export function CartProvider({ children }) {
         updatingItemId,
         totalPrice,
         setTotalPrice,
+        formatPrice,
       }}
     >
       {children}

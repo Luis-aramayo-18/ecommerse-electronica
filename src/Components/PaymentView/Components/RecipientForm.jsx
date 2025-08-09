@@ -133,7 +133,20 @@ const RecipientForm = ({
         number: "",
       }));
     }
-  };  
+  };
+
+  function replaceHyphensWithSpaces(textString) {
+    if (typeof textString !== "string") {
+      console.warn(
+        "La entrada no es una cadena de texto. Intentando convertirla."
+      );
+      textString = String(textString);
+    }
+
+    const result = textString.replace(/-/g, " ");
+
+    return result;
+  }
 
   return (
     <div className="w-full mt-5">
@@ -163,7 +176,7 @@ const RecipientForm = ({
                     errors.name ? " text-red-600 " : " text-green-600 "
                   }`}
                   id="name"
-                  value={shipmentInfo.name || ""}
+                  value={replaceHyphensWithSpaces(shipmentInfo.name)}
                   onChange={handleNameChange}
                   required
                 />
@@ -249,8 +262,6 @@ const RecipientForm = ({
           </div>
         </div>
       </div>
-
-      
     </div>
   );
 };

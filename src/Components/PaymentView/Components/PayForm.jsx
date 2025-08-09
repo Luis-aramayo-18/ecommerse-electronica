@@ -24,7 +24,7 @@ const PayForm = ({ setShipmentInfo, shipmentInfo }) => {
             className="h-5 w-5"
           />
           <label htmlFor="cash" className="font-medium">
-            Efectivo
+            Efectivo / Local
           </label>
         </div>
 

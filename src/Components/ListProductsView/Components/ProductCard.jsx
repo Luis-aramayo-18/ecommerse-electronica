@@ -4,7 +4,8 @@ import { useCart } from "../../Hooks/useCart";
 import { useAxios } from "../../Hooks/useAxios";
 
 const ProductCard = ({ product, homeView, className = "", button }) => {
-  const { addToCart, cart, setLoading, setCart, setTotalPrice } = useCart();
+  const { addToCart, cart, setLoading, setCart, setTotalPrice, formatPrice } =
+    useCart();
   const api = useAxios();
 
   const isProductInCart = (product) => {
@@ -18,29 +19,21 @@ const ProductCard = ({ product, homeView, className = "", button }) => {
     });
   };
 
-  function formatPrice(price) {
-    return price.toLocaleString("es-AR");
-  }
-  
   const removeFromCart = async (product) => {
     const sessionKey = localStorage.getItem("sessionKey");
-    
+
     try {
       setLoading((prev) => ({ ...prev, removeFromCart: true }));
       if (sessionKey) {
+        const response = await api.delete("/cart/remove-item/", {
+          data: {
+            product_id: product.id,
+          },
+          headers: {
+            "X-Session-Key": sessionKey,
+          },
+        });
 
-        const response = await api.delete(
-          "/cart/remove-item/",
-          {
-            data: {
-              product_id: product.id,
-            },
-            headers: {
-              "X-Session-Key": sessionKey,
-            },
-          }
-        );        
-  
         if (response.status === 200) {
           const updateCart = cart.filter(
             (item) => item.product_detail.id !== product.id
@@ -54,7 +47,7 @@ const ProductCard = ({ product, homeView, className = "", button }) => {
     } finally {
       setLoading((prev) => ({ ...prev, removeFromCart: false }));
     }
-  };
+  };  
 
   return (
     <div

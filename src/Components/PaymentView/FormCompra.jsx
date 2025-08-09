@@ -12,6 +12,7 @@ import ConfirmationForm from "./Components/ConfirmationForm";
 import DirectionForm from "./Components/DirectionForm";
 
 import "react-toastify/dist/ReactToastify.css";
+import Loading from "../Loading";
 
 const FormCompra = () => {
   const api = useAxios();
@@ -53,6 +54,7 @@ const FormCompra = () => {
     order_total: "",
     order_state: "",
     order_id: "",
+    order_methodPay: "",
   });
 
   const navigate = useNavigate();
@@ -220,10 +222,12 @@ const FormCompra = () => {
 
       if (response.status === 201) {
         setShowConfirmation(true);
+        setPreferenceId(response.data.mercadopago.preference_id);
         setOrder({
           order_state: response.data.status,
           order_id: response.data.id,
           order_total: response.data.total_amount,
+          order_methodPay: response.data.payment_method,
         });
       }
     } catch (error) {
@@ -270,53 +274,6 @@ const FormCompra = () => {
     };
   }, [showConfirmation]);
 
-  const handleMPPay = async () => {
-    try {
-      // setCart([]);
-      // setShipmentInfo({
-      //   name: "",
-      //   dni: "",
-      //   numberPhone: "",
-      //   street: "",
-      //   numberStreet: "",
-      //   comments: "",
-      //   pay: "",
-      // });
-      // setStep(0);
-      setLoading((prevState) => ({
-        ...prevState,
-        mp: true,
-      }));
-      setLoading((prevState) => ({
-        ...prevState,
-        waiting_for_payment: true,
-      }));
-      if (order.order_id) {
-        const response = await api.post("/mercadopago/create-preference/", {
-          order_id: order.order_id,
-        });
-
-        if (response.status === 200) {
-          const initPoint = response.data.init_point;
-          const preference_id = response.data.preference_id;
-
-          setPreferenceId(preference_id);
-          // if (initPoint) {
-          //   window.open(initPoint, "_blank");
-          // } else {
-          //   console.log("no se proporciono url de redireccion");
-          // }
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading((prevState) => ({
-        ...prevState,
-        mp: false,
-      }));
-    }
-  };
 
   return (
     <>
@@ -369,7 +326,7 @@ const FormCompra = () => {
                     onClick={() => handleNext()}
                     className="btn-glass sm:btn-glass-sm"
                   >
-                    siguiente
+                    CONTINUAR
                   </button>
                 ) : step === 1 ? (
                   <button
@@ -377,11 +334,11 @@ const FormCompra = () => {
                     onClick={() => handleNext()}
                     className="btn-glass sm:btn-glass-sm"
                   >
-                    siguiente
+                    CONTINUAR
                   </button>
                 ) : (
                   <button type="submit" className="btn-glass sm:btn-glass-sm">
-                    Comprar
+                    {loading.order ? <Loading /> : <p>COMPRAR</p>}
                   </button>
                 )}
               </div>
@@ -397,11 +354,18 @@ const FormCompra = () => {
                 <li key={product.product_detail.id}>
                   <div className="flex gap-5 mt-2">
                     <div className="w-40">
-                      <img
-                        className="w-full object-cover"
-                        src={product.product_detail.images[0].image}
-                        alt={product.product_detail.name}
-                      />
+                      {product.product_detail.images > 0 ? (
+                        <img
+                          className="w-full object-cover"
+                          src={product.product_detail.images[0].image}
+                          alt={product.product_detail.name}
+                        />
+                      ) : (
+                        <img
+                          src="https://static.wikia.nocookie.net/dragonball/images/e/ea/Goku_Mini_Art_%28DBD%29.png/revision/latest/scale-to-width/360?cb=20250210015816&path-prefix=es"
+                          alt=""
+                        />
+                      )}
                     </div>
 
                     <div>
@@ -447,8 +411,12 @@ const FormCompra = () => {
                   <p className="text-white/85 text-xl font-light">
                     Metodo de pago:
                   </p>
-                  <div className=" border rounded-md border-white/15 text-white/85 p-4 mt-2 backdrop-blur-md ms-5 font-medium">
-                    Mercado Pago - ARS
+                  <div className="border rounded-md border-white/15 text-white/85 p-4 mt-2 backdrop-blur-md ms-5 font-medium">
+                    {order.order_methodPay === "mercado-pago" ? (
+                      <p>Mercado Pago</p>
+                    ) : (
+                      <p>Efectivo</p>
+                    )}
                   </div>
                 </div>
                 <div className="mt-5">
@@ -509,21 +477,13 @@ const FormCompra = () => {
                     </button>
                   )} */}
                   <div>
-                    <button
-                      className="btn-glass"
-                      onClick={handleMPPay}
-                      disabled={loading.mp} 
-                    >
-                      {loading.mp
-                        ? "Generando pago..."
-                        : "Pagar con Mercado Pago"}
-                    </button>
-
-                    {preferenceId && (
+                    {preferenceId ? (
                       <Wallet
                         initialization={{ preferenceId: preferenceId }}
                         customization={{ texts: { value: "buy" } }}
                       />
+                    ) : (
+                      <Loading />
                     )}
                   </div>
                 </div>
