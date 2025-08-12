@@ -8,7 +8,7 @@ export function Cart() {
     cart,
     incrementQuantity,
     decrementQuantity,
-    totalPrice,
+    totalPrice, 
     removeFromCart,
     updatingItemId,
     formatPrice,

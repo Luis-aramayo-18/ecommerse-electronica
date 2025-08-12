@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Loading from "../../../Loading";
 import { useAxios } from "../../../Hooks/useAxios";
-import { debounce, get, set } from "lodash";
+import { debounce } from "lodash";
 import Select from "react-select";
 
 const SoldsAdmin = () => {
@@ -206,6 +206,7 @@ const SoldsAdmin = () => {
   useEffect(() => {
     fetchLastOrders();
     fetchOrdersToDeliver();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -245,7 +246,10 @@ const SoldsAdmin = () => {
       });
 
       if (updatedOrder.status === "pending" || updatedOrder.status === "paid") {
-        setFilteredOrdersToDeliver((prevOrders) => [...prevOrders, updatedOrder]);
+        setFilteredOrdersToDeliver((prevOrders) => [
+          ...prevOrders,
+          updatedOrder,
+        ]);
       }
     }
   };
@@ -307,7 +311,6 @@ const SoldsAdmin = () => {
   };
 
   console.log(selectedStatus);
-  
 
   return (
     <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box">
@@ -404,8 +407,6 @@ const SoldsAdmin = () => {
         </div>
       </div>
 
-      {/* <hr className="my-10" /> */}
-
       {/* ---- ORDENES ----- */}
       <div className="mt-10">
         <div>
@@ -495,6 +496,12 @@ const SoldsAdmin = () => {
               )}
             </tbody>
           </table>
+
+          <div>
+            {nextPage && (
+              <button className="p-4 border">ver mas</button>
+            )}
+          </div>
 
           {openModalOrder && (
             <div

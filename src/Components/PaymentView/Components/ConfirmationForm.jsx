@@ -1,4 +1,3 @@
-import Loading from "../../Loading";
 
 const ConfirmationForm = ({ shipmentInfo, loading }) => {
   return (

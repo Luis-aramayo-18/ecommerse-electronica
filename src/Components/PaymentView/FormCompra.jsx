@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useCart } from "../Hooks/useCart";
 import { toast } from "react-toastify";
 import { useAxios } from "../Hooks/useAxios";
-import { useNavigate } from "react-router-dom";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 
 import RecipientForm from "./Components/RecipientForm";
@@ -16,7 +15,7 @@ import Loading from "../Loading";
 
 const FormCompra = () => {
   const api = useAxios();
-  const { cart, setCart, totalPrice } = useCart();
+  const { cart, totalPrice } = useCart();
   const [preferenceId, setPreferenceId] = useState(null);
   const [directions, setDirections] = useState([]);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -36,9 +35,9 @@ const FormCompra = () => {
     numberStreet: "",
     cp: "",
   });
-  const [apiErrors, setApiErrors] = useState({
-    data_user: "",
-  });
+  // const [apiErrors, setApiErrors] = useState({
+  //   data_user: "",
+  // });
   const [shipmentInfo, setShipmentInfo] = useState({
     name: "",
     dni: "",
@@ -57,15 +56,14 @@ const FormCompra = () => {
     order_methodPay: "",
   });
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     initMercadoPago("APP_USR-65f65682-ae60-4130-a015-397f105a5610", {
       locale: "es-AR",
     });
 
     getUserInfo();
-    getDIrectionInfo();
+    getDIrectionInfo(); 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const isStepComplete = (step) => {
@@ -156,19 +154,16 @@ const FormCompra = () => {
         }
       }
     } catch (error) {
-      setApiErrors((prevState) => ({
-        ...prevState,
-        data_user: error.data.message,
-      }));
+      console.log(error);
     }
   };
 
   const getDIrectionInfo = async () => {
     try {
-      // setLoading((prevState) => ({
-      //   ...prevState,
-      //   get_direction: true,
-      // }));
+      setLoading((prevState) => ({
+        ...prevState,
+        get_direction: true,
+      }));
 
       const response = await api.get("/directions/");
       if (response.status === 200) {
@@ -176,18 +171,11 @@ const FormCompra = () => {
       }
     } catch (error) {
       console.log(error);
-
-      // const value = error.response.data.message;
-
-      // setErrorMessage((prevState) => ({
-      //   ...prevState,
-      //   get_direction: value,
-      // }));
     } finally {
-      // setLoading((prevState) => ({
-      //   ...prevState,
-      //   get_direction: false,
-      // }));
+      setLoading((prevState) => ({
+        ...prevState,
+        get_direction: false,
+      }));
     }
   };
 
@@ -240,23 +228,23 @@ const FormCompra = () => {
     }
   };
 
-  const orderConfirmation = () => {
-    localStorage.removeItem("shipmentInfo");
-    setShipmentInfo({
-      name: "",
-      dni: "",
-      email: "",
-      numberPhone: "",
-      street: "",
-      numberStreet: "",
-      cp: "",
-      comments: "",
-      pay: "",
-    });
-    setStep(0);
-    setCart([]);
-    // navigate("/myAccount?section=orders");
-  };
+  // const orderConfirmation = () => {
+  //   localStorage.removeItem("shipmentInfo");
+  //   setShipmentInfo({
+  //     name: "",
+  //     dni: "",
+  //     email: "",
+  //     numberPhone: "",
+  //     street: "",
+  //     numberStreet: "",
+  //     cp: "",
+  //     comments: "",
+  //     pay: "",
+  //   });
+  //   setStep(0);
+  //   setCart([]);
+  //   navigate("/myAccount?section=orders");
+  // };
 
   function formatPrice(price) {
     return price.toLocaleString("es-AR");
@@ -273,7 +261,6 @@ const FormCompra = () => {
       document.body.style.overflow = "auto";
     };
   }, [showConfirmation]);
-
 
   return (
     <>

@@ -18,6 +18,7 @@ const DirectionForm = ({
     if (defectDirection) {
       updateDirection(defectDirection.id);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleNumberStreet = (e) => {
@@ -152,10 +153,6 @@ const DirectionForm = ({
       "&:hover": {
         boxShadow: "none",
       },
-    }),
-    placeholder: (baseStyles) => ({
-      ...baseStyles,
-      fontSize: "14px",
     }),
     menu: (provided) => ({
       ...provided,

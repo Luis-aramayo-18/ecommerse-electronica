@@ -6,7 +6,7 @@ import Products from "./ListProductsView/Products";
 import Product from "./ProductItemView/Product";
 import FormCompra from "./PaymentView/FormCompra";
 import RoutesAuth from "./RoutesAuth";
-import Home from "./HomeView/Home";
+import Home from "./HomeView/Home"; 
 import Contact from "./ContactView/Contact";
 import Login from "./LoginView/Login";
 import Nav from "./Nav";

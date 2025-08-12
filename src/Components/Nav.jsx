@@ -48,12 +48,11 @@ const Nav = () => {
     const getCategories = async () => {
       try {
         const response = await api.get("/categories/");
-
+        console.log(response);
         setCategories(response.data);
       } catch (error) {
         if (error) {
           setErrorMessage(error.response.data.message);
-          console.log(error);
         }
       }
     };
@@ -62,7 +61,7 @@ const Nav = () => {
   }, []);
 
   const fetchSuggestions = async (searchProduct) => {
-    try {
+    try { 
       setLoading(true);
       const response = await api.get(
         `/products/search/?search=${searchProduct}`

@@ -12,7 +12,7 @@ const PrevArrowSlider = (props) => {
         background: "red",
         borderRadius: "50%",
         left: "-10px",
-        zIndex: 10,
+        zIndex: 10, 
       }}
       onClick={onClick}
     >

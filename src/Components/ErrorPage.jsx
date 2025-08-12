@@ -8,7 +8,7 @@ const ErrorPage = () => {
       <h2 className="text-3xl font-medium mt-5">Opps, pagina no encontrada.</h2>
       <p className="text-lg font-light mt-2">Parece que la pagina que buscas no existe.</p>
 
-      <Link className="mt-10 text- font-semibold border rounded-2xl p-4" to="/">Volver al inicio</Link>
+      <Link className="mt-10 text- font-semibold border rounded-2xl p-4" to="/">Volver al inicio</Link> 
     </div>
   );
 };

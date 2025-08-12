@@ -11,7 +11,7 @@ const Footer = () => {
   return (
     <section className="relative bg-black/75 backdrop-blur-sm px-6 sm:px-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 flex flex-col justify-center mt-28 py-5 sm:py-10">
       <div>
-        <Link to="/" onClick={handleScrollToTop}>
+        <Link to="/" onClick={handleScrollToTop}> 
           <img
             src="/img/logonav.png"
             alt="logo digital wolrd"

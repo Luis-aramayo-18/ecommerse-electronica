@@ -1,7 +1,7 @@
 import React from "react";
 
 const NextArrowSlider = (props) => {
-  const { className, style, onClick } = props;
+  const { className, style, onClick } = props; 
 
   return (
     <div

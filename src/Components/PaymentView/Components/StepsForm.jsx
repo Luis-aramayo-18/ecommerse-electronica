@@ -35,7 +35,7 @@ const StepsForm = ({ step, isStepComplete }) => {
       <div className="flex items-center">
         <div
           className={`w-10 h-10 flex items-center justify-center rounded-full text-black font-bold border border-black/25 ${
-            step == 2
+            step === 2
               ? "bg-[#fce803]"
               : step === 2
               ? "bg-gray-600"

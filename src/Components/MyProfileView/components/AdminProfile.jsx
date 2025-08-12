@@ -1,6 +1,5 @@
 import ProductsAdmin from "./adminComponents/ProductsAdmin";
 import UsersAdmin from "./adminComponents/UsersAdmin";
-import SoldsAdmin from "./adminComponents/SoldsAdmin";
 import { useState } from "react";
 
 const AdminProfile = () => {
@@ -13,9 +12,6 @@ const AdminProfile = () => {
 
       case "users":
         return <UsersAdmin />;
-
-      case "solds":
-        return <SoldsAdmin />;
 
       default:
         return <ProductsAdmin />;
@@ -42,14 +38,6 @@ const AdminProfile = () => {
               }`}
             >
               Cargar Usuario
-            </li>
-            <li
-              onClick={() => setSection("solds")}
-              className={`cursor-pointer transition-all duration-100 lg:hover:text-white ${
-                section === "solds" ? "text-white" : "text-white/65"
-              }`}
-            >
-              Mis ventas
             </li>
           </ul>
         </nav>

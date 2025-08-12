@@ -23,6 +23,7 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
       setLoading((prev) => ({ ...prev, products: true }));
       try {
         const products = await api.get("/products/?sort=discount");
+        
         setProducts(products.data.results);
         
       } catch (error) {

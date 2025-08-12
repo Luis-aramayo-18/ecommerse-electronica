@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import BreadCrumb from "./Components/BreadCrumb";
 import ProductItem from "./Components/ProductItem";
-import BoxComments from "./Components/BoxComments";
+import BoxComments from "./Components/BoxComments"; 
 import RelatedProducts from "./Components/RelatedProducts";
 import Loading from "../Loading";
 

@@ -17,14 +17,17 @@ import SoldsAdmin from "./components/adminComponents/SoldsAdmin";
 const MyAccount = () => {
   const api = useAxios();
 
-  const [section, setSection] = useState("information");
+  const [section, setSection] = useState("");
   const { logoutUsername } = useAuth();
   const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
     const adm = localStorage.getItem("userAdmin");
     if (adm === "true") {
+      setSection("solds")
       setAdmin(true);
+    } else {
+      setSection("information");
     }
   }, []);
 

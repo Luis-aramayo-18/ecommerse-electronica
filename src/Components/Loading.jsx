@@ -6,7 +6,7 @@ const Loading = ({ className = "", bg = false }) => {
       <div
         className={`${
           bg ? "border-black" : "border-[#fce803]"
-        } w-4 h-4 border-4  border-t-transparent rounded-full animate-spin`}
+        } w-4 h-4 border-4  border-t-transparent rounded-full animate-spin`} 
       ></div>
     </div>
   );
