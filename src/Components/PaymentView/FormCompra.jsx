@@ -62,7 +62,7 @@ const FormCompra = () => {
     });
 
     getUserInfo();
-    getDIrectionInfo(); 
+    getDIrectionInfo();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

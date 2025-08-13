@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { toast, Bounce } from "react-toastify";
 
-import moment from "moment";
+import moment from "moment"; 
 import Loading from "../../Loading";
 
 const CommentsBox = ({ api, userId, StyledSlider }) => {

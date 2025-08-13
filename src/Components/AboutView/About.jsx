@@ -5,7 +5,7 @@ const About = () => {
   return (
    <>
     <div>
-       <FixPage />
+       <FixPage />  
     </div>
    </>
   )

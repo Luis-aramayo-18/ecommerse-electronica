@@ -8,7 +8,7 @@ import styled from "styled-components";
 import "moment/locale/es";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import SliderImages from "./Components/SliderImages";
+import SliderImages from "./Components/SliderImages"; 
 import ProductsOnSale from "./Components/ProductsOnSale";
 import Brands from "./Components/Brands";
 import LastProducts from "./Components/LastProducts";

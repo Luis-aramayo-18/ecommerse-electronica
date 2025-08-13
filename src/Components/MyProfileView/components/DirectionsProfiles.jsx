@@ -29,6 +29,7 @@ const DirectionsProfiles = () => {
 
   useEffect(() => {
     fetchDirections();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const customStyles = {
@@ -245,7 +246,9 @@ const DirectionsProfiles = () => {
 
   return (
     <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box relative">
-      <section className={`relative ${formActive ? "min-h-[430px]" : "min-h-[250px]"}`}>
+      <section
+        className={`relative ${formActive ? "min-h-[430px]" : "min-h-[250px]"}`}
+      >
         <div
           className={`
                  w-full h-full
@@ -307,7 +310,7 @@ const DirectionsProfiles = () => {
                             <p>{direction.cp}</p>
                           </div>
                           <div className="flex items-center gap-2">
-                            {direction.reference != "" && (
+                            {direction.reference !== "" && (
                               <div>
                                 <p className="text-[#fce803]">Referencia:</p>
                                 <p>{direction.reference}</p>

@@ -1,4 +1,3 @@
-import { update } from "lodash";
 import React, { useEffect, useState } from "react";
 import Loading from "../../Loading";
 
@@ -9,7 +8,6 @@ const InformationProfile = ({ api }) => {
     dni: "",
     phoneNumber: "",
   });
-  const [loading2, setLoading2] = useState(false);
   const [dni, setDni] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [banner, setBanner] = useState({
@@ -140,7 +138,8 @@ const InformationProfile = ({ api }) => {
 
   useEffect(() => {
     getUserInfo();
-  }, []);  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box relative">

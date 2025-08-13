@@ -1,6 +1,6 @@
 import React from "react";
 
-const Contact = () => {
+const Contact = () => { 
   return (
     <section className="flex justify-center">
       <div className="glass-box overflow-hidden relative flex flex-col sm:flex-row w-[90%] sm:w-[75%] md:w-[70%] lg:w-[55%] xl:w-[50%] my-20">

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const LaptopBanner = () => {
+const LaptopBanner = () => { 
   const handleScrollToTop = () => {
     window.scrollTo({
       top: 0,

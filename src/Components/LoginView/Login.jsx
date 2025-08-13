@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../Hooks/useAuth";
 import { useAxios } from "../Hooks/useAxios";
-import apiServices from "../../api/apiServices";
 import GoogleLoginBtn from "./Components/GoogleLoginBtn";
 import { Bounce, toast } from "react-toastify";
 import Loading from "../Loading";
 
 const Login = () => {
   const api = useAxios();
-  const requestApi = apiServices(api);
 
   const [formRegister, setFormRegister] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -44,7 +42,7 @@ const Login = () => {
 
   const registerUser = async (data) => {
     try {
-      const response = await requestApi.createUser(data);
+      const response = await api.post("/register/", data);
 
       if (response.status === 201) {
         const user = data.username;

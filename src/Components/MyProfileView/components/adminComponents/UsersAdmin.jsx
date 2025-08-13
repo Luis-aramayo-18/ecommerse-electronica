@@ -1,13 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useAxios } from "../../../Hooks/useAxios";
-import apiServices from "../../../../api/apiServices";
 import Loading from "../../../Loading";
 import { Bounce, toast } from "react-toastify";
 
 const UsersAdmin = () => {
   const api = useAxios();
-  const requestApi = apiServices(api);
 
   const [showPasswordConfirmed, setShowPasswordConfirmed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -31,7 +29,7 @@ const UsersAdmin = () => {
   const registerUser = async (data) => {
     try {
       setLoading({ ...loading, register: true });
-      const response = await requestApi.createUser(data);
+      const response = await api.post("/register/", data);
 
       if (response.status === 201) {
         const user = data.username;

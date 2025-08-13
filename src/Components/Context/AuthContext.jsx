@@ -6,12 +6,11 @@ import { Bounce, toast } from "react-toastify";
 import { googleLogout } from "@react-oauth/google";
 
 import axios from "axios";
-import { set } from "lodash";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   const [loading, setLoading] = useState({
     loginGoogle: false,
@@ -46,7 +45,7 @@ export const AuthProvider = ({ children }) => {
         userId: storedUserId,
         image: storedImage,
       });
-    }
+    } 
   }, []);
 
   // const registerUser = async (data) => {

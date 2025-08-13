@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useCart } from "../../Hooks/useCart";
 import { useAxios } from "../../Hooks/useAxios";
 
-const ProductCard = ({ product, homeView, className = "", button }) => {
+const ProductCard = ({ product, homeView, className = "" }) => {
   const { addToCart, cart, setLoading, setCart, setTotalPrice, formatPrice } =
     useCart();
   const api = useAxios();

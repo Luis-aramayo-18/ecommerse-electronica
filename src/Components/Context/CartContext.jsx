@@ -10,7 +10,6 @@ export function CartProvider({ children }) {
 
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [errorMessage, setErrorMessage] = useState("");
   const [updatingItemId, setUpdatingItemId] = useState(null);
   const [loading, setLoading] = useState({
     addMultiplateItems: false,
@@ -47,6 +46,7 @@ export function CartProvider({ children }) {
       }
     };
     fetchCart();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addToCart = async (product) => {
@@ -233,7 +233,7 @@ export function CartProvider({ children }) {
 
     const formatter = new Intl.NumberFormat("es-AR", {
       style: "decimal",
-      minimumFractionDigits: 0,
+      minimumFractionDigits: 0, 
       maximumFractionDigits: 0,
       useGrouping: true,
     });
@@ -241,9 +241,6 @@ export function CartProvider({ children }) {
     return formatter.format(priceAsNumber);
   };
 
-  const clearCart = () => {
-    setCart([]);
-  };
 
   return (
     <CartContext.Provider

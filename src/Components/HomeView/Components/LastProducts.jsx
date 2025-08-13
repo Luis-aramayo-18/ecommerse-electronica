@@ -3,7 +3,7 @@ import ProductCard from "../../ListProductsView/Components/ProductCard";
 import { Link } from "react-router-dom";
 import Loading from "../../Loading";
 
-const LastProducts = ({ StyledSlider, settings, api }) => {
+const LastProducts = ({ StyledSlider, settings, api }) => { 
   const [lastProducts, setLastProducts] = useState([]);
   const [categories, setCategories] = useState("");
   const [menu, setMenu] = useState(false);
