@@ -20,6 +20,7 @@ const MyAccount = () => {
 
   const { logoutUsername } = useAuth();
 
+  const [messageConfirmation, setMessageConfirmation] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [section, setSection] = useState(
@@ -43,7 +44,13 @@ const MyAccount = () => {
         return <InformationProfile setSection={setSection} api={api} />;
 
       case "orders":
-        return <OrdersProfile setShowConfirmation={setShowConfirmation} />;
+        return (
+          <OrdersProfile
+            setShowConfirmation={setShowConfirmation}
+            setMessageConfirmation={setMessageConfirmation}
+            messageConfirmation={messageConfirmation}
+          />
+        );
 
       case "directions":
         return <DirectionsProfiles />;
@@ -74,9 +81,9 @@ const MyAccount = () => {
     };
   }, [showConfirmation]);
 
-  const handleCloseConfirmation = () =>{
+  const handleCloseConfirmation = () => {
     setShowConfirmation(false);
-  }
+  };
 
   return (
     <>
@@ -321,24 +328,80 @@ const MyAccount = () => {
         {/* ------CONFIRMATIONS MESSAGE----- */}
         {showConfirmation && (
           <section className="fixed z-50 top-0 left-0 w-full h-full bg-black bg-opacity-70 backdrop-blur-sm flex justify-center items-center">
-            <div className="glass-box relative px-6 py-10 max-w-[35%]">
-              <div className="flex flex-col items-center gap-5">
-                <h2 className="uppercase text-3xl font-bold text-green-600">
-                  ¡pago exitoso!
-                </h2>
-                <p className="text-sm font-medium text-white/85">
-                  Podras ver los detalles de tu compra en mis compras.
-                </p>
-                <img
-                  src="/img/payment/pago-exitoso.png"
-                  className="h-28 w-28"
-                  alt=""
-                />
+
+            {messageConfirmation === "paymentSuccess" ? (
+              <div className="glass-box relative px-6 py-10 max-w-[35%]">
+                <div className="flex flex-col items-center gap-5">
+                  <h2 className="uppercase text-3xl font-bold text-green-600">
+                    ¡pago exitoso!
+                  </h2>
+                  <p className="text-sm font-medium text-white/85">
+                    Podras ver los detalles de tu compra en mis compras.
+                  </p>
+                  <img
+                    src="/img/payment/pago-exitoso.png"
+                    className="h-28 w-28"
+                    alt=""
+                  />
+                </div>
+                <div className="flex justify-center mt-5 w-full">
+                  <button
+                    className="btn-glass w-full"
+                    onClick={handleCloseConfirmation}
+                  >
+                    Continuar
+                  </button>
+                </div>
               </div>
-              <div className="flex justify-center mt-5 w-full">
-                <button className="btn-glass w-full" onClick={handleCloseConfirmation}>Continuar</button>
+            ) : messageConfirmation === "paymentError" ? (
+              <div className="glass-box relative px-6 py-10 max-w-[35%]">
+                <div className="flex flex-col items-center gap-5">
+                  <h2 className="uppercase text-3xl font-bold text-green-600">
+                    ¡Hubo un problema con el pago!
+                  </h2>
+                  <p className="text-sm font-medium text-white/85">
+                    Por favor, intente nuevamente o contacte al soporte si el problema persiste.
+                  </p>
+                  <img
+                    src="/img/payment/pago-rechazado.png"
+                    className="h-28 w-28"
+                    alt=""
+                  />
+                </div>
+                <div className="flex justify-center mt-5 w-full">
+                  <button
+                    className="btn-glass w-full"
+                    onClick={handleCloseConfirmation}
+                  >
+                    Continuar
+                  </button>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="glass-box relative px-6 py-10 max-w-[35%]">
+                <div className="flex flex-col items-center gap-5">
+                  <h2 className="uppercase text-3xl font-bold text-green-600">
+                    ¡Esperando el pago!
+                  </h2>
+                  <p className="text-sm font-medium text-white/85">
+                    Podras ver los detalles de tu compra en mis compras.
+                  </p>
+                  <img
+                    src="/img/payment/pago-pendiente.png"
+                    className="h-28 w-28"
+                    alt=""
+                  />
+                </div>
+                <div className="flex justify-center mt-5 w-full">
+                  <button
+                    className="btn-glass w-full"
+                    onClick={handleCloseConfirmation}
+                  >
+                    Continuar
+                  </button>
+                </div>
+              </div>
+            )}
           </section>
         )}
       </div>

@@ -12,7 +12,7 @@ import PrevArrowSlider from "../../PrevArrowSlider";
 import { Bounce, toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 
-const OrdersProfile = ({ setShowConfirmation }) => {
+const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
   const api = useAxios();
   const { formatPrice, addToCart, addToMultiplateItems, loading } = useCart();
 
@@ -39,12 +39,25 @@ const OrdersProfile = ({ setShowConfirmation }) => {
 
   useEffect(() => {
     const paymentSuccess = searchParams.get("paymentSuccess");
+    const paymentFailed = searchParams.get("paymentFailed");
+    const paymentPending = searchParams.get("paymentPending");
     const orderId = searchParams.get("orderId");
 
     if (orderId) {
       getOrderDetails(orderId);
       if (paymentSuccess === "true") {
         setShowConfirmation(true);
+        setMessageConfirmation("paymentSuccess");
+      }
+
+      if (paymentFailed === "true") {
+        setShowConfirmation(true);
+        setMessageConfirmation("paymentFailed");
+      }
+
+      if (paymentPending === "true") {
+        setShowConfirmation(true);
+        setMessageConfirmation("paymentPending");
       }
     } else {
       loadOrdersUser();
