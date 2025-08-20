@@ -2,10 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../Hooks/useCart";
 import { useAxios } from "../../Hooks/useAxios";
+import Loading from "../../Loading";
 
 const ProductCard = ({ product, homeView, className = "" }) => {
-  const { addToCart, cart, setLoading, setCart, setTotalPrice, formatPrice } =
-    useCart();
+  const {
+    addToCart,
+    cart,
+    setLoading,
+    setCart,
+    setTotalPrice,
+    formatPrice,
+    loading,
+  } = useCart();
   const api = useAxios();
 
   const isProductInCart = (product) => {
@@ -20,10 +28,10 @@ const ProductCard = ({ product, homeView, className = "" }) => {
   };
 
   const removeFromCart = async (product) => {
-    const sessionKey = localStorage.getItem("sessionKey");
-
     try {
       setLoading((prev) => ({ ...prev, removeFromCart: true }));
+
+      const sessionKey = localStorage.getItem("sessionKey");
       if (sessionKey) {
         const response = await api.delete("/cart/remove-item/", {
           data: {
@@ -129,11 +137,11 @@ const ProductCard = ({ product, homeView, className = "" }) => {
           >
             {isProductInCart(product) ? (
               <div className="flex items-center justify-center ">
-                <p>ELIMINAR</p>
+                {loading[product.id] ? <Loading bg={true} /> : <p>ELIMINAR</p>}
               </div>
             ) : (
               <div className="flex items-center justify-center ">
-                <p>COMPRAR</p>
+                {loading[product.id] ? <Loading /> : <p>COMPRAR</p>}
               </div>
             )}
           </button>

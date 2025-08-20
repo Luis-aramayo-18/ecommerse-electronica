@@ -52,6 +52,8 @@ const Products = () => {
       if (filters.sort) params.append("sort", filters.sort);
 
       const response = await api.get(`/products/?${params.toString()}`);
+      console.log(response);
+      
       if (response.data.next) {
         const nextUrl = response.data.next;
 
@@ -72,6 +74,8 @@ const Products = () => {
         setFilteredProducts(response.data.results);
       }
     } catch (error) {
+      console.log(error);
+      
       setErrorMessage((prev) => ({
         ...prev,
         products: error.response.data.message,
@@ -162,6 +166,9 @@ const Products = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDeletingFilters]);
+
+  console.log(filters);
+  
 
   return (
     <>

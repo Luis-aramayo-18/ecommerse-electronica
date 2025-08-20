@@ -48,7 +48,6 @@ const Nav = () => {
     const getCategories = async () => {
       try {
         const response = await api.get("/categories/");
-        console.log(response);
         setCategories(response.data);
       } catch (error) {
         if (error) {

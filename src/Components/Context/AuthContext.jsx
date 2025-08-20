@@ -48,17 +48,6 @@ export const AuthProvider = ({ children }) => {
     } 
   }, []);
 
-  // const registerUser = async (data) => {
-  //   try {
-  //     const response = await axios.post(
-  //       `${process.env.REACT_APP_BASE_URL}register/`,
-  //       data
-  //     );
-  //   } catch (error) {
-
-  //   }
-  // }
-
   const loginGoogle = async (credentialResponse) => {
     const sessionKey = localStorage.getItem("sessionKey");
     try {
@@ -81,18 +70,6 @@ export const AuthProvider = ({ children }) => {
       );
 
       if (response.status === 200) {
-        toast.success(`Bienvenido`, {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
-
         const {
           token,
           username,
@@ -198,17 +175,6 @@ export const AuthProvider = ({ children }) => {
       );
 
       if (response.status === 200) {
-        toast.success(`Bienvenido`, {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Bounce,
-        });
 
         const {
           token,
@@ -326,6 +292,7 @@ export const AuthProvider = ({ children }) => {
           localStorage.removeItem("userId");
           localStorage.removeItem("profileImage");
           localStorage.removeItem("hasPassword");
+          localStorage.removeItem("sessionKey");
           navigate("/login");
         }
       }

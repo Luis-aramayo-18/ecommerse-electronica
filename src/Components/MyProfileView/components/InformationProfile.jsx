@@ -22,6 +22,11 @@ const InformationProfile = ({ api }) => {
     user_data: false,
   });
 
+  useEffect(() => {
+    getUserInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const getUserInfo = async () => {
     try {
       setLoading((prevState) => ({
@@ -30,6 +35,7 @@ const InformationProfile = ({ api }) => {
       }));
 
       const response = await api.get("/my-user-info/");
+      console.log(response);
 
       if (response.status === 200) {
         const { username, dni, email, phone_number } = response.data;
@@ -135,11 +141,6 @@ const InformationProfile = ({ api }) => {
       }));
     }
   };
-
-  useEffect(() => {
-    getUserInfo();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box relative">

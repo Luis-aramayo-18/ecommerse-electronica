@@ -46,7 +46,8 @@ const OrdersProfile = () => {
       }));
       const userId = localStorage.getItem("userId");
       const response = await api.get(`/orders/get-orders?user_id=${userId}`);
-
+      console.log(response);
+      
       if (response.status === 200) {
         setOrders(response.data);
       }

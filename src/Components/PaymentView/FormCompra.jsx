@@ -7,15 +7,17 @@ import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import RecipientForm from "./Components/RecipientForm";
 import StepsForm from "./Components/StepsForm";
 import PayForm from "./Components/PayForm";
-import ConfirmationForm from "./Components/ConfirmationForm";
 import DirectionForm from "./Components/DirectionForm";
 
 import "react-toastify/dist/ReactToastify.css";
 import Loading from "../Loading";
+import { useNavigate } from "react-router-dom";
 
 const FormCompra = () => {
   const api = useAxios();
-  const { cart, totalPrice } = useCart();
+  const navigate = useNavigate();
+
+  const { setCart, cart, totalPrice } = useCart();
   const [preferenceId, setPreferenceId] = useState(null);
   const [directions, setDirections] = useState([]);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -26,6 +28,8 @@ const FormCompra = () => {
     pago_facil: false,
     order: false,
     waiting_for_payment: false,
+    get_user_info: false,
+    get_direction: false,
   });
   const [errors, setErrors] = useState({
     number: "",
@@ -35,9 +39,7 @@ const FormCompra = () => {
     numberStreet: "",
     cp: "",
   });
-  // const [apiErrors, setApiErrors] = useState({
-  //   data_user: "",
-  // });
+
   const [shipmentInfo, setShipmentInfo] = useState({
     name: "",
     dni: "",
@@ -71,7 +73,9 @@ const FormCompra = () => {
       case 0:
         return errors.name === "" && errors.number === "" && errors.dni === "";
       case 1:
-        return errors.street === "" && errors.numberStreet === "";
+        return (
+          errors.street === "" && errors.numberStreet === "" && errors.cp === ""
+        );
       case 2:
         return shipmentInfo.pay !== "";
       case 3:
@@ -100,6 +104,10 @@ const FormCompra = () => {
 
   const getUserInfo = async () => {
     try {
+      setLoading((prevState) => ({
+        ...prevState,
+        get_user_info: true,
+      }));
       const response = await api.get("/my-user-info/");
 
       if (response.status === 200) {
@@ -155,6 +163,11 @@ const FormCompra = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading((prevState) => ({
+        ...prevState,
+        get_user_info: false,
+      }));
     }
   };
 
@@ -206,17 +219,22 @@ const FormCompra = () => {
         order: true,
       }));
       const response = await api.post("/orders/", payInf);
-      console.log(response);
+      const responseData = response.data;
 
       if (response.status === 201) {
-        setShowConfirmation(true);
-        setPreferenceId(response.data.mercadopago.preference_id);
         setOrder({
-          order_state: response.data.status,
-          order_id: response.data.id,
-          order_total: response.data.total_amount,
-          order_methodPay: response.data.payment_method,
+          order_total: responseData.total_amount,
+          order_state: responseData.status,
+          order_id: responseData.id,
+          order_methodPay: responseData.payment_method,
         });
+
+        if (responseData.payment_method === "mercado-pago") {
+          setPreferenceId(response.data.mercadopago.preference_id);
+        } else {
+          setPreferenceId(null);
+        }
+        setShowConfirmation(true);
       }
     } catch (error) {
       console.log(error);
@@ -228,26 +246,32 @@ const FormCompra = () => {
     }
   };
 
-  // const orderConfirmation = () => {
-  //   localStorage.removeItem("shipmentInfo");
-  //   setShipmentInfo({
-  //     name: "",
-  //     dni: "",
-  //     email: "",
-  //     numberPhone: "",
-  //     street: "",
-  //     numberStreet: "",
-  //     cp: "",
-  //     comments: "",
-  //     pay: "",
-  //   });
-  //   setStep(0);
-  //   setCart([]);
-  //   navigate("/myAccount?section=orders");
-  // };
+  const orderConfirmation = () => {
+    setShipmentInfo({
+      name: "",
+      dni: "",
+      email: "",
+      numberPhone: "",
+      street: "",
+      numberStreet: "",
+      cp: "",
+      comments: "",
+      pay: "",
+    });
+    setStep(0);
+    setCart([]);
+    navigate("/myAccount?section=orders");
+  };
 
   function formatPrice(price) {
-    return price.toLocaleString("es-AR");
+    const numericPrice = Number(price);
+
+    return numericPrice.toLocaleString("es-AR", {
+      style: "currency",
+      currency: "ARS",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2,
+    });
   }
 
   useEffect(() => {
@@ -261,6 +285,8 @@ const FormCompra = () => {
       document.body.style.overflow = "auto";
     };
   }, [showConfirmation]);
+
+  console.log(errors);
 
   return (
     <>
@@ -278,6 +304,7 @@ const FormCompra = () => {
                     setShipmentInfo={setShipmentInfo}
                     setErrors={setErrors}
                     errors={errors}
+                    loading={loading}
                   />
                 )}
 
@@ -288,6 +315,7 @@ const FormCompra = () => {
                     setErrors={setErrors}
                     errors={errors}
                     directions={directions}
+                    loading={loading}
                   />
                 )}
 
@@ -297,21 +325,14 @@ const FormCompra = () => {
                     shipmentInfo={shipmentInfo}
                   />
                 )}
-
-                {step === 3 && (
-                  <ConfirmationForm
-                    shipmentInfo={shipmentInfo}
-                    loading={loading}
-                  />
-                )}
               </div>
 
-              <div className="flex justify-between mt-5">
+              <div className="flex justify-center items-center mt-5">
                 {step === 0 ? (
                   <button
                     type="button"
                     onClick={() => handleNext()}
-                    className="btn-glass sm:btn-glass-sm"
+                    className="btn-glass w-[80%]"
                   >
                     CONTINUAR
                   </button>
@@ -319,12 +340,12 @@ const FormCompra = () => {
                   <button
                     type="button"
                     onClick={() => handleNext()}
-                    className="btn-glass sm:btn-glass-sm"
+                    className="btn-glass w-[80%]"
                   >
                     CONTINUAR
                   </button>
                 ) : (
-                  <button type="submit" className="btn-glass sm:btn-glass-sm">
+                  <button type="submit" className="btn-glass w-[80%]">
                     {loading.order ? <Loading /> : <p>COMPRAR</p>}
                   </button>
                 )}
@@ -341,7 +362,7 @@ const FormCompra = () => {
                 <li key={product.product_detail.id}>
                   <div className="flex gap-5 mt-2">
                     <div className="w-40">
-                      {product.product_detail.images > 0 ? (
+                      {product.product_detail.images ? (
                         <img
                           className="w-full object-cover"
                           src={product.product_detail.images[0].image}
@@ -360,9 +381,9 @@ const FormCompra = () => {
                         {product.product_detail.name}
                       </h2>
 
-                      <div className="flex items-center gap-1 text-black/85">
+                      <div className="flex items-center gap-2 text-black/85">
                         <p className="text-base font-medium">
-                          ${formatPrice(product.total_price)}
+                          {formatPrice(product.total_price)}
                         </p>
                         <p className="text-sm font-light text-black/85">
                           x{product.quantity}
@@ -377,7 +398,7 @@ const FormCompra = () => {
 
             <div className="flex gap-2 items-center justify-end mt-6 mb-3 me-3 text-end text-lg font-medium text-black">
               <p className="font-light">Total:</p>
-              <h3>${formatPrice(totalPrice)}</h3>
+              <h3>{formatPrice(totalPrice)}</h3>
             </div>
           </div>
         </div>
@@ -393,18 +414,16 @@ const FormCompra = () => {
                     {formatPrice(order.order_total)}
                   </p>
                 </div>
+
                 <hr className="w-full mt-2 border-t-1 border-white/10" />
+
                 <div className="mt-3">
                   <p className="text-white/85 text-xl font-light">
                     Metodo de pago:
                   </p>
-                  <div className="border rounded-md border-white/15 text-white/85 p-4 mt-2 backdrop-blur-md ms-5 font-medium">
-                    {order.order_methodPay === "mercado-pago" ? (
-                      <p>Mercado Pago</p>
-                    ) : (
-                      <p>Efectivo</p>
-                    )}
-                  </div>
+                  <p className="border uppercase rounded-md border-white/15 text-white/85 p-4 mt-2 backdrop-blur-md ms-5 font-medium">
+                    {order.order_methodPay} - AR
+                  </p>
                 </div>
                 <div className="mt-5">
                   <div className=" border rounded-md text-xs border-white/15 text-white/85 p-4 mt-2 backdrop-blur-md ms-5 font-medium">
@@ -415,62 +434,39 @@ const FormCompra = () => {
 
                 <div className="absolute top-1 right-1">
                   {order.order_state === "pending" ? (
-                    <p className="text-xs font-medium text-green-400">
-                      Pendiente de pago
+                    <p className="text-sm font-medium text-green-600">
+                      En espera de pago
                     </p>
                   ) : (
-                    <p className="text-xs font-medium text-green-400">
+                    <p className="text-sm font-medium text-green-600">
                       En espera de entrega
                     </p>
                   )}
                 </div>
 
                 <div className="flex flex-col items-center mt-5">
-                  <p className="text-xs text-[#fce803] mb-2">
-                    El horario de atencion es de 08 a 16hs
-                  </p>
-                  {/* {shipmentInfo.pay === "mercado-pago" ? (
-                    loading.waiting_for_payment ? (
-                      <button
-                        onClick={handleMPPay}
-                        className="flex w-full justify-center gap-2 items-center font-semibold text-sm bg-[#0f70b6de]/80 transition-all duration-100 hover:text-white hover:bg-[#0F70B6] text-white/85 rounded-2xl"
-                      >
-                        <img
-                          src="/img/payment/confirmarpago-mp.png"
-                          className="w-14"
-                          alt="Esperando pago"
-                        />
-                        <p>Esperando por el pago...</p>
-                      </button>
-                    ) : (
-                      <button
-                        onClick={handleMPPay}
-                        className="flex w-full justify-center gap-2 items-center font-semibold text-sm bg-[#0f70b6de] transition-all duration-100 hover:text-white hover:bg-[#0F70B6] text-white/85 rounded-2xl"
-                      >
-                        <img
-                          src="/img/payment/confirmarpago-mp.png"
-                          className="w-14"
-                          alt="Continuar con Mercado Pago"
-                        />
-                        <p>Continuar con Mercado pago</p>
-                      </button>
-                    )
-                  ) : (
-                    <button
-                      className="btn-glass-sm lg:btn-glass"
-                      onClick={orderConfirmation}
-                    >
-                      Confirmar
-                    </button>
-                  )} */}
                   <div>
-                    {preferenceId ? (
+                    <p className="text-xs text-[#fce803] mb-2">
+                      El horario de atencion es de 08 a 16hs
+                    </p>
+                  </div>
+
+                  <div className="w-full">
+                    {order.order_methodPay === "mercado-pago" &&
+                    preferenceId ? (
                       <Wallet
                         initialization={{ preferenceId: preferenceId }}
                         customization={{ texts: { value: "buy" } }}
                       />
                     ) : (
-                      <Loading />
+                      <div className="w-full flex justify-center items-center">
+                        <button
+                          className="btn-glass w-[80%]"
+                          onClick={orderConfirmation}
+                        >
+                          Confirmar
+                        </button>
+                      </div>
                     )}
                   </div>
                 </div>

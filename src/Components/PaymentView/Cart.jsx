@@ -8,10 +8,11 @@ export function Cart() {
     cart,
     incrementQuantity,
     decrementQuantity,
-    totalPrice, 
+    totalPrice,
     removeFromCart,
     updatingItemId,
     formatPrice,
+    loading,
   } = useCart();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,32 +46,38 @@ export function Cart() {
 
   return (
     <>
-      <button
-        onClick={openModal}
-        className="flex flex-col justify-center items-center relative transition-all duration-100 lg:hover:text-white"
-      >
-        {cart.length > 0 && (
-          <span className="absolute top-0 -left-3 bg-[#fce803] rounded-full w-5 h-5 flex items-center justify-center text-xs">
-            {cart.length}
-          </span>
+      <div>
+        {loading.get ? (
+          <Loading />
+        ) : (
+          <button
+            onClick={openModal}
+            className="flex flex-col justify-center items-center relative transition-all duration-100 lg:hover:text-white"
+          >
+            {cart.length > 0 && (
+              <span className="absolute top-0 -left-3 bg-[#fce803] rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                {cart.length}
+              </span>
+            )}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className={`size-7 ${
+                cart.length > 0
+                  ? "text-white"
+                  : "text-white/75 transition-all duration-100 lg:hover:text-white"
+              } `}
+            >
+              <path
+                fillRule="evenodd"
+                d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 0 0 4.25 22.5h15.5a1.875 1.875 0 0 0 1.865-2.071l-1.263-12a1.875 1.875 0 0 0-1.865-1.679H16.5V6a4.5 4.5 0 1 0-9 0ZM12 3a3 3 0 0 0-3 3v.75h6V6a3 3 0 0 0-3-3Zm-3 8.25a3 3 0 1 0 6 0v-.75a.75.75 0 0 1 1.5 0v.75a4.5 4.5 0 1 1-9 0v-.75a.75.75 0 0 1 1.5 0v.75Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
         )}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className={`size-7 ${
-            cart.length > 0
-              ? "text-white"
-              : "text-white/75 transition-all duration-100 lg:hover:text-white"
-          } `}
-        >
-          <path
-            fillRule="evenodd"
-            d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 0 0 4.25 22.5h15.5a1.875 1.875 0 0 0 1.865-2.071l-1.263-12a1.875 1.875 0 0 0-1.865-1.679H16.5V6a4.5 4.5 0 1 0-9 0ZM12 3a3 3 0 0 0-3 3v.75h6V6a3 3 0 0 0-3-3Zm-3 8.25a3 3 0 1 0 6 0v-.75a.75.75 0 0 1 1.5 0v.75a4.5 4.5 0 1 1-9 0v-.75a.75.75 0 0 1 1.5 0v.75Z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </button>
+      </div>
 
       <div
         className={`${
@@ -99,7 +106,7 @@ export function Cart() {
                       <div className="w-28 m-2">
                         <img
                           className="w-full object-cover"
-                          src={product.product_detail.images[0]}
+                          src={product.product_detail.images[0].image}
                           alt={
                             product.product_detail.name || "Producto sin imagen"
                           }

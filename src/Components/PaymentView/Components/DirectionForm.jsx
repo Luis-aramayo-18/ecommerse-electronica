@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
+import Loading from "../../Loading";
 
 const DirectionForm = ({
   shipmentInfo,
@@ -7,6 +8,7 @@ const DirectionForm = ({
   setErrors,
   errors,
   directions,
+  loading,
 }) => {
   const [selectedDirection, setselectedDirection] = useState(null);
 
@@ -21,23 +23,12 @@ const DirectionForm = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleNumberStreet = (e) => {
-    const value = e.target.value;
-    setShipmentInfo((prev) => ({
-      ...prev,
-      numberStreet: value,
-    }));
-    validateNumberStreet(value);
-  };
-
-  const handleStreetChange = (e) => {
-    const value = e.target.value;
-    setShipmentInfo((prev) => ({
-      ...prev,
-      street: value,
-    }));
-    validateStreet(value);
-  };
+  useEffect(() => {
+    validateStreet(shipmentInfo.street);
+    validateNumberStreet(shipmentInfo.numberStreet);
+    validateCp(shipmentInfo.cp);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shipmentInfo.street, shipmentInfo.numberStreet, shipmentInfo.cp]);
 
   const handleCPChange = (e) => {
     const value = e.target.value;
@@ -46,6 +37,43 @@ const DirectionForm = ({
       ...prev,
       cp: value,
     }));
+
+    validateCp(value);
+  };
+
+  const validateCp = (value) => {
+    if (value.trim() === "") {
+      setErrors((prevState) => ({
+        ...prevState,
+        cp: "Complete este campo.",
+      }));
+    } else if (value.length > 10) {
+      setErrors((prevState) => ({
+        ...prevState,
+        cp: "Máximo 10 caracteres.",
+      }));
+    } else if (value.length < 2) {
+      setErrors((prevState) => ({
+        ...prevState,
+        cp: "Mínimo 2 caracteres.",
+      }));
+    } else {
+      setErrors((prevState) => ({
+        ...prevState,
+        cp: "",
+      }));
+    }
+  };
+
+  const handleStreetChange = (e) => {
+    const value = e.target.value;
+
+    setShipmentInfo((prev) => ({
+      ...prev,
+      street: value,
+    }));
+
+    validateStreet(value);
   };
 
   const validateStreet = (value) => {
@@ -75,6 +103,17 @@ const DirectionForm = ({
         street: "",
       }));
     }
+  };
+
+  const handleNumberStreet = (e) => {
+    const value = e.target.value;
+
+    setShipmentInfo((prev) => ({
+      ...prev,
+      numberStreet: value,
+    }));
+
+    validateNumberStreet(value);
   };
 
   const validateNumberStreet = (value) => {
@@ -196,106 +235,115 @@ const DirectionForm = ({
         Datos del domicilio
       </h2>
 
-      <div>
-        <Select
-          required
-          placeholder="Direcciones"
-          onChange={handleDirectionChange}
-          options={options}
-          styles={customStyles}
-          value={selectedDirection}
-        />
-      </div>
-
-      <div className="flex flex-col lg:flex-row gap-4 mt-10">
-        <div className="relative w-full lg:w-[50%]">
-          <label htmlFor="" className="font-semibold text-gray-400 text-sm">
-            Calle
-          </label>
-          <div className="flex mt-1">
-            <input
-              placeholder="Ingresar nombre de la calle."
-              type="text"
-              className={`block bg-transparent placeholder:text-xs text-white w-full pb-2 border-b border-white/25 focus:border-[#fce803] focus:outline-none ${
-                errors.street ? " text-red-600 " : " text-green-600 "
-              }`}
-              value={shipmentInfo.street || ""}
-              onChange={handleStreetChange}
+      {loading.get_direction ? (
+        <Loading />
+      ) : (
+        <div>
+          <div>
+            <Select
               required
+              placeholder="Direcciones"
+              onChange={handleDirectionChange}
+              options={options}
+              styles={customStyles}
+              value={selectedDirection}
             />
-            <p className="absolute right-3 text-white/65 text-2xl">*</p>
           </div>
-          {errors.street && (
-            <div className="text-sm text-red-500 mt-1">{errors.street}</div>
-          )}
-        </div>
 
-        <div className="lg:ms-3 relative">
-          <label htmlFor="" className="font-semibold text-gray-400 text-sm">
-            Numero
-          </label>
-          <div className="flex mt-1">
-            <input
-              placeholder="Ingrese el numero de la calle."
-              type="number"
-              className={`block bg-transparent text-white placeholder:text-xs w-full pb-2 border-b border-white/25 focus:border-[#fce803] focus:outline-none ${
-                errors.numberStreet ? " text-red-600 " : " text-green-600 "
-              }`}
-              value={shipmentInfo.numberStreet || ""}
-              onChange={handleNumberStreet}
-              required
-            />
-            <p className="absolute right-3 text-white/65 text-2xl">*</p>
-          </div>
-          {errors.numberStreet && (
-            <div className="text-sm text-red-500 mt-1">
-              {errors.numberStreet}
+          <div className="flex flex-col lg:flex-row gap-4 mt-10">
+            <div className="relative w-full lg:w-[50%]">
+              <label htmlFor="" className="font-semibold text-gray-400 text-sm">
+                Calle
+              </label>
+
+              <div className="flex mt-1">
+                <input
+                  placeholder="Ingresar nombre de la calle."
+                  type="text"
+                  className={`block bg-transparent placeholder:text-xs text-white w-full pb-2 border-b border-white/25 focus:border-[#fce803] focus:outline-none ${
+                    errors.street ? " text-red-600 " : ""
+                  }`}
+                  value={shipmentInfo.street}
+                  onChange={handleStreetChange}
+                  required
+                />
+                <p className="absolute right-3 text-white/65 text-2xl">*</p>
+              </div>
+              {errors.street && (
+                <p className="text-sm text-red-500 mt-1">{errors.street}</p>
+              )}
             </div>
-          )}
-        </div>
-      </div>
 
-      <div className="mt-10">
-        <div className="relative w-full lg:w-[28%]">
-          <label htmlFor="" className="font-semibold text-gray-400 text-sm">
-            Codigo Postal
-          </label>
-          <div className="flex mt-1">
-            <input
-              placeholder="Ingrese C/P de su ciudad."
-              type="text"
-              className={`block bg-transparent placeholder:text-xs text-white w-full pb-2 border-b border-white/25 focus:border-[#fce803] focus:outline-none ${
-                errors.street ? " text-red-600 " : " text-green-600 "
-              }`}
-              value={shipmentInfo.cp || ""}
-              onChange={handleCPChange}
-              required
-            />
-            <p className="absolute right-3 text-white/65 text-2xl">*</p>
+            <div className="lg:ms-3 relative">
+              <label htmlFor="" className="font-semibold text-gray-400 text-sm">
+                Numero
+              </label>
+
+              <div className="flex mt-1">
+                <input
+                  placeholder="Ingrese el numero de la calle."
+                  type="number"
+                  className={`block bg-transparent text-white placeholder:text-xs w-full pb-2 border-b border-white/25 focus:border-[#fce803] focus:outline-none ${
+                    errors.numberStreet ? " text-red-600 " : ""
+                  }`}
+                  value={shipmentInfo.numberStreet}
+                  onChange={handleNumberStreet}
+                  required
+                />
+                <p className="absolute right-3 text-white/65 text-2xl">*</p>
+              </div>
+              {errors.numberStreet && (
+                <div className="text-sm text-red-500 mt-1">
+                  {errors.numberStreet}
+                </div>
+              )}
+            </div>
           </div>
-          {errors.cp && (
-            <div className="text-sm text-red-500 mt-1">{errors.cp}</div>
-          )}
-        </div>
 
-        <div className="mt-8">
-          <textarea
-            type="text"
-            className={`min-h-[120px] placeholder:text-xs resize-none bg-transparent block w-full pb-2 mt-1 border-b border-white/25 focus:outline-none focus:border-[#fce803] ${
-              shipmentInfo.comments ? " text-green-600 " : " text-gray-700 "
-            }`}
-            placeholder="Ingrese, piso, dpto, barrio, lote, manzana etc.."
-            id="textReference"
-            value={shipmentInfo.comments || ""}
-            onChange={(e) =>
-              setShipmentInfo((prev) => ({
-                ...prev,
-                comments: e.target.value,
-              }))
-            }
-          />
+          <div className="mt-10">
+            <div className="relative w-full lg:w-[28%]">
+              <label htmlFor="" className="font-semibold text-gray-400 text-sm">
+                Codigo Postal
+              </label>
+
+              <div className="flex mt-1">
+                <input
+                  placeholder="Ingrese C/P de su ciudad."
+                  type="text"
+                  className={`block bg-transparent placeholder:text-xs text-white w-full pb-2 border-b border-white/25 focus:border-[#fce803] focus:outline-none ${
+                    errors.street ? " text-red-600 " : ""
+                  }`}
+                  value={shipmentInfo.cp}
+                  onChange={handleCPChange}
+                  required
+                />
+                <p className="absolute right-3 text-white/65 text-2xl">*</p>
+              </div>
+              {errors.cp && (
+                <div className="text-sm text-red-500 mt-1">{errors.cp}</div>
+              )}
+            </div>
+
+            <div className="mt-8">
+              <textarea
+                type="text"
+                className={`min-h-[120px] placeholder:text-xs resize-none bg-transparent block w-full pb-2 mt-1 border-b border-white/25 focus:outline-none focus:border-[#fce803] ${
+                  shipmentInfo.comments ? " text-green-600 " : " text-gray-700 "
+                }`}
+                placeholder="Ingrese, piso, dpto, barrio, lote, manzana etc.."
+                id="textReference"
+                value={shipmentInfo.comments || ""}
+                onChange={(e) =>
+                  setShipmentInfo((prev) => ({
+                    ...prev,
+                    comments: e.target.value,
+                  }))
+                }
+              />
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

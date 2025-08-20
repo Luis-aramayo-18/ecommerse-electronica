@@ -396,8 +396,8 @@ const DirectionsProfiles = () => {
               <p>Recuerda, solo puedes agregar hasta 3 direcciones.</p>
             </div>
 
-            <div className="flex items-center gap-10 mt-5">
-              <div className="w-[30%]">
+            <div className="flex items-center gap-10 mt-7">
+              <div className="w-[20%]">
                 <Select
                   required
                   placeholder="Direccion"
@@ -429,7 +429,7 @@ const DirectionsProfiles = () => {
                 value={directionData.street}
                 placeholder="Calle"
                 type="text"
-                className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] w-[60%] lg:w-[40%] py-2"
+                className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] w-[60%] lg:w-[50%] py-2"
               />
 
               <input

@@ -11,14 +11,7 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [updatingItemId, setUpdatingItemId] = useState(null);
-  const [loading, setLoading] = useState({
-    addMultiplateItems: false,
-    addToCart: false,
-    removeFromCart: false,
-    increment: false,
-    decrement: false,
-    get: true,
-  });
+  const [loading, setLoading] = useState({});
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -50,11 +43,9 @@ export function CartProvider({ children }) {
   }, []);
 
   const addToCart = async (product) => {
-    console.log(product);
-
     try {
       const sessionKey = localStorage.getItem("sessionKey");
-      setLoading((prev) => ({ ...prev, addToCart: true }));
+      setLoading((prev) => ({ ...prev, [product.id]: true }));
       const response = await api.post(
         "/cart/add-item/",
         {
@@ -74,12 +65,11 @@ export function CartProvider({ children }) {
 
         setCart(response.data.items);
         setTotalPrice(response.data.total_price);
-        navigate("/formCompra");
       }
     } catch (error) {
       console.error("Error adding item to cart:", error);
     } finally {
-      setLoading((prev) => ({ ...prev, addToCart: false }));
+      setLoading((prev) => ({ ...prev, [product.id]: false }));
     }
   };
 
@@ -115,10 +105,10 @@ export function CartProvider({ children }) {
   };
 
   const removeFromCart = async (product) => {
-    const sessionKey = localStorage.getItem("sessionKey");
-
     try {
-      setLoading((prev) => ({ ...prev, removeFromCart: true }));
+      setLoading((prev) => ({ ...prev, [product.id]: true }));
+      
+      const sessionKey = localStorage.getItem("sessionKey");
       if (sessionKey) {
         const response = await api.delete("/cart/remove-item/", {
           data: {
@@ -140,7 +130,7 @@ export function CartProvider({ children }) {
     } catch (error) {
       console.error("Error removing item from cart:", error);
     } finally {
-      setLoading((prev) => ({ ...prev, removeFromCart: false }));
+      setLoading((prev) => ({ ...prev, [product.id]: false }));
     }
   };
 
@@ -233,14 +223,13 @@ export function CartProvider({ children }) {
 
     const formatter = new Intl.NumberFormat("es-AR", {
       style: "decimal",
-      minimumFractionDigits: 0, 
+      minimumFractionDigits: 0,
       maximumFractionDigits: 0,
       useGrouping: true,
     });
 
     return formatter.format(priceAsNumber);
   };
-
 
   return (
     <CartContext.Provider

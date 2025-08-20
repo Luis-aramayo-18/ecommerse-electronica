@@ -362,7 +362,7 @@ const SoldsAdmin = () => {
                     <ul className="list-disc list-outside text-white">
                       <li>
                         {order.order_items.map((item) => (
-                          <div className="flex gap-1 text-white font-medium">
+                          <div className="flex gap-1 font-medium text-[#fce803]">
                             <p>{item.product_detail.name}</p>
                             <p>- x{item.quantity}</p>
                             <p>- ${item.price}</p>

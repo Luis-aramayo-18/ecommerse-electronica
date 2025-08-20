@@ -38,6 +38,7 @@ const PayForm = ({ setShipmentInfo, shipmentInfo }) => {
           }
         >
           <input
+            required
             type="radio"
             id="transfers"
             name="paymentMethod"

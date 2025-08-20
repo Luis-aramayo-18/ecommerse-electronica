@@ -13,22 +13,27 @@ import { useAuth } from "../Hooks/useAuth";
 import DirectionsProfiles from "./components/DirectionsProfiles";
 import AdminMenu from "./components/adminComponents/AdminMenu";
 import SoldsAdmin from "./components/adminComponents/SoldsAdmin";
+import { useSearchParams } from "react-router-dom";
 
 const MyAccount = () => {
   const api = useAxios();
 
-  const [section, setSection] = useState("");
   const { logoutUsername } = useAuth();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [section, setSection] = useState(
+    searchParams.get("section") || "information"
+  );
   const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
     const adm = localStorage.getItem("userAdmin");
+
     if (adm === "true") {
-      setSection("solds")
+      setSection("solds");
       setAdmin(true);
-    } else {
-      setSection("information");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const openSection = (section) => {
@@ -70,14 +75,14 @@ const MyAccount = () => {
                 section={section}
                 setSection={setSection}
                 logoutUsername={logoutUsername}
+                setSearchParams={setSearchParams}
               />
             ) : (
               <Menu
                 section={section}
                 setSection={setSection}
                 logoutUsername={logoutUsername}
-                admin={admin}
-                setAdmin={setAdmin}
+                setSearchParams={setSearchParams}
               />
             )}
           </div>

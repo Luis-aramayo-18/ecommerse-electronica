@@ -1,21 +1,13 @@
-import React, { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
-
-const AdminMenu = ({ section, setSection, logoutUsername, admin }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  useEffect(() => {
-    const sectionUrl = searchParams.get("section");
-    if (sectionUrl) {
-      setSection(sectionUrl);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    setSearchParams({ section });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [section]);
+const AdminMenu = ({
+  section,
+  setSection,
+  setSearchParams,
+  logoutUsername,
+}) => {
+  const handleSectionChange = (newSection) => {
+    setSearchParams({ section: newSection });
+    setSection(newSection);
+  };
 
   return (
     <ul className="flex flex-col gap-5 text-base font-medium text-black/65">
@@ -23,7 +15,7 @@ const AdminMenu = ({ section, setSection, logoutUsername, admin }) => {
         className={`cursor-pointer transition-all duration-100 hover:text-black hover:border-s-2 hover:border-black p-2 ${
           section === "solds" ? "text-black border-s-2 border-black" : ""
         }`}
-        onClick={() => setSection("solds")}
+        onClick={() => handleSectionChange("solds")}
       >
         <button>Ventas</button>
       </li>
@@ -32,7 +24,7 @@ const AdminMenu = ({ section, setSection, logoutUsername, admin }) => {
         className={`cursor-pointer transition-all duration-100 hover:text-black hover:border-s-2 p-2 hover:border-black ${
           section === "admin" ? "text-black border-s-2 border-black" : ""
         }`}
-        onClick={() => setSection("admin")}
+        onClick={() => handleSectionChange("admin")}
       >
         <button>Admin</button>
       </li>
@@ -43,7 +35,7 @@ const AdminMenu = ({ section, setSection, logoutUsername, admin }) => {
             ? "text-black border-s-2 border-black"
             : ""
         }`}
-        onClick={() => setSection("authentication")}
+        onClick={() => handleSectionChange("authentication")}
       >
         <button>Autenticación</button>
       </li>
