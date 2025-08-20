@@ -10,10 +10,13 @@ import { useCart } from "../../Hooks/useCart";
 import NextArrowSlider from "../../NextArrowSlider";
 import PrevArrowSlider from "../../PrevArrowSlider";
 import { Bounce, toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 
 const OrdersProfile = () => {
   const api = useAxios();
   const { formatPrice, addToCart, addToMultiplateItems, loading } = useCart();
+
+  const [searchParams, setSearchParams] = useSearchParams();
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
   const [itemSelectedForReview, setItemSelectedForReview] = useState(null);
@@ -22,6 +25,7 @@ const OrdersProfile = () => {
     getOrder: null,
   });
   const [loading2, setLoading2] = useState({
+    getOrders: false,
     getOrder: false,
   });
   const [formActive, setFormActive] = useState({
@@ -34,20 +38,40 @@ const OrdersProfile = () => {
   const [orderDetails, setOrderDetails] = useState(false);
 
   useEffect(() => {
-    loadOrderUser();
+    const orderId = searchParams.get("orderId");
+    if (orderId) {
+      getOrderDetails(orderId);
+    } else {
+      loadOrdersUser();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const loadOrderUser = async () => {
+  const getOrderDetails = async (orderId) => {
+    try {
+      setLoading2((prev) => ({ ...prev, getOrder: true }));
+      const response = await api.get(`/orders/${orderId}/`);
+
+      if (response.status === 200) {
+        setOrderDetails(true);
+        setSelectedOrder(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading2((prev) => ({ ...prev, getOrder: false }));
+    }
+  };
+
+  const loadOrdersUser = async () => {
     try {
       setLoading2((prev) => ({
         ...prev,
-        getOrder: true,
+        getOrders: true,
       }));
       const userId = localStorage.getItem("userId");
       const response = await api.get(`/orders/get-orders?user_id=${userId}`);
-      console.log(response);
-      
+
       if (response.status === 200) {
         setOrders(response.data);
       }
@@ -59,7 +83,7 @@ const OrdersProfile = () => {
     } finally {
       setLoading2((prev) => ({
         ...prev,
-        getOrder: false,
+        getOrders: false,
       }));
     }
   };
@@ -125,16 +149,27 @@ const OrdersProfile = () => {
 
   const handleShowOrderDetails = (orderId) => {
     const order = orders.find((order) => order.id === orderId);
+
     setSelectedOrder(order);
     setOrderDetails(true);
+
+    const currentParams = Object.fromEntries(searchParams.entries());
+
+    setSearchParams({ ...currentParams, orderId: orderId });
   };
 
   const handleCloseDetailsOrders = () => {
+    const currentParams = Object.fromEntries(searchParams.entries());
+    delete currentParams.orderId;
+
+    setSearchParams(currentParams);
     setOrderDetails(false);
     setFormActive((prev) => ({
       ...prev,
       formProduct: false,
     }));
+
+    loadOrdersUser();
   };
 
   const handleProductReview = async (e) => {
@@ -203,7 +238,7 @@ const OrdersProfile = () => {
             quantity: quantity,
           };
         } else {
-          return null
+          return null;
         }
       });
 
@@ -230,7 +265,7 @@ const OrdersProfile = () => {
         } `}
       >
         <div className="">
-          {loading2.getOrder ? (
+          {loading2.getOrders || loading2.getOrder ? (
             <Loading />
           ) : errorMessage.getOrder ? (
             <p className="text-sm font-medium text-white/85">
