@@ -356,7 +356,7 @@ const MyAccount = () => {
             ) : messageConfirmation === "paymentError" ? (
               <div className="glass-box relative px-6 py-10 max-w-[35%]">
                 <div className="flex flex-col items-center gap-5">
-                  <h2 className="uppercase text-3xl font-bold text-green-600">
+                  <h2 className="uppercase text-3xl font-bold text-red-600">
                     ¡Hubo un problema con el pago!
                   </h2>
                   <p className="text-sm font-medium text-white/85">
@@ -380,7 +380,7 @@ const MyAccount = () => {
             ) : (
               <div className="glass-box relative px-6 py-10 max-w-[35%]">
                 <div className="flex flex-col items-center gap-5">
-                  <h2 className="uppercase text-3xl font-bold text-green-600">
+                  <h2 className="uppercase text-3xl font-bold text-[#fce803]">
                     ¡Esperando el pago!
                   </h2>
                   <p className="text-sm font-medium text-white/85">
