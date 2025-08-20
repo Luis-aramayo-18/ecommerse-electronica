@@ -12,7 +12,7 @@ import PrevArrowSlider from "../../PrevArrowSlider";
 import { Bounce, toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 
-const OrdersProfile = () => {
+const OrdersProfile = ({ setShowConfirmation }) => {
   const api = useAxios();
   const { formatPrice, addToCart, addToMultiplateItems, loading } = useCart();
 
@@ -38,9 +38,14 @@ const OrdersProfile = () => {
   const [orderDetails, setOrderDetails] = useState(false);
 
   useEffect(() => {
+    const paymentSuccess = searchParams.get("paymentSuccess");
     const orderId = searchParams.get("orderId");
+
     if (orderId) {
       getOrderDetails(orderId);
+      if (paymentSuccess === "true") {
+        setShowConfirmation(true);
+      }
     } else {
       loadOrdersUser();
     }

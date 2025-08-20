@@ -20,6 +20,7 @@ const MyAccount = () => {
 
   const { logoutUsername } = useAuth();
 
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [section, setSection] = useState(
     searchParams.get("section") || "information"
@@ -42,7 +43,7 @@ const MyAccount = () => {
         return <InformationProfile setSection={setSection} api={api} />;
 
       case "orders":
-        return <OrdersProfile />;
+        return <OrdersProfile setShowConfirmation={setShowConfirmation} />;
 
       case "directions":
         return <DirectionsProfiles />;
@@ -61,9 +62,26 @@ const MyAccount = () => {
     }
   };
 
+  useEffect(() => {
+    if (showConfirmation) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showConfirmation]);
+
+  const handleCloseConfirmation = () =>{
+    setShowConfirmation(false);
+  }
+
   return (
     <>
       <div className="mt-10 w-full h-auto px-4 md:px-14 lg:px-24 flex">
+        {/* ------HEADER----- */}
         <section className="w-[30%] lg:h-[50%] px-4 py-10 bg-[#fce803] backdrop-blur border border-black/25 rounded-[32px] hidden lg:block">
           <div>
             <Header api={api} />
@@ -87,13 +105,11 @@ const MyAccount = () => {
             )}
           </div>
         </section>
-
+        {/* ------MAIN----- */}
         <section className="w-full ms-[2%] hidden lg:block">
           {openSection(section)}
         </section>
-
         {/* ------MOBILE----- */}
-
         <section className="w-full lg:hidden">
           <div className="bg-[#fce803] border border-black/25 text-black rounded-[32px] relative overflow-hidden">
             <div className="w-full flex justify-center p-4">
@@ -302,7 +318,31 @@ const MyAccount = () => {
             </section>
           </div>
         </section>
+        {/* ------CONFIRMATIONS MESSAGE----- */}
+        {showConfirmation && (
+          <section className="fixed z-50 top-0 left-0 w-full h-full bg-black bg-opacity-70 backdrop-blur-sm flex justify-center items-center">
+            <div className="glass-box relative px-6 py-10 max-w-[35%]">
+              <div className="flex flex-col items-center gap-5">
+                <h2 className="uppercase text-3xl font-bold text-green-600">
+                  ¡pago exitoso!
+                </h2>
+                <p className="text-sm font-medium text-white/85">
+                  Podras ver los detalles de tu compra en mis compras.
+                </p>
+                <img
+                  src="/img/payment/pago-exitoso.png"
+                  className="h-28 w-28"
+                  alt=""
+                />
+              </div>
+              <div className="flex justify-center mt-5 w-full">
+                <button className="btn-glass w-full" onClick={handleCloseConfirmation}>Continuar</button>
+              </div>
+            </div>
+          </section>
+        )}
       </div>
+      z
     </>
   );
 };

@@ -286,8 +286,6 @@ const FormCompra = () => {
     };
   }, [showConfirmation]);
 
-  console.log(errors);
-
   return (
     <>
       <div className="px-4  sm:x-6 md:px-14 lg:px-24 xl:px-24 2xl:px-24 py-6 lg:py-8">
