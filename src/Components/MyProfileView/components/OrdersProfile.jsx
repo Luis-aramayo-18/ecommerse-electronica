@@ -27,6 +27,7 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
   const [loading2, setLoading2] = useState({
     getOrders: false,
     getOrder: false,
+    mp_Pay: false,
   });
   const [formActive, setFormActive] = useState({
     formProduct: false,
@@ -272,6 +273,35 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
       addToCart(product);
     }
   };
+
+  const handleMpPay = async (order) => {
+    try {
+      setLoading2((prevState) => ({
+        ...prevState,
+        mp_pay: true,
+      }));
+
+      const response = await api.post(
+        `/orders/${order.id}/re-create-preference/`
+      );
+      console.log(response);
+
+      if (response.status === 200) {
+        const initPoint = response.data.init_point;
+        window.location.href = initPoint;
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading2((prevState) => ({
+        ...prevState,
+        mp_pay: false,
+      }));
+    }
+  };
+
+  console.log(selectedOrder);
+  
 
   return (
     <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box relative overflow-visible">
@@ -679,6 +709,7 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
                           >
                             Ver Factura
                           </button>
+
                           <button
                             className="btn-glass-sm lg:btn-glass p-2 w-[50%] lg:w-[30%]"
                             onClick={() =>
@@ -691,6 +722,21 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
                               <p>Volver A Comprar</p>
                             )}
                           </button>
+
+                          {selectedOrder.payment_method === "mercado-pago" &&
+                            selectedOrder.status === "pending" && (
+                              <button
+                                onClick={() => handleMpPay(selectedOrder)}
+                                disabled={loading2.mp_pay}
+                                className="btn-glass-sm lg:btn-glass p-2 w-[50%] lg:w-[30%]"
+                              >
+                                {loading2.mp_pay ? (
+                                  <Loading />
+                                ) : (
+                                  <p>Continuar con el pago</p>
+                                )}
+                              </button>
+                            )}
                         </div>
                       </div>
 
