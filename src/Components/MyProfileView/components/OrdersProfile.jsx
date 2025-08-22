@@ -300,9 +300,6 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
     }
   };
 
-  console.log(selectedOrder);
-  
-
   return (
     <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box relative overflow-visible">
       <section
@@ -703,25 +700,30 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
                         </div>
 
                         <div className="flex gap-5 mt-5">
-                          <button
-                            disabled
-                            className="btn-glass-sm lg:btn-glass p-2 w-[50%] lg:w-[30%]"
-                          >
-                            Ver Factura
-                          </button>
+                          {selectedOrder.status === "delivered" && (
+                            <div>
+                              <button
+                                disabled
+                                className="btn-glass-sm lg:btn-glass p-2 w-[50%] lg:w-[30%]"
+                              >
+                                Ver Factura
+                              </button>
 
-                          <button
-                            className="btn-glass-sm lg:btn-glass p-2 w-[50%] lg:w-[30%]"
-                            onClick={() =>
-                              handleRepuchase(selectedOrder.order_items)
-                            }
-                          >
-                            {loading.addMultiplateItems || loading.addToCart ? (
-                              <Loading />
-                            ) : (
-                              <p>Volver A Comprar</p>
-                            )}
-                          </button>
+                              <button
+                                className="btn-glass-sm lg:btn-glass p-2 w-[50%] lg:w-[30%]"
+                                onClick={() =>
+                                  handleRepuchase(selectedOrder.order_items)
+                                }
+                              >
+                                {loading.addMultiplateItems ||
+                                loading.addToCart ? (
+                                  <Loading />
+                                ) : (
+                                  <p>Volver A Comprar</p>
+                                )}
+                              </button>
+                            </div>
+                          )}
 
                           {selectedOrder.payment_method === "mercado-pago" &&
                             selectedOrder.status === "pending" && (
