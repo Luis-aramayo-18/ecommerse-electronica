@@ -219,6 +219,7 @@ const FormCompra = () => {
         order: true,
       }));
       const response = await api.post("/orders/", payInf);
+      
       const responseData = response.data;
 
       if (response.status === 201) {
@@ -246,7 +247,7 @@ const FormCompra = () => {
     }
   };
 
-  const orderConfirmation = () => {
+  const orderConfirmation = () => {    
     setShipmentInfo({
       name: "",
       dni: "",
@@ -260,7 +261,7 @@ const FormCompra = () => {
     });
     setStep(0);
     setCart([]);
-    navigate("/myAccount?section=orders");
+    navigate(`/myAccount?section=orders&orderId=${order.order_id}`);
   };
 
   function formatPrice(price) {
@@ -460,7 +461,7 @@ const FormCompra = () => {
                       <div className="w-full flex justify-center items-center">
                         <button
                           className="btn-glass w-[80%]"
-                          onClick={orderConfirmation}
+                          onClick={()=>orderConfirmation()}
                         >
                           Confirmar
                         </button>

@@ -8,7 +8,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  /* background-color: #0f172a; */
+    
   background: -webkit-linear-gradient(135deg, #101318, #1a1c21);
   background: linear-gradient(
     135deg,
@@ -25,18 +25,18 @@ code {
 @layer components {
   ::-webkit-scrollbar {
     width: 3px;
-    height: 3px; /* Ancho de la barra de desplazamiento */
+    height: 3px;
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #156acb; /* Color de la barra de desplazamiento */
-    border-radius: 4px; /* Bordes redondeados */
-    border: 2px solid #a6a6a6; /* Borde blanco alrededor de la barra */
+    background-color: #156acb;
+    border-radius: 4px;
+    border: 2px solid #a6a6a6;
   }
 
   ::-webkit-scrollbar-track {
-    background-color: transparent; /* Color de fondo de la pista */
-    border-radius: 4px; /* Bordes redondeados de la pista */
+    background-color: transparent;
+    border-radius: 4px;
   }
 
   scrollbar {
@@ -73,16 +73,6 @@ code {
   color: #101318;
   border-radius: 50%;
 }
-
-/* .glass-box {
-  background-color: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 32px;
-  overflow: hidden;
-} */
 
 .glass-card {
   background-color: rgba(0, 0, 0, 0.2);
@@ -122,18 +112,15 @@ code {
 }
 
 .slick-dots li button {
-  display: block; /* Asegura que el botón se comporte como un bloque para width/height */
-  width: 12px; /* Ancho del punto */
-  height: 12px; /* Alto del punto */
-  padding: 0; /* MUY IMPORTANTE: Elimina cualquier padding interno que pueda descentrarlo */
-  border: 0; /* Remueve el borde por defecto del botón */
-  outline: none; /* Remueve el contorno al hacer clic */
-  background-color: rgba(255, 255, 255, 0.4); /* Color de los inactivos (blanco semitransparente) */
-  border-radius: 50%; /* Los hace circulares */
+  display: block;
+  width: 12px;
+  height: 12px; 
+  padding: 0; 
+  background-color: rgba(255, 255, 255, 0.4); 
+  border-radius: 50%; 
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Suaviza el cambio de color */
+  transition: background-color 0.3s ease; 
 
-  /* Oculta el número '1' o cualquier texto dentro del botón */
   font-size: 0;
   line-height: 0;
   color: transparent;
@@ -141,6 +128,24 @@ code {
 
 .slick-dots li.slick-active button {
   background-color: white; 
-  /* width: 14px;
-  height: 14px; */
+}
+
+.card-container {
+  perspective: 1000px;
+}
+
+.card-inner {
+  transform-style: preserve-3d;
+}
+
+.card-face {
+  backface-visibility: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.card-container:hover .card-inner {
+  transform: rotateY(180deg);
 }
