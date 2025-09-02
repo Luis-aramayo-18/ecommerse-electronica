@@ -55,7 +55,7 @@ const ProductCard = ({ product, homeView, className = "" }) => {
     } finally {
       setLoading((prev) => ({ ...prev, removeFromCart: false }));
     }
-  };  
+  };    
 
   return (
     <div
@@ -136,11 +136,11 @@ const ProductCard = ({ product, homeView, className = "" }) => {
             }
           >
             {isProductInCart(product) ? (
-              <div className="flex items-center justify-center ">
-                {loading[product.id] ? <Loading bg={true} /> : <p>ELIMINAR</p>}
+              <div className="flex items-center justify-center">
+                {loading.removeFromCart ? <Loading bg={true} /> : <p>ELIMINAR</p>}
               </div>
             ) : (
-              <div className="flex items-center justify-center ">
+              <div className="flex items-center justify-center">
                 {loading[product.id] ? <Loading /> : <p>COMPRAR</p>}
               </div>
             )}

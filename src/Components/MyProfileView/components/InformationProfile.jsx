@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Loading from "../../Loading";
+import { useAxios } from "../../Hooks/useAxios";
 
-const InformationProfile = ({ api }) => {
-  const [userData, setUserData] = useState({
-    user: "",
-    email: "",
-    dni: "",
-    phoneNumber: "",
-  });
+const InformationProfile = ({userData, setUserData}) => {
+  const api = useAxios();
+
   const [dni, setDni] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [banner, setBanner] = useState({
@@ -35,7 +32,8 @@ const InformationProfile = ({ api }) => {
       }));
 
       const response = await api.get("/my-user-info/");
-
+      console.log(response);
+      
       if (response.status === 200) {
         const { username, dni, email, phone_number } = response.data;
 

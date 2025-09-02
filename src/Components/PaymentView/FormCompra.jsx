@@ -405,7 +405,7 @@ const FormCompra = () => {
         {/* ------------- CONFIRTMATION ---------------- */}
         {showConfirmation && (
           <div className="fixed z-50 top-0 left-0 w-full h-full bg-black bg-opacity-70 backdrop-blur-sm flex justify-center items-center">
-            <div className="glass-box relative px-6 py-10 max-w-[35%]">
+            <div className="glass-box relative px-3 py-10 lg:px-6 lg:py-10 max-w-[90%] lg:max-w-[35%]">
               <div className="relative">
                 <div>
                   <p className="text-white/85 text-xl font-light">Total:</p>
@@ -420,12 +420,12 @@ const FormCompra = () => {
                   <p className="text-white/85 text-xl font-light">
                     Metodo de pago:
                   </p>
-                  <p className="border uppercase rounded-md border-white/15 text-white/85 p-4 mt-2 backdrop-blur-md ms-5 font-medium">
+                  <p className="border uppercase rounded-md border-white/15 text-white/85 p-4 mt-2 backdrop-blur-md lg:ms-5 font-medium">
                     {order.order_methodPay} - AR
                   </p>
                 </div>
                 <div className="mt-5">
-                  <div className=" border rounded-md text-xs border-white/15 text-white/85 p-4 mt-2 backdrop-blur-md ms-5 font-medium">
+                  <div className=" border rounded-md text-xs border-white/15 text-white/85 p-4 mt-2 backdrop-blur-md lg:ms-5 font-medium">
                     Para retirar el producto en local se pedira el numero de
                     orden, lo podras consultar en tus ordenes
                   </div>

@@ -1,30 +1,21 @@
 import React, { useEffect, useState } from "react";
 
 import { Bounce, toast } from "react-toastify";
-import { useAuth } from "../../Hooks/useAuth";
+import { useAxios } from "../../Hooks/useAxios";
 
-const Header = ({ api }) => {
+const Header = ({ userData }) => {
+  const api = useAxios();
+
   const [preview, setPreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
-
-  const { setUserData, userData } = useAuth();
+  const [imageProfile, setImageProfile] = useState(null);
 
   useEffect(() => {
-    const user = localStorage.getItem("username");
     const img = localStorage.getItem("profileImage");
-    
+
     if (img) {
-      setUserData((prevUserData) => ({
-        ...prevUserData,
-        image: img,
-      }));
+      setImageProfile(img);
     }
-
-    setUserData((prevUserData) => ({
-      ...prevUserData,
-      username: user,
-    }));
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -41,10 +32,8 @@ const Header = ({ api }) => {
 
   const updateProfileImage = () => {
     const img = localStorage.getItem("profileImage");
-    setUserData((prevFilters) => ({
-      ...prevFilters,
-      image: img,
-    }));
+    setImageProfile(img);
+
     setPreview(img);
   };
 
@@ -106,10 +95,10 @@ const Header = ({ api }) => {
   return (
     <div className="flex items-center gap-4">
       <div className="w-[5rem] h-[5rem] lg:w-16 lg:h-16 rounded-full relative">
-        {userData.image || preview ? (
+        {imageProfile || preview ? (
           <img
-            src={userData.image}
-            alt={userData.username}
+            src={imageProfile}
+            alt="Imagen de perfil"
             className="w-full h-full object-cover rounded-full absolute"
           />
         ) : (
@@ -133,14 +122,16 @@ const Header = ({ api }) => {
         )}
       </div>
 
-      <div className="text-2xl font-semibold">
-        <p className="text-lg font-bold lg:text-lg first-letter:uppercase text-black">
-          {userData.username}
-        </p>
-        <p className="text-black/65 text-sm font-semibold lg:hidden">
-          {userData.email}
-        </p>
-      </div>
+      {userData && (
+        <div className="text-2xl font-semibold">
+          <p className="text-lg font-bold lg:text-lg first-letter:uppercase text-black">
+            {userData.user}
+          </p>
+          <p className="text-black/65 text-sm font-semibold lg:hidden">
+            {userData.email}
+          </p>
+        </div>
+      )}
     </div>
   );
 };

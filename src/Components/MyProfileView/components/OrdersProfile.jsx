@@ -88,8 +88,8 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
         ...prev,
         getOrders: true,
       }));
-      const userId = localStorage.getItem("userId");
-      const response = await api.get(`/orders/get-orders?user_id=${userId}`);
+
+      const response = await api.get(`/orders/get-orders`);
 
       if (response.status === 200) {
         setOrders(response.data);

@@ -310,8 +310,6 @@ const SoldsAdmin = () => {
     setShowSeeMore(false);
   };
 
-  console.log(selectedStatus);
-
   return (
     <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box">
       <div className="max-h-[460px] overflow-y-auto">
@@ -361,8 +359,8 @@ const SoldsAdmin = () => {
 
                     <ul className="list-disc list-outside text-white">
                       <li>
-                        {order.order_items.map((item) => (
-                          <div className="flex gap-1 font-medium text-[#fce803]">
+                        {order.order_items.map((item, idx) => (
+                          <div key={item.id || idx} className="flex gap-1 font-medium text-[#fce803]">
                             <p>{item.product_detail.name}</p>
                             <p>- x{item.quantity}</p>
                             <p>- ${item.price}</p>
@@ -382,23 +380,21 @@ const SoldsAdmin = () => {
                   </div>
 
                   <div className="mt-3 flex gap-5">
-                    {loading.updateStatusOrder ? (
-                      <button className="border p-2 btn-glass sm:btn-glass-sm">
-                        <Loading />
-                      </button>
-                    ) : (
-                      <button
-                        className="border p-2 btn-glass sm:btn-glass-sm"
-                        onClick={() =>
-                          handleUpdateStatusToDeliver(order.id, "delivered")
-                        }
-                      >
-                        Entregado
-                      </button>
-                    )}
-                    <button className="border p-2 btn-glass sm:btn-glass-sm">
-                      Ver detalle
+                    <button
+                      className="btn-glass w-40"
+                      disabled={loading.updateStatusOrder}
+                      onClick={() =>
+                        handleUpdateStatusToDeliver(order.id, "delivered")
+                      }
+                    >
+                      {loading.updateStatusOrder ? (
+                        <Loading bg={true} />
+                      ) : (
+                        <p>Entregado</p>
+                      )}
                     </button>
+
+                    <button className="btn-glass w-40">Ver detalle</button>
                   </div>
                 </li>
               ))}
@@ -498,9 +494,7 @@ const SoldsAdmin = () => {
           </table>
 
           <div>
-            {nextPage && (
-              <button className="p-4 border">ver mas</button>
-            )}
+            {nextPage && <button className="p-4 border">ver mas</button>}
           </div>
 
           {openModalOrder && (
@@ -512,7 +506,7 @@ const SoldsAdmin = () => {
               <div
                 onClick={(e) => e.stopPropagation()}
                 className={`bg-black backdrop-blur-sm rounded-2xl p-6 relative min-w-[50%] border border-white/15 ${
-                  showSeeMore ? "min-h-[262px]" : "min-h-[162px]"
+                  showSeeMore ? "min-h-[292px]" : "min-h-[162px]"
                 }`}
               >
                 <div className="flex flex-col items-center">
@@ -594,7 +588,7 @@ const SoldsAdmin = () => {
                           : "translate-x-full opacity-0"
                       }`}
                     >
-                      <div className="mt-3">
+                      <div className="mt-3 flex flex-col gap-1">
                         <div className="flex items-center justify-between gap-1">
                           <p className="text-green-600 text-sm font-semibold">
                             Pagado - En espera de entrega
@@ -619,11 +613,11 @@ const SoldsAdmin = () => {
                           </p>
                         </div>
 
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-start gap-1">
                           <p className="text-white/85 text-sm">Productos:</p>
                           <div>
-                            {selectedOrder[0].order_items.map((item) => (
-                              <div className="flex gap-1 items-center">
+                            {selectedOrder[0].order_items.map((item, idx) => (
+                              <div className="flex gap-1 items-start" key={item.id || idx}>
                                 <p className="text-white font-medium">
                                   {item.product_detail.name}
                                 </p>

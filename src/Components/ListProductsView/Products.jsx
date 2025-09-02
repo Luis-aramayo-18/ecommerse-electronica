@@ -52,6 +52,7 @@ const Products = () => {
       if (filters.sort) params.append("sort", filters.sort);
 
       const response = await api.get(`/products/?${params.toString()}`);
+      console.log(response);
       
       if (response.data.next) {
         const nextUrl = response.data.next;

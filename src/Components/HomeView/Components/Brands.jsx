@@ -27,7 +27,7 @@ const Brands = () => {
     try {
       const response = await api.get(
         `/categories/search-by-brands/?brands=${namesString}`
-      );      
+      );
 
       if (response.status === 200) {
         const categoriesData = response.data;
@@ -59,7 +59,7 @@ const Brands = () => {
 
               <div className="card-face card-back absolute w-full h-full rounded-full backdrop-blur-md bg-black/80 border-2 border-white/25 flex justify-center items-center">
                 {brandsOptions.Dell ? (
-                  <ul className="list-none p-0 text-white">
+                  <ul className="list-none p-0 text-white max-h-36 overflow-y-auto">
                     {brandsOptions.Dell.map((option) => (
                       <li
                         key={option.id}
@@ -98,7 +98,7 @@ const Brands = () => {
 
               <div className="card-face card-back absolute w-full h-full rounded-full backdrop-blur-md bg-black/40 border border-white/25 flex justify-center items-center">
                 {brandsOptions.Sony ? (
-                  <ul className="list-none p-0 text-white">
+                  <ul className="list-none p-0 text-white max-h-36 overflow-y-auto">
                     {brandsOptions.Sony.map((option) => (
                       <li
                         key={option.id}
@@ -137,7 +137,7 @@ const Brands = () => {
 
               <div className="card-face card-back absolute w-full h-full rounded-full backdrop-blur-md bg-black/40 border border-white/25 flex justify-center items-center">
                 {brandsOptions.Motorola ? (
-                  <ul className="list-none p-0 text-white">
+                  <ul className="list-none p-0 text-white max-h-36 overflow-y-auto">
                     {brandsOptions.Motorola.map((option) => (
                       <li
                         key={option.id}
@@ -178,7 +178,7 @@ const Brands = () => {
 
               <div className="card-face card-back absolute w-full h-full rounded-full backdrop-blur-md bg-black/40 border border-white/25 flex justify-center items-center">
                 {brandsOptions.Hp ? (
-                  <ul className="list-none p-0 text-white">
+                  <ul className="list-none p-0 text-white max-h-36 overflow-y-auto">
                     {brandsOptions.Hp.map((option) => (
                       <li
                         key={option.id}
@@ -217,7 +217,7 @@ const Brands = () => {
 
               <div className="card-face card-back absolute w-full h-full rounded-full backdrop-blur-md bg-black/40 border border-white/25 flex justify-center items-center">
                 {brandsOptions.Samsung ? (
-                  <ul className="list-none p-0 text-white">
+                  <ul className="list-none p-0 text-white max-h-36 overflow-y-auto">
                     {brandsOptions.Samsung.map((option) => (
                       <li
                         key={option.id}
@@ -258,7 +258,7 @@ const Brands = () => {
 
               <div className="card-face card-back absolute w-full h-full rounded-full backdrop-blur-md bg-black/40 border border-white/25 flex justify-center items-center">
                 {brandsOptions.Iphone ? (
-                  <ul className="list-none p-0 text-white">
+                  <ul className="list-none p-0 text-white max-h-36 overflow-y-auto">
                     {brandsOptions.Iphone.map((option) => (
                       <li
                         key={option.id}
@@ -299,7 +299,7 @@ const Brands = () => {
 
               <div className="card-face card-back absolute w-full h-full rounded-full backdrop-blur-md bg-black/40 border border-white/25 flex justify-center items-center">
                 {brandsOptions.Xiaomi ? (
-                  <ul className="list-none p-0 text-white">
+                  <ul className="list-none p-0 text-white max-h-36 overflow-y-auto">
                     {brandsOptions.Xiaomi.map((option) => (
                       <li
                         key={option.id}
@@ -340,7 +340,7 @@ const Brands = () => {
 
               <div className="card-face card-back absolute w-full h-full rounded-full backdrop-blur-md bg-black/40 border border-white/25 flex justify-center items-center">
                 {brandsOptions.Xbox ? (
-                  <ul className="list-none p-0 text-white">
+                  <ul className="list-none p-0 text-white max-h-36 overflow-y-auto">
                     {brandsOptions.Xbox.map((option) => (
                       <li
                         key={option.id}

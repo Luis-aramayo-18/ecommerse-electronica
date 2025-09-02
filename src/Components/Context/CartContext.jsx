@@ -14,38 +14,49 @@ export function CartProvider({ children }) {
   const [loading, setLoading] = useState({});
 
   useEffect(() => {
-    const fetchCart = async () => {
-      setLoading((prev) => ({ ...prev, get: true }));
-
-      const sessionKey = localStorage.getItem("sessionKey");
-      try {
-        if (sessionKey) {
-          const response = await api.get("/cart/my-cart/", {
-            headers: {
-              "X-Session-Key": sessionKey,
-            },
-          });
-
-          if (response.status === 200) {
-            const fetchedCart = response.data.items;
-            setCart(fetchedCart);
-            setTotalPrice(response.data.total_price);
-          }
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading((prev) => ({ ...prev, get: false }));
-      }
-    };
     fetchCart();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const fetchCart = async () => {
+    try {
+      setLoading((prev) => ({ ...prev, get: true }));
+
+      const sessionKey = localStorage.getItem("sessionKey");
+
+      if (sessionKey) {
+        const response = await api.get("/cart/my-cart/", {
+          headers: {
+            "X-Session-Key": sessionKey,
+          },
+        });
+
+        if (response.status === 200) {
+          const fetchedCart = response.data.items;
+          setCart(fetchedCart);
+          setTotalPrice(response.data.total_price);
+        }
+      } else {
+        const response = await api.get("/cart/my-cart/");
+
+        if (response.status === 200) {
+          const fetchedCart = response.data.items;
+          setCart(fetchedCart);
+          setTotalPrice(response.data.total_price);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading((prev) => ({ ...prev, get: false }));
+    }
+  };
+
   const addToCart = async (product) => {
     try {
-      const sessionKey = localStorage.getItem("sessionKey");
       setLoading((prev) => ({ ...prev, [product.id]: true }));
+      const sessionKey = localStorage.getItem("sessionKey");
+
       const response = await api.post(
         "/cart/add-item/",
         {
@@ -107,7 +118,7 @@ export function CartProvider({ children }) {
   const removeFromCart = async (product) => {
     try {
       setLoading((prev) => ({ ...prev, [product.id]: true }));
-      
+
       const sessionKey = localStorage.getItem("sessionKey");
       if (sessionKey) {
         const response = await api.delete("/cart/remove-item/", {
@@ -116,6 +127,20 @@ export function CartProvider({ children }) {
           },
           headers: {
             "X-Session-Key": sessionKey,
+          },
+        });
+
+        if (response.status === 200) {
+          const updateCart = cart.filter(
+            (item) => item.product_detail.id !== product.product_detail.id
+          );
+          setCart(updateCart);
+          setTotalPrice(response.data.total_price);
+        }
+      } else {
+        const response = await api.delete("/cart/remove-item/", {
+          data: {
+            product_id: product.product_detail.id,
           },
         });
 

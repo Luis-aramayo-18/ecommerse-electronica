@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import { useAxios } from "../Hooks/useAxios";
-
 import InformationProfile from "./components/InformationProfile";
 import OrdersProfile from "./components/OrdersProfile";
 import AuthProfile from "./components/AuthProfile";
@@ -16,13 +14,17 @@ import SoldsAdmin from "./components/adminComponents/SoldsAdmin";
 import { useSearchParams } from "react-router-dom";
 
 const MyAccount = () => {
-  const api = useAxios();
-
   const { logoutUsername } = useAuth();
 
   const [messageConfirmation, setMessageConfirmation] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [userData, setUserData] = useState({
+    user: "",
+    email: "",
+    dni: "",
+    phoneNumber: "",
+  });
   const [section, setSection] = useState(
     searchParams.get("section") || "information"
   );
@@ -41,7 +43,7 @@ const MyAccount = () => {
   const openSection = (section) => {
     switch (section) {
       case "information":
-        return <InformationProfile setSection={setSection} api={api} />;
+        return <InformationProfile userData={userData} setUserData={setUserData} setSection={setSection} />;
 
       case "orders":
         return (
@@ -91,7 +93,7 @@ const MyAccount = () => {
         {/* ------HEADER----- */}
         <section className="w-[30%] lg:h-[50%] px-4 py-10 bg-[#fce803] backdrop-blur border border-black/25 rounded-[32px] hidden lg:block">
           <div>
-            <Header api={api} />
+            <Header userData={userData} />
           </div>
 
           <div className="mt-10">
@@ -328,7 +330,6 @@ const MyAccount = () => {
         {/* ------CONFIRMATIONS MESSAGE----- */}
         {showConfirmation && (
           <section className="fixed z-50 top-0 left-0 w-full h-full bg-black bg-opacity-70 backdrop-blur-sm flex justify-center items-center">
-
             {messageConfirmation === "paymentSuccess" ? (
               <div className="glass-box relative px-6 py-10 max-w-[35%]">
                 <div className="flex flex-col items-center gap-5">
@@ -360,7 +361,8 @@ const MyAccount = () => {
                     ¡Hubo un problema con el pago!
                   </h2>
                   <p className="text-sm font-medium text-white/85">
-                    Por favor, intente nuevamente o contacte al soporte si el problema persiste.
+                    Por favor, intente nuevamente o contacte al soporte si el
+                    problema persiste.
                   </p>
                   <img
                     src="/img/payment/pago-rechazado.png"
