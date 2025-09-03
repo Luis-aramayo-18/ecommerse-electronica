@@ -40,42 +40,52 @@ const Products = () => {
   });
 
   const fetchProduct = async () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
     try {
       setLoading((prev) => ({ ...prev, products: true, seeMore: true }));
-      const params = new URLSearchParams();
+      const params = new URLSearchParams(window.location.search);
+      const newFilters = {
+        brand: params.get("brand") || "All",
+        min_price: params.get("min_price") || "",
+        max_price: params.get("max_price") || "",
+        sort: params.get("sort") || "Default",
+      };
 
-      params.append("category", categoryId);
+      setFilters(newFilters);
 
-      if (filters.brand !== "All") params.append("brand", filters.brand);
-      if (filters.min_price) params.append("min_price", filters.min_price);
-      if (filters.max_price) params.append("max_price", filters.max_price);
-      if (filters.sort) params.append("sort", filters.sort);
+      const apiParams = new URLSearchParams();
+      apiParams.append("category", categoryId);
 
-      const response = await api.get(`/products/?${params.toString()}`);
-      console.log(response);
-      
-      if (response.data.next) {
-        const nextUrl = response.data.next;
+      if (newFilters.brand !== "All")
+        apiParams.append("brand", newFilters.brand);
+      if (newFilters.min_price)
+        apiParams.append("min_price", newFilters.min_price);
+      if (newFilters.max_price)
+        apiParams.append("max_price", newFilters.max_price);
+      if (newFilters.sort !== "Default")
+        apiParams.append("sort", newFilters.sort);
 
-        const urlObj = new URL(nextUrl);
-        let relativeUrl = urlObj.pathname + urlObj.search;
-
-        if (relativeUrl.startsWith("/api/")) {
-          relativeUrl = relativeUrl.replace("/api", "");
-
-          setNextPage(relativeUrl);
-        }
-      } else {
-        setNextPage(null);
-      }
+      const response = await api.get(`/products/?${apiParams.toString()}`);
 
       if (response.status === 200) {
         setProducts(response.data.results);
         setFilteredProducts(response.data.results);
       }
+
+      const nextUrl = response.data.next;
+      if (nextUrl) {
+        const urlObj = new URL(nextUrl);
+        const relativeUrl = urlObj.pathname.startsWith("/api")
+          ? urlObj.pathname.replace("/api", "") + urlObj.search
+          : urlObj.pathname + urlObj.search;
+        setNextPage(relativeUrl);
+      } else {
+        setNextPage(null);
+      }
     } catch (error) {
       console.log(error);
-      
+
       setErrorMessage((prev) => ({
         ...prev,
         products: error.response.data.message,
@@ -165,7 +175,7 @@ const Products = () => {
       setIsDeletingFilters(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDeletingFilters]);  
+  }, [isDeletingFilters]);
 
   return (
     <>

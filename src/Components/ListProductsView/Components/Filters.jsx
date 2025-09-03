@@ -36,10 +36,13 @@ const Filters = ({
     }
   }, [isDeletingFilters]);
 
+  console.log(filters);
+  
+
   return (
     <>
       <section
-        className={`glass-box fixed left-0 top-0 z-50 h-full w-[75%] md:w-[60%] lg:z-0 lg:px-4 lg:py-10 lg:relative lg:w-[25%] lg:translate-x-0 transform transition-transform duration-300 ${
+        className={`glass-box rounded-none fixed left-0 top-0 z-50 h-full w-[75%] md:w-[60%] lg:z-0 lg:px-4 lg:py-10 lg:relative lg:w-[25%] lg:translate-x-0 transform transition-transform duration-300 ${
           filterMobile ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -181,7 +184,7 @@ const Filters = ({
         <div
           className={`${
             filterMobile
-              ? "fixed z-10 h-full w-full top-0 left-0 bg-black bg-opacity-50 backdrop-blur-sm lg:hidden"
+              ? "fixed h-full w-full top-0 left-0 bg-black bg-opacity-50 backdrop-blur-sm lg:hidden"
               : ""
           }`}
           onClick={() => setFilterMobile(!filterMobile)}
