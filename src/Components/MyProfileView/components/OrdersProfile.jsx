@@ -407,11 +407,11 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
                           <Slider {...settings}>
                             {selectedOrder.order_items.map((item, idx) => (
                               <div
-                                className="h-[208px] relative"
+                                className="h-[470px] sm:h-[208px] relative"
                                 key={item.id || idx}
                               >
                                 <div
-                                  className={`flex gap-5 transition-all duration-500 ease-in-out ${
+                                  className={`flex flex-col sm:flex-row gap-5 transition-all duration-500 ease-in-out ${
                                     formActive.formProduct
                                       ? "-translate-x-full opacity-0"
                                       : "translate-x-0 opacity-100"
@@ -421,7 +421,7 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
                                     <img
                                       src={item.product_detail.images[0].image}
                                       alt={item.product_detail.name}
-                                      className="w-44 h-52 object-cover rounded-2xl"
+                                      className="w-[60%] h-auto sm:w-44 sm:h-52 object-cover rounded-2xl"
                                     />
                                   ) : (
                                     <img
@@ -479,7 +479,7 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
                                     </div>
 
                                     <button
-                                      className="btn-glass-sm lg:btn-glass p-2 w-[50%] lg:w-[40%]"
+                                      className="btn-glass p-2 w-full lg:w-[40%] mt-5 sm:mt-0"
                                       onClick={() =>
                                         handleProductFormActive(
                                           item.product_detail.id
@@ -519,7 +519,7 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
                               ))}
                             </div>
 
-                            <div className="flex items-end gap-2">
+                            <div className="flex flex-col sm:flex-row sm:items-end gap-2">
                               <textarea
                                 onChange={(e) => setComment(e.target.value)}
                                 value={comment}
@@ -527,10 +527,17 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
                                 id=""
                                 required
                                 placeholder="Dejanos tu opinion del producto !"
-                                className="text-white placeholder:text-sm rounded-2xl w-[82%] px-4 pb-24 pt-4 resize-none bg-black/30 backdrop-blur-sm"
+                                className="text-white placeholder:text-sm rounded-2xl sm:w-[82%] px-4 pb-44 sm:pb-24 pt-4 resize-none bg-black/30 backdrop-blur-sm"
                               ></textarea>
 
-                              <div className="flex flex-col w-[50%] lg:w-[14%]">
+                              <div className="flex flex-col lg:w-[14%]">
+                                <button
+                                  type="submit"
+                                  className="btn-glass p-2 h-[10%] mt-3"
+                                >
+                                  Enviar
+                                </button>
+
                                 <button
                                   type="button"
                                   onClick={() =>
@@ -539,16 +546,9 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
                                       formProduct: false,
                                     }))
                                   }
-                                  className="btn-glass-sm lg:btn-glass p-2 h-[10%] mt-3"
+                                  className="btn-glass p-2 h-[10%] mt-3"
                                 >
                                   Volver
-                                </button>
-
-                                <button
-                                  type="submit"
-                                  className="btn-glass-sm lg:btn-glass p-2 h-[10%] mt-3"
-                                >
-                                  Enviar
                                 </button>
                               </div>
                             </div>
@@ -676,7 +676,7 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
                           <p className="text-xs font-light text-white/85">
                             Detalle de envio:
                           </p>
-                          <div className="flex items-center gap-1">
+                          <div className="flex items-start sm:items-center gap-1">
                             <p className="font-medium text-sm text-white/90">
                               {selectedOrder.street} {" - "}{" "}
                               {selectedOrder.number_of_street}
@@ -701,16 +701,16 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
 
                         <div className="flex gap-5 mt-5">
                           {selectedOrder.status === "delivered" && (
-                            <div>
+                            <div className="flex flex-col lg:flex-row gap-5 w-full">
                               <button
                                 disabled
-                                className="btn-glass-sm lg:btn-glass p-2 w-[50%] lg:w-[30%]"
+                                className="btn-glass p-2 w-full lg:w-[30%]"
                               >
                                 Ver Factura
                               </button>
 
                               <button
-                                className="btn-glass-sm lg:btn-glass p-2 w-[50%] lg:w-[30%]"
+                                className="btn-glass p-2 w-full lg:w-[30%]"
                                 onClick={() =>
                                   handleRepuchase(selectedOrder.order_items)
                                 }
@@ -799,16 +799,16 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
                               </svg>
                             </div>
 
-                            <div className="flex items-end gap-2 mt-5">
+                            <div className="flex flex-col sm:flex-row sm:items-end gap-2 mt-5">
                               <textarea
                                 name=""
                                 id=""
                                 required
                                 placeholder=""
-                                className="text-white placeholder:text-sm rounded-2xl w-[82%] px-4 pb-24 pt-4 resize-none bg-black/30 backdrop-blur-sm"
+                                className="text-white placeholder:text-sm rounded-2xl sm:w-[82%] px-4 pb-44 sm:pb-24 pt-4 resize-none bg-black/30 backdrop-blur-sm"
                               ></textarea>
 
-                              <button className="btn-glass-sm lg:btn-glass p-2 w-[50%] lg:w-[14%] h-[10%] mt-3">
+                              <button className="btn-glass p-2 lg:w-[14%] h-[10%] mt-3">
                                 Enviar
                               </button>
                             </div>

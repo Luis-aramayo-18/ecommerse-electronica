@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useAuth } from "./Hooks/useAuth";
 import { useAxios } from "./Hooks/useAxios";
 import { debounce } from "lodash";
 import axios from "axios";
@@ -8,8 +7,10 @@ import Cart from "./PaymentView/Cart";
 import Loading from "./Loading";
 
 const Nav = () => {
-  const { setUserData, userData } = useAuth();
-
+  const [userData, setUserData] = useState({
+    token: localStorage.getItem("authToken") || null,
+    image: localStorage.getItem("profileImage") || null,
+  });
   const [errorMessage, setErrorMessage] = useState(null);
   const [searchProduct, setSearchProduct] = useState("");
   const [openMenu, setOpenMenu] = useState(false);
@@ -21,7 +22,10 @@ const Nav = () => {
     categories: [],
     products: [],
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({
+    user_data:false,
+    suggestions:false
+  });
   const location = useLocation();
   const [brand, setBrand] = useState("");
 
@@ -37,31 +41,51 @@ const Nav = () => {
     });
   };
 
-  useEffect(() => {
-    const img = localStorage.getItem("profileImage");
-
-    setUserData((prevUserData) => ({
-      ...prevUserData,
-      image: img,
-    }));
-
-    const getCategories = async () => {
-      try {
-        const response = await api.get("/categories/");
-        setCategories(response.data);
-      } catch (error) {
-        if (error) {
-          setErrorMessage(error.response.data.message);
-        }
+  const getCategories = async () => {
+    try {
+      const response = await api.get("/categories/");
+      setCategories(response.data);
+    } catch (error) {
+      if (error) {
+        setErrorMessage(error.response.data.message);
       }
-    };
-    getCategories();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    }
+  };
+
+  const getUserInfo = async () => {
+    try {
+      setLoading((prevState) => ({
+        ...prevState,
+        user_data: true,
+      }));
+
+      const response = await api.get("/my-user-info/");
+
+      if (response.status === 200) {
+        const { username } = response.data;
+
+        setUserData((prevState) => ({
+          ...prevState,
+          user: username,
+        }));
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading((prevState) => ({
+        ...prevState,
+        user_data: false,
+      }));
+    }
+  };
 
   const fetchSuggestions = async (searchProduct) => {
-    try { 
-      setLoading(true);
+    try {
+      setLoading((prevState) => ({
+        ...prevState,
+        suggestions: true,
+      }));
+
       const response = await api.get(
         `/products/search/?search=${searchProduct}`
       );
@@ -86,9 +110,18 @@ const Nav = () => {
         console.error("Error fetching suggestions:", error);
       }
     } finally {
-      setLoading(false);
+      setLoading((prevState) => ({
+        ...prevState,
+        suggestions: false,
+      }));
     }
   };
+
+  useEffect(() => {
+    getCategories();
+    getUserInfo();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSearchProduct = (e) => {
     const query = e.target.value;
@@ -141,7 +174,6 @@ const Nav = () => {
       categories: [],
     });
   };
-
 
   return (
     <>
@@ -255,7 +287,7 @@ const Nav = () => {
                 className="flex items-center gap-1 mt-5 w-full md:hidden"
                 onClick={() => setMyAccountMenu(!myAccountMenu)}
               >
-                {userData.token ? (
+                {userData.token && userData.image ? (
                   <Link
                     className="flex justify-between items-center m-0 text-xl font-medium"
                     to="/myAccount?section=information"
@@ -264,14 +296,16 @@ const Nav = () => {
                     <div className="flex items-center gap-3">
                       <img
                         className="object-cover w-12 h-12 rounded-full border border-white"
-                        alt={`imagen de perfil de ${userData.username}`}
-                        src={
-                          userData.image ? userData.image : `/img/home/user.png`
-                        }
+                        alt={`imagen de perfil`}
+                        src={userData.image || `/img/home/user.png`}
                       />
-                      <p className="first-letter:uppercase text-white">
-                        {userData.username && `${userData.username}`}
-                      </p>
+                      {loading.user_data ? (
+                        <Loading />
+                      ) : (
+                        <p className="first-letter:uppercase text-white">
+                          {userData.user}
+                        </p>
+                      )}
                     </div>
                   </Link>
                 ) : (
@@ -405,14 +439,14 @@ const Nav = () => {
           <div className="flex items-center sm:gap-1 md:gap-1 lg:gap-2 absolute top-0 right-0 h-full w-auto">
             <Cart />
             <div className="hidden md:relative md:flex md:items-center md:w-full md:h-full">
-              {userData.token ? (
+              {userData.token && userData.image ? (
                 <Link
                   className="flex items-center border border-white w-10 h-10 rounded-full overflow-hidden"
                   to="/myAccount?section=information"
                 >
                   <img
                     className="object-cover w-full h-full"
-                    alt={`imagen de perfil de ${userData.username}`}
+                    alt={`imagen de perfil`}
                     src={userData.image ? userData.image : `/img/home/user.png`}
                   />
                 </Link>

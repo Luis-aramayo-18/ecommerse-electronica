@@ -247,7 +247,11 @@ const DirectionsProfiles = () => {
   return (
     <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box relative">
       <section
-        className={`relative ${formActive ? "min-h-[430px]" : "min-h-[250px]"}`}
+        className={`relative ${
+          formActive
+            ? "min-h-[540px] sm:min-h-[430px]"
+            : "min-h-[280px] sm:min-h-[250px]"
+        }`}
       >
         <div
           className={`
@@ -378,7 +382,7 @@ const DirectionsProfiles = () => {
         >
           <form
             onSubmit={addDirection}
-            className="w-[90%] h-full flex flex-col"
+            className="w-[90%] h-full flex flex-col relative"
           >
             <div className="flex items-center gap-2 text-xs font-semibold mt-6 text-[#fce803]/90">
               <svg
@@ -396,8 +400,8 @@ const DirectionsProfiles = () => {
               <p>Recuerda, solo puedes agregar hasta 3 direcciones.</p>
             </div>
 
-            <div className="flex items-center gap-10 mt-7">
-              <div className="w-[20%]">
+            <div className="flex flex-row items-center gap-10 mt-7">
+              <div className="w-[55%] sm:w-[20%]">
                 <Select
                   required
                   placeholder="Direccion"
@@ -410,7 +414,7 @@ const DirectionsProfiles = () => {
                 />
               </div>
 
-              <div className="w-[60%] lg:w-[30%] h-full">
+              <div className="w-[40%] sm::w-[30%] h-full">
                 <input
                   required
                   onChange={handleCPChange}
@@ -422,14 +426,14 @@ const DirectionsProfiles = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-10 mt-5">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10 mt-8 sm:mt-5">
               <input
                 required
                 onChange={handleStreetChange}
                 value={directionData.street}
                 placeholder="Calle"
                 type="text"
-                className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] w-[60%] lg:w-[50%] py-2"
+                className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] w-full lg:w-[50%] py-2"
               />
 
               <input
@@ -438,7 +442,7 @@ const DirectionsProfiles = () => {
                 value={directionData.number}
                 placeholder="Numero"
                 type="number"
-                className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] w-[60%] lg:w-[25%] py-2"
+                className="bg-transparent placeholder:text-xs text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] w-[45%] lg:w-[25%] py-2"
               />
             </div>
 
@@ -446,16 +450,33 @@ const DirectionsProfiles = () => {
               <textarea
                 onChange={handleReferenceChange}
                 value={directionData.reference}
-                className="bg-transparent resize-none h-36 placeholder:text-sm text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] py-2 w-[80%]"
+                className="bg-transparent resize-none h-36 placeholder:text-sm text-white placeholder:text-white/65 border-b border-white/25 focus:outline-none focus:border-[#fce803] py-2 w-full sm:w-[80%]"
                 placeholder="Referencia:  barrio, dpto, piso, manzana, etc."
               />
             </div>
 
             <button
               type="submit"
-              className="btn-glass p-2 mt-10 w-[50%] lg:w-[20%]"
+              className="btn-glass p-2 mt-10 w-full lg:w-[20%]"
             >
-              {loading.post_direction ? <Loading /> : <p>ACtualizar</p>}
+              {loading.post_direction ? <Loading /> : <p>Agregar</p>}
+            </button>
+
+            <button className="absolute top-5 right-0" onClick={() => setFormActive(false)} type="button">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6 text-white"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
             </button>
           </form>
         </div>

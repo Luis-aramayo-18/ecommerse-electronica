@@ -32,7 +32,6 @@ const InformationProfile = ({userData, setUserData}) => {
       }));
 
       const response = await api.get("/my-user-info/");
-      console.log(response);
       
       if (response.status === 200) {
         const { username, dni, email, phone_number } = response.data;

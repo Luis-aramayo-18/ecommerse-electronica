@@ -16,6 +16,7 @@ import { useSearchParams } from "react-router-dom";
 const MyAccount = () => {
   const { logoutUsername } = useAuth();
 
+  const [openSectionMobile, setOpenSectionMobile] = useState(null);
   const [messageConfirmation, setMessageConfirmation] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -43,7 +44,13 @@ const MyAccount = () => {
   const openSection = (section) => {
     switch (section) {
       case "information":
-        return <InformationProfile userData={userData} setUserData={setUserData} setSection={setSection} />;
+        return (
+          <InformationProfile
+            userData={userData}
+            setUserData={setUserData}
+            setSection={setSection}
+          />
+        );
 
       case "orders":
         return (
@@ -67,7 +74,7 @@ const MyAccount = () => {
         return <SoldsAdmin />;
 
       default:
-        return <InformationProfile />;
+        return null;
     }
   };
 
@@ -85,6 +92,12 @@ const MyAccount = () => {
 
   const handleCloseConfirmation = () => {
     setShowConfirmation(false);
+  };
+
+  const toggleSection = (sectionName) => {
+    setOpenSectionMobile(
+      openSectionMobile === sectionName ? null : sectionName
+    );
   };
 
   return (
@@ -122,185 +135,169 @@ const MyAccount = () => {
         <section className="w-full lg:hidden">
           <div className="bg-[#fce803] border border-black/25 text-black rounded-[32px] relative overflow-hidden">
             <div className="w-full flex justify-center p-4">
-              <Header />
+              <Header userData={userData} />
             </div>
-
-            {/* <div className="yellow-glow absolute top-[10%] left-[5%] h-[80%] w-[40%]"></div> */}
           </div>
 
           <div className="mt-20 mb-10">
-            <section className="cursor-pointer px-4 py-6 glass-box">
+            <section className="cursor-pointer glass-box mt-10 px-4 py-8">
               <div
                 className="flex items-center gap-3 text-white"
-                onClick={() =>
-                  setSection(section === "information" ? "" : "information")
-                }
+                onClick={() => toggleSection("information")}
               >
-                {section === "information" ? (
+                {openSectionMobile === "information" ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    className="size-6 text-white"
+                    className="size-6 text-white transition-transform duration-300"
                   >
                     <path
                       fillRule="evenodd"
-                      d="M4.5 3.75a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V6.75a3 3 0 0 0-3-3h-15Zm4.125 3a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Zm-3.873 8.703a4.126 4.126 0 0 1 7.746 0 .75.75 0 0 1-.351.92 7.47 7.47 0 0 1-3.522.877 7.47 7.47 0 0 1-3.522-.877.75.75 0 0 1-.351-.92ZM15 8.25a.75.75 0 0 0 0 1.5h3.75a.75.75 0 0 0 0-1.5H15ZM14.25 12a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H15a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5h3.75a.75.75 0 0 0 0-1.5H15Z"
+                      d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
                       clipRule="evenodd"
                     />
                   </svg>
                 ) : (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
                     viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="size-6"
+                    fill="currentColor"
+                    className="size-6 text-white/75 transition-transform duration-300 transform -rotate-90"
                   >
                     <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z"
+                      fillRule="evenodd"
+                      d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+                      clipRule="evenodd"
                     />
                   </svg>
                 )}
 
-                <h2 className="text-sm font-bold uppercase">Información</h2>
+                <h2
+                  className={`text-sm font-bold uppercase ${
+                    openSectionMobile === "information"
+                      ? "text-white"
+                      : "text-white/75"
+                  }`}
+                >
+                  Información del Perfil
+                </h2>
               </div>
-
-              {section === "information" && <div>{openSection(section)}</div>}
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                  openSectionMobile === "information"
+                    ? "max-h-[1000px]"
+                    : "max-h-0"
+                }`}
+              >
+                <InformationProfile
+                  userData={userData}
+                  setUserData={setUserData}
+                  setSection={setSection}
+                />
+              </div>
             </section>
 
-            <section className="cursor-pointer px-4 py-6 glass-box mt-10">
+            <section className="cursor-pointer px-4 py-8 glass-box mt-10">
               <div
                 className="flex items-center gap-3 text-white"
-                onClick={() =>
-                  setSection(
-                    section === "authentication" ? "" : "authentication"
-                  )
-                }
+                onClick={() => toggleSection("orders")}
               >
-                {section === "authentication" ? (
+                {openSectionMobile === "orders" ? (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    className="size-6 text-white"
+                    className="size-6 text-white transition-transform duration-300"
                   >
-                    <path d="M18 1.5c2.9 0 5.25 2.35 5.25 5.25v3.75a.75.75 0 0 1-1.5 0V6.75a3.75 3.75 0 1 0-7.5 0v3a3 3 0 0 1 3 3v6.75a3 3 0 0 1-3 3H3.75a3 3 0 0 1-3-3v-6.75a3 3 0 0 1 3-3h9v-3c0-2.9 2.35-5.25 5.25-5.25Z" />
+                    <path
+                      fillRule="evenodd"
+                      d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 ) : (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
                     viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="size-6"
+                    fill="currentColor"
+                    className="size-6 text-white/75 transition-transform duration-300 transform -rotate-90"
                   >
                     <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
+                      fillRule="evenodd"
+                      d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+                      clipRule="evenodd"
                     />
                   </svg>
                 )}
-
-                <p className="text-sm font-bold uppercase">Autenticación</p>
+                <h2 className={`text-sm font-bold uppercase ${
+                    openSectionMobile === "orders"
+                      ? "text-white"
+                      : "text-white/75"
+                  }`}>Compras</h2>
               </div>
-
-              {section === "authentication" && (
-                <div className="mt-5">{openSection(section)}</div>
-              )}
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                  openSectionMobile === "orders" ? "max-h-[1000px]" : "max-h-0"
+                }`}
+              >
+                <OrdersProfile
+                  setShowConfirmation={setShowConfirmation}
+                  setMessageConfirmation={setMessageConfirmation}
+                  messageConfirmation={messageConfirmation}
+                />
+              </div>
             </section>
 
-            {admin === true ? (
-              <section className="cursor-pointer px-4 py-6 glass-box mt-10">
-                <div
-                  className="flex items-center gap-2 text-white"
-                  onClick={() => setSection(section === "admin" ? "" : "admin")}
-                >
-                  {section === "admin" ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="size-6 text-white"
-                    >
-                      <path d="M4.08 5.227A3 3 0 0 1 6.979 3H17.02a3 3 0 0 1 2.9 2.227l2.113 7.926A5.228 5.228 0 0 0 18.75 12H5.25a5.228 5.228 0 0 0-3.284 1.153L4.08 5.227Z" />
-                      <path
-                        fillRule="evenodd"
-                        d="M5.25 13.5a3.75 3.75 0 1 0 0 7.5h13.5a3.75 3.75 0 1 0 0-7.5H5.25Zm10.5 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm3.75-.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="size-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M21.75 17.25v-.228a4.5 4.5 0 0 0-.12-1.03l-2.268-9.64a3.375 3.375 0 0 0-3.285-2.602H7.923a3.375 3.375 0 0 0-3.285 2.602l-2.268 9.64a4.5 4.5 0 0 0-.12 1.03v.228m19.5 0a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3m19.5 0a3 3 0 0 0-3-3H5.25a3 3 0 0 0-3 3m16.5 0h.008v.008h-.008v-.008Zm-3 0h.008v.008h-.008v-.008Z"
-                      />
-                    </svg>
-                  )}
-
-                  <p className="text-sm font-bold uppercase">Admin</p>
-                </div>
-
-                {section === "admin" && (
-                  <div className="mt-5">{openSection(section)}</div>
+            <section className="cursor-pointer px-4 py-8 glass-box mt-10">
+              <div
+                className="flex items-center gap-2 text-white rounded-sm"
+                onClick={() => toggleSection("directions")}
+              >
+                {openSectionMobile === "directions" ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="size-6 text-white transition-transform duration-300"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="size-6 text-white/75 transition-transform duration-300 transform -rotate-90"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.53 16.28a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 0 1 1.06-1.06L12 14.69l6.97-6.97a.75.75 0 1 1 1.06 1.06l-7.5 7.5Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                 )}
-              </section>
-            ) : (
-              <section className="cursor-pointer px-4 py-6 glass-box mt-10">
-                <div
-                  className="flex items-center gap-2 text-[#deecfb]"
-                  onClick={() =>
-                    setSection(section === "orders" ? "" : "orders")
-                  }
-                >
-                  {section === "orders" ? (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="size-6 text-white"
-                    >
-                      <path d="M2.25 2.25a.75.75 0 0 0 0 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 0 0-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 0 0 0-1.5H5.378A2.25 2.25 0 0 1 7.5 15h11.218a.75.75 0 0 0 .674-.421 60.358 60.358 0 0 0 2.96-7.228.75.75 0 0 0-.525-.965A60.864 60.864 0 0 0 5.68 4.509l-.232-.867A1.875 1.875 0 0 0 3.636 2.25H2.25ZM3.75 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16.5 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" />
-                    </svg>
-                  ) : (
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="size-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                      />
-                    </svg>
-                  )}
+                <h2 className={`text-sm font-bold uppercase ${
+                    openSectionMobile === "directions"
+                      ? "text-white"
+                      : "text-white/75"
+                  }`}>Direcciones</h2>
+              </div>
 
-                  <p className="text-lg">Compras</p>
-                </div>
-
-                {section === "orders" && (
-                  <div className="mt-5">{openSection(section)}</div>
-                )}
-              </section>
-            )}
+              <div
+                className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                  openSectionMobile === "directions"
+                    ? "max-h-[1000px]"
+                    : "max-h-0"
+                }`}
+              >
+                <DirectionsProfiles />
+              </div>
+            </section>
 
             <section className="cursor-pointer px-4 py-6 glass-box mt-10">
               <div
