@@ -39,8 +39,6 @@ const Brands = () => {
     }
   };
 
-  console.log(brandsOptions);
-
   return (
     <section className="glass-box mt-10 mx-3 sm:mx-6 md:mx-14 lg:mx-24 py-10 px-5">
       <div className="flex flex-col justify-center z-20">

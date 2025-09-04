@@ -120,11 +120,10 @@ export function CartProvider({ children }) {
       setLoading((prev) => ({ ...prev, [product.id]: true }));
 
       const sessionKey = localStorage.getItem("sessionKey");
-      if (sessionKey) {
-                
+      if (sessionKey) {        
         const response = await api.delete("/cart/remove-item/", {
           data: {
-            product_id: product.id,
+            product_id: product.product_detail.id,
           },
           headers: {
             "X-Session-Key": sessionKey,
@@ -132,7 +131,7 @@ export function CartProvider({ children }) {
         });
 
         if (response.status === 200) {
-          const updateCart = cart.filter((item) => item.product_detail.id !== product.id);
+          const updateCart = cart.filter((item) => item.product_detail.id !== product.product_detail.id);
           console.log(updateCart);
           setCart(updateCart);
           setTotalPrice(response.data.total_price);
@@ -254,10 +253,7 @@ export function CartProvider({ children }) {
     });
 
     return formatter.format(priceAsNumber);
-  };
-
-  console.log(loading);
-  
+  };    
 
   return (
     <CartContext.Provider

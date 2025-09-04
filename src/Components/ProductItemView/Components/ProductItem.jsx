@@ -1,10 +1,21 @@
 import React from "react";
 import Slider from "react-slick";
 import { useCart } from "../../Hooks/useCart";
+import { useAxios } from "../../Hooks/useAxios";
 import Loading from "../../Loading";
 
 const ProductItem = ({ product, comments }) => {
-  const { addToCart, removeFromCart, cart, formatPrice, loading } = useCart();
+  const api = useAxios();
+
+  const {
+    addToCart,
+    cart,
+    setLoading,
+    setCart,
+    setTotalPrice,
+    formatPrice,
+    loading,
+  } = useCart();
 
   const isProductInCart = (product) => {
     return cart.some((item) => item.product_detail.id === product.id);
@@ -90,6 +101,39 @@ const ProductItem = ({ product, comments }) => {
 
     return <div className="flex">{average}</div>;
   };
+
+  const removeFromCart = async (product) => {
+    try {
+      setLoading((prev) => ({ ...prev, [product.id]: true }));
+
+      const sessionKey = localStorage.getItem("sessionKey");
+      if (sessionKey) {
+        const response = await api.delete("/cart/remove-item/", {
+          data: {
+            product_id: product.id,
+          },
+          headers: {
+            "X-Session-Key": sessionKey,
+          },
+        });
+
+        if (response.status === 200) {
+          const updateCart = cart.filter(
+            (item) => item.product_detail.id !== product.id
+          );
+          setCart(updateCart);
+          setTotalPrice(response.data.total_price);
+        }
+      }
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
+    } finally {
+      setLoading((prev) => ({ ...prev, [product.id]: false }));
+    }
+  };
+
+  console.log(loading);
+  
 
   return (
     <section>
