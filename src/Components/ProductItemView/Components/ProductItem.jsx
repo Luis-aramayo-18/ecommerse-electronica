@@ -130,10 +130,7 @@ const ProductItem = ({ product, comments }) => {
     } finally {
       setLoading((prev) => ({ ...prev, [product.id]: false }));
     }
-  };
-
-  console.log(loading);
-  
+  };  
 
   return (
     <section>
