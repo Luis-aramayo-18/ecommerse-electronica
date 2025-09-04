@@ -14,6 +14,7 @@ const ProductCard = ({ product, homeView, className = "" }) => {
     formatPrice,
     loading,
   } = useCart();
+  
   const api = useAxios();
 
   const isProductInCart = (product) => {

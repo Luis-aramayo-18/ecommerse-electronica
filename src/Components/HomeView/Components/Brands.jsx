@@ -39,6 +39,8 @@ const Brands = () => {
     }
   };
 
+  console.log(brandsOptions);
+
   return (
     <section className="glass-box mt-10 mx-3 sm:mx-6 md:mx-14 lg:mx-24 py-10 px-5">
       <div className="flex flex-col justify-center z-20">
@@ -52,7 +54,7 @@ const Brands = () => {
               <div className="card-face card-front absolute w-full h-full rounded-full backdrop-blur-md bg-[#fce803] border-2 border-black flex justify-center items-center">
                 <img
                   className="h-28 w-28 sm:w-36 sm:h-36 object-contain"
-                  src="./img/home/dell.png"
+                  src="./img/home/dell.webp"
                   alt="Dell logo"
                 />
               </div>
@@ -71,11 +73,13 @@ const Brands = () => {
                       </li>
                     ))}
 
-                    <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
-                      <Link to={`/products/category/null?brand=Dell`}>
-                        Ver todos
-                      </Link>
-                    </li>
+                    {brandsOptions.Dell.length > 1 && (
+                      <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
+                        <Link to={`/products/category/null?brand=Dell`}>
+                          Ver todos
+                        </Link>
+                      </li>
+                    )}
                   </ul>
                 ) : (
                   <div className="p-2 text-sm text-white font-semibold transition-all duration-100 hover:text-[#fce803]">
@@ -91,7 +95,7 @@ const Brands = () => {
               <div className="card-face card-front absolute w-full h-full rounded-full backdrop-blur-md bg-[#fce803] border-2 border-black flex justify-center items-center">
                 <img
                   className="h-28 w-28 sm:w-36 sm:h-36 object-contain"
-                  src="./img/home/sony.png"
+                  src="./img/home/sony.webp"
                   alt="Dell logo"
                 />
               </div>
@@ -110,11 +114,13 @@ const Brands = () => {
                       </li>
                     ))}
 
-                    <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
-                      <Link to={`/products/category/null?brand=Sony`}>
-                        Ver todos
-                      </Link>
-                    </li>
+                    {brandsOptions.Sony.length > 1 && (
+                      <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
+                        <Link to={`/products/category/null?brand=Sony`}>
+                          Ver todos
+                        </Link>
+                      </li>
+                    )}
                   </ul>
                 ) : (
                   <div className="p-2 text-sm text-white font-semibold transition-all duration-100 hover:text-[#fce803]">
@@ -130,7 +136,7 @@ const Brands = () => {
               <div className="card-face card-front absolute w-full h-full rounded-full backdrop-blur-md bg-[#fce803] border-2 border-black flex justify-center items-center">
                 <img
                   className="h-28 w-28 sm:w-36 sm:h-36 object-contain"
-                  src="./img/home/motorola.png"
+                  src="./img/home/motorola.webp"
                   alt="Dell logo"
                 />
               </div>
@@ -151,11 +157,13 @@ const Brands = () => {
                       </li>
                     ))}
 
-                    <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
-                      <Link to={`/products/category/null?brand=Motorola`}>
-                        Ver todos
-                      </Link>
-                    </li>
+                    {brandsOptions.Motorola.length > 1 && (
+                      <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
+                        <Link to={`/products/category/null?brand=Motorola`}>
+                          Ver todos
+                        </Link>
+                      </li>
+                    )}
                   </ul>
                 ) : (
                   <div className="p-2 text-sm text-white font-semibold transition-all duration-100 hover:text-[#fce803]">
@@ -171,7 +179,7 @@ const Brands = () => {
               <div className="card-face card-front absolute w-full h-full rounded-full backdrop-blur-md bg-[#fce803] border-2 border-black flex justify-center items-center">
                 <img
                   className="h-28 w-28 sm:w-36 sm:h-36 object-contain"
-                  src="./img/home/hp.png"
+                  src="./img/home/hp.webp"
                   alt="Dell logo"
                 />
               </div>
@@ -190,11 +198,13 @@ const Brands = () => {
                       </li>
                     ))}
 
-                    <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
-                      <Link to={`/products/category/null?brand=Hp`}>
-                        Ver todos
-                      </Link>
-                    </li>
+                    {brandsOptions.Hp.length > 1 && (
+                      <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
+                        <Link to={`/products/category/null?brand=Hp`}>
+                          Ver todos
+                        </Link>
+                      </li>
+                    )}
                   </ul>
                 ) : (
                   <div className="p-2 text-sm text-white font-semibold transition-all duration-100 hover:text-[#fce803]">
@@ -210,7 +220,7 @@ const Brands = () => {
               <div className="card-face card-front absolute w-full h-full rounded-full backdrop-blur-md bg-[#fce803] border-2 border-black flex justify-center items-center">
                 <img
                   className="h-28 w-28 sm:w-36 sm:h-36 object-contain"
-                  src="./img/home/samsung.png"
+                  src="./img/home/samsung.webp"
                   alt="Dell logo"
                 />
               </div>
@@ -231,11 +241,13 @@ const Brands = () => {
                       </li>
                     ))}
 
-                    <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
-                      <Link to={`/products/category/null?brand=Samsung`}>
-                        Ver todos
-                      </Link>
-                    </li>
+                    {brandsOptions.Samsung.length > 1 && (
+                      <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
+                        <Link to={`/products/category/null?brand=Samsung`}>
+                          Ver todos
+                        </Link>
+                      </li>
+                    )}
                   </ul>
                 ) : (
                   <div className="p-2 text-sm text-white font-semibold transition-all duration-100 hover:text-[#fce803]">
@@ -251,7 +263,7 @@ const Brands = () => {
               <div className="card-face card-front absolute w-full h-full rounded-full backdrop-blur-md bg-[#fce803] border-2 border-black flex justify-center items-center">
                 <img
                   className="h-28 w-28 sm:w-36 sm:h-36 object-contain"
-                  src="./img/home/iphone.png"
+                  src="./img/home/iphone.webp"
                   alt="Dell logo"
                 />
               </div>
@@ -272,11 +284,13 @@ const Brands = () => {
                       </li>
                     ))}
 
-                    <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
-                      <Link to={`/products/category/null?brand=Iphone`}>
-                        Ver todos
-                      </Link>
-                    </li>
+                    {brandsOptions.Iphone.length > 1 && (
+                      <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
+                        <Link to={`/products/category/null?brand=Iphone`}>
+                          Ver todos
+                        </Link>
+                      </li>
+                    )}
                   </ul>
                 ) : (
                   <div className="p-2 text-sm text-white font-semibold transition-all duration-100 hover:text-[#fce803]">
@@ -292,7 +306,7 @@ const Brands = () => {
               <div className="card-face card-front absolute w-full h-full rounded-full backdrop-blur-md bg-[#fce803] border-2 border-black flex justify-center items-center">
                 <img
                   className="h-28 w-28 sm:w-32 sm:h-32 object-contain"
-                  src="./img/home/xiaomi.png"
+                  src="./img/home/xiaomi.webp"
                   alt="Dell logo"
                 />
               </div>
@@ -313,11 +327,13 @@ const Brands = () => {
                       </li>
                     ))}
 
-                    <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
-                      <Link to={`/products/category/null?brand=Xiaomi`}>
-                        Ver todos
-                      </Link>
-                    </li>
+                    {brandsOptions.Xiaomi.length > 1 && (
+                      <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
+                        <Link to={`/products/category/null?brand=Xiaomi`}>
+                          Ver todos
+                        </Link>
+                      </li>
+                    )}
                   </ul>
                 ) : (
                   <div className="p-2 text-sm text-white font-semibold transition-all duration-100 hover:text-[#fce803]">
@@ -333,7 +349,7 @@ const Brands = () => {
               <div className="card-face card-front absolute w-full h-full rounded-full backdrop-blur-md bg-[#fce803] border-2 border-black flex justify-center items-center">
                 <img
                   className="h-28 w-28 sm:w-36 sm:h-36 object-contain"
-                  src="./img/home/xbox.png"
+                  src="./img/home/xbox.webp"
                   alt="Dell logo"
                 />
               </div>
@@ -352,11 +368,13 @@ const Brands = () => {
                       </li>
                     ))}
 
-                    <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
-                      <Link to={`/products/category/null?brand=Xbox`}>
-                        Ver todos
-                      </Link>
-                    </li>
+                    {brandsOptions.Xbox.length > 1 && (
+                      <li className="p-2 text-sm font-semibold transition-all duration-100 hover:text-[#fce803]">
+                        <Link to={`/products/category/null?brand=Xbox`}>
+                          Ver todos
+                        </Link>
+                      </li>
+                    )}
                   </ul>
                 ) : (
                   <div className="p-2 text-sm text-white font-semibold transition-all duration-100 hover:text-[#fce803]">

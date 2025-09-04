@@ -47,7 +47,7 @@ const PayForm = ({ setShipmentInfo, shipmentInfo }) => {
             onChange={() => {}}
             className="h-5 w-5"
           />
-          <img src="/img/payment/mercadopago.png" className="w-[20%]" alt="" />
+          <img src="/img/payment/mercadopago.png" className="w-[40%] sm:w-[20%]" alt="" />
         </div>
 
         <div className="mt-5 flex items-center gap-2">

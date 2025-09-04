@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../Hooks/useCart";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loading from "../Loading";
 
 export function Cart() {
@@ -103,7 +103,11 @@ export function Cart() {
                 {cart.map((product) => (
                   <li key={product.id} className="relative">
                     <div className="flex gap-2 mt-3">
-                      <div className="w-28 m-2">
+                      <Link
+                        to={`products/category/${product.product_detail.category}/product/${product.product_detail.id}`}
+                        onClick={closeModal}
+                        className="w-28 m-2"
+                      >
                         <img
                           className="w-full object-cover"
                           src={product.product_detail.images[0].image}
@@ -111,7 +115,7 @@ export function Cart() {
                             product.product_detail.name || "Producto sin imagen"
                           }
                         />
-                      </div>
+                      </Link>
 
                       <div>
                         <p className="text-lg font-semibold text-white">

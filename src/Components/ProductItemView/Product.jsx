@@ -59,10 +59,7 @@ const Product = () => {
       getCommentsProduct();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product]);
-
-  console.log(product);
-  
+  }, [product]);  
 
   return (
     <>

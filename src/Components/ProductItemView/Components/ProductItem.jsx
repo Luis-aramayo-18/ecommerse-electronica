@@ -1,17 +1,14 @@
 import React from "react";
 import Slider from "react-slick";
 import { useCart } from "../../Hooks/useCart";
+import Loading from "../../Loading";
 
-const ProductItem = ({ product, comments, loading }) => {
-  const { addToCart, removeFromCart, cart, formatPrice } = useCart();
+const ProductItem = ({ product, comments }) => {
+  const { addToCart, removeFromCart, cart, formatPrice, loading } = useCart();
 
-  const checkProductInCart = (product) => {
-    if (product) {
-      return cart.some((item) => item.id === product.id);
-    }
+  const isProductInCart = (product) => {
+    return cart.some((item) => item.product_detail.id === product.id);
   };
-
-  const isProductInCart = checkProductInCart(product);
 
   const settingsSlider = {
     dots: true,
@@ -156,8 +153,7 @@ const ProductItem = ({ product, comments, loading }) => {
                     : "invisible overflow-hidden h-0"
                 }`}
               >
-                $
-                {formatPrice(product.final_price)}
+                ${formatPrice(product.final_price)}
               </h2>
             </div>
 
@@ -187,21 +183,30 @@ const ProductItem = ({ product, comments, loading }) => {
 
             <div className="flex flex-col gap-4 mt-5">
               <button
-                className={`mt-5 flex justify-center transition-all duration-100 text-white p-4 border border-white/25 lg:hover:bg-[#fce803] lg:hover:shadow-md lg:hover:text-black lg:hover:border-black/25 rounded-full ${
-                  isProductInCart
-                    ? "bg-[#fce803] border-black/25 text-black"
-                    : "bg-black/30"
+                disabled={loading[product.id]}
+                className={`border border-white/25 rounded-full mt-2 w-full p-4 text-xs font-bold transition-all duration-200 lg:group-hover:bg-[#fce803] lg:group-hover:text-black  ${
+                  isProductInCart(product)
+                    ? "bg-[#fce803] text-black"
+                    : "bg-black/30 text-white"
                 }`}
-                onClick={() => {
-                  isProductInCart
+                onClick={() =>
+                  isProductInCart(product)
                     ? removeFromCart(product)
-                    : addToCart(product);
-                }}
+                    : addToCart(product)
+                }
               >
-                {isProductInCart ? (
-                  <p className="font-bold text-black">ELIMINAR</p>
+                {isProductInCart(product) ? (
+                  <div className="flex items-center justify-center">
+                    {loading[product.id] ? (
+                      <Loading bg={true} />
+                    ) : (
+                      <p>ELIMINAR</p>
+                    )}
+                  </div>
                 ) : (
-                  <p className="font-bold">AGREGAR</p>
+                  <div className="flex items-center justify-center">
+                    {loading[product.id] ? <Loading /> : <p>COMPRAR</p>}
+                  </div>
                 )}
               </button>
 

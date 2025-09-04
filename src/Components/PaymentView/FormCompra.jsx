@@ -331,7 +331,7 @@ const FormCompra = () => {
                   <button
                     type="button"
                     onClick={() => handleNext()}
-                    className="btn-glass w-[80%]"
+                    className="btn-glass w-full sm:w-[80%]"
                   >
                     CONTINUAR
                   </button>
@@ -339,12 +339,12 @@ const FormCompra = () => {
                   <button
                     type="button"
                     onClick={() => handleNext()}
-                    className="btn-glass w-[80%]"
+                    className="btn-glass w-full sm:w-[80%]"
                   >
                     CONTINUAR
                   </button>
                 ) : (
-                  <button type="submit" className="btn-glass w-[80%]">
+                  <button type="submit" className="btn-glass w-full sm:w-[80%]">
                     {loading.order ? <Loading /> : <p>COMPRAR</p>}
                   </button>
                 )}

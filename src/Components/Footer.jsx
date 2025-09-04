@@ -13,7 +13,7 @@ const Footer = () => {
       <div>
         <Link to="/" onClick={handleScrollToTop}> 
           <img
-            src="/img/logonav.png"
+            src="/img/logonav.webp"
             alt="logo digital wolrd"
             className="w-44"
           />

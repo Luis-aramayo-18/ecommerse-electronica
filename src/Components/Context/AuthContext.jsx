@@ -170,7 +170,7 @@ export const AuthProvider = ({ children }) => {
     } finally {
       setLoading((prevState) => ({
         ...prevState,
-        loginEmail: false,
+        register: false,
       }));
     }
   };
@@ -226,6 +226,7 @@ export const AuthProvider = ({ children }) => {
         logoutUsername,
         authError,
         loading,
+        setLoading
       }}
     >
       {children}

@@ -14,7 +14,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirmed, setShowPasswordConfirmed] = useState(false);
 
-  const { authError, loginEmail, loading } = useAuth();
+  const { authError, loginEmail, loading, setLoading } = useAuth();
 
   const {
     register: registerLogin,
@@ -42,6 +42,7 @@ const Login = () => {
 
   const registerUser = async (data) => {
     try {
+      setLoading((prev) => ({ ...prev, register: true }));
       const response = await api.post("/register/", data);
 
       if (response.status === 201) {
@@ -83,6 +84,7 @@ const Login = () => {
         transition: Bounce,
       });
     } finally {
+      setLoading((prev) => ({ ...prev, register: false }));
     }
   };
 
@@ -100,6 +102,8 @@ const Login = () => {
     hasSpecialChar: /[$#%&@.]/.test(password),
     hasMinLength: password.length >= 8,
   };
+
+  console.log(loading);
 
   return (
     <div className="my-10 w-full h-auto px-2 md:px-14 lg:px-24">
@@ -222,11 +226,12 @@ const Login = () => {
                   </div>
 
                   <button
+                    disabled={loading.register}
                     type="submit"
                     className="w-full text-xs font-semibold rounded-lg border p-4 mt-5 bg-[#fce803] text-black border-black/25 lg:bg-black/30 lg:text-white lg:border-white/25 lg:hover:bg-[#fce803] lg:hover:text-black lg:hover:border-black/25"
                   >
                     {loading.register ? (
-                      <Loading />
+                      <Loading bg={true} />
                     ) : (
                       <p className="text-xs font-semibold uppercase">
                         registrar
@@ -449,7 +454,11 @@ const Login = () => {
                     type="submit"
                     className="w-[220px] bg-[#fce803] text-black border border-black/25 text-xs font-semibold transition-all rounded-lg duration-100  lg:border-white/25 p-3 lg:text-white lg:bg-black/30 lg:hover:text-black lg:hover:border-black/25 lg:hover:bg-[#fce803]"
                   >
-                    {loading.loginGoogle ? <Loading /> : <p>INGRESAR</p>}
+                    {loading.loginGoogle ? (
+                      <Loading bg={true} />
+                    ) : (
+                      <p>INGRESAR</p>
+                    )}
                   </button>
 
                   <GoogleLoginBtn className="w-full" />

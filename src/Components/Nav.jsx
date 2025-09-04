@@ -216,7 +216,7 @@ const Nav = () => {
                   <div className="w-24">
                     <img
                       className="w-full object-cover"
-                      src="/img/logonav.png"
+                      src="/img/logonav.webp"
                       alt=""
                     />
                   </div>
@@ -343,7 +343,7 @@ const Nav = () => {
                   value={searchProduct}
                   onChange={handleSearchProduct}
                 />
-                {loading ? (
+                {loading.suggestions ? (
                   <Loading className="absolute right-4" bg={true} />
                 ) : suggestions.products.length > 0 ? (
                   <svg
