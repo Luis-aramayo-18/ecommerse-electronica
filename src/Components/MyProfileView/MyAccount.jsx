@@ -236,9 +236,10 @@ const MyAccount = () => {
                       : "text-white/75"
                   }`}>Compras</h2>
               </div>
+
               <div
                 className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                  openSectionMobile === "orders" ? "max-h-[1000px]" : "max-h-0"
+                  openSectionMobile === "orders" ? "max-h-[1000px] overflow-y-scroll scrollbar-hide overflow-x-hidden" : "max-h-0"
                 }`}
               >
                 <OrdersProfile

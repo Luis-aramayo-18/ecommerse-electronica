@@ -23,7 +23,7 @@ code {
 }
 
 @layer components {
-  ::-webkit-scrollbar {
+  /* ::-webkit-scrollbar {
     width: 3px;
     height: 3px;
   }
@@ -46,7 +46,7 @@ code {
   scrollbar-thumb {
     background-color: #025dc5;
     border-radius: 4px;
-  }
+  } */
 
   @layer utilities {
     .glass-box {
