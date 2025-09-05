@@ -300,12 +300,10 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
     }
   };
 
-  console.log(formActive);
-
   return (
     <div className="w-full flex flex-col justify-between mt-5 lg:mt-0 lg:px-4 lg:py-10 lg:glass-box relative">
       <section
-        className={`relative ${
+        className={`relative overflow-y-scroll overflow-x-hidden ${
           formActive.formContact || formActive.formPage
             ? "h-[834px] sm:h-[964px]"
             : orderDetails
@@ -397,19 +395,19 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
             }
           `}
             >
-              <div className="relative overflow-x-hidden overflow-y-scroll sm:overflow-y-hidden h-full">
-                <div className="mb-5 text-sm font-medium text-[#fce803]">
-                  <h2>Detalles De Los Productos.</h2>
-                </div>
-
+              <div className={`relative h-full overflow-y-scroll overflow-x-hidden`}>
                 {selectedOrder && (
-                  <div className={`${formActive.formContact || formActive.formPage ? "h-full" : "overflow-hidden"}`}>
+                  <div className={`${formActive.formContact || formActive.formPage ? "h-full": "overflow-hidden"}`}>
+                    <div className="mb-5 text-sm font-medium text-[#fce803]">
+                      <h2>Detalles De Los Productos.</h2>
+                    </div>
+
                     <div className="relative">
                       <div className={`${messageComment ? "hidden" : "block"}`}>
                         <Slider {...settings}>
                           {selectedOrder.order_items.map((item, idx) => (
                             <div
-                              className="h-[450px] sm:h-[208px] relative"
+                              className="h-[470px] sm:h-[208px] relative"
                               key={item.id || idx}
                             >
                               <div
@@ -734,14 +732,20 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
 
                     <hr className="w-full my-8 m-0 bg-white/15 border-0 h-px" />
 
-                    <div>
+                    <div className="">
                       <div className="mb-5 text-sm font-medium text-[#fce803]">
                         <h2>Ayuda Con La Compra.</h2>
                       </div>
 
-                      <div className="">
+                      <div
+                        className={`relative ${
+                          formActive.formContact || formActive.formPage
+                            ? "h-[300px]"
+                            : "h-[100px]"
+                        }`}
+                      >
                         <div
-                          className={`flex flex-col absolute items-start gap-2 transition-all duration-500 ease-in-out ${
+                          className={`flex flex-col w-full absolute items-start gap-2 transition-all duration-500 ease-in-out ${
                             formActive.formPage || formActive.formContact
                               ? "-translate-x-full opacity-0"
                               : "translate-x-0 opacity-100"
@@ -749,14 +753,14 @@ const OrdersProfile = ({ setShowConfirmation, setMessageConfirmation }) => {
                         >
                           <button
                             onClick={() => handlePageFormActive()}
-                            className="text-sm text-start font-light text-white lg:text-white/75 lg:transition-all lg:duration-100 lg:hover:text-white"
+                            className="text-sm w-full text-start font-light text-white lg:text-white/75 lg:transition-all lg:duration-100 lg:hover:text-white"
                           >
                             Quiero opinar sobre mi experiencia de compra.
                           </button>
 
                           <button
                             onClick={() => handleContactFormActive()}
-                            className="text-sm text-start font-light text-white lg:text-white/75 lg:transition-all lg:duration-100 lg:hover:text-white"
+                            className="text-sm w-full text-start font-light text-white lg:text-white/75 lg:transition-all lg:duration-100 lg:hover:text-white"
                           >
                             Tengo un problema con mi compra.
                           </button>
