@@ -461,7 +461,7 @@ const Login = () => {
 
                   <GoogleLoginBtn className="w-full" />
                 </div>
-                {authError && <p className="text-text-[#fce803] font-semibold text-sm text-center mt-2">{authError}</p>}
+                {authError && <p className="text-[#fce803] font-semibold text-sm text-center mt-2">{authError}</p>}
               </form>
 
               <div className="w-full flex flex-col items-center justify-center mt-3 gap-3"></div>
