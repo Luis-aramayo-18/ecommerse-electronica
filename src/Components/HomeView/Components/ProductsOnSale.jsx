@@ -8,8 +8,8 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
   const [categories, setCategories] = useState("");
   const [menu, setMenu] = useState(false);
   const [errorMessage, setErrorMessage] = useState({
-    products: "",
-    categories: "",
+    products: null,
+    categories: null,
   });
   const [loading, setLoading] = useState({
     products: false,
@@ -19,44 +19,63 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
   const homeView = true;
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading((prev) => ({ ...prev, products: true }));
-      try {
-        const products = await api.get("/products/?sort=discount");
-        
-        setProducts(products.data.results);
-        
-      } catch (error) {
-        setErrorMessage((prev) => ({
-          ...prev,
-          products: error.response.data.message,
-        }));
-      } finally {
-        setLoading((prev) => ({ ...prev, products: false }));
-      }
-    };
-
-    const fetchCategories = async () => {
-      setLoading((prev) => ({ ...prev, categories: true }));
-      try {
-        const categories = await api.get("/categories/on-sale-categories/");
-
-        if (categories.status === 200) {
-          setCategories(categories.data);
-        }
-      } catch (error) {
-        setErrorMessage((prev) => ({
-          ...prev,
-          categories: error.response.data.message,
-        }));
-      } finally {
-        setLoading((prev) => ({ ...prev, categories: false }));
-      }
-    };
     fetchProducts();
     fetchCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const fetchProducts = async () => {
+    setLoading((prev) => ({ ...prev, products: true }));
+    try {
+      const products = await api.get("/products/?sort=discount");
+
+      setProducts(products.data.results);
+    } catch (error) {
+      if (error.response.data.message) {
+        setErrorMessage((prev) => ({
+          ...prev,
+          products: error.response.data.message,
+        }));
+      }
+
+      if (error.response.status === 500) {
+        setErrorMessage((prev) => ({
+          ...prev,
+          products: "No se pudo establecer conexion con el servidor.",
+        }));
+      }
+    } finally {
+      setLoading((prev) => ({ ...prev, products: false }));
+    }
+  };
+
+  const fetchCategories = async () => {
+    setLoading((prev) => ({ ...prev, categories: true }));
+    try {
+      const categories = await api.get("/categories/on-sale-categories/");
+      console.log(categories);
+
+      if (categories.status === 200) {
+        setCategories(categories.data);
+      }
+    } catch (error) {
+      if (error.response.data.message) {
+        setErrorMessage((prev) => ({
+          ...prev,
+          categories: error.response.data.message,
+        }));
+      }
+
+      if (error.response.status === 500) {
+        setErrorMessage((prev) => ({
+          ...prev,
+          categories: "No se pudo establecer conexion con el servidor.",
+        }));
+      }
+    } finally {
+      setLoading((prev) => ({ ...prev, categories: false }));
+    }
+  };
 
   const handleScrollToTop = () => {
     window.scrollTo({
@@ -87,11 +106,13 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
           </button>
 
           <nav className="relative w-full h-auto overflow-x-auto mt-1">
-            {errorMessage.categories ? (
+            {loading.categories ? (
+              <Loading />
+            ) : errorMessage.categories ? (
               <p className="text-xs text-center text-[#fce803]">
                 {errorMessage.categories}
               </p>
-            ) : loading.categories === false && categories ? (
+            ) : (
               <ul
                 className={`h-full mb-0 flex items-center gap-3 overflow-x-scroll transform transition-all duration-300 absolute left-0 text-sm font-medium text-white/65 ${
                   menu
@@ -99,34 +120,33 @@ const ProductsOnSale = ({ StyledSlider, settings, api }) => {
                     : " -translate-x-full opacity-0"
                 }`}
               >
-                {categories.map((category) => (
-                  <li
-                    key={category.id}
-                    className="transition-all duration-150 hover:text-[#fce803]"
-                  >
-                    <Link
-                      to={`/products/category/${category.id}?sort=discount`}
-                      onClick={handleScrollToTop}
-                      className=""
+                {categories &&
+                  categories.map((category) => (
+                    <li
+                      key={category.id}
+                      className="transition-all duration-150 hover:text-[#fce803]"
                     >
-                      {category.name}
-                    </Link>
-                  </li>
-                ))}
+                      <Link
+                        to={`/products/category/${category.id}?sort=discount`}
+                        onClick={handleScrollToTop}
+                        className=""
+                      >
+                        {category.name}
+                      </Link>
+                    </li>
+                  ))}
               </ul>
-            ) : (
-              <Loading />
             )}
           </nav>
         </div>
 
         <div>
-          {errorMessage.products ? (
+          {loading.products ? (
+              <Loading />
+          ) : errorMessage.products ? (
             <p className="text-xs text-center text-[#fce803]">
               {errorMessage.products}
             </p>
-          ) : loading.products ? (
-            <Loading />
           ) : (
             <StyledSlider {...settings} className="h-full">
               {products.map((product, idx) => (

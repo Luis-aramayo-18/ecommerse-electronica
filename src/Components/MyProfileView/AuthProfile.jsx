@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useAxios } from "../../Hooks/useAxios";
+import { useAxios } from "../Hooks/useAxios";
 import { Bounce, toast } from "react-toastify";
 
 const AuthProfile = () => {

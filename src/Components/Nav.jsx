@@ -23,8 +23,8 @@ const Nav = () => {
     products: [],
   });
   const [loading, setLoading] = useState({
-    user_data:false,
-    suggestions:false
+    user_data: false,
+    suggestions: false,
   });
   const location = useLocation();
   const [brand, setBrand] = useState("");
@@ -46,8 +46,12 @@ const Nav = () => {
       const response = await api.get("/categories/");
       setCategories(response.data);
     } catch (error) {
-      if (error) {
+      if (error.response.data.message) {
         setErrorMessage(error.response.data.message);
+      }
+
+      if (error.response.status === 500) {
+        setErrorMessage("No se pudo establecer conexion con el servidor.");
       }
     }
   };
@@ -70,7 +74,6 @@ const Nav = () => {
         }));
       }
     } catch (error) {
-      console.log(error);
     } finally {
       setLoading((prevState) => ({
         ...prevState,
@@ -372,68 +375,72 @@ const Nav = () => {
               </div>
             </div>
 
-            {errorMessage ? (
-              <div className="glass-box bg-black/70 absolute mt-2 left-0 top-full m-auto w-full rounded-2xl px-2 py-6 max-h-[380px] overflow-y-auto">
-                <p className="text-xs text-center font-semibold text-[#fce803]">
-                  {errorMessage}
-                </p>
-              </div>
-            ) : suggestions.categories.length > 0 ||
-              suggestions.products.length > 0 ? (
-              <div className="glass-box bg-black/70 absolute mt-2 left-0 top-full m-auto w-full rounded-2xl p-2 max-h-[380px] overflow-y-auto">
-                <div className="relative">
-                  <div>
-                    <ul className="text-sm font-semibold text-white">
-                      {suggestions.products.map((product) => (
-                        <li
-                          key={product.id}
-                          className="mt-3 transition-all duration-150 lg:hover:bg-[#fce803] lg:hover:text-black rounded-2xl"
-                        >
-                          <Link
-                            className="flex gap-2 items-center px-2 md:px-4"
-                            to={`/products/category/${product.category_detail.id}/product/${product.id}`}
-                            onClick={handleSelectSuggestion}
-                          >
-                            <div className="w-16 h-16 overflow-hidden">
-                              <img
-                                src={`${product.images[0]?.image}`}
-                                alt={`imagen de ${product.name}`}
-                                className="object-contain w-full h-full bg-white"
-                              />
-                            </div>
-
-                            <div>
-                              <h2>{product.name}</h2>
-                            </div>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <hr className="w-[80%] mt-5" />
-
-                    <ul className="text-sm mt-5 mb-3 text-gray-300">
-                      {suggestions.categories.map((category) => (
-                        <li
-                          key={category.id}
-                          className="mt-2 px-2 md:px-4 first-letter:uppercase"
-                        >
-                          <Link
-                            to={`/products/category/${category.id}?brand=${brand}`}
-                            onClick={handleSelectSuggestion}
-                            className="transition-all duration-150 lg:hover:text-[#fea401] "
-                          >
-                            {category.name} {searchProduct}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
+            {loading.suggestions && (
+              <>
+                {errorMessage ? (
+                  <div className="glass-box bg-black/70 absolute mt-2 left-0 top-full m-auto w-full rounded-2xl px-2 py-6 max-h-[380px] overflow-y-auto">
+                    <p className="text-xs text-center font-semibold text-[#fce803]">
+                      {errorMessage}
+                    </p>
                   </div>
+                ) : suggestions.categories.length > 0 ||
+                  suggestions.products.length > 0 ? (
+                  <div className="glass-box bg-black/70 absolute mt-2 left-0 top-full m-auto w-full rounded-2xl p-2 max-h-[380px] overflow-y-auto">
+                    <div className="relative">
+                      <div>
+                        <ul className="text-sm font-semibold text-white">
+                          {suggestions.products.map((product) => (
+                            <li
+                              key={product.id}
+                              className="mt-3 transition-all duration-150 lg:hover:bg-[#fce803] lg:hover:text-black rounded-2xl"
+                            >
+                              <Link
+                                className="flex gap-2 items-center px-2 md:px-4"
+                                to={`/products/category/${product.category_detail.id}/product/${product.id}`}
+                                onClick={handleSelectSuggestion}
+                              >
+                                <div className="w-16 h-16 overflow-hidden">
+                                  <img
+                                    src={`${product.images[0]?.image}`}
+                                    alt={`imagen de ${product.name}`}
+                                    className="object-contain w-full h-full bg-white"
+                                  />
+                                </div>
 
-                  <div className="yellow-glow absolute w-[50%] h-[50%] top-0 left-[10%]"></div>
-                </div>
-              </div>
-            ) : null}
+                                <div>
+                                  <h2>{product.name}</h2>
+                                </div>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+
+                        <hr className="w-[80%] mt-5" />
+
+                        <ul className="text-sm mt-5 mb-3 text-gray-300">
+                          {suggestions.categories.map((category) => (
+                            <li
+                              key={category.id}
+                              className="mt-2 px-2 md:px-4 first-letter:uppercase"
+                            >
+                              <Link
+                                to={`/products/category/${category.id}?brand=${brand}`}
+                                onClick={handleSelectSuggestion}
+                                className="transition-all duration-150 lg:hover:text-[#fea401] "
+                              >
+                                {category.name} {searchProduct}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="yellow-glow absolute w-[50%] h-[50%] top-0 left-[10%]"></div>
+                    </div>
+                  </div>
+                ) : null}
+              </>
+            )}
           </div>
 
           <div className="flex items-center sm:gap-1 md:gap-1 lg:gap-2 absolute top-0 right-0 h-full w-auto">

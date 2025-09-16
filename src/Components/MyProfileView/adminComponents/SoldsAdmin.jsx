@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import Loading from "../../../Loading";
-import { useAxios } from "../../../Hooks/useAxios";
+import Loading from "../../Loading";
 import { debounce } from "lodash";
 import Select from "react-select";
+import { useAxios } from "../../Hooks/useAxios";
 
 const SoldsAdmin = () => {
   const api = useAxios();

@@ -46,7 +46,6 @@ export function CartProvider({ children }) {
         }
       }
     } catch (error) {
-      console.log(error);
     } finally {
       setLoading((prev) => ({ ...prev, get: false }));
     }

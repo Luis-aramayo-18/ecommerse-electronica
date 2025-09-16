@@ -23,30 +23,6 @@ code {
 }
 
 @layer components {
-  /* ::-webkit-scrollbar {
-    width: 3px;
-    height: 3px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: #156acb;
-    border-radius: 4px;
-    border: 2px solid #a6a6a6;
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
-    border-radius: 4px;
-  }
-
-  scrollbar {
-    width: 3px;
-  }
-
-  scrollbar-thumb {
-    background-color: #025dc5;
-    border-radius: 4px;
-  } */
 
   @layer utilities {
     .glass-box {
@@ -66,12 +42,6 @@ code {
              text-sm font-bold cursor-pointer;
     }
   }
-}
-
-.button{
-  background-color: #fce803;
-  color: #101318;
-  border-radius: 50%;
 }
 
 .glass-card {
@@ -148,4 +118,31 @@ code {
 
 .card-container:hover .card-inner {
   transform: rotateY(180deg);
+}
+
+
+.thin-scrollbar::-webkit-scrollbar {
+  @apply w-1; 
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-full; 
+}
+
+.hover-scrollbar {
+  overflow-y: auto;
+  scrollbar-width: none; 
+}
+
+.hover-scrollbar::-webkit-scrollbar {
+  @apply w-0; 
+  transition: width 0.3s ease-in-out;
+}
+
+.hover-scrollbar:hover::-webkit-scrollbar {
+  @apply w-2; 
+}
+
+.hover-scrollbar:hover::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-full;
 }

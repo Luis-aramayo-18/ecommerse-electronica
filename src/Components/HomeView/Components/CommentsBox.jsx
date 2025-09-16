@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { toast, Bounce } from "react-toastify";
 
-import moment from "moment"; 
+import moment from "moment";
 import Loading from "../../Loading";
 
 const CommentsBox = ({ api, userId, StyledSlider }) => {
@@ -76,26 +76,33 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
   };
 
   useEffect(() => {
-    const fetchComments = async () => {
-      setLoading((prev) => ({ ...prev, get: true }));
-      try {
-        const response = await api.get(
-          `/comments/get_comments/?page_id=${pageId}`
-        );
-
-        if (response.status === 200) {
-          setComments(response.data);
-        }
-      } catch (error) {
-        setError(error.response.data.message);
-      } finally {
-        setLoading((prev) => ({ ...prev, get: false }));
-      }
-    };
     fetchComments();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const fetchComments = async () => {
+    setLoading((prev) => ({ ...prev, get: true }));
+    try {
+      const response = await api.get(
+        `/comments/get_comments/?page_id=${pageId}`
+      );
+
+      if (response.status === 200) {
+        setComments(response.data);
+      }
+    } catch (error) {
+      if (error.response.data.message) {
+        setError((prev) => ({ ...prev, get: error.response.data.message }));
+      }
+
+      if (error.response.status === 500) {
+        setError((prev) => ({ ...prev, 
+          get: "No se pudo establecer conexion con el servidor." }));
+      }
+    } finally {
+      setLoading((prev) => ({ ...prev, get: false }));
+    }
+  };
 
   const commentSubmit = async (e) => {
     try {
@@ -188,7 +195,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
 
       const response = await api.put(`/comments/${commentId}/`, dataComment);
       console.log(response);
-      
+
       if (response.status === 200) {
         toast.success(`${response.data.message}`, {
           position: "bottom-center",
@@ -214,7 +221,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
         );
         setComments(newComment);
       }
-    } catch (error) {      
+    } catch (error) {
       const errorFields = error.response.data.non_field_errors;
       const errorLogin = error.response.data.message;
       if (error.response) {
@@ -316,6 +323,7 @@ const CommentsBox = ({ api, userId, StyledSlider }) => {
   const handleCardClick = (id) => {
     setActiveCommentId((prevId) => (prevId === id ? null : id));
   };
+  
 
   return (
     <section className="mx-3 glass-box py-10 px-4 sm:mx-6 md:mx-14 lg:mx-24 flex flex-col justify-center mt-28 sm:mt-28">

@@ -3,7 +3,7 @@ import ProductCard from "../../ListProductsView/Components/ProductCard";
 import { Link } from "react-router-dom";
 import Loading from "../../Loading";
 
-const LastProducts = ({ StyledSlider, settings, api }) => { 
+const LastProducts = ({ StyledSlider, settings, api }) => {
   const [lastProducts, setLastProducts] = useState([]);
   const [categories, setCategories] = useState("");
   const [menu, setMenu] = useState(false);
@@ -19,46 +19,64 @@ const LastProducts = ({ StyledSlider, settings, api }) => {
   const homeView = true;
 
   useEffect(() => {
-    const fetchLastProducts = async () => {
-      setLoading((prev) => ({ ...prev, products: true }));
-      try {
-        const response = await api.get("/products/?sort=latest");
-
-        if (response.status === 200) {
-          setLastProducts(response.data.results);
-        }
-      } catch (error) {
-        setErrorMessage((prev) => ({
-          ...prev,
-          products: error.response.data.message,
-        }));
-      } finally {
-        setLoading((prev) => ({ ...prev, products: false }));
-      }
-    };
-
-    const fetchCategories = async () => {
-      setLoading((prev) => ({ ...prev, categories: true }));
-      try {
-        const response = await api.get("/categories/recent-categories/");
-
-        if (response.status === 200) {
-          setCategories(response.data);
-        }
-      } catch (error) {
-        setErrorMessage((prev) => ({
-          ...prev,
-          categories: error.response.data.message,
-        }));
-      } finally {
-        setLoading((prev) => ({ ...prev, categories: false }));
-      }
-    };
-
     fetchLastProducts();
     fetchCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const fetchLastProducts = async () => {
+    setLoading((prev) => ({ ...prev, products: true }));
+    try {
+      const response = await api.get("/products/?sort=latest");
+
+      if (response.status === 200) {
+        setLastProducts(response.data.results);
+      }
+    } catch (error) {
+      if (error.response.data.message) {
+        setErrorMessage((prev) => ({
+          ...prev,
+          products: error.response.data.message,
+        }));
+      }
+
+      if (error.response.status === 500) {
+        setErrorMessage((prev) => ({
+          ...prev,
+          products: "No se pudo establecer conexion con el servidor.",
+        }));
+      }
+    } finally {
+      setLoading((prev) => ({ ...prev, products: false }));
+    }
+  };
+
+  const fetchCategories = async () => {
+    setLoading((prev) => ({ ...prev, categories: true }));
+    try {
+      const response = await api.get("/categories/recent-categories/");
+
+      if (response.status === 200) {
+        setCategories(response.data);
+      }
+    } catch (error) {
+      if (error.response.data.message) {
+        setErrorMessage((prev) => ({
+          ...prev,
+          categories: error.response.data.message,
+        }));
+      }
+
+      if (error.response.status === 500) {
+        setErrorMessage((prev) => ({
+          ...prev,
+          categories: "No se pudo establecer conexion con el servidor.",
+        }));
+      }
+    } finally {
+      setLoading((prev) => ({ ...prev, categories: false }));
+    }
+  };
 
   const handleScrollToTop = () => {
     window.scrollTo({

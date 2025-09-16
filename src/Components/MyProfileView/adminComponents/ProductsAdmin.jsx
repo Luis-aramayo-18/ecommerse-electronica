@@ -9,8 +9,8 @@ import { debounce } from "lodash";
 import Select from "react-select";
 
 import axios from "axios";
-import { useAxios } from "../../../Hooks/useAxios";
-import Loading from "../../../Loading";
+import { useAxios } from "../../Hooks/useAxios";
+import Loading from "../../Loading";
 
 const ProductsAdmin = () => {
   const api = useAxios();
@@ -304,7 +304,7 @@ const ProductsAdmin = () => {
     formData.append("category", selectedCategory);
     formData.append("brand", selectedBrand);
     formData.append("is_on_sale", isOnSale);
-    formData.append("stock", stock)
+    formData.append("stock", stock);
     if (isOnSale) {
       formData.append("discount_percentage", discountPercentage);
     }
@@ -948,7 +948,9 @@ const ProductsAdmin = () => {
                         {product.name}
                       </td>
 
-                      <td className="text-center">{formatPriceForDisplay(product.final_price)}</td>
+                      <td className="text-center">
+                        {formatPriceForDisplay(product.final_price)}
+                      </td>
 
                       <td className="text-center">
                         {product.category_detail?.name || "Sin categoría"}

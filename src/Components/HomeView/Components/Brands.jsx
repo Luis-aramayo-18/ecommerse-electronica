@@ -34,7 +34,6 @@ const Brands = () => {
         setbrandsOptions(categoriesData);
       }
     } catch (error) {
-      console.log(error);
     } finally {
     }
   };

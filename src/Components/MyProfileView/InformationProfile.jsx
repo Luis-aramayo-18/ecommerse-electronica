@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../../Loading";
-import { useAxios } from "../../Hooks/useAxios";
+import Loading from "../Loading";
+import { useAxios } from "../Hooks/useAxios";
 
-const InformationProfile = ({userData, setUserData}) => {
+const InformationProfile = ({ userData, setUserData }) => {
   const api = useAxios();
 
   const [dni, setDni] = useState("");
@@ -32,7 +32,7 @@ const InformationProfile = ({userData, setUserData}) => {
       }));
 
       const response = await api.get("/my-user-info/");
-      
+
       if (response.status === 200) {
         const { username, dni, email, phone_number } = response.data;
 

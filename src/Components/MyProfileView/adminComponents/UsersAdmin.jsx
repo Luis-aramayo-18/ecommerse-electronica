@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { useAxios } from "../../../Hooks/useAxios";
-import Loading from "../../../Loading";
+import Loading from "../../Loading";
 import { Bounce, toast } from "react-toastify";
+import { useAxios } from "../../Hooks/useAxios";
 
 const UsersAdmin = () => {
   const api = useAxios();

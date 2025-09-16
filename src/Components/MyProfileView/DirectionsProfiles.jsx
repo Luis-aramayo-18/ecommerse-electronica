@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import { useAxios } from "../../Hooks/useAxios";
-import Loading from "../../Loading";
+import { useAxios } from "../Hooks/useAxios";
+import Loading from "../Loading";
 import { Bounce, toast } from "react-toastify";
 
 const DirectionsProfiles = () => {
@@ -462,7 +462,11 @@ const DirectionsProfiles = () => {
               {loading.post_direction ? <Loading /> : <p>Agregar</p>}
             </button>
 
-            <button className="absolute top-5 right-0" onClick={() => setFormActive(false)} type="button">
+            <button
+              className="absolute top-5 right-0"
+              onClick={() => setFormActive(false)}
+              type="button"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

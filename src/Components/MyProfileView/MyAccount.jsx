@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import InformationProfile from "./components/InformationProfile";
-import OrdersProfile from "./components/OrdersProfile";
-import AuthProfile from "./components/AuthProfile";
+import InformationProfile from "./InformationProfile";
+import OrdersProfile from "./OrdersProfile";
+import AuthProfile from "./AuthProfile";
 import Menu from "./components/Menu";
 import Header from "./components/Header";
-import AdminProfile from "./components/AdminProfile";
+import AdminProfile from "./AdminProfile";
 
 import { useAuth } from "../Hooks/useAuth";
-import DirectionsProfiles from "./components/DirectionsProfiles";
-import AdminMenu from "./components/adminComponents/AdminMenu";
-import SoldsAdmin from "./components/adminComponents/SoldsAdmin";
+import DirectionsProfiles from "./DirectionsProfiles";
+import AdminMenu from "./adminComponents/AdminMenu";
+import SoldsAdmin from "./adminComponents/SoldsAdmin";
 import { useSearchParams } from "react-router-dom";
 
 const MyAccount = () => {
@@ -98,6 +98,7 @@ const MyAccount = () => {
     setOpenSectionMobile(
       openSectionMobile === sectionName ? null : sectionName
     );
+    setSearchParams({ section: sectionName });
   };
 
   return (
@@ -198,9 +199,9 @@ const MyAccount = () => {
               </div>
             </section>
 
-            <section className="cursor-pointer px-4 py-8 glass-box mt-10">
+            <section className="cursor-pointer glass-box mt-10">
               <div
-                className="flex items-center gap-3 text-white"
+                className="flex items-center gap-3 px-4 py-8 text-white"
                 onClick={() => toggleSection("orders")}
               >
                 {openSectionMobile === "orders" ? (
@@ -230,16 +231,22 @@ const MyAccount = () => {
                     />
                   </svg>
                 )}
-                <h2 className={`text-sm font-bold uppercase ${
+                <h2
+                  className={`text-sm font-bold uppercase ${
                     openSectionMobile === "orders"
                       ? "text-white"
                       : "text-white/75"
-                  }`}>Compras</h2>
+                  }`}
+                >
+                  Compras
+                </h2>
               </div>
 
               <div
                 className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                  openSectionMobile === "orders" ? "max-h-[1000px] overflow-y-scroll scrollbar-hide overflow-x-hidden" : "max-h-0"
+                  openSectionMobile === "orders"
+                    ? "max-h-[1000px] overflow-x-hidden"
+                    : "max-h-0"
                 }`}
               >
                 <OrdersProfile
@@ -282,11 +289,15 @@ const MyAccount = () => {
                     />
                   </svg>
                 )}
-                <h2 className={`text-sm font-bold uppercase ${
+                <h2
+                  className={`text-sm font-bold uppercase ${
                     openSectionMobile === "directions"
                       ? "text-white"
                       : "text-white/75"
-                  }`}>Direcciones</h2>
+                  }`}
+                >
+                  Direcciones
+                </h2>
               </div>
 
               <div
