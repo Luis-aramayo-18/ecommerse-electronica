@@ -79,21 +79,14 @@ export const AuthProvider = ({ children }) => {
         return { success: true, userData: newUserData };
       }
     } catch (error) {
-      const errorMessage =
-        error.response.data.error || "Error al iniciar sesión";
-      setAuthError(errorMessage);
+      if (error.response.data.error) {
+        setAuthError(error.response.data.error);
+      }
 
-      toast.error(errorMessage, {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-        transition: Bounce,
-      });
+      if (error.response.status === 500) {
+        setAuthError("No se pudo establecer la conexion con el servidor.");
+      }
+      
     } finally {
       setLoading((prevState) => ({
         ...prevState,

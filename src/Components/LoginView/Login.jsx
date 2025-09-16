@@ -103,8 +103,6 @@ const Login = () => {
     hasMinLength: password.length >= 8,
   };
 
-  console.log(loading);
-
   return (
     <div className="my-10 w-full h-auto px-2 md:px-14 lg:px-24">
       <section className="flex justify-center">
@@ -463,7 +461,7 @@ const Login = () => {
 
                   <GoogleLoginBtn className="w-full" />
                 </div>
-                {authError && <p>{authError}</p>}
+                {authError && <p className="text-text-[#fce803] font-semibold text-sm text-center mt-2">{authError}</p>}
               </form>
 
               <div className="w-full flex flex-col items-center justify-center mt-3 gap-3"></div>
